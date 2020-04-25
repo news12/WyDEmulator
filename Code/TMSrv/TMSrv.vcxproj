@@ -46,8 +46,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\Server\TMSrv\run</OutDir>
-    <IncludePath>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\jsonlib;$(IncludePath)</IncludePath>
+    <OutDir>..\..\..\..\..\..\..\EternalServer\Server\TMSrv\run</OutDir>
+    <IncludePath>C:\Users\eternal\source\repos\EternalEmulator\Code\jsonlib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -62,6 +62,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_PACKET_DEBUG;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\pthread\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

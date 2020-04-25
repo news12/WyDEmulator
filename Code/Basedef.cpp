@@ -907,6 +907,11 @@ int g_HeightPosY = 0;
 
 int BASE_NeedLog(struct STRUCT_ITEM *item, int money)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+	{
+		return FALSE;
+	}
 	int idx = item->sIndex;
 
 	if(idx < 0 || idx >= MAX_ITEMLIST)
@@ -1612,6 +1617,10 @@ int BASE_GetSkillDamage(int dam, int ac, int combat)
 
 void BASE_GetItemCode(STRUCT_ITEM * item, char * str)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return;
+
 	int iidx = item->sIndex;
 	unsigned char c0 = item->stEffect[0].cEffect;
 	unsigned char v0 = item->stEffect[0].cValue;
@@ -1630,6 +1639,10 @@ void BASE_GetItemCode(STRUCT_ITEM * item, char * str)
 
 void BASE_GetItemName(STRUCT_ITEM* item, char* str) 
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return;
+
 	int iidx = item->sIndex;
 	if (iidx <= 0 || iidx >= MAX_ITEMLIST)
 	{
@@ -1642,6 +1655,11 @@ void BASE_GetItemName(STRUCT_ITEM* item, char* str)
 int BASE_GetItemAbilityNosanc(STRUCT_ITEM *item, unsigned char Type)
 {
 	int value = 0;
+
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return value;
+	
 	int idx = item->sIndex;
 
 	if(idx <= 0 || idx > MAX_ITEMLIST)
@@ -1791,7 +1809,11 @@ int BASE_GetItemAbilityNosanc(STRUCT_ITEM *item, unsigned char Type)
 
 int BASE_GetItemAbility(STRUCT_ITEM *item, unsigned char Type)
 {
-	int value = 0;
+		int value = 0;
+
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return value;
 
 	int idx = item->sIndex;
 
@@ -1990,6 +2012,11 @@ int BASE_GetItemAbility(STRUCT_ITEM *item, unsigned char Type)
 int BASE_GetStaticItemAbility(STRUCT_ITEM *item, unsigned char Type)
 {
 	int value = 0;
+
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return value;
+
 	int idx = item->sIndex;
 
 	if(idx <= 0 || idx > MAX_ITEMLIST)
@@ -2138,6 +2165,10 @@ int BASE_GetStaticItemAbility(STRUCT_ITEM *item, unsigned char Type)
 
 int BASE_GetBonusItemAbility(STRUCT_ITEM *item, unsigned char Type)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex >= 2330 && item->sIndex < 2390)
 		return FALSE;
 
@@ -2197,6 +2228,10 @@ int BASE_GetBonusItemAbility(STRUCT_ITEM *item, unsigned char Type)
 
 int BASE_GetBonusItemAbilityNosanc(STRUCT_ITEM *item, unsigned char Type)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex >= 2330 && item->sIndex < 2390)
 		return FALSE;
 
@@ -2240,6 +2275,10 @@ int BASE_GetBonusItemAbilityNosanc(STRUCT_ITEM *item, unsigned char Type)
 
 int BASE_GetItemSanc(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex >= 2330 && item->sIndex < 2390)
 		return FALSE;
 
@@ -2288,6 +2327,10 @@ int BASE_GetItemSanc(STRUCT_ITEM *item)
 
 int BASE_GetItemGem(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if (item->sIndex >= 2330 && item->sIndex < 2390)
 		return FALSE;
 
@@ -2322,6 +2365,10 @@ int BASE_GetItemGem(STRUCT_ITEM *item)
 
 int BASE_GetItemSancSuccess(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	 if(item->sIndex >= 2330 && item->sIndex < 2390)
 		 return FALSE;
 
@@ -2347,6 +2394,10 @@ int BASE_GetItemSancSuccess(STRUCT_ITEM *item)
 
 int BASE_GetSuccessRate(STRUCT_ITEM *item, int OriLacto)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex >= 2330 && item->sIndex < 2390)
 		return FALSE;
 
@@ -2372,6 +2423,10 @@ int BASE_GetSuccessRate(STRUCT_ITEM *item, int OriLacto)
 
 int BASE_GetGrowthRate(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex < 2360 || item->sIndex >= 2390)
 		return FALSE;
 
@@ -2384,6 +2439,10 @@ int BASE_GetGrowthRate(STRUCT_ITEM *item)
 
 int BASE_SetItemSanc(STRUCT_ITEM *dest, int sanc, int success)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (dest == nItem)
+		return FALSE;
+
 	if(sanc < 0)
 		sanc = 0;
 	if(sanc > 15)
@@ -2432,6 +2491,10 @@ int BASE_SetItemSanc(STRUCT_ITEM *dest, int sanc, int success)
 
 int BASE_GetItemAmount(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	int amount = 0;
 
 	if(item->stEffect[0].cEffect == EF_AMOUNT || item->stEffect[1].cEffect == EF_AMOUNT || item->stEffect[2].cEffect == EF_AMOUNT)
@@ -2449,6 +2512,10 @@ int BASE_GetItemAmount(STRUCT_ITEM *item)
 
 void BASE_SetItemAmount(STRUCT_ITEM *item, int amount)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return;
+
 	if(item->stEffect[0].cEffect == EF_AMOUNT || item->stEffect[1].cEffect == EF_AMOUNT || item->stEffect[2].cEffect == EF_AMOUNT)
 	{
 		if(item->stEffect[0].cEffect == EF_AMOUNT)
@@ -4365,6 +4432,10 @@ int BASE_GetGuild(int x, int y)
 
 int BASE_GetIndex(STRUCT_ITEM * item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	int hword = 0;
 	int lword = 0;
 
@@ -4397,6 +4468,10 @@ int BASE_GetIndex(STRUCT_ITEM * item)
 
 int BASE_GetGuild(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	int hword = 0;
 	int lword = 0;
 	int value = 0;
@@ -4471,6 +4546,10 @@ void BASE_GetKorFirst(int temp, int *a)
 
 void BASE_ClearItem(STRUCT_ITEM *item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return;
+
 	item->sIndex = 0;
 
 	item->stEffect[0].cEffect = 0;
@@ -4483,6 +4562,10 @@ void BASE_ClearItem(STRUCT_ITEM *item)
 
 int BASE_CanEquip(STRUCT_ITEM *item, STRUCT_SCORE *score, int Pos, int Class, STRUCT_ITEM *pBaseEquip, STRUCT_MOBExtra *Extra)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	if(item->sIndex <= 0 || item->sIndex >= MAX_ITEMLIST)
 		return FALSE;
 
@@ -4603,6 +4686,10 @@ int BASE_CanEquip(STRUCT_ITEM *item, STRUCT_SCORE *score, int Pos, int Class, ST
 
 int BASE_CanCarry(STRUCT_ITEM *item, STRUCT_ITEM *carry, int DestX, int DestY, int *error)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	int grid = BASE_GetItemAbility(item, EF_GRID);
 
 	char SourGrid[8];
@@ -4670,6 +4757,10 @@ int BASE_CanCarry(STRUCT_ITEM *item, STRUCT_ITEM *carry, int DestX, int DestY, i
 
 int BASE_CanCargo(STRUCT_ITEM *item, STRUCT_ITEM *cargo, int DestX, int DestY)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (item == nItem)
+		return FALSE;
+
 	int grid = BASE_GetItemAbility(item, EF_GRID);
 
 	char SourGrid[8];
@@ -4729,6 +4820,9 @@ int BASE_CanCargo(STRUCT_ITEM *item, STRUCT_ITEM *cargo, int DestX, int DestY)
 
 void BASE_SortTradeItem(STRUCT_ITEM *Item, int Type)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return;
 	int Buffer[MAX_TRADE];
 
 	memset(Buffer, -1, sizeof(Buffer));
@@ -4778,6 +4872,10 @@ void BASE_SortTradeItem(STRUCT_ITEM *Item, int Type)
 
 int BASE_CanTrade(STRUCT_ITEM *Dest, STRUCT_ITEM *Carry, unsigned char *MyTrade, STRUCT_ITEM *OpponentTrade, int MaxCarry)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Dest == nItem)
+		return FALSE;
+
 	STRUCT_ITEM OpponentTemp[MAX_TRADE];
 
 	memcpy(OpponentTemp, OpponentTrade, sizeof(OpponentTemp));
@@ -6932,6 +7030,10 @@ BOOL BASE_CheckPacket(MSG_STANDARD *m)
 
 int  BASE_VisualItemCode(STRUCT_ITEM *Item, int mnt)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return FALSE;
+
 	int value = 0;
 
 	if (mnt == 14)
@@ -6996,6 +7098,10 @@ int  BASE_VisualItemCode(STRUCT_ITEM *Item, int mnt)
 
 int BASE_VisualAnctCode(STRUCT_ITEM *Item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return FALSE;
+
 	int value = 0;
 
 	if (Item->sIndex >= 2360 && Item->sIndex <= 2390 && Item->stEffect[0].sValue > 0)
@@ -7066,6 +7172,9 @@ int BASE_VisualAnctCode(STRUCT_ITEM *Item)
 
 void BASE_SetDateFairy(STRUCT_ITEM *Item, int day)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return;
 	//if (Item->sIndex < 3897 || Item->sIndex > 3913)
 	//	return;
 
@@ -7088,6 +7197,10 @@ void BASE_SetDateFairy(STRUCT_ITEM *Item, int day)
 
 void BASE_SetItemDate(STRUCT_ITEM *Item, int day)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return;
+
 	struct tm when;
 	time_t now;
 	time(&now);
@@ -7119,6 +7232,10 @@ void BASE_SetItemDate(STRUCT_ITEM *Item, int day)
 
 int  BASE_CheckItemDate(STRUCT_ITEM *Item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return FALSE;
+
 	struct tm when;
 	time_t now;
 	time(&now);
@@ -7138,6 +7255,10 @@ int  BASE_CheckItemDate(STRUCT_ITEM *Item)
 
 void  BASE_CheckFairyDate(STRUCT_ITEM *Item)
 {
+	STRUCT_ITEM* nItem = nullptr;
+	if (Item == nItem)
+		return;
+
 	//if (Item->sIndex < 3900 || Item->sIndex > 3913)
 	//	return;
 	if ((Item->sIndex > 3788 && Item->sIndex < 3792) ||

@@ -184,7 +184,16 @@ lbl_PST1:
 
 	if (SecCounter % 10 == 0)
 	{
-		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)InitMacro, NULL, 0, 0);
+		try
+		{
+			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)InitMacro, NULL, 0, 0);
+		}
+		catch (const std::exception&)
+		{
+			sprintf(temp, "err,start thread macro %d", CurrentTime);
+			Log(temp, "-system macro perga", 0);
+		}
+		
 		
 	}
 

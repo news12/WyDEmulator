@@ -88,7 +88,16 @@ void WINAPI InitMacro()
 			}
 			if (!pMob[i].MOB.MacroInside || pMob[i].MOB.SalaClear)
 			{
-				MacroOnline(i);
+				try
+				{
+					MacroOnline(i);
+				}
+				catch (const std::exception&)
+				{
+					sprintf(temp, "err,start MacroOnline %d", CurrentTime);
+					Log(temp, "-system macro perga", 0);
+				}
+				
 			}
 
 		}
@@ -98,8 +107,16 @@ void WINAPI InitMacro()
 
 void MacroOnline(int ClientID)
 {
-	//Sleep(5000);
-	AtiveMacroPerga((int)ClientID);
+	 try
+	{
+		 AtiveMacroPerga((int)ClientID);
+	}
+	catch (const std::exception&)
+	{
+		sprintf(temp, "err,start AtiveMacroPerga %d", CurrentTime);
+		Log(temp, "-system macro perga", 0);
+	}
+	
 }
 
 int AtiveMacroPerga(int conn)
