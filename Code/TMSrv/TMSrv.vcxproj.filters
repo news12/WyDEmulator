@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Packages">
+      <UniqueIdentifier>{b1061ab5-626e-4940-ad45-73bbdc74ae12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing">
+      <UniqueIdentifier>{fdffc33f-2bc0-4622-956e-115dc293acf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Party">
+      <UniqueIdentifier>{c2343eb8-358c-47ed-b0f5-ab634472e77c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Trade">
+      <UniqueIdentifier>{ac577f8a-3e99-4dbb-9edf-2964f2efe2ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Chat">
+      <UniqueIdentifier>{f288f63e-581e-4ed5-b443-60897b5446e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Bank">
+      <UniqueIdentifier>{916e0a66-9e20-4f16-99dc-518d5bdb4b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Item">
+      <UniqueIdentifier>{e6ba3bf8-fc38-4a17-927b-42ac05d02ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Action">
+      <UniqueIdentifier>{f9ee3784-0c0a-4f4a-925e-3cbdb0e58bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Combine Services">
+      <UniqueIdentifier>{f63322bd-a8a5-461b-a2ee-6e1aa38b0de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects">
+      <UniqueIdentifier>{d1ee475c-fa57-48d8-959d-9630c6ce33fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Armia">
+      <UniqueIdentifier>{d3eecfb3-b9ef-4a7d-84d4-8bdf64fab4f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Arzan">
+      <UniqueIdentifier>{aee17d3e-aa4a-46c2-afb7-f8de7b382e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Erion">
+      <UniqueIdentifier>{bae22534-980e-40f3-9186-cb6bbafbce2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Noatun">
+      <UniqueIdentifier>{298de44e-197f-4fb8-ac8b-d9099829baa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guild">
+      <UniqueIdentifier>{50575fed-f46b-482d-afba-7292a1079f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Kefra">
+      <UniqueIdentifier>{b0a5ac2c-229c-4306-a0d1-603c7d51dfa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Shop">
+      <UniqueIdentifier>{0007ac9e-57fd-4801-b027-7eb85086cf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\Nippleim">
+      <UniqueIdentifier>{3385395b-45cd-4bf9-9390-5b517c9cc2fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{30214a09-c5ba-4af5-84a6-cf2bf47a1bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Functions">
+      <UniqueIdentifier>{0eed2683-0fba-45d7-a6e4-1e1c80b77de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Functions\ProcessTimer">
+      <UniqueIdentifier>{df9a04fd-6ab1-44f7-9542-96d8755ce383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Starting">
+      <UniqueIdentifier>{f879e2f2-d1cc-47de-8037-9a73b8bffe6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Starting\Login">
+      <UniqueIdentifier>{01a68141-f29b-491d-a8d4-34af9d90f3f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guerras">
+      <UniqueIdentifier>{20b178d2-2636-48a3-8546-b50495bc17fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guerras\Guerra de Torres">
+      <UniqueIdentifier>{b5762ad6-592e-437c-afef-20fd4c9c05bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\CCastleZakum">
+      <UniqueIdentifier>{160bb7de-55e1-417e-b636-5c5a593459bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\specials">
+      <UniqueIdentifier>{c12921cd-0214-40f7-8a1e-3736980b1828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{2fe17551-eb88-4570-af73-e2e3f8262ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Header Files">
+      <UniqueIdentifier>{aae2e469-d3e5-453c-bac5-79d0fac69b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Source Files">
+      <UniqueIdentifier>{0dd635ad-8899-4c1f-952b-cefbd611c8d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_MSG_AccountLogin.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_AccountSecure.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CharacterLogin.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CharacterLogout.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CreateCharacter.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_DeleteCharacter.cpp">
+      <Filter>Source Files\Packages\State Starting\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ApplyBonus.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Attack.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_SetShortSkill.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Restart.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ReqRanking.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_PKMode.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_NoViewMob.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_AcceptParty.cpp">
+      <Filter>Source Files\Packages\State Playing\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_RemoveParty.cpp">
+      <Filter>Source Files\Packages\State Playing\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_SendReqParty.cpp">
+      <Filter>Source Files\Packages\State Playing\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItem.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemAgatha.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemAilyn.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemAlquimia.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemEhre.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemExtracao.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemLindy.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemOdin.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemTiny.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Trade.cpp">
+      <Filter>Source Files\Packages\State Playing\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_QuitTrade.cpp">
+      <Filter>Source Files\Packages\State Playing\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_MessageWhisper.cpp">
+      <Filter>Source Files\Packages\State Playing\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_MessageChat.cpp">
+      <Filter>Source Files\Packages\State Playing\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Buy.cpp">
+      <Filter>Source Files\Packages\State Playing\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ReqBuy.cpp">
+      <Filter>Source Files\Packages\State Playing\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ReqTradeList.cpp">
+      <Filter>Source Files\Packages\State Playing\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Sell.cpp">
+      <Filter>Source Files\Packages\State Playing\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_REQShopList.cpp">
+      <Filter>Source Files\Packages\State Playing\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_SendAutoTrade.cpp">
+      <Filter>Source Files\Packages\State Playing\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Deposit.cpp">
+      <Filter>Source Files\Packages\State Playing\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Withdraw.cpp">
+      <Filter>Source Files\Packages\State Playing\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_InviteGuild.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_GuildAlly.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_War.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Deprivate.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_DropItem.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_GetItem.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_SplitItem.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ChallangeConfirm.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Challange.cpp">
+      <Filter>Source Files\Packages\State Playing\Guild</Filter>
+    </ClCompile>
+    <ClCompile Include="MobKilled.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemShany.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CCastleZakum.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\CCastleZakum</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Kibita.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_BlackOracle.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_M_Montaria.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Erion</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_King.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_SingleControl.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_LiderAprendiz.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_CarbuncleWind.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Dragão.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_TrainingCamp.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Skills.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_MestreHaby.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Perzens.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Jeffi.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Shama.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_QuestTerraMistica.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ChangeCity.cpp">
+      <Filter>Source Files\Packages\State Playing\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Action.cpp">
+      <Filter>Source Files\Packages\State Playing\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Clear_Item.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Use_Item.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Move_Item.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_UpdateItem.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Teleport.cpp">
+      <Filter>Source Files\Packages\State Playing\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Emotion.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="CReadFiles.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Quests.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemDedekinto.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Source Files\Packages\State Playing</Filter>
+    </ClCompile>
+    <ClCompile Include="DataServerPackageHandler.cpp">
+      <Filter>Source Files\Packages</Filter>
+    </ClCompile>
+    <ClCompile Include="WarOfTower.cpp">
+      <Filter>Source Files\Packages\State Playing\Guerras\Guerra de Torres</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_GodGovernment.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Noatun</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Uxmal.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Kefra</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Urnammu.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Kefra</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Forseti.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Erion</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_ProcessCommand.cpp">
+      <Filter>Source Files\Packages\State Playing\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_Xamã.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CombineItemLoki.cpp">
+      <Filter>Source Files\Packages\State Playing\Combine Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CUser.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CPSock.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GetFunc.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="SendFunc.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="CMob.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessSecMinTimer.cpp">
+      <Filter>Source Files\Functions\ProcessTimer</Filter>
+    </ClCompile>
+    <ClCompile Include="CNPCGene.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_CapsuleInfo.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_MasterGriff.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_GuardaRealEvent.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Armia</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_PutoutSeal.cpp">
+      <Filter>Source Files\Packages\State Playing\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Basedef.cpp">
+      <Filter>Base\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ConfigIni.cpp">
+      <Filter>Base\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MacroPerga.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="PassGroup.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GetFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SendFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CNPCGene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessClientMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessDBMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CReadFiles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CQuest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CPSock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ItemEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WarOfTower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCastleZakum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Basedef.h">
+      <Filter>Base\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ConfigIni.h">
+      <Filter>Base\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroPerga.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TMSrv.rc">
+      <Filter>Header Files\Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="tm.ico">
+      <Filter>Header Files\Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
