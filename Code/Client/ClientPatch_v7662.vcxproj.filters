@@ -21,6 +21,12 @@
     <Filter Include="Source Files\Hooks">
       <UniqueIdentifier>{2ec80220-dff4-4936-8d51-2040dfcd6925}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\AntCheat">
+      <UniqueIdentifier>{4dad984e-0242-4d26-b585-07364e6f5bf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{49739d27-7bca-4977-a727-40731dbdb7eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +86,12 @@
     <ClCompile Include="VolatileMessageBox.cpp">
       <Filter>Source Files\Hooks</Filter>
     </ClCompile>
+    <ClCompile Include="AntCheat.cpp">
+      <Filter>Source Files\AntCheat</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCli.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -96,6 +108,12 @@
     </ClInclude>
     <ClInclude Include="hooknaked.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AntCheat.h">
+      <Filter>Source Files\AntCheat</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCli.h">
+      <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

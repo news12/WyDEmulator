@@ -33,9 +33,9 @@ int g_pRewardBonus[MAX_ITEM_REWARD_PER_HOUR] = { 412, 413, 4027 };
 int BaseSIDCHM[4][6] = 
 {
 	{8, 4, 7, 6, 80, 45}, // TK
-	{5, 8, 5, 5, 60, 65}, //FM
+	{5, 10, 5, 5, 60, 65}, //FM
 	{6, 6, 9, 5, 70, 55}, // BM
-	{8, 9, 13, 6, 75, 60} // HT
+	{8, 9, 13, 6, 70, 55} // HT
 }; 
 
 int HuntingScrolls[6][10][2] =
@@ -1657,7 +1657,7 @@ int BASE_GetItemAbilityNosanc(STRUCT_ITEM *item, unsigned char Type)
 	int value = 0;
 
 	STRUCT_ITEM* nItem = nullptr;
-	if (item == nItem)
+	if (item == nullptr)
 		return value;
 	
 	int idx = item->sIndex;

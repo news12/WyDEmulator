@@ -12,7 +12,7 @@ bool HookNaked::Start()
 		WYD.SetHook(eHookType::JGE, 0x004252D6, WYD.GetPtr(&HookNaked::NKD_ClientReceiver), 0);
 		WYD.SetHook(eHookType::JMP, 0x00425887, WYD.GetPtr(&HookNaked::NKD_ClientSended), 0);
 
-		strcpy((char*)0x622CDA, "  Kersef Destiny");
+		strcpy((char*)0x622CDA, "  Eternal WYD");
 		// strcpy((char*)0x5F3CB1, "ClientPatch.dll");
 
 		strcpy((char*)0x613EC4, "Monstro"); /* Classe do personagem 'C' */

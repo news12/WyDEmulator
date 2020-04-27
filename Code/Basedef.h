@@ -85,6 +85,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READGUILD 9004
 #define IDC_READGUILDNAME 9005
 #define IDC_READGAMECONFIG 9006
+#define IDC_READSKILLDATA 9007
 
 #define IDC_SHUTDOWNNP 9050
 

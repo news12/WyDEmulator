@@ -46,8 +46,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\..\..\..\..\EternalServer\Server\TMSrv\run</OutDir>
-    <IncludePath>C:\Users\eternal\source\repos\EternalEmulator\Code\jsonlib;$(IncludePath)</IncludePath>
+    <OutDir>..\..\..\Server\TMSrv\run</OutDir>
+    <IncludePath>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\jsonlib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

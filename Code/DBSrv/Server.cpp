@@ -463,7 +463,8 @@ int ReadBaseMob() {
 #pragma region Load Base Characters
 
 	int handle = -1;
-	//memset(g_MobBase, 0, sizeof(g_pBaseSet));
+	memset(g_MobBase, 0, sizeof(STRUCT_MOB));
+	memset(g_pBaseSet, 0, sizeof(STRUCT_MOB));
 	if (!nConfig::ReadbaseMob("Config/", "baseMob.json", TK))
 	{
 

@@ -1677,12 +1677,11 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 		mob->Equip[0].sIndex = MortalFace + 5 + cls;
 		mob->BaseScore.Ac = 230;
-
+		mob->ScoreBonus = 528;
 		memset(&mob->Equip[1], 0, sizeof(STRUCT_ITEM)*(MAX_EQUIP - 1));
 		memset(&mob->Carry[0], 0, sizeof(STRUCT_ITEM)*(MAX_CARRY - 4));
 
 		Extra->MortalFace = MortalFace;
-
 		memcpy(mob->MobName, m->MobName, NAME_LENGTH);
 
 		if (m->isDivina)
@@ -2789,7 +2788,7 @@ void CFileDB::DBGetSelChar(STRUCT_SELCHAR *sel, STRUCT_ACCOUNTFILE *file)
 		sel->SPY[i] = file->Char[i].SPY;
 
 		sel->Score[i] = file->Char[i].CurrentScore;		
-
+		
 		sel->Coin[i] = file->Char[i].Coin;
 		sel->Exp[i]  = file->Char[i].Exp;
 	}

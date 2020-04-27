@@ -51,6 +51,7 @@ __forceinline short GetInvSlot(int slot)
 	}
 }
 
+
 extern WYDClient Client;
 static TNColor SpeakColor;
 extern int SpeakChatColor;

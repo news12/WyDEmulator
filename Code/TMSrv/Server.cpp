@@ -4674,6 +4674,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&ReadGuild");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&ReadGuildName");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&ReadGameConfig");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&ReadSkillData");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 		SetMenu(hWnd, hMenu);
@@ -4705,6 +4706,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READGUILDNAME:
 			BASE_InitializeGuildName();
+			break;
+
+		case IDC_READSKILLDATA:
+			BASE_InitializeSkill();
 			break;
 
 		case IDC_READGAMECONFIG:

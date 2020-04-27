@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AmountItem.cpp" />
+    <ClCompile Include="AntCheat.cpp" />
+    <ClCompile Include="BaseCli.cpp" />
     <ClCompile Include="ChangeTabColor.cpp" />
     <ClCompile Include="client_handler.cpp" />
     <ClCompile Include="client_receiver.cpp" />
@@ -40,6 +42,8 @@
     <ClCompile Include="VolatileMessageBox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AntCheat.h" />
+    <ClInclude Include="BaseCli.h" />
     <ClInclude Include="hook.h" />
     <ClInclude Include="hooknaked.h" />
     <ClInclude Include="main.h" />
@@ -102,10 +106,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ClientPatch</TargetName>
+    <OutDir>..\..\..</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.dll</TargetExt>
-    <OutDir>C:\Program Files\WYD\7662Client\</OutDir>
+    <OutDir>..\..\..\Client</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.dll</TargetExt>

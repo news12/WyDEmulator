@@ -222,6 +222,9 @@ ClientBin/
 *.jfm
 *.pfx
 *.publishsettings
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 orleans.codegen.cs
 
 # Including strong name files can present a security risk
