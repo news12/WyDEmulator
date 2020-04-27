@@ -3683,6 +3683,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 		// Transformações
 		else if (Affect[i].Type == 16)
 		{
+			int Traje = MOB.Equip[0].sIndex;
 			int value = Affect[i].Value - 1;
 
 			if (value < 0 || value >= 5 || MOB.Class != 2)
@@ -3783,6 +3784,9 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 			AttackSpeedBonus = pTransBonus[value].Unk9 + AttAdd;
 			RunSpeedBonus = pTransBonus[value].Unk7;
+
+			//if (Traje)
+			//MOB.Equip[12].sIndex = Traje;
 		}
 
 		// Velocidade

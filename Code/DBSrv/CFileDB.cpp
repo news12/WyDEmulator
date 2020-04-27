@@ -1107,7 +1107,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 										   pAccountList[idx].File.affect[i][EmptyAffect].Type = m->Parm3;
 										   pAccountList[idx].File.affect[i][EmptyAffect].Level = m->Parm4 == 2 ? 2 : 1;
-										   pAccountList[idx].File.affect[i][EmptyAffect].Value = m->Parm4 == 2 ? 0 : 2;
+										   pAccountList[idx].File.affect[i][EmptyAffect].Value = m->Parm4 == 2 ? 2 : 2;
 										   pAccountList[idx].File.affect[i][EmptyAffect].Time = m->Parm4 == 2 ? m->Parm1 : 2000000000;
 
 										   char temp[256];

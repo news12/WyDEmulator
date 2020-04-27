@@ -13,6 +13,8 @@ bool NewItensDay(INT32 Item)
 		return TRUE;
 	case 3791:
 		return TRUE;
+	case 4174:
+		return TRUE;
 	
 	}
 

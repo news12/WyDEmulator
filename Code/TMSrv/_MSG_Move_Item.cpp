@@ -143,11 +143,11 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 		return;
 	}
 
-	if ((SrcItem->sIndex >= 4152 && SrcItem->sIndex <= 4188) && ((pMob[conn].MOB.Equip[0].sIndex >= 22 && pMob[conn].MOB.Equip[0].sIndex <= 25) || pMob[conn].MOB.Equip[0].sIndex == 32))
-	{
-		SendClientMsg(conn, "Não é possível equipar traje quando estiver transformado.");
-		return;
-	}
+	//if ((SrcItem->sIndex >= 4152 && SrcItem->sIndex <= 4188) && ((pMob[conn].MOB.Equip[0].sIndex >= 22 && pMob[conn].MOB.Equip[0].sIndex <= 25) || pMob[conn].MOB.Equip[0].sIndex == 32))
+	//{
+	//	SendClientMsg(conn, "Não é possível equipar traje quando estiver transformado.");
+	//	return;
+	//}
 
 	if (DestItem->sIndex != 747 && SrcItem->sIndex != 747 || m->DestPlace != ITEM_PLACE_CARGO && m->SrcPlace != ITEM_PLACE_CARGO)
 	{
