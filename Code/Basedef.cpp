@@ -3186,7 +3186,10 @@ void BASE_ClearMobExtra(STRUCT_MOBExtra *Extra)
 void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExtra *Extra, int *ExpBonus, int *ForceMobDamage, int isSummon, int *Accuracy, int *AbsHp, int *ForceDamage)
 {
 	MOB.Rsv = 0;
-
+	//if (!strcmp(MOB.MobName, "MyBM") || !strcmp(MOB.MobName, "NewsGames"))
+	//{
+	//	int eu = 1;
+	//}
 	int hp = MOB.CurrentScore.Hp;
 	int mp = MOB.CurrentScore.Mp;
 	MOB.CurrentScore = MOB.BaseScore;
@@ -3720,16 +3723,17 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 				RegAdd += 20;//15
 				AttAdd += 20;
 			}
+			//Titan
 			else if (MOB.Equip[0].sIndex == 25)
-				AttAdd += 30;
-
+				AttAdd += 35;
+			//Eden
 			else if (MOB.Equip[0].sIndex == 32)
 			{
-				DamAdd = 10;
+				DamAdd = 20;
 				AcAdd = 5;
 				HpAdd = 10;
 				RegAdd += 10;
-				AttAdd += 20;
+				AttAdd += 25;
 			}
 
 			int sanc = (special3 + (Extra->ClassMaster != ARCH && Extra->ClassMaster != MORTAL ? MOB.CurrentScore.Level + MAX_LEVEL : MOB.CurrentScore.Level) * 2) / 3;
@@ -3906,6 +3910,52 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 				Magic = MAX_DAMAGE_MG;
 			else
 				Magic += Magia;
+		}
+
+		// Poção Sephira,Kappa,Combatente,MentalKappa
+		else if (Affect[i].Type == 4)
+		{
+		int HP = MOB.CurrentScore.MaxHp * 15 / 100;
+		int MP = MOB.CurrentScore.MaxMp * 10 / 100;
+		int Dano = MOB.CurrentScore.Damage * 30 / 100;
+		int Magia = MOB.Magic * 20 / 100;
+
+		if (HP >= MAX_HP)
+			MOB.CurrentScore.MaxHp = MAX_HP;
+		else
+			MOB.CurrentScore.MaxHp += HP;
+
+		if (MP >= MAX_MP)
+			MOB.CurrentScore.MaxMp = MAX_MP;
+		else
+			MOB.CurrentScore.MaxMp += MP;
+
+		if (Dano >= MAX_DAMAGE)
+			MOB.CurrentScore.Damage = MAX_DAMAGE;
+		else
+			MOB.CurrentScore.Damage += Dano;
+
+		if (Magia >= MAX_DAMAGE_MG)
+			Magic = MAX_DAMAGE_MG;
+		else
+			Magic += Magia;
+		}
+
+		// Poção Saúde,Vigor
+		else if (Affect[i].Type == 35)
+		{
+		int HP = MOB.CurrentScore.MaxHp * 30 / 100;
+		int MP = MOB.CurrentScore.MaxMp * 15 / 100;
+		if (HP >= MAX_HP)
+			MOB.CurrentScore.MaxHp = MAX_HP;
+		else
+			MOB.CurrentScore.MaxHp += HP;
+
+		if (MP >= MAX_MP)
+			MOB.CurrentScore.MaxMp = MAX_MP;
+		else
+			MOB.CurrentScore.MaxMp += MP;
+
 		}
 
         // Pergaminho das Transformações
