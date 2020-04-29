@@ -7791,6 +7791,7 @@ void CloseUser(int conn)
 
 			sm.Coin = pUser[conn].Coin;
 			sm.Donate = pUser[conn].Donate;
+			sm.VemProEternal = pUser[conn].VemProEternal;
 
 			sm.Slot = pUser[conn].Slot;
 			sm.IsNewbieRe = pUser[conn].IsNewBieRe;
@@ -7995,6 +7996,7 @@ void SaveUser(int conn, int Export)
 
 	sm.Slot = pUser[conn].Slot;
 	sm.Donate = pUser[conn].Donate;
+	sm.VemProEternal = pUser[conn].VemProEternal;
 
 	memcpy(&sm.PartyPassword, &pUser[conn].PartyPassword, sizeof(sm.PartyPassword));
 

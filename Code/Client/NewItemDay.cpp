@@ -28,10 +28,11 @@ void FormataValidade(char* msg, STRUCT_ITEM* item)
 	//apenas novos itens
 	switch (item->sIndex)
 	{
-	//ids das novas fadas
+	//ids das novas fadas/Montaria
 	case 3789:
 	case 3790:
 	case 3791:
+	//case 3980:
 		day = item->stEffect[0].cValue;
 		hour = item->stEffect[1].cValue;
 		min = item->stEffect[2].cValue;
@@ -42,6 +43,33 @@ void FormataValidade(char* msg, STRUCT_ITEM* item)
 			sprintf(msg, "Aguardando ativação!!!");
 	
 		return;
+	case 3980:
+	case 3981:
+	case 3982:
+	case 3983:
+	case 3984:
+	case 3985:
+	case 3986:
+	case 3987:
+	case 3988:
+	case 3989:
+		day = item->stEffect[0].cValue;
+		month = item->stEffect[1].cValue;
+		year = item->stEffect[2].cValue;
+		if (day)
+			sprintf(msg, "Válido por %02d dia(s)", day);
+		else
+			sprintf(msg, "Válido até: [%02d/%02d/%02d]",day,month, year);
+
+		if (month)
+			sprintf(msg, "Válido até: [%02d/%02d/%02d]", day, month, year);
+		else
+			sprintf(msg, "Válido até: [%02d/%02d/%02d]", day, month, year);
+
+		if (year)
+			sprintf(msg, "Válido até: [%02d/%02d/%02d]", day, month, year);
+		else
+			sprintf(msg, "Aguardando ativação.");
 	default:
 		break;
 	}

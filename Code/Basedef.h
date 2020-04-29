@@ -563,7 +563,8 @@ enum TNColor
 	White = None | 0xFFFFFF,
 	Blue = None | 0x0174DF,
 	Orange = None | 0xCD6600,
-	Speak = 0xFF00CD00
+	Speak = 0xFF00CD00,
+	Red = 0x8B0000
 };
 
 
@@ -1053,7 +1054,7 @@ struct STRUCT_ACCOUNTFILE
 
 	int Donate;
 	char PartyPassword[6];
-
+	INT16 VemProEternal;
 	char TempKey[52];
 
 	bool ReceivedItem;
@@ -1276,6 +1277,7 @@ struct		 MSG_DBSaveMob
 	STRUCT_MOBExtra Extra;
 	STRUCT_AFFECT	affect[MAX_AFFECT];
 	int Donate;
+	INT16 VemProEternal;
 	char PartyPassword[6];
 
 	STRUCT_QUEST QuestDiaria;
@@ -1391,6 +1393,7 @@ struct		 MSG_DBCNFAccountLogin // TODO : Check and rename if it's used for MSG_C
 	int Coin;
 	char AccountName[ACCOUNTNAME_LENGTH];
 	char Keys[12];
+	INT16 VemProEternal;
 
 	STRUCT_QUEST QuestDiaria;
 
@@ -1469,6 +1472,7 @@ struct		  MSG_SavingQuit
 	STRUCT_MOBExtra Extra;
 	STRUCT_AFFECT	affect[MAX_AFFECT];
 	int Donate;
+	INT16 VemProEternal;
 	char PartyPassword[6];
 	int IsNewbieRe;
 
@@ -1678,6 +1682,7 @@ struct		  MSG_CNFCharacterLogin
 	STRUCT_AFFECT affect[MAX_AFFECT];
 	STRUCT_MOBExtra mobExtra;
 	int Donate;
+	INT16 VemProEternal;
 	char PartyPassword[6];
 };
 struct		  MSG_CNFClientCharacterLogin
@@ -2912,6 +2917,7 @@ extern const std::string PATH_CONFIG;
 extern const std::string ConfigJson;
 extern const std::string GameConfig;
 extern const std::string PATH_SETTINGS;
+extern const std::string PATH_EVENTSETERNAL;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -2920,6 +2926,17 @@ extern enum eGameConfig {
 		TREASURE,
 		OTHER
 };
+extern enum eEventEternal {
+	VemProEternal
+};
+
+struct STRUCT_EVENTS
+{
+	char* name;
+	int eventKey;
+	int eventValue;
+};
+extern STRUCT_EVENTS eEvents;
 extern short gameConfig[maxGameConfig][MaxSubConfig];
 extern STRUCT_TREASURE ng_pTreasure[8];
 #pragma endregion

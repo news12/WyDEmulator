@@ -14,6 +14,7 @@ using ConfigIni::nConfig;
 using json = nlohmann::json;
 STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
+STRUCT_EVENTS eEvents;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
 //Maximo de config 100 maximo de subconfig 50
@@ -23,7 +24,8 @@ const string PATH_COMMON = "../../Common/";
 const string PATH_DB = "../../DBSrv/";
 const string PATH_TM = "../../TMSrv/";
 const string PATH_CONFIG = "Config/";
-const string PATH_SETTINGS = "../../Common/Settings/";
+const string PATH_SETTINGS = PATH_COMMON + "Settings/";
+const string PATH_EVENTSETERNAL = PATH_COMMON + "EventsEternal/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -57,6 +59,77 @@ void nConfig::findAndReplaceAll(std::string& data, std::string& match, const std
 
 		// pega a próxima ocorrência da posição atual
 		pos = data.find(match, pos + replace.size());
+	}
+}
+
+int nConfig::ReadEventsEternal(string path, string file, int key)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteEventsEternal(PATH_EVENTSETERNAL, file, key, 0);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	switch (key)
+	{
+	case VemProEternal:
+		//eEvents.name = (char*)file.c_str();
+		nJson["EVENTSETERNAL"]["VemProEternal"].get_to(eEvents.eventValue);
+		break;
+	default:
+		break;
+	}
+
+}
+int nConfig::WriteEventsEternal(string path, string file, int key, int nValue)
+{
+
+	string fullpath = path + file;
+
+#pragma region Txt New playerEvent.json
+	auto nJson = R"(
+{
+"EVENTSETERNAL": {
+					"VemProEternal": 0
+
+				 }
+	
+})"_json;
+
+#pragma endregion
+
+	
+	switch (key)
+		{
+		case VemProEternal:
+			nJson["EVENTSETERNAL"]["VemProEternal"] = nValue;
+			break;
+		case 99:
+			break;
+		default:
+			break;
+		}
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
 	}
 }
 
@@ -334,7 +407,7 @@ int nConfig::WriteGameConfig(string path, string file, int key)
 	}
 
 
-	}
+}
 
 int nConfig::ReadExtra(string path, string file, int key)
 {

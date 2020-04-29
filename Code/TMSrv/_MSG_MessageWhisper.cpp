@@ -1,5 +1,9 @@
 #include "ProcessClientMessage.h"
 #include "PassGroup.h"
+#include "..\ConfigIni.h"
+#include "EventsEternal.h"
+
+using ConfigIni::nConfig;
 
 void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 {
@@ -37,8 +41,38 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
+
+	/*Evento VemProEternal*/
+	if (strcmp(m->MobName, "VemProEternal") == 0)
+	{
+		nConfig::ReadEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal);
+		pUser[a_iConn].VemProEternal = eEvents.eventValue;
+		if (pUser[a_iConn].VemProEternal)
+		{
+			sprintf(temp, "O Evento já foi Ativado na Conta:  %s ", pUser[a_iConn].AccountName);
+			SendMsgExp(a_iConn, temp, TNColor::Red, false);
+			return;
+		}
+		sprintf(temp, "Bônus para novo jogador ativado na Conta:  %s ", pUser[a_iConn].AccountName);
+		SendMsgExp(a_iConn, temp, TNColor::Orange, false);
+		nConfig::WriteEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal, TRUE);
+		pUser[a_iConn].VemProEternal = TRUE;
+		fVemProEternal(a_iConn);
+		return;
+	}
+
+	if (strcmp(m->MobName, "rVemProEternal") == 0)
+	{
+		sprintf(temp, "Evento liberado novamente para a Conta:  %s ", pUser[a_iConn].AccountName);
+		SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
+		nConfig::WriteEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal, FALSE);
+		pUser[a_iConn].VemProEternal = FALSE;
+		return;
+	}
+	/*Evento VemProEternal*/
+
 	//Definir senha de grupo
-	if (strcmp(m->MobName, "DefGroupPass") == 0)
+	if (strcmp(m->MobName, "DefGroupPass") == 0 || strcmp(m->MobName, "DefSenhaGrupo") == 0)
 	{
 		if (strlen(m->String) > 5)
 		{
@@ -73,7 +107,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 	//Ver senha de grupo
-	if (strcmp(m->MobName, "GroupPass") == 0)
+	if (strcmp(m->MobName, "GroupPass") == 0 || strcmp(m->MobName, "SenhaGrupo") == 0)
 	{
 		sprintf(temp, "Sua senha de grupo é:  %s ", pUser[a_iConn].PartyPassword);
 		SendMsgExp(a_iConn, temp, TNColor::GoldenEscuro, false);
@@ -81,7 +115,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	}
 
 	//Entrar em um grupo com senha
-	if (strcmp(m->MobName, "GroupEnter") == 0)
+	if (strcmp(m->MobName, "GroupEnter") == 0 || strcmp(m->MobName, "EntrarGrupo") == 0)
 	{
 		char PlayerName[256];
 		char Password[256];

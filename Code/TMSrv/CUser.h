@@ -102,6 +102,7 @@ public:
 	int CastleStatus; // 2744
 	char Unk9[400]; // 2748 // LastSkillTick // size correto é 400.
 	int Donate;
+	INT16 VemProEternal;
 	int MuteChat;
 	int KingChat;
 

@@ -19,6 +19,8 @@ namespace ConfigIni {
 		static int WriteExtra(string path, string file, int key);
 		static int ReadConfigNews(string path, string file, int key);
 		static int WriteConfigNews(string path, string file, int key);
+		static int ReadEventsEternal(string path, string file, int key);
+		static int WriteEventsEternal(string path, string file, int key,int nValue);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

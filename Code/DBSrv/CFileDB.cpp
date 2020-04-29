@@ -1154,6 +1154,11 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 			sm.mob = pAccountList[Idx].File.Char[Slot];
 			sm.Donate = pAccountList[Idx].File.Donate;
 
+			//evento novato apenas 1x por conta
+			nConfig::ReadEventsEternal(PATH_EVENTSETERNAL, pAccountList[Idx].File.Info.AccountName, VemProEternal);
+			sm.VemProEternal = eEvents.eventValue;
+			//sm.VemProEternal = pAccountList[Idx].File.VemProEternal;
+
 			memcpy(&sm.PartyPassword, &pAccountList[Idx].File.PartyPassword, 6);
 
 			memcpy(sm.ShortSkill, pAccountList[Idx].File.ShortSkill[Slot], 16);
@@ -1266,6 +1271,9 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 			pAccountList[Idx].File.Donate = m->Donate;
 
+			//evento novato apenas 1x por conta
+			pAccountList[Idx].File.VemProEternal = m->VemProEternal;
+
 			memcpy(&pAccountList[Idx].File.PartyPassword, &m->PartyPassword,6);
 
 			pAccountList[Idx].File.Char[Slot] = m->MOB;
@@ -1356,6 +1364,9 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 			pAccountList[Idx].File.Coin = m->Coin;
 			pAccountList[Idx].File.Donate = m->Donate;
+
+			//evento novato apenas 1x por conta
+			pAccountList[Idx].File.VemProEternal = m->VemProEternal;
 
 			memcpy(&pAccountList[Idx].File.PartyPassword, &m->PartyPassword, 6);
 
@@ -1677,7 +1688,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 		mob->Equip[0].sIndex = MortalFace + 5 + cls;
 		mob->BaseScore.Ac = 230;
-		mob->ScoreBonus = 528;
+		//mob->ScoreBonus = 528;
 		memset(&mob->Equip[1], 0, sizeof(STRUCT_ITEM)*(MAX_EQUIP - 1));
 		memset(&mob->Carry[0], 0, sizeof(STRUCT_ITEM)*(MAX_CARRY - 4));
 

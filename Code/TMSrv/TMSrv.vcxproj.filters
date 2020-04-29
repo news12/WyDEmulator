@@ -103,6 +103,12 @@
     <Filter Include="Base\Source Files">
       <UniqueIdentifier>{0dd635ad-8899-4c1f-952b-cefbd611c8d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\EventsEternal">
+      <UniqueIdentifier>{b5277b9a-2a55-48d8-84fc-caaa7dd6090c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EventsEternal">
+      <UniqueIdentifier>{e1819998-f2a6-43ed-8913-8c31b8e7b47e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -411,6 +417,9 @@
     <ClCompile Include="PassGroup.cpp">
       <Filter>Source Files\Functions</Filter>
     </ClCompile>
+    <ClCompile Include="EventsEternal.cpp">
+      <Filter>Source Files\EventsEternal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -475,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="PassGroup.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventsEternal.h">
+      <Filter>Header Files\EventsEternal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
