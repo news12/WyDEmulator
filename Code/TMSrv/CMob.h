@@ -98,6 +98,10 @@ public:
 	short DivineBlessing; // 2292 - 2293
 	int RateRegen; // 2294 - 2297
 	int MacroPerga;
+	char CorrectQuiz;
+	int QuizError;
+	int QuizTerritory;
+	int ItemQuiz;
 public:
 
 	CMob();

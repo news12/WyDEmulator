@@ -25,12 +25,13 @@ void Exec_MSG_SendAutoTrade(int conn, char *pMsg)
 		SendClientMsg(conn, g_pMessageStringTable[_NN_CantWhenAutoTrade]);
 		return;
 	}
-
+	//não verificar servidor novato enquanto tiver somente 1 canal
+	/*
 	if (NewbieEventServer == 0)
 	{
 		SendClientMsg(conn, g_pMessageStringTable[_NN_NEWBIEEVENTSERVER]);
 		return;
-	}
+	}*/
 
 	if (pUser[conn].IsBlocked)
 	{

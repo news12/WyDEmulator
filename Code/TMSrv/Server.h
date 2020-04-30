@@ -73,6 +73,7 @@ BOOL PutItemCargo(int a_iConn, STRUCT_ITEM *item);
 void  GuildZoneReport();
 HFONT__ *  GetAFont();
 void  ReadConfig();
+void ReadQuiz();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -112,14 +113,14 @@ void  ClearAreaLevel(int x1, int y1, int x2, int y2, int minLv, int maxLv);
 int BASE_GetOnScreen(int a_iMob, int a_iTarget);
 void  ClearAreaGuild(int x1, int y1, int x2, int y2, int Guild);
 void  ClearAreaTeleport(int x1, int y1, int x2, int y2, int tx, int ty);
-void  ClearGuildPKZone();
+//void  ClearGuildPKZone();//movido para WarOfCity
 void  SetColoseumDoor(int state); 
 void  SetColoseumDoor2(int state);
 void  GenerateColoseum(int InitID);
 void  DeleteColoseum();
-void  SetArenaDoor(int state);
+//void  SetArenaDoor(int state);//movido para WarOfCity
 void  SetCastleDoor(int state);
-void  DecideWinner();
+//void  DecideWinner();//movido para WarOfCity
 void  GuildProcess(); 
 void  StartLog();
 void  CrackLog(int conn, char *str);
@@ -141,7 +142,7 @@ void  DeleteMob(int conn, int Type);
 void  SaveUser(int conn,int Export);
 void  CharLogOut(int conn);
 void  Reboot();  
-void  ClearChallanger(); 
+//void  ClearChallanger();//movido para WarOfCity 
 void  SetBattle(int mob, int target);      
 void  MobKilled(int a_iConn, int target, int PosX, int PosY);
 int   CreateItem(int x, int y, STRUCT_ITEM *item, int rotate, int Create);

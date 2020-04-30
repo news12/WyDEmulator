@@ -15,6 +15,12 @@ using json = nlohmann::json;
 STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
 STRUCT_EVENTS eEvents;
+STRUCT_QUIZ eQuiz[];
+int TOTAL_QUIZ;
+int goldQuiz;
+long int expQuiz;
+int QuizOn;
+int SortQuiz;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
 //Maximo de config 100 maximo de subconfig 50
@@ -120,6 +126,131 @@ int nConfig::WriteEventsEternal(string path, string file, int key, int nValue)
 		default:
 			break;
 		}
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadQuiz(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteQuiz(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	nJson["CONFIG"]["ToTalQuiz"].get_to(TOTAL_QUIZ);
+	nJson["CONFIG"]["GOLD"].get_to(goldQuiz);
+	nJson["CONFIG"]["EXP"].get_to(expQuiz);
+
+	for (auto& x : nJson["QUESTIONS"].items())
+	{
+		string Title = x.value().find("Title").value();
+		int tLength = Title.size();
+		int Correct = x.value().find("Correct").value();
+		string Answer0 = x.value().find("Answer0").value();
+		int tA0 = Answer0.size();
+		string Answer1 = x.value().find("Answer1").value();
+		int tA1 = Answer1.size();
+		string Answer2 = x.value().find("Answer2").value();
+		int tA2 = Answer2.size();
+		string Answer3 = x.value().find("Answer3").value();
+		int tA3 = Answer3.size();
+
+		char* cTitle = new char[tLength +1];
+		copy(Title.begin(), Title.end(), cTitle);
+		cTitle[tLength] = '\0';
+		eQuiz[stoi(x.key())].Title = cTitle;
+
+		eQuiz[stoi(x.key())].Correct = Correct;
+
+		char* cA0 = new char[tA0 + 1];
+		copy(Answer0.begin(), Answer0.end(), cA0);
+		cA0[tA0] = '\0';
+		eQuiz[stoi(x.key())].Answer0 = cA0;
+
+		char* cA1 = new char[tA1 + 1];
+		copy(Answer1.begin(), Answer1.end(), cA1);
+		cA1[tA1] = '\0';
+		eQuiz[stoi(x.key())].Answer1 = cA1;
+
+		char* cA2 = new char[tA2 + 1];
+		copy(Answer2.begin(), Answer2.end(), cA2);
+		cA2[tA2] = '\0';
+		eQuiz[stoi(x.key())].Answer2 = cA2;
+
+		char* cA3 = new char[tA3 + 1];
+		copy(Answer3.begin(), Answer3.end(), cA3);
+		cA3[tA3] = '\0';
+		eQuiz[stoi(x.key())].Answer3 = cA3;
+
+	};
+	return TRUE;
+	
+}
+
+int ConfigIni::nConfig::WriteQuiz(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New quiz.json
+	auto nJson = R"(
+{
+"CONFIG": {
+			"GOLD": 10000,
+			"EXP": 100000,
+			"ToTalQuiz": 3
+		  },
+"QUESTIONS": [
+				{
+					"Title": "Qual classe evoca monstros?",
+					"Correct": 1,
+					"Answer0": "Foema",
+					"Answer1": "BeastMaster",
+					"Answer2": "Transknight",
+					"Answer3": "Huntress"
+				},
+				{
+					"Title": "Em qual cidade fica a Zona Elemental da Agua?",
+					"Correct": 0,
+					"Answer0": "Arzam",
+					"Answer1": "Armia",
+					"Answer2": "Erion",
+					"Answer3": "Noatum"
+				},
+				{
+					"Title": "Qual o nome do Servidor?",
+					"Correct": 3,
+					"Answer0": "Eternity",
+					"Answer1": "7DY",
+					"Answer2": "WYD",
+					"Answer3": "ETERNAL"
+				}
+			]
+	
+	
+})"_json;
+
+#pragma endregion
 
 	try
 	{

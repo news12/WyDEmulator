@@ -109,6 +109,12 @@
     <Filter Include="Source Files\EventsEternal">
       <UniqueIdentifier>{e1819998-f2a6-43ed-8913-8c31b8e7b47e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guerras\Guerra de Noatum">
+      <UniqueIdentifier>{0db160c5-854f-46cc-b4ea-7af87d55a48e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guerras\Guerra de Cidades">
+      <UniqueIdentifier>{768e9d5a-fe96-41b9-ab8f-1f0e70e179c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -420,6 +426,18 @@
     <ClCompile Include="EventsEternal.cpp">
       <Filter>Source Files\EventsEternal</Filter>
     </ClCompile>
+    <ClCompile Include="WarOfNoatum.cpp">
+      <Filter>Source Files\Packages\State Playing\Guerras\Guerra de Noatum</Filter>
+    </ClCompile>
+    <ClCompile Include="WarOfCity.cpp">
+      <Filter>Source Files\Packages\State Playing\Guerras\Guerra de Cidades</Filter>
+    </ClCompile>
+    <ClCompile Include="_MSG_Quiz.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\specials</Filter>
+    </ClCompile>
+    <ClCompile Include="Quiz.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\specials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -487,6 +505,15 @@
     </ClInclude>
     <ClInclude Include="EventsEternal.h">
       <Filter>Header Files\EventsEternal</Filter>
+    </ClInclude>
+    <ClInclude Include="WarOfNoatum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WarOfCity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Quiz.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

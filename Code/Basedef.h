@@ -75,6 +75,10 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define FM  1
 #define BM  2
 #define HT  3
+#define MAX_QUIZ 100
+#define MAX_COIN 2000000000
+#define MAX_EXP 4100000000
+#define MAX_QUIZ_ERROR 3
 
 //#define PKDrop
 
@@ -86,6 +90,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READGUILDNAME 9005
 #define IDC_READGAMECONFIG 9006
 #define IDC_READSKILLDATA 9007
+#define IDC_READQUIZ 908
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -2265,6 +2270,22 @@ struct		  MSG_SendReqParty
 	short Target;
 };
 
+const short _MSG_Quiz						= (198 | FLAG_GAME2CLIENT);
+struct       MSG_Quiz
+{
+	_MSG;
+	char Title[96];
+
+	char Asws[5][32];
+	int Correct;
+};
+const short _MSG_ResponseQuiz				= (199 | FLAG_CLIENT2GAME);
+struct       MSG_ResponseQuiz
+{
+	_MSG;
+	char response;
+	
+};
 const short  _MSG_RemoveParty				= (126 | FLAG_GAME2CLIENT | FLAG_CLIENT2GAME);
 struct		  MSG_RemoveParty
 {
@@ -2936,7 +2957,24 @@ struct STRUCT_EVENTS
 	int eventKey;
 	int eventValue;
 };
+
+struct STRUCT_QUIZ
+{
+	char* Title;
+	int Correct;
+	char* Answer0;
+	char* Answer1;
+	char* Answer2;
+	char* Answer3;
+
+};
+extern STRUCT_QUIZ eQuiz[MAX_QUIZ];
+extern int TOTAL_QUIZ;
+extern int goldQuiz;
+extern long int expQuiz;
 extern STRUCT_EVENTS eEvents;
+extern int QuizOn;
+extern int SortQuiz;
 extern short gameConfig[maxGameConfig][MaxSubConfig];
 extern STRUCT_TREASURE ng_pTreasure[8];
 #pragma endregion

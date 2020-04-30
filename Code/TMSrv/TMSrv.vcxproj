@@ -107,6 +107,9 @@
     <ClCompile Include="GetFunc.cpp" />
     <ClCompile Include="MacroPerga.cpp" />
     <ClCompile Include="NTask_Xamã.cpp" />
+    <ClCompile Include="Quiz.cpp" />
+    <ClCompile Include="WarOfCity.cpp" />
+    <ClCompile Include="WarOfNoatum.cpp" />
     <ClCompile Include="_MSG_CombineItemLoki.cpp" />
     <ClCompile Include="_MSG_ProcessCommand.cpp" />
     <ClCompile Include="MobKilled.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="_MSG_NoViewMob.cpp" />
     <ClCompile Include="_MSG_PKMode.cpp" />
     <ClCompile Include="_MSG_PutoutSeal.cpp" />
+    <ClCompile Include="_MSG_Quiz.cpp" />
     <ClCompile Include="_MSG_SingleControl.cpp" />
     <ClCompile Include="_MSG_QuitTrade.cpp" />
     <ClCompile Include="_MSG_RemoveParty.cpp" />
@@ -215,9 +219,12 @@
     <ClInclude Include="MacroPerga.h" />
     <ClInclude Include="ProcessClientMessage.h" />
     <ClInclude Include="ProcessDBMessage.h" />
+    <ClInclude Include="Quiz.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SendFunc.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="WarOfCity.h" />
+    <ClInclude Include="WarOfNoatum.h" />
     <ClInclude Include="WarOfTower.h" />
   </ItemGroup>
   <ItemGroup>

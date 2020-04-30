@@ -46,6 +46,9 @@ void  ProcessClientMessage(int a_iConn, char *pMsg, BOOL isServer)
 
 	switch (std->Type)
 	{
+	case _MSG_ResponseQuiz:
+		Exec_MSG_ResponseQuiz(a_iConn, pMsg);
+		break;
 	case _MSG_AccountLogin:
 		Exec_MSG_AccountLogin(a_iConn, pMsg);
 		break;

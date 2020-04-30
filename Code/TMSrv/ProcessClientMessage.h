@@ -115,4 +115,5 @@ void Exec_MSG_PutoutSeal(int conn, char *pMsg);
 void Exec_MSG_TradingItem(int conn, char *pMsg);
 void Exec_MSG_Quest(int a_iConn, char *pMsg);
 void Exec_MSG_MasterGriff(int a_iConn, char *pMsg);
+void Exec_MSG_ResponseQuiz(int a_Conn, char* pMsg);
 //**************************************************************************************************

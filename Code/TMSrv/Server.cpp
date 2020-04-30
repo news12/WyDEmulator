@@ -1089,6 +1089,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadQuiz(void)
+{
+	QuizOn = nConfig::ReadQuiz(PATH_SETTINGS, "quiz.json");
+
+	if (!QuizOn)
+		MessageBox(hWndMain, "Erro ao ler quiz.json", "FILE ERROR", NULL);
+}
+
 void ReadConfig(void)
 {
 
@@ -4082,6 +4090,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	BASE_ReadQuestDiaria();
 	BASE_ReadGuardFile();
 	ReadConfig();
+	ReadQuiz();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4677,6 +4686,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&ReadSkillData");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
+		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&ReadQuiz");
+		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
+
 		SetMenu(hWnd, hMenu);
 	} break;
 
@@ -4710,6 +4723,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READSKILLDATA:
 			BASE_InitializeSkill();
+			break;
+
+		case IDC_READQUIZ:
+			ReadQuiz();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -6584,7 +6601,7 @@ void ClearAreaTeleport(int x1, int y1, int x2, int y2, int tx, int ty)
 		DoTeleport(i, tx, ty);
 	}
 }
-
+/*
 void ClearGuildPKZone()
 {
 	int x1 = 128;
@@ -6604,7 +6621,7 @@ void ClearGuildPKZone()
 		if (pMob[i].TargetX >= x1 && pMob[i].TargetX <= x2 && pMob[i].TargetY >= y1 && pMob[i].TargetY <= y2)
 			DoRecall(i);
 	}
-}
+}*/
 
 void SetColoseumDoor(int state)
 {
@@ -6727,7 +6744,7 @@ void DeleteColoseum()
 			DeleteMob(i, 2);
 	}
 }
-
+/*
 void SetArenaDoor(int state)
 {
 	for (int i = 0; i < ValidGuild; i++)
@@ -6778,7 +6795,7 @@ void SetArenaDoor(int state)
 		}
 	}
 }
-
+*/
 void SetCastleDoor(int state)
 {
 	for (int i = 0; i < 4; i++)
@@ -6827,6 +6844,7 @@ void SetCastleDoor(int state)
 	}
 }
 
+/*
 void DecideWinner()
 {
 	for (int i = 0; i < ValidGuild; i++)
@@ -6921,7 +6939,7 @@ void DecideWinner()
 	if(g_pGuildZone[1].ChargeGuild == g_pGuildZone[0].ChargeGuild && g_pGuildZone[2].ChargeGuild == g_pGuildZone[0].ChargeGuild && g_pGuildZone[3].ChargeGuild == g_pGuildZone[0].ChargeGuild)
 		g_pGuildZone[4].ChargeGuild = g_pGuildZone[0].ChargeGuild;
 }
-
+*/
 void GuildProcess()
 {
 	time_t rawtime;
@@ -6942,6 +6960,8 @@ void GuildProcess()
 	if (timeinfo->tm_hour > 3 && GuildNameInitialized == 1)
 		GuildNameInitialized = 0;
 
+	//WarNotum Movido para um arquivo separado
+	/*
 #pragma region Guerra de Noatum
 	if (CastleServer == 1 && (timeinfo->tm_hour == 21))
 	{
@@ -7004,6 +7024,7 @@ void GuildProcess()
 		}
 	}
 #pragma endregion
+*/
 
 	int NewbieServerID = (timeinfo->tm_mday - 1) % NumServerInGroup;
 
@@ -7107,7 +7128,7 @@ void GuildProcess()
 		}
 	}
 
-#ifdef Coliseu
+//#ifdef Coliseu //indefinido
 #pragma region Coliseu
 	if (timeinfo->tm_wday != 0 && timeinfo->tm_wday != 6 && timeinfo->tm_hour == 20)
 	{
@@ -7214,7 +7235,7 @@ void GuildProcess()
 	}
 
 #pragma endregion
-#endif
+//#endif
 	if (timeinfo->tm_hour == NewbieHour && timeinfo->tm_min == 54)
 		PotionReady = 0;
 
@@ -7223,7 +7244,8 @@ void GuildProcess()
 		GenerateMob(22, 0, 0);
 		PotionReady = 1;
 	}
-
+//Movido para WarOfCity
+/*
 #pragma region Guerra de Cidades
 	int day = GuildDay - 1;
 
@@ -7324,6 +7346,7 @@ void GuildProcess()
 	}
 #pragma endregion
 
+	*/
 	WarOfTower::StandByProcess();
   }
 
@@ -8159,6 +8182,7 @@ void Reboot()
 	SetColoseumDoor(1);
 }
 
+/*
 void ClearChallanger()
 {
 	for (int i = 0; i < ValidGuild; i++)
@@ -8168,6 +8192,7 @@ void ClearChallanger()
 	}
 }
 
+*/
 void SetBattle(int mob, int target)
 {
 	if (mob <= 0 || target <= 0 || mob >= MAX_MOB || target >= MAX_MOB)

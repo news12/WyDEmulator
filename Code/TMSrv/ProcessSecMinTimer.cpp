@@ -17,6 +17,8 @@
 #include "ProcessDBMessage.h"
 #include "MacroPerga.h"
 #include <thread>
+#include "WarOfNoatum.h"
+#include "WarOfCity.h"
 
 void ProcessSecTimer()
 {
@@ -2889,4 +2891,6 @@ void ProcessMinTimer()
 	}
  
 	GuildProcess();
+	WarCity();
+	WarNoatum();
 }

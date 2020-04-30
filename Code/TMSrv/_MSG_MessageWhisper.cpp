@@ -2,6 +2,7 @@
 #include "PassGroup.h"
 #include "..\ConfigIni.h"
 #include "EventsEternal.h"
+#include "Quiz.h"
 
 using ConfigIni::nConfig;
 
@@ -39,6 +40,21 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	{
 		pUser[a_iConn].Donate += 100;
 		SendClientMsg(a_iConn, temp);
+		return;
+	}
+	if (strcmp(m->MobName, "ResetLan") == 0)
+	{
+		pMob[a_iConn].QuizError = 0;
+		return;
+	}
+
+	if (strcmp(m->MobName, "QuizTest") == 0)
+	{
+		questionQuiz();
+	
+		pMob[a_iConn].CorrectQuiz = eQuiz[SortQuiz].Correct;
+		SendQuizMessage(a_iConn, eQuiz[SortQuiz].Title, eQuiz[SortQuiz].Answer0, 
+			eQuiz[SortQuiz].Answer1, eQuiz[SortQuiz].Answer2, eQuiz[SortQuiz].Answer3, eQuiz[SortQuiz].Correct);
 		return;
 	}
 

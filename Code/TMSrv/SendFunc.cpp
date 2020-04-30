@@ -266,6 +266,27 @@ void SendClientMessageOk(int conn, char *Message, int Useless1, int Useless2) //
 }
 
 
+void SendQuizMessage(int conn, char* Title, char* Answer0, char* Answer1, char* Answer2, char* Answer3, char correct)
+{
+
+	MSG_Quiz sm;
+	memset(&sm, 0, sizeof(MSG_Quiz));
+
+	sm.Type = _MSG_Quiz;
+	sm.Size = sizeof(MSG_Quiz);
+	sm.ID = conn;
+
+	memcpy(sm.Title, Title, sizeof(sm.Title));
+	memcpy(sm.Asws[0], &correct, sizeof(sm.Asws[0]));
+	memcpy(sm.Asws[1], Answer0, sizeof(sm.Asws[1]));
+	memcpy(sm.Asws[2], Answer1, sizeof(sm.Asws[2]));
+	memcpy(sm.Asws[3], Answer2, sizeof(sm.Asws[3]));
+	memcpy(sm.Asws[4], Answer3, sizeof(sm.Asws[4]));
+	sm.Correct = correct;
+
+	pUser[conn].cSock.AddMessage((char*)&sm, sizeof(MSG_Quiz));
+}
+
 void SendClientSignal(int conn, int id, unsigned short signal)
 {
 	MSG_STANDARD sm;

@@ -4,6 +4,7 @@
 #include <windowsx.h>
 #include <string>
 #include <sstream>
+#include "Quiz.h"
 
 void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 {
@@ -1414,28 +1415,44 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 #pragma region >> Entrada do Território
 	if (Vol == 188)
 	{
+		if (pMob[a_iConn].QuizError >= MAX_QUIZ_ERROR)
+		{
+			sprintf(temp, "Errou [%d] de [%d] tentativas", pMob[a_iConn].QuizError, MAX_QUIZ_ERROR);
+			SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
+			SendClientMsg(a_iConn, "Digite o Comando /ResetQuiz para tentar novamente");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
 		int territorio = item->sIndex - 4111;
 
-		if (territorio <= 1 && pMob[a_iConn].Extra.ClassMaster != ARCH && pMob[a_iConn].Extra.ClassMaster != MORTAL)
-		{
-			SendItem(a_iConn, m->SourType, m->SourPos, item);
-			return;
-		}
-		else if (territorio >= 2 && pMob[a_iConn].Extra.ClassMaster != CELESTIAL && pMob[a_iConn].Extra.ClassMaster != SCELESTIAL && pMob[a_iConn].Extra.ClassMaster != CELESTIALCS)
-		{
-			SendItem(a_iConn, m->SourType, m->SourPos, item);
-			return;
-		}
-
-		if (territorio == 0)
-			DoTeleport(a_iConn, (3639 + rand() % 5 - 3), (3639 + rand() % 5 - 3));
-
-		else if (territorio == 1)
-			DoTeleport(a_iConn, (3782 + rand() % 5 - 3), (3527 + rand() % 5 - 3));
-
-		else
-			DoTeleport(a_iConn, (3911 + rand() % 5 - 3), (3655 + rand() % 5 - 3));
-
+	
+				//N
+			if (territorio == 0 && pMob[a_iConn].Extra.ClassMaster != MORTAL)
+			{
+				SendClientMsg(a_iConn, "Somente para Mortais.");
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+			
+				//M
+			if (territorio == 1 && pMob[a_iConn].Extra.ClassMaster != ARCH)
+			{
+				SendClientMsg(a_iConn, "Somente para Archs.");
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+			
+				//A
+			if (territorio == 2 && pMob[a_iConn].Extra.ClassMaster != CELESTIAL)
+			{
+				SendClientMsg(a_iConn, "Somente para Celestiais.");
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+		
+		
+			quizTerritory(a_iConn, item->sIndex, territorio);
+		
 		sprintf(temp, "useitem,territorio ticket used %d", territorio);
 		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
 
