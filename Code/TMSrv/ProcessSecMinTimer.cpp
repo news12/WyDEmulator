@@ -1009,8 +1009,8 @@ lbl_PST1:
 
 						if (pUser[i].LojinhaTimer >= 900) // 15 min porque passa de 2 em 2 ms
 						{
-							if (strcmp(pUser[IsConn].AutoTrade.Title, "#VemProToA") == 0)
-							{
+							//if (strcmp(pUser[IsConn].AutoTrade.Title, "#VemProEternal") == 0)
+							//{
 								STRUCT_ITEM Item;
 								memset(&Item, 0, sizeof(STRUCT_ITEM));
 
@@ -1022,7 +1022,7 @@ lbl_PST1:
 								SendClientMsg(IsConn, temp);
 
 								pUser[i].LojinhaTimer = 0;
-							}
+							//}
 						}
 					}
 				}
