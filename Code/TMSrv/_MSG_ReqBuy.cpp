@@ -48,7 +48,7 @@ void Exec_MSG_ReqBuy(int conn, char *pMsg)
 		return;
 	}
 
-	if (pMob[conn].TargetX >= pMob[targetID].TargetX - VIEWGRIDX && pMob[conn].TargetX <= pMob[targetID].TargetX + VIEWGRIDX&& pMob[conn].TargetY >= pMob[targetID].TargetY - VIEWGRIDY && pMob[conn].TargetY <= pMob[targetID].TargetY + VIEWGRIDY)
+	if (pMob[conn].TargetX >= pMob[targetID].TargetX - VIEWGRIDX && pMob[conn].TargetX <= pMob[targetID].TargetX + VIEWGRIDX && pMob[conn].TargetY >= pMob[targetID].TargetY - VIEWGRIDY && pMob[conn].TargetY <= pMob[targetID].TargetY + VIEWGRIDY)
 	{
 		if (itemPos < 0 || itemPos >= MAX_AUTOTRADE)
 			return;

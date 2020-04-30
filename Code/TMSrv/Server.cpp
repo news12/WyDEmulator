@@ -10518,6 +10518,53 @@ int  CreateTreasureBox(int x, int y, STRUCT_ITEM *item, int rotate, int State)
 	return TRUE;
 }
 
+int GetUserLojaMac(int conn)
+{
+	int userCount = 0;
+	
+		if (pUser[conn].Mode != USER_PLAY)
+			return FALSE;
+
+		if (pMob[conn].Mode == 0)
+			return FALSE;
+
+		for (int i = 1; i < MAX_USER; i++)
+		{
+			if (pUser[i].Mode != USER_PLAY)
+				continue;
+
+			if (i == conn) continue;
+
+			if (pMob[i].Mode == 0)
+				continue;
+		
+					if (pUser[conn].Mac[0] == pUser[i].Mac[0])
+					{
+						if (pUser[conn].Mac[1] == pUser[i].Mac[1])
+						{
+							if (pUser[conn].Mac[2] == pUser[i].Mac[2])
+							{
+								if (pUser[conn].Mac[3] == pUser[i].Mac[3])
+								{
+									if (pUser[conn].TradeMode && pUser[i].TradeMode)
+									{
+										RemoveTrade(conn);
+										SendClientMsg(conn, "Somente 1 conta por computador.");
+										userCount++;
+										continue;
+									}
+
+								}
+							}
+						}
+
+					}
+			
+		}
+	
+	return userCount;
+}
+
 int GetUserInAreaMac(int notUsage, int x1, int y1, int x2, int y2)
 {
 	int userCount = 0;

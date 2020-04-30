@@ -1419,7 +1419,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		{
 			sprintf(temp, "Errou [%d] de [%d] tentativas", pMob[a_iConn].QuizError, MAX_QUIZ_ERROR);
 			SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
-			SendClientMsg(a_iConn, "Digite o Comando /ResetQuiz para tentar novamente");
+			SendClientMsg(a_iConn, "Digite o Comando /ResetLan para tentar novamente");
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
 			return;
 		}

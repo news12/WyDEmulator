@@ -45,6 +45,10 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	if (strcmp(m->MobName, "ResetLan") == 0)
 	{
 		pMob[a_iConn].QuizError = 0;
+		sprintf(temp, "contador de erros do quiz resetado!!");
+		SendMsgExp(a_iConn, temp, TNColor::Red, false);
+		sprintf(temp, "Erros [%d] de [%d] tentativas", pMob[a_iConn].QuizError, MAX_QUIZ_ERROR);
+		SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
 		return;
 	}
 

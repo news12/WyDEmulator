@@ -537,6 +537,9 @@ lbl_PST1:
 
 	/* Área de evento */
 	GetUserInAreaMac(0, 2560, 2560, 2687, 2687);
+	
+	/*Loja Aberta*/
+	//GetUserLojaMac();
 
 	//GetUserInAreaMac2(0, 20, 20);
 

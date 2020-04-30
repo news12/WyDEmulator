@@ -14,7 +14,7 @@ void quizTerritory(int a_iConn, int Item, int Territorio)
 	pMob[a_iConn].ItemQuiz = Item;
 
 	questionQuiz();
-	//pMob[a_iConn].QuizError = 0;
+	
 	pMob[a_iConn].CorrectQuiz = eQuiz[SortQuiz].Correct;
 	SendQuizMessage(a_iConn, eQuiz[SortQuiz].Title, eQuiz[SortQuiz].Answer0,
 		eQuiz[SortQuiz].Answer1, eQuiz[SortQuiz].Answer2, eQuiz[SortQuiz].Answer3, eQuiz[SortQuiz].Correct);

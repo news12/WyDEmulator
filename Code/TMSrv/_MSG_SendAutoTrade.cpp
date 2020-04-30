@@ -20,6 +20,8 @@ void Exec_MSG_SendAutoTrade(int conn, char *pMsg)
 		return;
 	}
 
+
+
 	if (pUser[conn].TradeMode)
 	{
 		SendClientMsg(conn, g_pMessageStringTable[_NN_CantWhenAutoTrade]);
@@ -110,4 +112,7 @@ void Exec_MSG_SendAutoTrade(int conn, char *pMsg)
 	pUser[conn].ISTradTimer = timeGetTime();
 
 	GridMulticast(targetx, targety, (MSG_STANDARD*)&sm_cmt, 0);
+
+	GetUserLojaMac(conn);
+		
 }

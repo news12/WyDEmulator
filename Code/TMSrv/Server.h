@@ -195,6 +195,7 @@ int   CreateTreasureBox(int x, int y, STRUCT_ITEM *item, int rotate, int State);
 void ClearAreaQuest(int conn, int x1, int y1, int x2, int y2);
 int RemoveItem(int a_iMob, int a_iObject, int a_iCount);
 int GetUserInAreaMac(int notUsage, int x1, int y1, int x2, int y2);
+int GetUserLojaMac(int conn);
 int GetUserInAreaMac2(int notUsage, int x1, int y1);
 void SetBigCuboDoor(int state);
 

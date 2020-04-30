@@ -60,10 +60,9 @@ void Exec_MSG_ResponseQuiz(int a_iConn, char *pMsg)
 				sprintf(temp, "Errou [%d] de [%d] tentativas", pMob[a_iConn].QuizError, MAX_QUIZ_ERROR);
 				SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
 				Item.sIndex = pMob[a_iConn].ItemQuiz;
+
 				if (pMob[a_iConn].ItemQuiz)
 				PutItem(a_iConn, &Item);
-
-				//SendItem(a_iConn, pMob[a_iConn].SourTypeQuiz, pMob[a_iConn].SourPosQuiz, pMob[a_iConn].ItemQuiz);
 		
 		}
 
