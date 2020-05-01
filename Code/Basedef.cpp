@@ -3988,14 +3988,24 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 			{
 				int HP = MOB.CurrentScore.MaxHp * 20 / 100;
 				int DEF = MOB.CurrentScore.Ac *10 /100;
+
+				if (MOB.CurrentScore.MaxHp >= MAX_HP)
+					HP = 0;
+
 				MOB.CurrentScore.MaxHp += HP;
 				MOB.CurrentScore.Ac += DEF;
 			}
 
 			if (master & (1 << 5))//Poder
 			{
+				int HP = MOB.CurrentScore.MaxHp * 20 / 100;
 				int Dano = MOB.CurrentScore.Damage * 20 / 100;
 				int Magia = MOB.Magic * 5 / 100;
+
+				if (MOB.CurrentScore.MaxHp >= MAX_HP)
+					HP = 0;
+
+				MOB.CurrentScore.MaxHp += HP;
 
 				if (Dano >= MAX_DAMAGE)
 					MOB.CurrentScore.Damage = MAX_DAMAGE;
@@ -4010,7 +4020,12 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 			}
 
 
-		//	if (master & (1 << 6))//Precisão //precisa criar
+			if (master & (1 << 6))//Precisão
+			{
+				int SkillLearn = 1 << (35 - 7);
+
+				MOB.LearnedSkill = MOB.LearnedSkill | SkillLearn;
+			}
 	
 			if (master & (1 << 7))//Magia| MP por HP
 			{
