@@ -224,8 +224,18 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*(short*)&buffer[6] = GetClientID();
 		SendPacket(&buffer[0], 12);
 
-		sprintf_s(line1, 128, "teste %d", teste);
+		sprintf_s(line1, 128, "[Item Refinamento]");
 		*color1 = Yellow;
+		sprintf_s(line3, 128, "Item utilizado para refinar");
+		*color3 = White;
+		sprintf_s(line4, 128, "sets, armas,acessorios etc...");
+		*color4 = White;
+		sprintf_s(line6, 128, "Aumenta o lvl do item em +1");
+		*color6 = Orange;
+		sprintf_s(line8, 128, "em caso de sucesso");
+		*color8 = Orange;
+		sprintf_s(line10, 128, "itens Até +9 e +10");
+		*color10 = Yellow;
 		return 10;
 
 	}

@@ -24,7 +24,30 @@ INT32 HKD_Macro_NewPotions(STRUCT_ITEM* item, INT32 type)
 	{
 		switch (item->sIndex)
 		{
+		case 405:
+			return TRUE;
+			break;
+		case 407:
+			return TRUE;
+			break;
+		case 408:
+			return TRUE;
+			break;
 		case 409:
+			return TRUE;
+			break;
+		case 432:
+		case 433:
+		case 434:
+		case 435:
+			return TRUE;
+			break;
+		case 686:
+		case 687:
+		case 688:
+		case 689:
+		case 690:
+		case 691:
 			return TRUE;
 			break;
 		case 3431:

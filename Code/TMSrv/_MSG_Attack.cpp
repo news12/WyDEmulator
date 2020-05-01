@@ -1934,6 +1934,16 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			if (dam <= 0)
 				dam = 1;
 
+			for (size_t buff = 0; buff < MAX_AFFECT; buff++)
+			{
+				if (pMob[a_iConn].Affect[buff].Type == 8)
+				{
+					int master = pMob[a_iConn].Affect[buff].Level;
+					if (master & (1 << 6))//bonus precisão
+						pMob[idx].Parry -= 30;
+				}
+			}
+
 
 			if (pMob[idx].ReflectPvP > 0)
 				dam = dam - (dam / 100 * pMob[idx].ReflectPvP);

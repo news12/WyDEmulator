@@ -166,6 +166,14 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				return;
 			}
 
+			//Capa Celestial
+			if (dest->sIndex > 3197 || dest->sIndex == 3198 || dest->sIndex == 3199)
+			{
+				SendClientMsg(a_iConn, "Esete item não pode ser refinado dessa forma!!");
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
 			int isSanc = BASE_GetItemAbility(dest, EF_NOSANC);
 
 			if (isSanc)
