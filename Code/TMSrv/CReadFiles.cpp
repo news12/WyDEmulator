@@ -16,6 +16,8 @@
 #include "Language.h"
 #include "../ConfigIni.h"
 
+using ConfigIni::nConfig;
+
 const char* const CReadFiles::SANC_RATE_PATH = "../../Common/Settings/SancRate.txt";
 const char* const CReadFiles::QUESTS_RATE_PATH = "../../Common/Settings/QuestsRate.txt";
 const char* const CReadFiles::COMP_RATE_PATH = "../../Common/Settings/CompRate.txt";
@@ -57,7 +59,7 @@ CReadFiles::CReadFiles()
 	ReadChallanger();
 	ReadGuild();
 }
-
+/*
 void CReadFiles::ReadSancRate()
 {
 	FILE *fp = NULL;
@@ -254,7 +256,18 @@ void CReadFiles::ReadSancRate()
 
 	fclose(fp);
 }
+*/
 
+void CReadFiles::ReadSancRate()
+{
+	memset(jsonSancRate, 0, sizeof(jsonSancRate));
+	memset(g_pSancRate, 0, sizeof(g_pSancRate));
+
+	int status = nConfig::ReadSancRate(PATH_SETTINGS, "sancRate.json");
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler sancRate.json", "FILE ERROR", NULL);
+	
+}
 void CReadFiles::ReadQuestsRate()
 {
 	FILE *fp = NULL;

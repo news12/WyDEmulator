@@ -4090,6 +4090,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	BASE_ReadQuestDiaria();
 	BASE_ReadGuardFile();
 	ReadConfig();
+	CReadFiles::ReadSancRate();
 	ReadQuiz();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
@@ -4674,21 +4675,25 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&File");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_MOBRELOAD, "&ReloadMob");
+		AppendMenu(hSubMenu, MF_STRING, IDC_MOBRELOAD, "&LoadMob");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Mob");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_REBOOT, "&Reboot");
+		AppendMenu(hSubMenu, MF_STRING, IDC_REBOOT, "&Desligar");
 		AppendMenu(hSubMenu, MF_STRING, IDC_SAVEALL, "&SaveAll");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&ReadGuild");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&ReadGuildName");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&ReadGameConfig");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&ReadSkillData");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&LoadGuild");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&LoadGuildName");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&LoadGameConfig");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&LoadSkillData");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&ReadQuiz");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&LoadQuiz");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
+
+		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSANCRATE, "&LoadSanc");
+		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
 
 		SetMenu(hWnd, hMenu);
 	} break;
@@ -4727,6 +4732,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READQUIZ:
 			ReadQuiz();
+			break;
+
+		case IDC_READSANCRATE:
+			CReadFiles::ReadSancRate();
 			break;
 
 		case IDC_READGAMECONFIG:

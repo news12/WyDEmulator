@@ -23,6 +23,8 @@ namespace ConfigIni {
 		static int WriteEventsEternal(string path, string file, int key,int nValue);
 		static int ReadQuiz(string path, string file);
 		static int WriteQuiz(string path, string file);
+		static int ReadSancRate(string path, string file);
+		static int WriteSancRate(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

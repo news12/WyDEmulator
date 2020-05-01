@@ -459,6 +459,7 @@ int WriteConfig() {
 
 }
 
+
 int ReadBaseMob() {
 #pragma region Load Base Characters
 

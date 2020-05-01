@@ -20,7 +20,7 @@ void Exec_MSG_ReqTeleport(int a_iConn, char *pMsg)
 						
 	if (reqcoin <= pMob[a_iConn].MOB.Coin)
 	{
-		if (reqcoin > 0)
+		if (reqcoin >= 0)
 		{
 			pMob[a_iConn].MOB.Coin -= reqcoin;
 			SendEtc(a_iConn);

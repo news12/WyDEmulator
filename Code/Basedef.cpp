@@ -79,9 +79,9 @@ int CurrentClientGuild = -1;
 int g_pSancRate[3][12] =
 {
 	100, 100, 100, 85, 60, 30, 00, 00, 00, 00, 00, 00, // PO
-    //+0,+1,+2,+3,+4,+5,+6,+7,+8,+9
-	100, 100, 100, 100, 100, 60, 20, 10, 5, 5, 00, 00, // PL
-	100, 80, 60, 40, 20, 10, 10, 10, 5, 5, 5, 5  // Amagos
+   //+0, +1,  +2,   +3,  +4,  +5, +6, +7, +8, +9
+	100, 100, 100, 100, 100, 100, 50, 20, 10, 5, 00, 00, // PL
+	100, 80, 70, 60, 50, 40, 30, 20, 10, 10, 10, 5  // Amagos
 };
 int g_pSancGrade[2][5] =
 {
@@ -2409,16 +2409,16 @@ int BASE_GetSuccessRate(STRUCT_ITEM *item, int OriLacto)
 	if(sanc == REF_10 && OriLacto != 2)
 		return 15;
 
-	if(sanc == REF_10 && OriLacto == 2)
+	if((sanc < 9 || sanc == REF_10) && OriLacto == 2)
 		return 100;
 
 	sanc %= 10;
 	int succ = BASE_GetItemSancSuccess(item);
 	int rate = g_pSancRate[OriLacto][sanc + 1];
 
-	rate += succ * g_pSuccessRate[sanc + 1];
+	rate += succ /** g_pSuccessRate[sanc + 1]*/;
 
-	return OriLacto == 2 ? 100 : rate;
+	return /*OriLacto == 2 ? 100 :*/ rate;
 }
 
 int BASE_GetGrowthRate(STRUCT_ITEM *item)
@@ -3186,6 +3186,7 @@ void BASE_ClearMobExtra(STRUCT_MOBExtra *Extra)
 void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExtra *Extra, int *ExpBonus, int *ForceMobDamage, int isSummon, int *Accuracy, int *AbsHp, int *ForceDamage)
 {
 	MOB.Rsv = 0;
+
 	//if (!strcmp(MOB.MobName, "MyBM") || !strcmp(MOB.MobName, "NewsGames"))
 	//{
 	//	int eu = 1;
@@ -3958,6 +3959,78 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 		}
 
+		//Buffs Joias PvP
+		else if (Affect[i].Type == 8)
+		{
+			int master = Affect[i].Level;
+
+			/*if (master & (1 << 0))//sagacidade
+				criado no  _MSG_Attack
+			*/
+	
+			if (master & (1 << 1))//Resistencia
+			{
+				Fogo += 25;
+				Sagrado += 25;
+				Trovao += 25;
+				Gelo += 25;
+			}
+			if (master & (1 << 2))//Revelação
+			{
+				MOB.Rsv |= RSV_VISION;
+			}
+
+		/*if (master & (1 << 3))//Absorção de HP
+			criado no _MSG_Attack
+		*/
+
+			if (master & (1 << 4))//Proteção
+			{
+				int HP = MOB.CurrentScore.MaxHp * 20 / 100;
+				int DEF = MOB.CurrentScore.Ac *10 /100;
+				MOB.CurrentScore.MaxHp += HP;
+				MOB.CurrentScore.Ac += DEF;
+			}
+
+			if (master & (1 << 5))//Poder
+			{
+				int Dano = MOB.CurrentScore.Damage * 20 / 100;
+				int Magia = MOB.Magic * 5 / 100;
+
+				if (Dano >= MAX_DAMAGE)
+					MOB.CurrentScore.Damage = MAX_DAMAGE;
+				else
+					MOB.CurrentScore.Damage += Dano;
+
+				if (Magia >= MAX_DAMAGE_MG)
+					Magic = MAX_DAMAGE_MG;
+				else
+					Magic += Magia;
+
+			}
+
+
+		//	if (master & (1 << 6))//Precisão //precisa criar
+	
+			if (master & (1 << 7))//Magia| MP por HP
+			{
+				int MP = MOB.CurrentScore.MaxMp / 2;
+				int HP = MOB.CurrentScore.MaxHp;
+				HP += MP;
+				if (HP >= MAX_HP)
+					MOB.CurrentScore.MaxHp = MAX_HP;
+				else
+					MOB.CurrentScore.MaxHp += HP;
+
+				if (MP >= MAX_MP)
+					MOB.CurrentScore.MaxMp = MAX_MP;
+				else
+					MOB.CurrentScore.MaxMp = MP;
+
+			}
+			
+		}
+	
         // Pergaminho das Transformações
 		else if (Affect[i].Type == 33)
 		{

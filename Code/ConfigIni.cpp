@@ -16,6 +16,7 @@ STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
 STRUCT_EVENTS eEvents;
 STRUCT_QUIZ eQuiz[];
+int jsonSancRate[3][12];
 int TOTAL_QUIZ;
 int goldQuiz;
 long int expQuiz;
@@ -248,6 +249,115 @@ int ConfigIni::nConfig::WriteQuiz(string path, string file)
 			]
 	
 	
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadSancRate(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteSancRate(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	for (auto& x : nJson["SANC"]["ORI"].items())
+	{
+		x.value().get_to(jsonSancRate[0][stoi(x.key())]);
+	}
+
+	for (auto& x : nJson["SANC"]["LAC"].items())
+	{
+		x.value().get_to(jsonSancRate[1][stoi(x.key())]);
+	}
+
+	for (auto& x : nJson["SANC"]["AMANGO"].items())
+	{
+		x.value().get_to(jsonSancRate[1][stoi(x.key())]);
+	}
+
+	memmove(g_pSancRate, jsonSancRate, sizeof(g_pSancRate));
+
+	return TRUE;
+}
+
+int ConfigIni::nConfig::WriteSancRate(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New sancRate.json
+	auto nJson = R"(
+{
+"SANC": {
+		"ORI": {
+				"0":100,
+				"1":100,
+				"2":100,
+				"3":85,
+				"4":70,
+				"5":50,
+				"6":00,
+				"7":00,
+				"8":00,
+				"9":00,
+				"10":00,
+				"11":00
+				},
+		"LAC": {
+				"0":100,
+				"1":100,
+				"2":100,
+				"3":100,
+				"4":100,
+				"5":100,
+				"6":70,
+				"7":60,
+				"8":30,
+				"9":10,
+				"10":00,
+				"11":00
+				},
+				
+		"AMAGO": {
+				"0":100,
+				"1":100,
+				"2":100,
+				"3":100,
+				"4":100,
+				"5":100,
+				"6":70,
+				"7":60,
+				"8":30,
+				"9":10,
+				"10":10,
+				"11":05
+				}
+
+		}
+
 })"_json;
 
 #pragma endregion

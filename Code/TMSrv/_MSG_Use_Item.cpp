@@ -957,10 +957,10 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 
 		int OriLacto = Vol - 4;
-		int RateSucess = item->sIndex != 4141 && item->sIndex != 412 ? BASE_GetSuccessRate(dest, Vol - 4) : BASE_GetSuccessRate(dest, 2);
+		int RateSucess = item->sIndex != 4141 ? BASE_GetSuccessRate(dest, OriLacto) : BASE_GetSuccessRate(dest, 2);
 		int _rand = rand() % 100;
 
-		if (item->sIndex == 413)
+		/*if (item->sIndex == 413)
 		{
 			if (sanc == 7)
 				RateSucess = 20;
@@ -971,7 +971,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			else if (sanc == 9)
 				RateSucess = 5;
 
-		}
+		}*/
 
 		int ItemGrade = BASE_GetItemAbility(dest, EF_ITEMLEVEL);
 
@@ -2721,8 +2721,8 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				ProcessAdultMount(a_iConn, 0);
 				return;
 			}
-
 			else
+				sprintf(temp, "%s", g_pMessageStringTable[_NN_Refine_Success]);
 				printf(temp, "useitem,mount refine success %d+%d (%d,%d,%d)", dest->sIndex, dest->stEffect[1].cValue,
 					item->stEffect[0].cEffect, item->stEffect[1].cEffect, item->stEffect[2].cEffect);
 
@@ -2751,7 +2751,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 			if (dest->stEffect[1].cValue >= 60) // Verificação para saber se a vitalidade é maior que 60
 				dest->stEffect[1].cValue = 60; // iguala a vitalidade a 60 para não bugar
-
+		
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Mount_Growth]);
 			ProcessAdultMount(a_iConn, 0);
 			RemoveParty(a_iConn);
@@ -3542,28 +3542,28 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		int joia = 0;
 
 		if (item->sIndex == 3200)
-			joia = 0;
+			joia = 0;//Jóia_da_Sagacidade Lv1
 
 		else if (item->sIndex == 3201)
-			joia = 1;
+			joia = 1;//Jóia_da_Resistência LV2
 
 		else if (item->sIndex == 3202)
-			joia = 2;
+			joia = 2;//Jóia_da_Revelação Lv3
 
 		else if (item->sIndex == 3204)
-			joia = 3;
+			joia = 3;//Jóia_da_Absorção Lv4
 
 		else if (item->sIndex == 3205)
-			joia = 4;
+			joia = 4;//Jóia_da_Proteção Lv5
 
 		else if (item->sIndex == 3206)
-			joia = 5;
+			joia = 5;//Jóia_do_Poder Lv6
 
 		else if (item->sIndex == 3208)
-			joia = 6;
+			joia = 6;//Jóia_da_Precisão Lv7
 
 		else if (item->sIndex == 3209)
-			joia = 7;
+			joia = 7;//Jóia_da_Magia Lv8
 
 		if (sAffect == -1)
 		{

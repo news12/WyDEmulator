@@ -91,6 +91,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READGAMECONFIG 9006
 #define IDC_READSKILLDATA 9007
 #define IDC_READQUIZ 908
+#define IDC_READSANCRATE 909
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -546,6 +547,7 @@ struct STRUCT_MOB
 	short macroOn;
 	short MacroInside;
 	short SalaClear;
+	//não criar mais variavel nessa estrutura
 
 };
 struct WYDClient
@@ -2977,6 +2979,7 @@ extern int QuizOn;
 extern int SortQuiz;
 extern short gameConfig[maxGameConfig][MaxSubConfig];
 extern STRUCT_TREASURE ng_pTreasure[8];
+extern int jsonSancRate[3][12];
 #pragma endregion
 
 #endif

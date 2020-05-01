@@ -126,6 +126,17 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			if ((pMob[a_iConn].MOB.Rsv & RSV_CAST) != 0 && skilldelay >= 2)
 				skilldelay--;
 
+			
+			for (int i = 0; i < MAX_AFFECT; i++)
+			{
+				if (pMob[a_iConn].Affect[i].Type == 8)
+				{
+					int master = pMob[a_iConn].Affect[i].Level;
+					if (master & (1 << 0))//bonus sagacidade
+						skilldelay--;
+				}
+			}
+
 			skilldelay = skilldelay * 1000;
 
 			if (isTime < 700)
@@ -2162,12 +2173,40 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			LinkMountHp(idx);
 
 #pragma region Joia Abs
-		if (pMob[a_iConn].HpAbs != 0 && (rand() % 2) == 0 && dam >= 1)
+		if (dam >= 1)
 		{
-			int RecHP = (int)((dam * pMob[a_iConn].HpAbs + 1) / 100);
+			for (size_t buff = 0; buff < MAX_AFFECT; buff++)
+			{
+				if (pMob[a_iConn].Affect[buff].Type == 8)
+				{
+					int master = pMob[a_iConn].Affect[buff].Level;
+					if (master & (1 << 3))//bonus Abs
+					{
+						int hpAtual = pMob[a_iConn].MOB.CurrentScore.Hp;
+						int maxHpAtual = pMob[a_iConn].MOB.CurrentScore.MaxHp;
+						int RecHP = (int)((dam * 2) / 100);
 
-			if (RecHP > 350)
-				RecHP = 350;
+						if (RecHP > 350)
+							RecHP = 350;
+
+						if (hpAtual >= maxHpAtual)
+							RecHP = 0;
+
+						int newHP = pMob[a_iConn].MOB.CurrentScore.Hp + RecHP;
+
+						if (newHP > maxHpAtual)	
+						{
+							newHP -= maxHpAtual;
+							RecHP = newHP;
+						}
+
+						pMob[a_iConn].MOB.CurrentScore.Hp += RecHP;
+
+			
+					}
+				}
+			}
+			
 		}
 #pragma endregion
 
