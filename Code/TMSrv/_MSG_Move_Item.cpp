@@ -366,7 +366,7 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 					BASE_SetItemDate(&save2, 30);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
-
+				//Montaria 3 dias
 				if (save1.sIndex >= 3980 && save1.sIndex <= 3982 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetItemDate(&save1, 3);
@@ -378,7 +378,7 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 					BASE_SetItemDate(&save2, 3);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
-
+				//Montaria 15 dias
 				if (save1.sIndex >= 3983 && save1.sIndex <= 3985 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetItemDate(&save1, 15);
@@ -391,7 +391,21 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
 
-				if (save1.sIndex >= 3980 && save1.sIndex <= 3989 && BASE_CheckItemDate(&save1) || save1.sIndex >= 4150 && save1.sIndex <= 4188 && BASE_CheckItemDate(&save1))
+				//Montaria 30 dias
+				if (save1.sIndex >= 3986 && save1.sIndex <= 3989 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				{
+					BASE_SetItemDate(&save1, 30);
+					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
+				}
+
+				if (save2.sIndex >= 3986 && save2.sIndex <= 3989 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
+				{
+					BASE_SetItemDate(&save2, 30);
+					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
+				}
+
+				//limpa os itens de cash caso o tempo tenha sido esgotado
+				if (save1.sIndex >= 3986 && save1.sIndex <= 3989 && BASE_CheckItemDate(&save1) || save1.sIndex >= 4150 && save1.sIndex <= 4188 && BASE_CheckItemDate(&save1))
 				{
 					BASE_ClearItem(&save1);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);

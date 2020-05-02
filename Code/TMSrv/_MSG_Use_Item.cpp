@@ -142,6 +142,14 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			return;
 		}
 
+		//Capa Celestial
+		if (dest->sIndex > 3197 || dest->sIndex == 3198 || dest->sIndex == 3199)
+		{
+			SendClientMsg(a_iConn, "Esete item não pode ser refinado dessa forma!!");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+
 		int Egg = 0;
 
 		if (dest->sIndex >= 2300 && dest->sIndex < 2330)
@@ -166,13 +174,6 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				return;
 			}
 
-			//Capa Celestial
-			if (dest->sIndex > 3197 || dest->sIndex == 3198 || dest->sIndex == 3199)
-			{
-				SendClientMsg(a_iConn, "Esete item não pode ser refinado dessa forma!!");
-				SendItem(a_iConn, m->SourType, m->SourPos, item);
-				return;
-			}
 
 			int isSanc = BASE_GetItemAbility(dest, EF_NOSANC);
 
@@ -2000,6 +2001,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 		if ((pMob[a_iConn].Extra.ClassMaster == CELESTIAL || pMob[a_iConn].Extra.ClassMaster == CELESTIALCS || pMob[a_iConn].Extra.ClassMaster == SCELESTIAL) && pMob[a_iConn].MOB.CurrentScore.Level >= 180)
 		{
+			SendClientMsg(a_iConn, "Classes Celestiais somente Lv. 179 menos");
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
 
 			return;

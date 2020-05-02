@@ -132,7 +132,7 @@ void DecideWinner()
 {
 	for (int i = 0; i < ValidGuild; i++)
 	{
-		if (i == 3 || i == 4)
+		if (/*i == 3 ||*/ i == 4)
 			continue;
 
 		int ChargeSurvivor = 0;
