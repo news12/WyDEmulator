@@ -115,6 +115,9 @@
     <Filter Include="Source Files\Packages\State Playing\Guerras\Guerra de Cidades">
       <UniqueIdentifier>{768e9d5a-fe96-41b9-ab8f-1f0e70e179c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Guerras\Guerra de Reinos">
+      <UniqueIdentifier>{eca3ce69-5117-426e-aa2a-91fe3e66f4ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -438,6 +441,9 @@
     <ClCompile Include="Quiz.cpp">
       <Filter>Source Files\Packages\State Playing\Quest Subjects\specials</Filter>
     </ClCompile>
+    <ClCompile Include="WarOfKingdom.cpp">
+      <Filter>Source Files\Packages\State Playing\Guerras\Guerra de Reinos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -513,6 +519,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Quiz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WarOfKingdom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

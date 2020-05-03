@@ -3945,8 +3945,8 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 		// Poção Saúde,Vigor
 		else if (Affect[i].Type == 35)
 		{
-		int HP = MOB.CurrentScore.MaxHp * 30 / 100;
-		int MP = MOB.CurrentScore.MaxMp * 15 / 100;
+		int HP = MOB.CurrentScore.MaxHp * 15 / 100;
+		int MP = MOB.CurrentScore.MaxMp * 7 / 100;
 		if (HP >= MAX_HP)
 			MOB.CurrentScore.MaxHp = MAX_HP;
 		else
@@ -3986,7 +3986,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 			if (master & (1 << 4))//Proteção
 			{
-				int HP = MOB.CurrentScore.MaxHp * 20 / 100;
+				int HP = MOB.CurrentScore.MaxHp * 10 / 100;
 				int DEF = MOB.CurrentScore.Ac *10 /100;
 
 				if (MOB.CurrentScore.MaxHp >= MAX_HP)
@@ -3998,7 +3998,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 			if (master & (1 << 5))//Poder
 			{
-				int HP = MOB.CurrentScore.MaxHp * 20 / 100;
+				int HP = MOB.CurrentScore.MaxHp * 10 / 100;
 				int Dano = MOB.CurrentScore.Damage * 20 / 100;
 				int Magia = MOB.Magic * 5 / 100;
 

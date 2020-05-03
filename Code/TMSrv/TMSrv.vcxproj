@@ -109,6 +109,7 @@
     <ClCompile Include="NTask_Xamã.cpp" />
     <ClCompile Include="Quiz.cpp" />
     <ClCompile Include="WarOfCity.cpp" />
+    <ClCompile Include="WarOfKingdom.cpp" />
     <ClCompile Include="WarOfNoatum.cpp" />
     <ClCompile Include="_MSG_CombineItemLoki.cpp" />
     <ClCompile Include="_MSG_ProcessCommand.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="SendFunc.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="WarOfCity.h" />
+    <ClInclude Include="WarOfKingdom.h" />
     <ClInclude Include="WarOfNoatum.h" />
     <ClInclude Include="WarOfTower.h" />
   </ItemGroup>

@@ -483,8 +483,9 @@ __declspec(naked) void HookNaked::NKD_ItemPrice_FormatDecimal_02()
 		static int retn = 0;
 		__asm
 		{
-			LEA EAX, DWORD PTR SS : [EBP - 1278]
-			PUSH EAX
+
+			//LEA EAX, DWORD PTR SS : [EBP - 01278]
+			//PUSH EAX
 
 			MOV EDX, DWORD PTR SS : [EBP - 01154h]
 			ADD EDX, EAX
