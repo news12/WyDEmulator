@@ -60,5 +60,3 @@ GroupEnter +nick[16] +password[5] -> entra em um grupo pré-definido por senha -
 25. Separação por arquivo e correção nas guerras de Noatum e cidades --------------------------------------(x)
 
 26. separação por aquivo e acerto na guera RvR ------------------------------------------------------------(x)
-
-27.
