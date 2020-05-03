@@ -24,6 +24,12 @@ void fVemProEternal(int ClientID)
 	char* item3 = "Shire 3dias";
 	STRUCT_ITEM Item;
 	Item.sIndex = 3980;
+	Item.stEffect[0].cEffect = 0;
+	Item.stEffect[0].cValue = 0;
+	Item.stEffect[1].cEffect = 0;
+	Item.stEffect[1].cValue = 0;
+	Item.stEffect[2].cEffect = 0;
+	Item.stEffect[2].cValue = 0;
 	
 	/*
 	Item.stEffect[0].cEffect = 106;
