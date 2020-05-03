@@ -143,7 +143,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 
 		//Capa Celestial
-		if (dest->sIndex > 3196 || dest->sIndex < 3199)
+		if (dest->sIndex > 3196 && dest->sIndex < 3199)
 		{
 			SendClientMsg(a_iConn, "Esete item não pode ser refinado dessa forma!!");
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
