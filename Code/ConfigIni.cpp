@@ -294,9 +294,9 @@ int ConfigIni::nConfig::ReadSancRate(string path, string file)
 		x.value().get_to(jsonSancRate[1][stoi(x.key())]);
 	}
 
-	for (auto& x : nJson["SANC"]["AMANGO"].items())
+	for (auto& x : nJson["SANC"]["AMAGO"].items())
 	{
-		x.value().get_to(jsonSancRate[1][stoi(x.key())]);
+		x.value().get_to(jsonSancRate[2][stoi(x.key())]);
 	}
 
 	memmove(g_pSancRate, jsonSancRate, sizeof(g_pSancRate));

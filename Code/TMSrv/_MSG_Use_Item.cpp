@@ -151,7 +151,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 
 		int Egg = 0;
-
+		//ovos de montaria
 		if (dest->sIndex >= 2300 && dest->sIndex < 2330)
 			Egg = 1;
 
@@ -2689,7 +2689,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			ProcessAdultMount(a_iConn, 0);
 			return;
 		}
-
+		//montarias
 		if (dest->sIndex >= 2360 && dest->sIndex < 2390)
 		{
 			int rate = BASE_GetGrowthRate(dest);
@@ -2731,10 +2731,12 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				ProcessAdultMount(a_iConn, 0);
 				return;
 			}
-			else
+			
 				sprintf(temp, "%s", g_pMessageStringTable[_NN_Refine_Success]);
 				printf(temp, "useitem,mount refine success %d+%d (%d,%d,%d)", dest->sIndex, dest->stEffect[1].cValue,
 					item->stEffect[0].cEffect, item->stEffect[1].cEffect, item->stEffect[2].cEffect);
+
+				SendEmotion(a_iConn, 14, 3);
 
 			MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
 		}
@@ -2769,7 +2771,8 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 
 		if (dest->sIndex >= 2330 && dest->sIndex < 2360)
-			MountProcess(a_iConn, 0);
+			MountProcess(a_iConn, &pMob[a_iConn].MOB.Equip[14]);
+		
 
 		if (dest->sIndex >= 2360 && dest->sIndex < 2390)
 			ProcessAdultMount(a_iConn, 0);
@@ -2781,6 +2784,9 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 		else
 			memset(item, 0, sizeof(STRUCT_ITEM));
+
+		sprintf(temp, "Sua montaria subiu para lv. [%d]", level);
+		SendMsgExp(a_iConn, temp, TNColor::Blue, false);
 
 		return;
 	}
