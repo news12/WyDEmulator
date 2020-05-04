@@ -113,6 +113,13 @@ void Exec_MSG_SendAutoTrade(int conn, char *pMsg)
 
 	GridMulticast(targetx, targety, (MSG_STANDARD*)&sm_cmt, 0);
 
-	GetUserLojaMac(conn);
+	if (pUser[conn].OnlyTrade)
+		SendClientMsg(conn, "Somente a Conta principal participarar do evento Loja afk..");
+	else
+		SendClientMsg(conn, "Essa é sua Conta principal, você estara participando do evento Loja afk.");
+
+	
+
+	//GetUserLojaMac(conn);
 		
 }

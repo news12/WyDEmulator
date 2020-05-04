@@ -338,8 +338,8 @@ void ProcessDBMessage(char *Msg)
 											   break;
 										   }
 									   }
-
-									   if (m->Unknow_28 != 1)
+									   //itens direto no bau
+									   /*if (m->Unknow_28 != 1)
 									   {
 										   for (int i = 0; i < MAX_CARGO - 2; i++)
 										   {
@@ -357,7 +357,7 @@ void ProcessDBMessage(char *Msg)
 
 										   m->Cargo[17].sIndex = 3983;
 										   //BASE_SetItemDate(&m->Cargo[17], 3);
-									   }
+									   }*/
 
 									   pUser[conn].IsBlocked = m->IsBlocked;
 									   strcpy(pUser[conn].BlockPass, m->BlockPass);

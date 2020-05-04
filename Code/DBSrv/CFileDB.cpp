@@ -2269,8 +2269,8 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 		sm2.Type = _MSG_DBClientMessage;
 		sm2.ID = m->ID;
 		sm2.Size = sizeof(MSG_DBClientMessage);
-
-		strcpy(sm2.String, "Sua conta agora é a primária.");
+		
+		strcpy(sm2.String, "Sua conta agora é a principal.");
 
 		pUser[conn].cSock.SendOneMessage((char*)&sm2, sizeof(MSG_DBClientMessage));
 	} break;

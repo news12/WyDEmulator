@@ -42,6 +42,46 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
+
+#pragma region /contaPrincipal
+	 if (strcmp(m->MobName, "DefAccount") == 0 || strcmp(m->MobName, "DefConta") == 0)
+	{
+		 if (pUser[a_iConn].TradeMode)
+		 {
+			 SendClientMsg(a_iConn, "Comando indisponível com loja aberta!");
+			 return;
+		 }
+
+		MSG_DBPrimaryAccount sm;
+		memset(&sm, 0, sizeof(MSG_DBPrimaryAccount));
+
+		sm.Size = sizeof(MSG_DBPrimaryAccount);
+		sm.Type = _MSG_DBPrimaryAccount;
+		sm.ID = a_iConn;
+
+		memcpy(&sm.Mac, pUser[a_iConn].Mac, sizeof(sm.Mac));
+		sm.IP = pUser[a_iConn].IP;
+
+		DBServerSocket.SendOneMessage((char*)&sm, sizeof(MSG_DBPrimaryAccount));
+
+		return;
+	}
+
+	 if (strcmp(m->MobName, "Primary") == 0 || strcmp(m->MobName, "Principal") == 0)
+	 {
+		 if (pUser[a_iConn].OnlyTrade)
+		 {
+			 sprintf(temp, "Essa conta não esta definida como principal");
+			 SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
+		 }
+		 else
+		 {
+			 sprintf(temp, "Essa conta esta definida como principal");
+			 SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
+		 }
+		 return;
+	 }
+#pragma endregion
 	if (strcmp(m->MobName, "ResetLan") == 0)
 	{
 		pMob[a_iConn].QuizError = 0;

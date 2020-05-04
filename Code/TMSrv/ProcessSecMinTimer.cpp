@@ -901,10 +901,11 @@ lbl_PST1:
 
 						if (IsConn == -1) { IsConn = i; }
 
-						if (pUser[i].LojinhaTimer >= 900) // 15 min porque passa de 2 em 2 ms
+						if (pUser[i].LojinhaTimer >= 900) //  900 = 15 min porque passa de 2 em 2 ms
 						{
-							//if (strcmp(pUser[IsConn].AutoTrade.Title, "#VemProEternal") == 0)
-							//{
+							//verifica se é a conta principal
+							if (!pUser[i].OnlyTrade)
+							{
 								STRUCT_ITEM Item;
 								memset(&Item, 0, sizeof(STRUCT_ITEM));
 
@@ -916,7 +917,7 @@ lbl_PST1:
 								SendClientMsg(IsConn, temp);
 
 								pUser[i].LojinhaTimer = 0;
-							//}
+							}
 						}
 					}
 				}

@@ -86,8 +86,8 @@ bool HookNaked::Start()
 		JMP_NEAR(0x005385AC, HookNaked::NKD_GetItemAbility_Esfera, 3);
 
 		/* Adicionar novos pots hp/mp no macro */
-		JMP_NEAR(0x0045169A, HookNaked::NKD_Macro_NewPotions_HP);
-		JMP_NEAR(0x00451BA0, HookNaked::NKD_Macro_NewPotions_MP);
+		//JMP_NEAR(0x0045169A, HookNaked::NKD_Macro_NewPotions_HP);
+		//JMP_NEAR(0x00451BA0, HookNaked::NKD_Macro_NewPotions_MP);
 
 		/* Fix Macro Mage */
 		JE_NEAR(0x04974C7, HookNaked::NKD_FixMageMacro);

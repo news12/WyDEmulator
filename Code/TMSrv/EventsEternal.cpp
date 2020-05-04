@@ -31,15 +31,6 @@ void fVemProEternal(int ClientID)
 	Item.stEffect[2].cEffect = 0;
 	Item.stEffect[2].cValue = 0;
 	
-	/*
-	Item.stEffect[0].cEffect = 106;
-	Item.stEffect[0].cValue = 1;
-	Item.stEffect[1].cEffect = 109;
-	Item.stEffect[1].cValue = 5;
-	Item.stEffect[2].cEffect = 110;
-	Item.stEffect[2].cValue = 20;
-	*/
-
 	PutItem(ClientID, &Item);
 
 	int sAffect = GetEmptyAffect(ClientID, 30);

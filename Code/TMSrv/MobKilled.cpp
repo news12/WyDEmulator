@@ -442,28 +442,28 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								if (pMob[party].Extra.ClassMaster == ARCH)
 								{
 									if (myLevel <= 200) // Exp Média 90k
-										exp /= 0.84f;
+										exp /= 0.72f;
 
 									else if (myLevel <= 300)// Exp Média 70k
-										exp /= 0.72f;
+										exp /= 0.84f;
 
 									else if (myLevel <= 356)// Exp Média 30k
 										exp /= 1.40f;
 
 									else if (myLevel <= 360)// Exp Média 8k
-										exp /= 4.75f;
+										exp /= 2.75f;
 
 									else if (myLevel <= 370)// Exp Média 6k
-										exp /= 6.60f;
+										exp /= 3.60f;
 
 									else if (myLevel <= 380) // Exp Média 2.5k
-										exp /= 15;
+										exp /= 8;
 
 									else if (myLevel <= 390)  // Exp Média 1.8k
-										exp /= 21;
+										exp /= 15;
 
 									else if (myLevel <= 400) // Exp Média 1k
-										exp /= 35;
+										exp /= 25;
 								}
 
 								exp = 6 * exp / 10;
@@ -567,31 +567,32 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 5.20f;
 								}
 
+
 								if (pMob[party].Extra.ClassMaster == ARCH)
 								{
-									if (myLevel <= 200) // Exp Média 70k
-										exp /= 0.84f;
-
-									else if (myLevel <= 300)// Exp Média 40k
+									if (myLevel <= 200) // Exp Média 90k
 										exp /= 0.72f;
 
-									else if (myLevel <= 356)// Exp Média 25k
+									else if (myLevel <= 300)// Exp Média 70k
+										exp /= 0.84f;
+
+									else if (myLevel <= 356)// Exp Média 30k
 										exp /= 1.40f;
 
-									else if (myLevel <= 360)// Exp Média 5k
-										exp /= 4.75f;
+									else if (myLevel <= 360)// Exp Média 8k
+										exp /= 2.75f;
 
-									else if (myLevel <= 370)// Exp Média 3k
-										exp /= 6.60f;
+									else if (myLevel <= 370)// Exp Média 6k
+										exp /= 3.60f;
 
-									else if (myLevel <= 380) // Exp Média 1.5k
+									else if (myLevel <= 380) // Exp Média 2.5k
+										exp /= 8;
+
+									else if (myLevel <= 390)  // Exp Média 1.8k
 										exp /= 15;
 
-									else if (myLevel <= 390)  // Exp Média 1k
-										exp /= 21;
-
-									else if (myLevel <= 400) // Exp Média 800
-										exp /= 35;
+									else if (myLevel <= 400) // Exp Média 1k
+										exp /= 25;
 								}
 
 								exp = 6 * exp / 10;
@@ -763,28 +764,32 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 							if (exp > 0 && exp <= 10000000)
 							{
+								
 								if (pMob[party].Extra.ClassMaster == MORTAL)
 								{
-									if (myLevel <= 200) // 130k
-										exp /= 1;
+									if (myLevel <= 200) // Exp Média 90k
+										exp /= 0.72f;
 
-									else if (myLevel <= 300) // 90k
-										exp /= 0.10f;
+									else if (myLevel <= 300)// Exp Média 70k
+										exp /= 0.84f;
 
-									else if (myLevel <= 356) // 50k
-										exp /= 1;
+									else if (myLevel <= 356)// Exp Média 30k
+										exp /= 1.40f;
 
-									else if (myLevel <= 370) // 30k
-										exp /= 1.55f;
+									else if (myLevel <= 360)// Exp Média 8k
+										exp /= 2.75f;
 
-									else if (myLevel <= 380) // 20k
-										exp /= 2.20f;
+									else if (myLevel <= 370)// Exp Média 6k
+										exp /= 3.60f;
 
-									else if (myLevel <= 390) // 16k
-										exp /= 2.60f;
+									else if (myLevel <= 380) // Exp Média 2.5k
+										exp /= 8;
 
-									else if (myLevel <= 399) // 10k
-										exp /= 3.85f;
+									else if (myLevel <= 390)  // Exp Média 1.8k
+										exp /= 15;
+
+									else if (myLevel <= 400) // Exp Média 1k
+										exp /= 25;
 								}
 
 								if (pMob[party].Extra.ClassMaster == ARCH)
@@ -916,31 +921,32 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 4.70f;
 								}
 						
+
 								if (pMob[party].Extra.ClassMaster == ARCH)
 								{
-									if (myLevel <= 200) // Exp Média 50k
-										exp /= 1;
+									if (myLevel <= 200) // Exp Média 90k
+										exp /= 0.72f;
 
-									else if (myLevel <= 300)// Exp Média 30k
-										exp /= 0.90f;
+									else if (myLevel <= 300)// Exp Média 70k
+										exp /= 0.84f;
 
-									else if (myLevel <= 356)// Exp Média 20k
-										exp /= 0.95f;
+									else if (myLevel <= 356)// Exp Média 30k
+										exp /= 1.40f;
 
-									else if (myLevel <= 360)// Exp Média 4k
-										exp /= 4.50f;
+									else if (myLevel <= 360)// Exp Média 8k
+										exp /= 2.75f;
 
-									else if (myLevel <= 370)// Exp Média 2k
-										exp /= 6.60f;
+									else if (myLevel <= 370)// Exp Média 6k
+										exp /= 3.60f;
 
-									else if (myLevel <= 380) // Exp Média 1.4k
-										exp /= 12;
+									else if (myLevel <= 380) // Exp Média 2.5k
+										exp /= 8;
 
-									else if (myLevel <= 390)  // Exp Média 800
-										exp /= 19;
+									else if (myLevel <= 390)  // Exp Média 1.8k
+										exp /= 15;
 
-									else if (myLevel <= 400) // Exp Média 500
-										exp /= 32;
+									else if (myLevel <= 400) // Exp Média 1k
+										exp /= 25;
 								}
 								exp = 6 * exp / 10;
 
@@ -1147,31 +1153,32 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									exp /= 4;
 							}
 
+
 							if (pMob[party].Extra.ClassMaster == ARCH)
 							{
-								 if (myLevel <= 200) // Exp Média 25k
-									exp /= 1;
+								if (myLevel <= 200) // Exp Média 90k
+									exp /= 0.72f;
 
-								else if (myLevel <= 300)// Exp Média 15k
-									exp /= 0.85f;
+								else if (myLevel <= 300)// Exp Média 70k
+									exp /= 0.84f;
 
-								else if (myLevel <= 356)// Exp Média 10k
-									exp /= 0.90f;
+								else if (myLevel <= 356)// Exp Média 30k
+									exp /= 1.40f;
 
-								else if (myLevel <= 360)// Exp Média 2k
-									exp /= 4.50f;
+								else if (myLevel <= 360)// Exp Média 8k
+									exp /= 2.75f;
 
-								else if (myLevel <= 370)// Exp Média 1k
-									exp /= 5.90f;
+								else if (myLevel <= 370)// Exp Média 6k
+									exp /= 3.60f;
 
-								else if (myLevel <= 380) // Exp Média 700
-									exp /= 11;
+								else if (myLevel <= 380) // Exp Média 2.5k
+									exp /= 8;
 
-								else if (myLevel <= 390)  // Exp Média 400
-									exp /= 17;
+								else if (myLevel <= 390)  // Exp Média 1.8k
+									exp /= 15;
 
-								else if (myLevel <= 400) // Exp Média 230
-									exp /= 35;
+								else if (myLevel <= 400) // Exp Média 1k
+									exp /= 25;
 							}
 
 							if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
