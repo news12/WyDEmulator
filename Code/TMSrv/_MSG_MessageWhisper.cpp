@@ -105,7 +105,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	/*Evento VemProEternal*/
 	if (strcmp(m->MobName, "VemProEternal") == 0)
 	{
-		nConfig::ReadEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal);
+		nConfig::ReadEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal);
 		pUser[a_iConn].VemProEternal = eEvents.eventValue;
 		if (pUser[a_iConn].VemProEternal)
 		{
@@ -115,7 +115,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		}
 		sprintf(temp, "Bônus para novo jogador ativado na Conta:  %s ", pUser[a_iConn].AccountName);
 		SendMsgExp(a_iConn, temp, TNColor::Orange, false);
-		nConfig::WriteEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal, TRUE);
+		nConfig::WriteEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal, TRUE);
 		pUser[a_iConn].VemProEternal = TRUE;
 		fVemProEternal(a_iConn);
 		return;
@@ -125,7 +125,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	{
 		sprintf(temp, "Evento liberado novamente para a Conta:  %s ", pUser[a_iConn].AccountName);
 		SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
-		nConfig::WriteEventsEternal(PATH_EVENTSETERNAL, pUser[a_iConn].AccountName, VemProEternal, FALSE);
+		nConfig::WriteEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal, FALSE);
 		pUser[a_iConn].VemProEternal = FALSE;
 		return;
 	}

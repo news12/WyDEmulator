@@ -1089,6 +1089,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadPremioLojaAfk(void)
+{
+	int status = nConfig::ReadPremioLojaAfk(PATH_EVENT_LojaAfk, "premio");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler premio loja Afk", "FILE ERROR", NULL);
+}
+
 void ReadQuiz(void)
 {
 	QuizOn = nConfig::ReadQuiz(PATH_SETTINGS, "quiz.json");
@@ -4092,6 +4100,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadConfig();
 	CReadFiles::ReadSancRate();
 	ReadQuiz();
+	ReadPremioLojaAfk();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4689,6 +4698,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&LoadQuiz");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&PremioLojaAfk");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -4732,6 +4742,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READQUIZ:
 			ReadQuiz();
+			break;
+
+		case IDC_READ_PREMIO_LOJAAFK:
+			ReadPremioLojaAfk();
 			break;
 
 		case IDC_READSANCRATE:

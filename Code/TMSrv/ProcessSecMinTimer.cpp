@@ -906,14 +906,14 @@ lbl_PST1:
 							//verifica se é a conta principal
 							if (!pUser[i].OnlyTrade)
 							{
-								STRUCT_ITEM Item;
+								/*STRUCT_ITEM Item;
 								memset(&Item, 0, sizeof(STRUCT_ITEM));
 
-								Item.sIndex = 475;
+								Item.sIndex = 475;*/
 
-								PutItem(IsConn, &Item);
+								PutItem(IsConn, &premioLojaAfk);
 
-								sprintf(temp, "!Parabéns, você ganhou o item {%s} por tempo de comércio.", g_pItemList[Item.sIndex].Name);
+								sprintf(temp, "!Parabéns, você ganhou o item [%s] por tempo de comércio.", g_pItemList[premioLojaAfk.sIndex].Name);
 								SendClientMsg(IsConn, temp);
 
 								pUser[i].LojinhaTimer = 0;

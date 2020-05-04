@@ -16,6 +16,7 @@ STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
 STRUCT_EVENTS eEvents;
 STRUCT_QUIZ eQuiz[];
+STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
 int TOTAL_QUIZ;
 int goldQuiz;
@@ -32,7 +33,9 @@ const string PATH_DB = "../../DBSrv/";
 const string PATH_TM = "../../TMSrv/";
 const string PATH_CONFIG = "Config/";
 const string PATH_SETTINGS = PATH_COMMON + "Settings/";
-const string PATH_EVENTSETERNAL = PATH_COMMON + "EventsEternal/";
+const string PATH_EVENTS = PATH_COMMON + "Events/";
+const string PATH_EVENT_VemProEternal = PATH_EVENTS + "VemProEternal/";
+const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -78,7 +81,7 @@ int nConfig::ReadEventsEternal(string path, string file, int key)
 	if (fp == NULL) {
 
 		// não encontrado, será criado um novo(default) no diretorio
-		int creat = WriteEventsEternal(PATH_EVENTSETERNAL, file, key, 0);
+		int creat = WriteEventsEternal(PATH_EVENT_VemProEternal, file, key, 0);
 
 		if (!creat)
 			return creat;
@@ -372,6 +375,36 @@ int ConfigIni::nConfig::WriteSancRate(string path, string file)
 	{
 		return FALSE;
 	}
+}
+
+int ConfigIni::nConfig::ReadPremioLojaAfk(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	memset(&premioLojaAfk, 0, sizeof(STRUCT_ITEM));
+
+	if (fp == NULL) {
+		
+		premioLojaAfk.sIndex = 475;
+		return FALSE;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+	vector<short> itemPremio;
+	nJson["SHOP"]["Item"].get_to(itemPremio);
+
+	premioLojaAfk.sIndex = itemPremio[0];
+	premioLojaAfk.stEffect->sValue = itemPremio[1];
+	premioLojaAfk.stEffect[0].cEffect = itemPremio[2];
+	premioLojaAfk.stEffect[0].cValue = itemPremio[3];
+	premioLojaAfk.stEffect[1].cEffect = itemPremio[4];
+	premioLojaAfk.stEffect[1].cValue = itemPremio[5];
+	premioLojaAfk.stEffect[2].cEffect = itemPremio[6];
+	premioLojaAfk.stEffect[2].cValue = itemPremio[7];
 }
 
 int nConfig::ReadGameConfig(string path, string file, int key)

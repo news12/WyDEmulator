@@ -74,6 +74,7 @@ void  GuildZoneReport();
 HFONT__ *  GetAFont();
 void  ReadConfig();
 void ReadQuiz();
+void ReadPremioLojaAfk();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

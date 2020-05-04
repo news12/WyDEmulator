@@ -1155,7 +1155,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 			sm.Donate = pAccountList[Idx].File.Donate;
 
 			//evento novato apenas 1x por conta
-			nConfig::ReadEventsEternal(PATH_EVENTSETERNAL, pAccountList[Idx].File.Info.AccountName, VemProEternal);
+			nConfig::ReadEventsEternal(PATH_EVENT_VemProEternal, pAccountList[Idx].File.Info.AccountName, VemProEternal);
 			sm.VemProEternal = eEvents.eventValue;
 			//sm.VemProEternal = pAccountList[Idx].File.VemProEternal;
 

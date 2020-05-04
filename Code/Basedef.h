@@ -92,6 +92,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READSKILLDATA 9007
 #define IDC_READQUIZ 908
 #define IDC_READSANCRATE 909
+#define IDC_READ_PREMIO_LOJAAFK 910
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -2940,7 +2941,9 @@ extern const std::string PATH_CONFIG;
 extern const std::string ConfigJson;
 extern const std::string GameConfig;
 extern const std::string PATH_SETTINGS;
-extern const std::string PATH_EVENTSETERNAL;
+extern const std::string PATH_EVENTS;
+extern const std::string PATH_EVENT_VemProEternal;
+extern const std::string PATH_EVENT_LojaAfk;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -2980,6 +2983,7 @@ extern int SortQuiz;
 extern short gameConfig[maxGameConfig][MaxSubConfig];
 extern STRUCT_TREASURE ng_pTreasure[8];
 extern int jsonSancRate[3][12];
+extern STRUCT_ITEM premioLojaAfk;
 #pragma endregion
 
 #endif
