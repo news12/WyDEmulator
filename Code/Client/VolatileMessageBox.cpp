@@ -2,19 +2,17 @@
 
 bool SetVolatileMessageBoxText(int itemID, char* text)
 {
-	//if (itemID == 3314)
-	//{
-	//	sprintf(text, "Deseja comer esse delicioso Frango Assado?");
-	//	return true;
-	//}
-
 	switch (itemID)
 	{
 	case 3314:
 		sprintf(text, "Deseja comer esse delicioso Frango Assado?");
 		return true;
-	case 3789:
-		sprintf(text, "Deseja Equipar a Fada Eternal?");
+	case 4038:
+	case 4039:
+	case 4040:
+	case 4041:
+	case 4042:
+		sprintf(text, "Deseja Teleportar para entrada da Quest?");
 		return true;
 	default:
 		break;
@@ -29,7 +27,11 @@ int AddVolatileMessageItem(int itemID)
 	{
 	case 3314:
 		return 1;
-	case 3789:
+	case 4038:
+	case 4039:
+	case 4040:
+	case 4041:
+	case 4042:
 		return 1;
 	}
 	return 0;

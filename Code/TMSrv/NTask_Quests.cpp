@@ -18,7 +18,7 @@ void NTask_QuestCoveiro(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-	int itemQuest = 4038;
+	int itemQuest = VELA;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
 		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
@@ -72,7 +72,7 @@ void NTask_QuestJardineiro(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-	int itemQuest = 4039;
+	int itemQuest = COLHEITA;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
 		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
@@ -126,7 +126,7 @@ void NTask_QuestKaizen(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-	int itemQuest = 4040;
+	int itemQuest = CURA_BATEDOR;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
 		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
@@ -179,7 +179,7 @@ void NTask_QuestHidra(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-	int itemQuest = 4041;
+	int itemQuest = MANA_BATEDOR;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
 		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
@@ -232,7 +232,7 @@ void NTask_QuestElfos(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-	int itemQuest = 4042;
+	int itemQuest = EMBLEMA_GUARDA;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
 		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)

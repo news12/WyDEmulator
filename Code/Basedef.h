@@ -79,6 +79,11 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define MAX_COIN 2000000000
 #define MAX_EXP 4100000000
 #define MAX_QUIZ_ERROR 3
+#define VELA 4038
+#define COLHEITA 4039
+#define CURA_BATEDOR 4040
+#define MANA_BATEDOR 4041
+#define EMBLEMA_GUARDA 4042
 
 //#define PKDrop
 
