@@ -10752,3 +10752,22 @@ void SetBigCuboDoor(int state)
 		pItem[gate].Delay = 0;
 	}
 }
+
+int GetFirstSlotBag(int Conn)
+{
+	int SlotId = -1;
+
+	for (int i = 0; i < pMob[Conn].MaxCarry; i++)
+	{
+		if (pMob[Conn].MOB.Carry[i].sIndex == 0)
+		{
+			SlotId = i;
+
+			break;
+		}
+	}
+
+	if (SlotId == -1)
+		return FALSE;
+	
+}

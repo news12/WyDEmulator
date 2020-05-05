@@ -22,71 +22,36 @@ int fadaOn;
 
 void WINAPI InitMacro()
 {
+
 	
 	for (size_t i = 0; i < MAX_USER; i++)
 	{
+		int PosX = pMob[i].TargetX;
+		int PosY = pMob[i].TargetY;
+		int EntradaAgua = FALSE;
+
+		if ((PosY >= 1767 && PosY <= 1774) && (PosX >= 1962 && PosX <= 1986))
+			EntradaAgua = TRUE;
+
 		for (size_t cFada = 0; cFada < 3; cFada++)
-		{
-			if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[cFada])
 			{
-				fadaOn = TRUE;
-				break;
+				if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[cFada])
+				{
+					fadaOn = TRUE;
+					break;
+				}
+					fadaOn = FALSE;
+					pMob[i].MOB.macroOn = FALSE;
+					pMob[i].MOB.MacroInside = FALSE;
+					pMob[i].MOB.SalaClear = FALSE;
+					EntradaAgua = FALSE;
+				
 			}
-			else
-				fadaOn = FALSE;
-		}
 
-		if (fadaOn == TRUE)
+		
+		if (fadaOn)
 		{
-			int PosX = pMob[i].TargetX;
-			int PosY = pMob[i].TargetY;
-			pMob[i].MOB.MacroInside = 0;
-			for (int f = 0; f < 10; f++)
-			{
-				if (PosX >= WaterScrollPosition[1][f][0] - 12 && PosY >= WaterScrollPosition[1][f][1] - 12
-					&& PosX <= WaterScrollPosition[1][f][0] + 12 && PosY <= WaterScrollPosition[1][f][1] + 12 && f >= 9)
-				{
-					pMob[i].MOB.MacroInside = TRUE;
-					break;
-				}
-
-				if (PosX >= WaterScrollPosition[1][f][0] - 8 && PosY >= WaterScrollPosition[1][f][1] - 8
-					&& PosX <= WaterScrollPosition[1][f][0] + 8 && PosY <= WaterScrollPosition[1][f][1] + 8)
-				{
-					pMob[i].MOB.MacroInside = TRUE;
-					break;
-				}
-
-				if (PosX >= WaterScrollPosition[2][f][0] - 12 && PosY >= WaterScrollPosition[2][f][1] - 12
-					&& PosX <= WaterScrollPosition[2][f][0] + 12 && PosY <= WaterScrollPosition[2][f][1] + 12 && f >= 9)
-				{
-					pMob[i].MOB.MacroInside = 1;
-					break;
-				}
-
-				if (PosX >= WaterScrollPosition[2][f][0] - 8 && PosY >= WaterScrollPosition[2][f][1] - 8
-					&& PosX <= WaterScrollPosition[2][f][0] + 8 && PosY <= WaterScrollPosition[2][f][1] + 8)
-				{
-					pMob[i].MOB.MacroInside = 1;
-					break;
-				}
-
-				if (((PosX / 4) != 491 || (PosY / 4) != 443) && (pMob[i].MOB.MacroInside == 0))
-				{
-					//if (pMob[i].MOB.SalaClear)
-					//	pMob[i].MOB.SalaClear = FALSE;
-
-					if (pMob[i].MOB.macroOn)
-						pMob[i].MOB.macroOn = FALSE;
-
-					//if (pMob[i].MOB.MacroInside)
-					//	pMob[i].MOB.MacroInside = FALSE;
-
-				}
-
-
-			}
-			if (!pMob[i].MOB.MacroInside || pMob[i].MOB.SalaClear)
+			if ((!pMob[i].MOB.MacroInside && EntradaAgua) || (pMob[i].MOB.SalaClear))
 			{
 				try
 				{
@@ -107,16 +72,18 @@ void WINAPI InitMacro()
 
 void MacroOnline(int ClientID)
 {
-	 try
+
+	int emptySlot = GetFirstSlotBag(ClientID);
+	if (!emptySlot)
 	{
-		 AtiveMacroPerga((int)ClientID);
+		sprintf(temp, "Não foi encontrado slot vago na Mochila");
+		SendMsgExp(ClientID, temp, TNColor::CornflowerBlue, false);
 	}
-	catch (const std::exception&)
-	{
-		sprintf(temp, "err,start AtiveMacroPerga %d", CurrentTime);
-		Log(temp, "-system macro perga", 0);
-	}
+	else
+		AtiveMacroPerga((int)ClientID);
 	
+		 
+
 }
 
 int AtiveMacroPerga(int conn)
@@ -193,20 +160,6 @@ int AtiveMacroPerga(int conn)
 						break;
 					}
 
-					if (((PosX / 4) != 491 || (PosY / 4) != 443) && (inside == 0))
-					{
-					//	if (pMob[conn].MOB.SalaClear)
-						//	pMob[conn].MOB.SalaClear = FALSE;
-
-						if (pMob[conn].MOB.macroOn)
-							pMob[conn].MOB.macroOn = FALSE;
-
-					//	if (pMob[conn].MOB.MacroInside)
-						//	pMob[conn].MOB.MacroInside = FALSE;
-
-						DoTeleport(conn, 1966, 1774);
-						break;
-					}
 
 				}
 				pMob[conn].MOB.MacroInside = inside;
@@ -314,21 +267,6 @@ int AtiveMacroPerga(int conn)
 						&& PosX <= WaterScrollPosition[wp][f][0] + 8 && PosY <= WaterScrollPosition[wp][f][1] + 8)
 					{
 						inside = 1;
-						break;
-					}
-
-					if (((PosX / 4) != 491 || (PosY / 4) != 443) && (inside == 0))
-					{
-					//	if (pMob[conn].MOB.SalaClear)
-						//	pMob[conn].MOB.SalaClear = FALSE;
-
-						if (pMob[conn].MOB.macroOn)
-							pMob[conn].MOB.macroOn = FALSE;
-
-					//	if (pMob[conn].MOB.MacroInside)
-						//	pMob[conn].MOB.MacroInside = FALSE;
-
-						DoTeleport(conn, 1966, 1774);
 						break;
 					}
 
