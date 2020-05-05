@@ -1097,6 +1097,15 @@ void ReadPremioLojaAfk(void)
 		MessageBox(hWndMain, "Erro ao ler premio loja Afk", "FILE ERROR", NULL);
 }
 
+void ReadGroupItens()
+{
+
+	int Status = nConfig::ReadGroupItens(PATH_SETTINGS, "groupItens.json");
+
+	if (!Status)
+		MessageBox(hWndMain, "Erro ao ler groupItens.json", "FILE ERROR", NULL);
+}
+
 void ReadQuiz(void)
 {
 	QuizOn = nConfig::ReadQuiz(PATH_SETTINGS, "quiz.json");
@@ -4101,6 +4110,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	CReadFiles::ReadSancRate();
 	ReadQuiz();
 	ReadPremioLojaAfk();
+	ReadGroupItens();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4698,12 +4708,16 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&LoadQuiz");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&PremioLojaAfk");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&LoadPremioLojaAfk");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_READSANCRATE, "&LoadSanc");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
+
+		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&LoadAgruparItens");
+		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&ConfigExtra");
 
 		SetMenu(hWnd, hMenu);
 	} break;
@@ -4750,6 +4764,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READSANCRATE:
 			CReadFiles::ReadSancRate();
+			break;
+
+		case IDC_READ_GROUP_ITENS:
+			ReadGroupItens();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -10770,4 +10788,21 @@ int GetFirstSlotBag(int Conn)
 	if (SlotId == -1)
 		return FALSE;
 	
+}
+
+STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem)
+{
+	STRUCT_ITEM *Item;
+	//memset(&Item, 0, sizeof(STRUCT_ITEM));
+	for (int i = 0; i < pMob[Conn].MaxCarry; i++)
+	{
+		if (pMob[Conn].MOB.Carry[i].sIndex == idItem)
+		{
+			Item = &pMob[Conn].MOB.Carry[i];
+
+			break;
+		}
+	}
+
+	return Item;
 }

@@ -23,6 +23,7 @@ int goldQuiz;
 long int expQuiz;
 int QuizOn;
 int SortQuiz;
+int groupItens[];
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
 //Maximo de config 100 maximo de subconfig 50
@@ -405,6 +406,109 @@ int ConfigIni::nConfig::ReadPremioLojaAfk(string path, string file)
 	premioLojaAfk.stEffect[1].cValue = itemPremio[5];
 	premioLojaAfk.stEffect[2].cEffect = itemPremio[6];
 	premioLojaAfk.stEffect[2].cValue = itemPremio[7];
+}
+
+int ConfigIni::nConfig::ReadGroupItens(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteSancRate(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+	memset(&groupItens, 0, sizeof(groupItens));
+	for (auto& x : nJson["GROUP"].items())
+	{
+		x.value().get_to(groupItens[stoi(x.key())]);
+	}
+}
+
+int ConfigIni::nConfig::WriteGrupItens(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New groupItens.json
+	auto nJson = R"(
+{
+"GROUP":{
+	
+			"0": 412,
+			"1": 413,
+			"2": 419,
+			"3": 420,
+			"4": 2390,
+			"5": 2391,
+			"6": 2392,
+			"7": 2393,
+			"8": 2394,
+			"9": 2395,
+			"10": 2396,
+			"11": 2397,
+			"12": 2398,
+			"13": 2399,
+			"14": 2400,
+			"15": 2401,
+			"16": 2402,
+			"17": 2403,
+			"18": 2404,
+			"19": 2405,
+			"20": 2406,
+			"21": 2407,
+			"22": 2408,
+			"23": 2409,
+			"24": 2410,
+			"25": 2411,
+			"26": 2412,
+			"27": 2413,
+			"28": 2414,
+			"29": 2415,
+			"30": 2416,
+			"31": 2417,
+			"32": 2418,
+			"33": 2419,
+			"34": 4016,
+			"35": 4017,
+			"36": 4018,
+			"37": 4019,
+			"38": 4020,
+			"39": 4021,
+			"40": 4022,
+			"41": 4023,
+			"42": 4024,
+			"43": 4025,
+			"44": 4038,
+			"45": 4039,
+			"46": 4040,
+			"47": 4041,
+			"48": 4042
+				
+        }
+
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int nConfig::ReadGameConfig(string path, string file, int key)

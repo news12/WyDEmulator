@@ -75,6 +75,7 @@ HFONT__ *  GetAFont();
 void  ReadConfig();
 void ReadQuiz();
 void ReadPremioLojaAfk();
+void ReadGroupItens();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -200,6 +201,7 @@ int GetUserLojaMac(int conn);
 int GetUserInAreaMac2(int notUsage, int x1, int y1);
 void SetBigCuboDoor(int state);
 int GetFirstSlotBag(int Conn);
+STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem);
 
 // External func
 

@@ -26,6 +26,8 @@ namespace ConfigIni {
 		static int ReadSancRate(string path, string file);
 		static int WriteSancRate(string path, string file);
 		static int ReadPremioLojaAfk(string path, string file);
+		static int ReadGroupItens(string path, string file);
+		static int WriteGrupItens(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

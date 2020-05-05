@@ -18,20 +18,28 @@ void NTask_QuestCoveiro(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-
+	int itemQuest = 4038;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
-		if (pMob[a_iConn].MOB.Carry[i].sIndex != 4038)
+		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
 			continue;
 
-		BASE_ClearItem(&pMob[a_iConn].MOB.Carry[i]);
+		STRUCT_ITEM *item = GetFirstItemBag(a_iConn, itemQuest);
+
+		int amount = BASE_GetItemAmount(item);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
 		SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 		break;
 	}
 
 	if (i == pMob[a_iConn].MaxCarry)
 	{
-		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[4038].Name);
+		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[itemQuest].Name);
 		SendSay(a_iTarget, temp);
 		return;
 	}
@@ -64,20 +72,28 @@ void NTask_QuestJardineiro(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-
+	int itemQuest = 4039;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
-		if (pMob[a_iConn].MOB.Carry[i].sIndex != 4039)
+		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
 			continue;
 
-		BASE_ClearItem(&pMob[a_iConn].MOB.Carry[i]);
+		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		int amount = BASE_GetItemAmount(item);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
 		SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 		break;
 	}
 
 	if (i == pMob[a_iConn].MaxCarry)
 	{
-		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[4039].Name);
+		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[itemQuest].Name);
 		SendSay(a_iTarget, temp);
 		return;
 	}
@@ -110,20 +126,28 @@ void NTask_QuestKaizen(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-
+	int itemQuest = 4040;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
-		if (pMob[a_iConn].MOB.Carry[i].sIndex != 4040)
+		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
 			continue;
 
-		BASE_ClearItem(&pMob[a_iConn].MOB.Carry[i]);
+		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		int amount = BASE_GetItemAmount(item);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
 		SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 		break;
 	}
 
 	if (i == pMob[a_iConn].MaxCarry)
 	{
-		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[4040].Name);
+		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[itemQuest].Name);
 		SendSay(a_iTarget, temp);
 		return;
 	}
@@ -155,20 +179,28 @@ void NTask_QuestHidra(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-
+	int itemQuest = 4041;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
-		if (pMob[a_iConn].MOB.Carry[i].sIndex != 4041)
+		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
 			continue;
 
-		BASE_ClearItem(&pMob[a_iConn].MOB.Carry[i]);
+		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		int amount = BASE_GetItemAmount(item);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
 		SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 		break;
 	}
 
 	if (i == pMob[a_iConn].MaxCarry)
 	{
-		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[4041].Name);
+		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[itemQuest].Name);
 		SendSay(a_iTarget, temp);
 		return;
 	}
@@ -200,20 +232,28 @@ void NTask_QuestElfos(int a_iConn, int a_iTarget)
 	}
 
 	int i = 0;
-
+	int itemQuest = 4042;
 	for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
 	{
-		if (pMob[a_iConn].MOB.Carry[i].sIndex != 4042)
+		if (pMob[a_iConn].MOB.Carry[i].sIndex != itemQuest)
 			continue;
 
-		BASE_ClearItem(&pMob[a_iConn].MOB.Carry[i]);
+		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		int amount = BASE_GetItemAmount(item);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
 		SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 		break;
 	}
 
 	if (i == pMob[a_iConn].MaxCarry)
 	{
-		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[4042].Name);
+		sprintf(temp, g_pMessageStringTable[_SN_BRINGITEM], g_pItemList[itemQuest].Name);
 		SendSay(a_iTarget, temp);
 		return;
 	}

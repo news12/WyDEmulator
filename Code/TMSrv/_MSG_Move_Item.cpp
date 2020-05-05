@@ -239,12 +239,25 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 			save2.stEffect[2].cEffect = DestItem->stEffect[2].cEffect;
 			save2.stEffect[2].cValue = DestItem->stEffect[2].cValue;
 
-			if ((save1.sIndex == save2.sIndex && save1.sIndex == 413
+			int isAmmount = FALSE;
+			for (size_t i = 0; i < 100; i++)
+			{
+				if (save1.sIndex == groupItens[i])
+				{
+					isAmmount = TRUE;
+					break;
+				}
+
+			}
+			/*if ((save1.sIndex == save2.sIndex && save1.sIndex == 413
 				|| save1.sIndex == save2.sIndex && save1.sIndex == 412
 				|| save1.sIndex == save2.sIndex && save1.sIndex == 419
 				|| save1.sIndex == save2.sIndex && save1.sIndex == 420
 				|| save1.sIndex == save2.sIndex && save1.sIndex >= 4016 && save1.sIndex <= 4025
 				|| save1.sIndex == save2.sIndex && save1.sIndex >= 2390 && save1.sIndex <= 2419)
+				&& BASE_GetItemAmount(&save1) < 120 && BASE_GetItemAmount(&save2) < 120)
+			{*/
+			if ((save1.sIndex == save2.sIndex && isAmmount)
 				&& BASE_GetItemAmount(&save1) < 120 && BASE_GetItemAmount(&save2) < 120)
 			{
 				int amount1 = BASE_GetItemAmount(&save1);
