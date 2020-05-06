@@ -1589,7 +1589,7 @@ lbl_PST1:
 		if (SecCounter % 2 == 0 && pMob[i].MOB.CurrentScore.Hp <= 0 && pMob[i].TargetX == 1046 && pMob[i].TargetY == 1690)
 		{
 			pMob[i].DetectDeadOnCastle++;
-
+			SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
 			if (pMob[i].DetectDeadOnCastle > 10)
 			{
 				DoRecall(i);
@@ -1621,6 +1621,8 @@ lbl_PST1:
 					if (pMob[i].MOB.CurrentScore.Hp <= 0)
 					{
 						pMob[i].DetectDeadOnCastle++;
+
+						SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
 
 						if (pMob[i].DetectDeadOnCastle > 1)
 						{

@@ -1097,6 +1097,15 @@ void ReadPremioLojaAfk(void)
 		MessageBox(hWndMain, "Erro ao ler premio loja Afk", "FILE ERROR", NULL);
 }
 
+void ReadFadaAmmount()
+{
+
+	int Status = nConfig::ReadFadaAmmount(PATH_SETTINGS, "fadaAmmount.json");
+
+	if (!Status)
+		MessageBox(hWndMain, "Erro ao ler fadaAmmount.json", "FILE ERROR", NULL);
+}
+
 void ReadGroupItens()
 {
 
@@ -4111,6 +4120,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadQuiz();
 	ReadPremioLojaAfk();
 	ReadGroupItens();
+	ReadFadaAmmount();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4716,6 +4726,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
 
 		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&LoadFadaDourada");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&LoadAgruparItens");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&ConfigExtra");
 
@@ -4768,6 +4779,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_GROUP_ITENS:
 			ReadGroupItens();
+			break;
+
+		case IDC_READ_FADA_GROUP:
+			ReadFadaAmmount();
 			break;
 
 		case IDC_READGAMECONFIG:

@@ -43,9 +43,11 @@ void NTask_QuestCoveiro(int a_iConn, int a_iTarget)
 		SendSay(a_iTarget, temp);
 		return;
 	}
-
-	pMob[a_iConn].QuestFlag = 1;
-	pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	if (pMob[a_iConn].QuestFlag != 1)
+	{
+		pMob[a_iConn].QuestFlag = 1;
+		pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	}
 
 	DoTeleport(a_iConn, 2398 + rand() % 5 - 3, 2105 + rand() % 5 - 3);
 
@@ -98,8 +100,11 @@ void NTask_QuestJardineiro(int a_iConn, int a_iTarget)
 		return;
 	}
 
-	pMob[a_iConn].QuestFlag = 2;
-	pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	if (pMob[a_iConn].QuestFlag != 2)
+	{
+		pMob[a_iConn].QuestFlag = 2;
+		pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	}
 
 	DoTeleport(a_iConn, 2234 + rand() % 5 - 3, 1714 + rand() % 5 - 3);
 
@@ -151,8 +156,11 @@ void NTask_QuestKaizen(int a_iConn, int a_iTarget)
 		SendSay(a_iTarget, temp);
 		return;
 	}
-	pMob[a_iConn].QuestFlag = 3;
-	pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	if (pMob[a_iConn].QuestFlag != 3)
+	{
+		pMob[a_iConn].QuestFlag = 3;
+		pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	}
 
 	DoTeleport(a_iConn, 464 + rand() % 5 - 3, 3902 + rand() % 5 - 3);
 
@@ -204,8 +212,11 @@ void NTask_QuestHidra(int a_iConn, int a_iTarget)
 		SendSay(a_iTarget, temp);
 		return;
 	}
-	pMob[a_iConn].QuestFlag = 4;
-	pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	if (pMob[a_iConn].QuestFlag != 4)
+	{
+		pMob[a_iConn].QuestFlag = 4;
+		pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	}
 
 	DoTeleport(a_iConn, 668 + rand() % 5 - 3, 3756 + rand() % 5 - 3);
 
@@ -257,8 +268,11 @@ void NTask_QuestElfos(int a_iConn, int a_iTarget)
 		SendSay(a_iTarget, temp);
 		return;
 	}
-	pMob[a_iConn].QuestFlag = 5;
-	pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	if (pMob[a_iConn].QuestFlag != 5)
+	{
+		pMob[a_iConn].QuestFlag = 5;
+		pMob[a_iConn].CheckQuest = 600 + pMob[a_iConn].Extra.CheckTimeKersef;
+	}
 
 	DoTeleport(a_iConn, 1322 + rand() % 5 - 3, 4041 + rand() % 5 - 3);
 

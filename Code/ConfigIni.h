@@ -28,6 +28,8 @@ namespace ConfigIni {
 		static int ReadPremioLojaAfk(string path, string file);
 		static int ReadGroupItens(string path, string file);
 		static int WriteGrupItens(string path, string file);
+		static int ReadFadaAmmount(string path, string file);
+		static int WriteFadaAmmount(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

@@ -103,6 +103,7 @@
     <ClCompile Include="CReadFiles.cpp" />
     <ClCompile Include="CUser.cpp" />
     <ClCompile Include="EventsEternal.cpp" />
+    <ClCompile Include="FadaDourada.cpp" />
     <ClCompile Include="PassGroup.cpp" />
     <ClCompile Include="GetFunc.cpp" />
     <ClCompile Include="MacroPerga.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="CReadFiles.h" />
     <ClInclude Include="CUser.h" />
     <ClInclude Include="EventsEternal.h" />
+    <ClInclude Include="FadaDourada.h" />
     <ClInclude Include="PassGroup.h" />
     <ClInclude Include="GetFunc.h" />
     <ClInclude Include="Language.h" />

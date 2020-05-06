@@ -1987,6 +1987,13 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			return;
 		}
 
+		if (pMob[a_iConn].Extra.NT < 1)
+		{
+			SendClientMsg(a_iConn, "Você não possui NT suficiente para realizar essa quest!!");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+
 		if (pMob[a_iConn].Leader != -1 && pMob[a_iConn].Leader)
 		{
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Party_Leader_Only]);
@@ -3340,6 +3347,13 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				EmptyAffect = i;
 				break;
 			}
+		}
+
+		if (EmptyAffect >= 0)
+		{
+			SendClientMsg(a_iConn, "Você já possui um buff desse tipo ativo.");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
 		}
 
 		for (int i = 0; i < MAX_AFFECT && EmptyAffect == -1; i++)

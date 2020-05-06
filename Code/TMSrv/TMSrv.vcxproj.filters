@@ -444,6 +444,9 @@
     <ClCompile Include="WarOfKingdom.cpp">
       <Filter>Source Files\Packages\State Playing\Guerras\Guerra de Reinos</Filter>
     </ClCompile>
+    <ClCompile Include="FadaDourada.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\specials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -522,6 +525,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WarOfKingdom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FadaDourada.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

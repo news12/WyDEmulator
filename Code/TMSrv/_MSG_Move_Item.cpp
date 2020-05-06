@@ -240,7 +240,7 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 			save2.stEffect[2].cValue = DestItem->stEffect[2].cValue;
 
 			int isAmmount = FALSE;
-			for (size_t i = 0; i < 100; i++)
+			for (size_t i = 0; i < sizeof(groupItens); i++)
 			{
 				if (save1.sIndex == groupItens[i])
 				{

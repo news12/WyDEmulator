@@ -24,6 +24,7 @@ long int expQuiz;
 int QuizOn;
 int SortQuiz;
 int groupItens[];
+int fadaAmmount[];
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
 //Maximo de config 100 maximo de subconfig 50
@@ -417,7 +418,7 @@ int ConfigIni::nConfig::ReadGroupItens(string path, string file)
 	if (fp == NULL) {
 
 		// não encontrado, será criado um novo(default) no diretorio
-		int creat = WriteSancRate(PATH_SETTINGS, file);
+		int creat = WriteGrupItens(PATH_SETTINGS, file);
 
 		if (!creat)
 			return creat;
@@ -491,6 +492,62 @@ int ConfigIni::nConfig::WriteGrupItens(string path, string file)
 			"46": 4040,
 			"47": 4041,
 			"48": 4042
+				
+        }
+
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadFadaAmmount(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteFadaAmmount(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+	memset(&fadaAmmount, 0, sizeof(fadaAmmount));
+	for (auto& x : nJson["GROUP"].items())
+	{
+		x.value().get_to(fadaAmmount[stoi(x.key())]);
+	}
+}
+
+int ConfigIni::nConfig::WriteFadaAmmount(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New groupItens.json
+	auto nJson = R"(
+{
+"GROUP":{
+	
+			"0": 412,
+			"1": 413
 				
         }
 

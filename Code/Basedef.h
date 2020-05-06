@@ -99,6 +99,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READSANCRATE 909
 #define IDC_READ_PREMIO_LOJAAFK 910
 #define IDC_READ_GROUP_ITENS 911
+#define IDC_READ_FADA_GROUP 912
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -2991,6 +2992,7 @@ extern STRUCT_TREASURE ng_pTreasure[8];
 extern int jsonSancRate[3][12];
 extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
+extern int fadaAmmount[50];
 #pragma endregion
 
 #endif

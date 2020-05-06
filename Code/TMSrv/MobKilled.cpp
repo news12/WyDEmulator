@@ -16,6 +16,7 @@
 #include "ProcessClientMessage.h"
 #include "ProcessDBMessage.h"
 #include "CCastleZakum.h"
+#include "FadaDourada.h"
 
 void MobKilled(int target, int a_iConn, int PosX, int PosY)
 {
@@ -2820,6 +2821,22 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 											if (isFlag == false)
 											{
+												int isFadaGroup = FALSE;
+												for (size_t i = 0; i < sizeof(fadaAmmount); i++)
+												{
+													if (item->sIndex == fadaAmmount[i])
+													{
+														isFadaGroup = TRUE;
+														break;
+													}
+												}
+												
+												if (pMob[a_iConn].MOB.Equip[13].sIndex == 3915 && isFadaGroup)
+												{
+													if (!AutoAmmount(a_iConn, item))
+														PutItem(a_iConn, item);
+												}
+												else
 												PutItem(a_iConn, item);
 											}
 										}
