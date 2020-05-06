@@ -460,6 +460,91 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
+#pragma region /transferirGuild
+	else if (strcmp(m->MobName, "Transferir") == 0)
+	{
+	/*GuildLevel 0=Membro 6=Sub1 7=Sub2 8=Sub3 9=Lider  */
+		if (pMob[a_iConn].MOB.Guild == 0)
+		{
+			SendClientMsg(a_iConn, "Você não faz parte de uma guild.");
+			return;
+		}
+
+	m->String[NAME_LENGTH - 1] = 0;
+	m->String[NAME_LENGTH - 2] = 0;
+
+	int target = GetUserByName(m->String);
+
+	if (target == 0)
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+		return;
+	}
+
+	if (pUser[target].Mode != USER_PLAY)
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+		return;
+	}
+
+	if (pMob[target].MOB.Guild != pMob[a_iConn].MOB.Guild)
+	{
+		SendClientMsg(a_iConn, "Só pode transferir para membro da guild.");
+		return;
+	}
+
+	if (pMob[a_iConn].MOB.GuildLevel == 0)
+	{
+		SendClientMsg(a_iConn, "Membro comum não pode transferir medalha.");
+		return;
+	}
+
+	if (pMob[target].MOB.GuildLevel == 9)
+	{
+		SendClientMsg(a_iConn, "Não pode transferir medalha para o lider da guild");
+		return;
+	}
+	unsigned char medalTarget = pMob[target].MOB.GuildLevel;
+	unsigned char medalTransfer = pMob[a_iConn].MOB.GuildLevel;
+	char guildname[256];
+	BASE_GetGuildName(ServerGroup, pMob[a_iConn].MOB.Guild, guildname);
+	sprintf(temp, "etc,transferGuild guild:%d guildname:%s  Lider:%s -> NovoLider:%s ", pMob[a_iConn].MOB.Guild, guildname, pMob[a_iConn].MOB.MobName, pMob[target].MOB.MobName);
+	Log(temp, pUser[a_iConn].AccountName, pUser[a_iConn].IP);
+
+
+	pMob[target].MOB.GuildLevel = medalTransfer;
+	pMob[a_iConn].MOB.GuildLevel = medalTarget;
+
+	MSG_CreateMob sm_eg;
+	memset(&sm_eg, 0, sizeof(MSG_CreateMob));
+	GetCreateMob(a_iConn, &sm_eg);
+
+	GridMulticast(pMob[a_iConn].TargetX, pMob[a_iConn].TargetY, (MSG_STANDARD*)&sm_eg, 0);
+
+	memset(&sm_eg, 0, sizeof(MSG_CreateMob));
+	GetCreateMob(target, &sm_eg);
+
+	GridMulticast(pMob[target].TargetX, pMob[target].TargetY, (MSG_STANDARD*)&sm_eg, 0);
+
+	MSG_GuildInfo sm_gi;
+	memset(&sm_gi, 0, sizeof(MSG_GuildInfo));
+
+	sm_gi.Type = _MSG_GuildInfo;
+	sm_gi.Size = sizeof(MSG_GuildInfo);
+	sm_gi.ID = a_iConn;
+
+	sm_gi.Guild = pMob[a_iConn].MOB.Guild;
+
+	GuildInfo[pMob[a_iConn].MOB.Guild].Fame = 0;
+
+	sm_gi.GuildInfo = GuildInfo[pMob[a_iConn].MOB.Guild];
+
+	DBServerSocket.SendOneMessage((char*)&sm_gi, sizeof(MSG_GuildInfo));
+
+	return;
+	}
+#pragma endregion
+
 	else if (strcmp(m->MobName, "guildmsg") == 0)
 	{
 		if (pMob[a_iConn].MOB.Guild != 0)
@@ -743,7 +828,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 		if (pMob[user].MOB.GuildLevel != 0)
 		{
-			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Haven_Guild_Medal]);
+			SendClientMsg(a_iConn, "O jogador já possui um cargo de subLider.");
 			return;
 		}
 

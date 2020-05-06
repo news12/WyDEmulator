@@ -15,18 +15,30 @@ void Exec_MSG_InviteGuild(int conn, char *pMsg)
 		return;
 
 	if (pMob[conn].MOB.Guild == 0)
+	{
+		SendClientMsg(conn, "Você não possui guild");
 		return;
+	}
 
 
 	if (pMob[TargetID].MOB.Guild != 0)
+	{
+		SendClientMsg(conn, "O convidado já possui guild.");
 		return;
+	}
 
 	if (pMob[conn].MOB.Clan != pMob[TargetID].MOB.Clan)
+	{
+		SendClientMsg(conn, "Só é possivel convidar jogadores do mesmo reino.");
 		return;
+	}
 
 
 	if (pMob[conn].MOB.GuildLevel == 0)
+	{
+		SendClientMsg(conn, "Membro comum não pode recrutar jogadores");
 		return;
+	}
 
 
 	if (InviteType != 0 && pMob[conn].MOB.GuildLevel != 9)
