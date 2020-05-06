@@ -15,7 +15,7 @@ BOOL AutoAmmount(int conn, STRUCT_ITEM* item)
 		{
 			int ammount = BASE_GetItemAmount(&pMob[conn].MOB.Carry[i]);
 
-			if (ammount == 0)
+			if (ammount < 1)
 				ammount++;
 
 			if (ammount < 120)

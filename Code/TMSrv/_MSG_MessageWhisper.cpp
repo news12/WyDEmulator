@@ -30,18 +30,20 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
-	if (strcmp(m->MobName, "wp") == 0)
+	if (strcmp(m->MobName, "ep") == 0)
 	{
-		sprintf(temp, "%d",pUser[a_iConn].Donate);
-		SendClientMsg(a_iConn, temp);
+		//sprintf(temp, "%d",pUser[a_iConn].Donate);
+		sprintf(temp, "Você possui [%d] de [%s]", pUser[a_iConn].Donate, WydPoints);
+		SendMsgExp(a_iConn, temp, TNColor::Orange, false);
+		//SendClientMsg(a_iConn, temp);
 		return;
 	}
-	if (strcmp(m->MobName, "wp1") == 0)
+	/*if (strcmp(m->MobName, "wp1") == 0)
 	{
 		pUser[a_iConn].Donate += 100;
 		SendClientMsg(a_iConn, temp);
 		return;
-	}
+	}*/
 
 #pragma region /contaPrincipal
 	 if (strcmp(m->MobName, "DefAccount") == 0 || strcmp(m->MobName, "DefConta") == 0)

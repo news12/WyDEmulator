@@ -77,6 +77,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define HT  3
 #define MAX_QUIZ 100
 #define MAX_COIN 2000000000
+#define MAX_DONATE 200000
 #define MAX_EXP 4100000000
 #define MAX_QUIZ_ERROR 3
 #define VELA 4038
@@ -2993,6 +2994,7 @@ extern int jsonSancRate[3][12];
 extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
 extern int fadaAmmount[50];
+extern const char* WydPoints;
 #pragma endregion
 
 #endif

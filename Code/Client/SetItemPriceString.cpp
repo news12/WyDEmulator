@@ -6,7 +6,7 @@ bool SetItemPriceString(STRUCT_ITEM* item, char* str)
 	{
 		if (item->stEffect[a].cEffect == 91)
 		{
-			sprintf(str, "WYD Coins: %d", item->stEffect[a].cValue);
+			sprintf(str, "Epoints: %d", item->stEffect[a].cValue);
 			return TRUE;
 		}
 	}

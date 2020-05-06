@@ -1421,6 +1421,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		return;
 	}
 #pragma endregion
+
 #pragma region >> Entrada do Território
 	if (Vol == 188)
 	{
@@ -1472,6 +1473,52 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			memset(item, 0, sizeof(STRUCT_ITEM));
 
 		return;
+	}
+#pragma endregion
+
+#pragma >> Moedas Eternal Points
+	if (Vol == 189)
+	{
+		int idItem = item->sIndex - 3016;
+		int TotalEp = 0;
+		switch (idItem)
+		{
+		case 0://Moeda de Bronze 1.Ep
+			TotalEp = 1;
+			break;
+		case 1://Moeda de Prata 5.Ep
+			TotalEp = 5;
+			break;
+		case 2://Moeda de Ouro 10.Ep
+			TotalEp = 10;
+			break;
+		case 3://Moeda de Ouro 20.Ep
+			TotalEp = 20;
+			break;
+		default:
+			break;
+		}
+		int DonateAtual = pUser[a_iConn].Donate;
+		if (TotalEp > 0)
+		{
+			DonateAtual += TotalEp;
+			if (DonateAtual > MAX_DONATE)
+			{
+				sprintf(temp, "Limite máximo de Epoints atingido");
+				SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+			
+				pUser[a_iConn].Donate += TotalEp;
+				sprintf(temp, "Você recebeu [%d] de [%s]", TotalEp, WydPoints);
+				SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
+
+				memset(item, 0, sizeof(STRUCT_ITEM));
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			
+		}
 	}
 #pragma endregion
 #pragma region Pergaminho da Água N

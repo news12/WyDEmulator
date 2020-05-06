@@ -133,7 +133,7 @@ void Exec_MSG_Buy(int conn, char *pMsg)
 	{
 		if (Donate > pUser[conn].Donate)
 		{
-			sprintf(temp, "[%s]> Você precisa de %d WYD coin.", pMob[TargetID].MOB.MobName, Donate);
+			sprintf(temp, "[%s]> Você precisa de [%d] %s.", pMob[TargetID].MOB.MobName, Donate,WydPoints);
 			SendMsgExp(conn, temp, TNColor::White, false);
 			return;
 		}
@@ -365,7 +365,7 @@ LABEL_BUY1:
 		BASE_GetItemName(ItemMob, tempName);
 
 		sprintf(temp, "buy_npc,npc:%s price:%d item:%s", pMob[TargetID].MOB.MobName, Donate, tmplog);
-		sprintf(temp, "Comprou de: %s item: %s price: %d wCoin", pMob[TargetID].MOB.MobName, tempName, Donate);
+		sprintf(temp, "Comprou de: %s item: %s price: %d %s", pMob[TargetID].MOB.MobName, tempName, Donate, WydPoints);
 		SendMsgExp(conn, temp, TNColor::DeepPink, false);
 		MyLog(LogType::Itens, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 
