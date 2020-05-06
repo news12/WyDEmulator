@@ -24,10 +24,26 @@ void Exec_MSG_SplitItem(int conn, char *pMsg)
 	}
 
 	int slot = m->Slot;
+	int isAmmount = FALSE;
+	for (size_t i = 0; i < 100; i++)
+	{
+		if (pMob[conn].MOB.Carry[slot].sIndex == groupItens[i])
+		{
+			isAmmount = TRUE;
+			break;
+		}
 
-	if(pMob[conn].MOB.Carry[slot].sIndex != 413 && pMob[conn].MOB.Carry[slot].sIndex != 412
+	}
+
+	/*if(pMob[conn].MOB.Carry[slot].sIndex != 413 && pMob[conn].MOB.Carry[slot].sIndex != 412
 	&& pMob[conn].MOB.Carry[slot].sIndex != 419 && pMob[conn].MOB.Carry[slot].sIndex != 420
 	&& (pMob[conn].MOB.Carry[slot].sIndex < 2390 || pMob[conn].MOB.Carry[slot].sIndex > 2419))
+	{
+		Log("splititem, no validitem", pUser[conn].AccountName, pUser[conn].IP);
+		return;
+	}*/
+
+	if (!isAmmount)
 	{
 		Log("splititem, no validitem", pUser[conn].AccountName, pUser[conn].IP);
 		return;

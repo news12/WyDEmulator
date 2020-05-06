@@ -106,7 +106,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ClientPatch</TargetName>
-    <OutDir>..\..\..\..\..\..\..\Program Files %28x86%29\AlphaDestiny</OutDir>
+    <OutDir>..\..\..</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.dll</TargetExt>
