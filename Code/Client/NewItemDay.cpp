@@ -30,8 +30,21 @@ void FormataValidade(char* msg, STRUCT_ITEM* item)
 	{
 	//ids das novas fadas/Montaria
 	case 3789:
-	case 3790:
-	case 3791:
+	case 3900:
+	case 3901:
+	case 3902:
+	case 3903:
+	case 3904:
+	case 3905:
+	case 3906:
+	case 3907:
+	case 3908:
+	case 3911:
+	case 3912:
+	case 3913:
+	case 3914:
+	case 3915:
+	case 3916:
 	//case 3980:
 		day = item->stEffect[0].cValue;
 		hour = item->stEffect[1].cValue;

@@ -2,6 +2,12 @@
 
 void NTask_Kibita(int a_iConn, int a_iTarget)
 {
+	if (!NPCBlock[Kibita])
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_NPCBLOCKED]);
+		return;
+	}
+
 	if (pMob[a_iConn].Extra.Citizen == 0 && pMob[a_iConn].MOB.Coin >= 4000000)
 	{
 		pMob[a_iConn].MOB.Coin -= 4000000;

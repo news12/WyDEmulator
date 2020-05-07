@@ -296,18 +296,18 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 			if (m->DestPlace == ITEM_PLACE_EQUIP)
 			{
 				//Fada Eternal(7dias)
-				if (save1.sIndex >= 3789 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				if (save1.sIndex == 3789 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 6);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
 				}
-				if (save2.sIndex >= 3789 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
+				if (save2.sIndex == 3789 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save2, 6);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
 				//Fada Eternal(15dias)
-				if (save1.sIndex >= 3790 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				/*if (save1.sIndex >= 3790 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 14);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
@@ -327,8 +327,8 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 				{
 					BASE_SetDateFairy(&save2, 29);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
-				}
-				//Fada Verde(3dias)
+				}*/
+				//Fada(3dias)
 				if (save1.sIndex >= 3900 && save1.sIndex <= 3902 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 2);
@@ -339,6 +339,7 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 					BASE_SetDateFairy(&save2, 2);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
+				//fada 5dias
 				if (save1.sIndex >= 3903 && save1.sIndex <= 3905 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 4);
@@ -349,26 +350,56 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 					BASE_SetDateFairy(&save2, 4);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
-				if (save1.sIndex >= 3906 && save1.sIndex <= 3908 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				//fada 7 dias
+				if (save1.sIndex >= 3906 && save1.sIndex <= 3908 || save1.sIndex == 3910 || save1.sIndex == 3911 
+					|| save1.sIndex >= 3914 && save1.sIndex <= 3916 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 6);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
 				}
-				if (save2.sIndex >= 3906 && save2.sIndex <= 3908 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
+				if (save2.sIndex >= 3906 && save2.sIndex <= 3908 || save2.sIndex == 3910 || save2.sIndex == 3911 
+					|| save2.sIndex >= 3914 && save2.sIndex <= 3916 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save2, 6);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
+
+				// fadas 24h
+				if (save1.sIndex == 3909 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				{
+					BASE_SetDateFairy(&save1, 1);
+					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
+				}
+				if (save2.sIndex >= 3909 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
+				{
+					BASE_SetDateFairy(&save2, 1);
+					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
+				}
+
+				//fada 15 dias
+				if (save1.sIndex == 3912 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
+				{
+					BASE_SetDateFairy(&save1, 15);
+					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
+				}
+				if (save2.sIndex == 3912 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
+				{
+					BASE_SetDateFairy(&save2, 30);
+					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
+				}
+
+				//fada 30 dias
 				if (save1.sIndex == 3913 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
-					BASE_SetDateFairy(&save1, 0);
+					BASE_SetDateFairy(&save1, 30);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
 				}
 				if (save2.sIndex == 3913 && save2.stEffect[0].cEffect == 0 && save2.stEffect[1].cEffect == 0 && save2.stEffect[2].cEffect == 0)
 				{
-					BASE_SetDateFairy(&save2, 0);
+					BASE_SetDateFairy(&save2, 30);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);
 				}
+				//trajes
 				if (save1.sIndex >= 4150 && save1.sIndex <= 4188 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetItemDate(&save1, 30);
@@ -418,13 +449,13 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 				}
 
 				//limpa os itens de cash caso o tempo tenha sido esgotado
-				if (save1.sIndex >= 3986 && save1.sIndex <= 3989 && BASE_CheckItemDate(&save1) || save1.sIndex >= 4150 && save1.sIndex <= 4188 && BASE_CheckItemDate(&save1))
+				if (save1.sIndex >= 3900 && save1.sIndex <= 3989 && BASE_CheckItemDate(&save1) || save1.sIndex >= 4150 && save1.sIndex <= 4188 && BASE_CheckItemDate(&save1))
 				{
 					BASE_ClearItem(&save1);
 					SendItem(conn, m->SrcPlace, m->SrcSlot, &save1);
 				}
 
-				if (save2.sIndex >= 3980 && save2.sIndex <= 3989 && BASE_CheckItemDate(&save2) || save2.sIndex >= 4150 && save2.sIndex <= 4188 && BASE_CheckItemDate(&save2))
+				if (save2.sIndex >= 3900 && save2.sIndex <= 3989 && BASE_CheckItemDate(&save2) || save2.sIndex >= 4150 && save2.sIndex <= 4188 && BASE_CheckItemDate(&save2))
 				{
 					BASE_ClearItem(&save2);
 					SendItem(conn, m->DestPlace, m->DestSlot, &save2);

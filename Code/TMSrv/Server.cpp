@@ -33,9 +33,6 @@ int GuildScore[MAX_GUILD];
 
 using ConfigIni::nConfig;
 
-int FREEEXP = 35;
-int PARTY_DIF = 200;
-
 int ServerDown = -1000;
 
 int g_EmptyMob = MAX_USER;
@@ -582,34 +579,10 @@ int LastLogDay = 0;
 int ConfigReady = 0;
 
 ///////////////////////////////////////
-//Config for Event
-//////////////////////////////////////
-int evNotice = 1;
-int evStartIndex = 0;
-int evEndIndex = 0;
-int evCurrentIndex = 0;
-int evRate = 0;
-int evItem = 0;
-int evIndex = 0;
-int evOn = 0;
-int evDelete = 0;
-////////////////////////////////////
 
 int NewbieEventServer = 0;
 int CastleServer = 0;
 
-int DOUBLEMODE = 0;
-int DUNGEONEVENT = 1;
-int DEADPOINT = 1;
-int StatSapphire = 30;
-int BRItem = 413;
-int BRHour = 19;
-
-int BILLING = 3;
-int CHARSELBILL = 0;
-int POTIONCOUNT = 10;
-int PARTYBONUS = 100;
-int GUILDBOARD = 0;
 
 int UserCount = 1;
 int SaveCount = 1;
@@ -625,13 +598,10 @@ int GuildHour = 20;
 int NumGuildBattle = 26;
 int PotionReady = 0;
 
-int PotionDelay = 500;
-
 int Citizen = 80;
 int QuestIceTime = 0;
 
 int GTorreState = 0;
-int GTorreHour = 21;
 int GTorreGuild = 0;
 
 int NewbieHour = 20;
@@ -660,8 +630,6 @@ CPSock ListenSocket;
 char DBServerAddress[32] = { 0, };
 int DBServerPort = 0;
 
-int isDropItem = 0;
-int maxNightmare = 3;
 int CurrentWeather = 0;
 int TESTSERVER = 0;
 int LOCALSERVER = 0;
@@ -680,7 +648,6 @@ int CastleState = 0;
 int AltarState = 1;
 
 int Colo150Limit = 0;
-int KefraLive = 0;
 char KefraKiller[32] = "LOCALSERVER";
 
 int g_dLevel = 0;
@@ -1089,6 +1056,22 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadLottery(void)
+{
+	int status = nConfig::ReadLottery(PATH_EVENT_Lottery, "lottery");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler lottery", "FILE ERROR", NULL);
+}
+
+void ReadNPCBlock(void)
+{
+	int status = nConfig::ReadNPCBlock(PATH_SETTINGS, "npcBlock.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler npcBlock", "FILE ERROR", NULL);
+}
+
 void ReadPremioLojaAfk(void)
 {
 	int status = nConfig::ReadPremioLojaAfk(PATH_EVENT_LojaAfk, "premio");
@@ -1126,10 +1109,10 @@ void ReadQuiz(void)
 void ReadConfig(void)
 {
 
-	int status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", DROP_ITEM_EVENT);
+	int status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json");
 
 	if (!status)
-		MessageBox(hWndMain, "Erro ao ler DROP_ITEM_EVENT em gameConfig", "FILE ERROR", NULL);
+		MessageBox(hWndMain, "Erro ao ler  gameConfig", "FILE ERROR", NULL);
 	else
 	{
 		evIndex = gameConfig[0][0];
@@ -1141,27 +1124,13 @@ void ReadConfig(void)
 		evCurrentIndex = gameConfig[0][6];
 		evEndIndex = gameConfig[0][7];
 		evNotice = gameConfig[0][8];
-	}
 
-	status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", ETC_EVENT);
-
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler ETC_EVENT em gameConfig", "FILE ERROR", NULL);
-	else
-	{
 		DOUBLEMODE = gameConfig[1][0];
 		DUNGEONEVENT = gameConfig[1][1];
 		DEADPOINT = gameConfig[1][2];
 		StatSapphire = gameConfig[1][3];
 		BRItem = gameConfig[1][4];
-	}
 
-	status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", nBILLING);
-
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler nBILLING em gameConfig", "FILE ERROR", NULL);
-	else
-	{
 		BILLING = gameConfig[2][0];
 		FREEEXP = gameConfig[2][1];
 		CHARSELBILL = gameConfig[2][2];
@@ -1171,31 +1140,14 @@ void ReadConfig(void)
 
 		if (PARTYBONUS < 50 || PARTYBONUS > 200)
 			PARTYBONUS = 100;
-	}
-	
-	status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", ITEM_DROP_BONUS);
 
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler ITEM_DROP_BONUS em gameConfig", "FILE ERROR", NULL);
-	else {
 		for (size_t i = 0; i < 64; i++)
 		{
 			g_pDropBonus[i] = gameConfig[3][i];
 		}
-	}
 
-	status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", TREASURE);
+		memmove(&g_pTreasure, &ng_pTreasure, sizeof(STRUCT_TREASURE));
 
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler ITEM_DROP_BONUS em gameConfig", "FILE ERROR", NULL);
-	else
-	memmove(&g_pTreasure, &ng_pTreasure, sizeof(STRUCT_TREASURE));
-	
-	status = nConfig::ReadGameConfig(PATH_CONFIG, "gameConfig.json", OTHER);
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler OTHER em gameConfig", "FILE ERROR", NULL);
-	else
-	{
 		PARTY_DIF = gameConfig[5][0];
 		KefraLive = gameConfig[5][1];
 		GTorreHour = gameConfig[5][2];
@@ -1203,13 +1155,11 @@ void ReadConfig(void)
 		BRHour = gameConfig[5][4];
 		maxNightmare = gameConfig[5][5];
 		PotionDelay = gameConfig[5][6];
-	}
 
-	if (status)
-	{
 		ConfigReady = 1;
 		DrawConfig(TRUE);
 	}
+
 }
 
 //Desativado, usando novo configGame acima
@@ -4121,6 +4071,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadPremioLojaAfk();
 	ReadGroupItens();
 	ReadFadaAmmount();
+	ReadNPCBlock();
+	ReadLottery();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4719,6 +4671,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&LoadQuiz");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&LoadPremioLojaAfk");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&LoadLottery");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -4726,6 +4679,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
 
 		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&LoadNPCBlock");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&LoadFadaDourada");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&LoadAgruparItens");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&ConfigExtra");
@@ -4785,6 +4739,14 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			ReadFadaAmmount();
 			break;
 
+		case IDC_READ_NPC_BLOCK:
+			ReadNPCBlock();
+			break;
+
+		case IDC_READ_LOTTERY:
+			ReadLottery();
+			break;
+
 		case IDC_READGAMECONFIG:
 		{
 			ReadConfig();
@@ -4807,6 +4769,9 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		}
 
 		CReadFiles::WriteGuild();
+
+		nConfig::WriteGameConfig(PATH_CONFIG, "gameConfig.json");
+		
 
 		if (fLogFile)
 			fclose(fLogFile);

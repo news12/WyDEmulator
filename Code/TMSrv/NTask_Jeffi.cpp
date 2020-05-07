@@ -2,6 +2,12 @@
 
 void NTask_Jeffi(int a_iConn, int a_iTarget)
 {
+	if (!NPCBlock[Jeffi])
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_NPCBLOCKED]);
+		return;
+	}
+
 	if (pMob[a_iConn].MOB.Equip[13].sIndex == 447 || pMob[a_iConn].MOB.Equip[13].sIndex == 692)
 	{
 		int price = 0;

@@ -1333,7 +1333,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 							else
 							{
 								KefraLive = 1;
-								sprintf(temp, g_pMessageStringTable[_SN_End_Khepra], "ToA");
+								sprintf(temp, g_pMessageStringTable[_SN_End_Khepra], "Eternal");
 								SendNotice(temp);
 
 								DrawConfig(TRUE);
@@ -2614,7 +2614,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									item.stEffect[2].cEffect = 59;
 									item.stEffect[2].cValue = rand();
 
-									sprintf(temp, " [%s] Dropou [%s] já foram dropados [%d].", pMob[a_iConn].MOB.MobName, g_pItemList[evItem].Name, evCurrentIndex);
+									sprintf(temp, " [%s] Dropou [%s] de [%d].", pMob[a_iConn].MOB.MobName, g_pItemList[evItem].Name, evCurrentIndex);
 								}
 								else
 									sprintf(temp, "[%s] Dropou [%s]", pMob[a_iConn].MOB.MobName, g_pItemList[evItem].Name);

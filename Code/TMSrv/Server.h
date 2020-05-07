@@ -77,6 +77,8 @@ void ReadQuiz();
 void ReadPremioLojaAfk();
 void ReadGroupItens();
 void ReadFadaAmmount();
+void ReadNPCBlock();
+void ReadLottery();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -212,8 +214,6 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg);
 
 //Externs
 
-extern  int FREEEXP;
-
 extern int ServerDown;
 
 extern int g_EmptyMob;
@@ -272,38 +272,14 @@ extern int LastLogCommand;
 extern int LastLogAttack;
 extern int LastLogBanned;
 extern int LastLogDay;
-extern int maxNightmare;
+
 
 extern int ConfigReady;
 
 ///////////////////////////////////////
-//Config for Event
-//////////////////////////////////////
-extern int evNotice;
-extern int evStartIndex;
-extern int evEndIndex;
-extern int evCurrentIndex;
-extern int evRate;
-extern int evItem;
-extern int evIndex;
-extern int evOn;
-extern int evDelete;
-////////////////////////////////////
 
 extern int NewbieEventServer;
 extern int CastleServer;
-
-extern int DOUBLEMODE;
-extern int DUNGEONEVENT;
-extern int DEADPOINT;
-extern int StatSapphire;
-extern int BRItem;
-
-extern int BILLING;
-extern int CHARSELBILL;
-extern int POTIONCOUNT;
-extern int PARTYBONUS;
-extern int GUILDBOARD;
 
 extern int UserCount;
 extern int SaveCount;
@@ -318,7 +294,7 @@ extern int GuildHour;
 
 extern int NumGuildBattle;
 extern int PotionReady;
-extern int PotionDelay;
+
 extern int NewbieHour;
 
 extern int NumServerInGroup;
@@ -360,7 +336,7 @@ extern int BrMod;
 extern int BrGrid;
 extern int CastleState;
 extern int Colo150Limit;
-extern int KefraLive;
+
 extern char KefraKiller[32];
 
 extern int g_dLevel;
@@ -369,8 +345,6 @@ extern int g_dLevel2;
 
 extern int Kingdom1Clear;
 extern int Kingdom2Clear;
-extern int PARTY_DIF;
-extern int isDropItem;
 
 ///////////////////////////////////////
 //Config for Duel: 1:1 5:5 10:10 All:All
@@ -431,7 +405,7 @@ extern int PistaBalrogPortalPos[5][5][2];
 extern int Citizen;
 extern int QuestIceTime;
 extern int GTorreState;
-extern int GTorreHour;
+
 extern int GTorreGuild;
 
 

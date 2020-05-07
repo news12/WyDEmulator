@@ -18,6 +18,49 @@ STRUCT_EVENTS eEvents;
 STRUCT_QUIZ eQuiz[];
 STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
+// Items que pode ser ganhado aleatoriamente por 1 hora de online
+/*{ 412, 413, 4027 }*/
+int g_pRewardBonus[];
+
+/*GAME CONFIG-----------*/
+
+//Config for Event
+//////////////////////////////////////
+int evNotice = 1;
+int evStartIndex = 0;
+int evEndIndex = 0;
+int evCurrentIndex = 0;
+int evRate = 0;
+int evItem = 0;
+int evIndex = 0;
+int evOn = 0;
+int evDelete = 0;
+////////////////////////////////////
+
+int DOUBLEMODE = 0;
+int DUNGEONEVENT = 1;
+int DEADPOINT = 1;
+int StatSapphire = 30;
+int BRItem = 413;
+int BRHour = 19;
+
+int BILLING = 3;
+int CHARSELBILL = 0;
+int POTIONCOUNT = 10;
+int PARTYBONUS = 100;
+int GUILDBOARD = 0;
+
+int GTorreHour = 21;
+int isDropItem = 0;
+int maxNightmare = 3;
+int PotionDelay = 500;
+
+int KefraLive = 0;
+
+int FREEEXP = 35;
+int PARTY_DIF = 200;
+/*-----------GAME CONFIG*/
+int NPCBlock[];
 int TOTAL_QUIZ;
 int goldQuiz;
 long int expQuiz;
@@ -38,6 +81,7 @@ const string PATH_SETTINGS = PATH_COMMON + "Settings/";
 const string PATH_EVENTS = PATH_COMMON + "Events/";
 const string PATH_EVENT_VemProEternal = PATH_EVENTS + "VemProEternal/";
 const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
+const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -541,7 +585,7 @@ int ConfigIni::nConfig::WriteFadaAmmount(string path, string file)
 {
 	string fullpath = path + file;
 
-#pragma region Txt New groupItens.json
+#pragma region Txt New fadaAmmount.json
 	auto nJson = R"(
 {
 "GROUP":{
@@ -568,7 +612,142 @@ int ConfigIni::nConfig::WriteFadaAmmount(string path, string file)
 	}
 }
 
-int nConfig::ReadGameConfig(string path, string file, int key)
+int ConfigIni::nConfig::ReadNPCBlock(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteNPCBlock(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+	memset(&NPCBlock, 0, sizeof(eNPCBlock));
+
+	nJson["NPC"]["Uxmall"].get_to(NPCBlock[Uxmall]);
+	nJson["NPC"]["Odin"].get_to(NPCBlock[Odin]);
+	nJson["NPC"]["BlackOrackle"].get_to(NPCBlock[BlackOrackle]);
+	nJson["NPC"]["Xama"].get_to(NPCBlock[Xama]);
+	nJson["NPC"]["Shama"].get_to(NPCBlock[Shama]);
+	nJson["NPC"]["Jeffi"].get_to(NPCBlock[Jeffi]);
+	nJson["NPC"]["Perzens"].get_to(NPCBlock[Perzens]);
+	nJson["NPC"]["MestreHaby"].get_to(NPCBlock[MestreHaby]);
+	nJson["NPC"]["Kibita"].get_to(NPCBlock[Kibita]);
+	nJson["NPC"]["Urnammu"].get_to(NPCBlock[Urnammu]);
+
+	return TRUE;
+}
+
+int ConfigIni::nConfig::WriteNPCBlock(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New groupItens.json
+	auto nJson = R"(
+{
+"NPC":{
+		"Uxmall": 0,
+		"Odin": 1,
+		"BlackOrackle": 1,
+		"Xamã": 1,
+		"Shama": 1,
+		"Jeffi": 1,
+		"Perzens": 1,
+		"MestreHaby": 1,
+		"Kibita": 1,
+		"Urnammu": 0
+		
+	  }
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadLottery(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteLottery(PATH_EVENT_Lottery, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+	memset(&g_pRewardBonus, 0, sizeof(g_pRewardBonus));
+	for (auto& x : nJson["REWARD"].items())
+	{
+		x.value().get_to(g_pRewardBonus[stoi(x.key())]);
+	}
+}
+
+int ConfigIni::nConfig::WriteLottery(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New lottery.json
+	auto nJson = R"(
+{
+"REWARD":{
+	
+			"0": 412,
+			"1": 413,
+			"2": 418,
+			"3": 419,
+			"4": 418,
+			"5": 419,
+			"6": 4026,
+			"7": 4026,
+			"8": 4026,
+			"9": 4027
+				
+        }
+
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int nConfig::ReadGameConfig(string path, string file)
 {
 	string fullpath = path + file;
 	short itemDropBonus[64];
@@ -579,7 +758,7 @@ int nConfig::ReadGameConfig(string path, string file, int key)
 	if (fp == NULL) {
 
 		//gameConfig.json não encontrado, será criado um novo(default) no diretorio config/
-		int creat = WriteGameConfig(PATH_CONFIG, "gameConfig.json", 0);
+		int creat = WriteGameConfig(PATH_CONFIG, "gameConfig.json");
 
 		if (!creat)
 			return creat;
@@ -589,9 +768,9 @@ int nConfig::ReadGameConfig(string path, string file, int key)
 	json nJson;
 	spath >> nJson;
 
-	switch (key)
-	{
-	case DROP_ITEM_EVENT:
+	memset(gameConfig, 0, sizeof(gameConfig));
+	
+	//case DROP_ITEM_EVENT:
 		nJson["DROP_ITEM_EVENT"]["evIndex"].get_to(gameConfig[DROP_ITEM_EVENT][0]);
 		nJson["DROP_ITEM_EVENT"]["evDelete"].get_to(gameConfig[DROP_ITEM_EVENT][1]);
 		nJson["DROP_ITEM_EVENT"]["evOn"].get_to(gameConfig[DROP_ITEM_EVENT][2]);
@@ -601,27 +780,27 @@ int nConfig::ReadGameConfig(string path, string file, int key)
 		nJson["DROP_ITEM_EVENT"]["evCurrentIndex"].get_to(gameConfig[DROP_ITEM_EVENT][6]);
 		nJson["DROP_ITEM_EVENT"]["evEndIndex"].get_to(gameConfig[DROP_ITEM_EVENT][7]);
 		nJson["DROP_ITEM_EVENT"]["evNotice"].get_to(gameConfig[DROP_ITEM_EVENT][8]);
-		break;
-	case ETC_EVENT:
+	
+	//case ETC_EVENT:
 		nJson["ETC_EVENT"]["DOUBLEMODE"].get_to(gameConfig[ETC_EVENT][0]);
 		nJson["ETC_EVENT"]["DEADPOINT"].get_to(gameConfig[ETC_EVENT][1]);
 		nJson["ETC_EVENT"]["DUNGEONEVENT"].get_to(gameConfig[ETC_EVENT][2]);
 		nJson["ETC_EVENT"]["StatSpapphire"].get_to(gameConfig[ETC_EVENT][3]);
 		nJson["ETC_EVENT"]["BatleRoyalItem"].get_to(gameConfig[ETC_EVENT][4]);
-		break;
-	case nBILLING:
+		
+	//case nBILLING:
 		nJson["BILLING"]["BILLING"].get_to(gameConfig[nBILLING][0]);
 		nJson["BILLING"]["FREEEXP"].get_to(gameConfig[nBILLING][1]);
 		nJson["BILLING"]["CHARSELBILL"].get_to(gameConfig[nBILLING][2]);
 		nJson["BILLING"]["POTIONCOUNT"].get_to(gameConfig[nBILLING][3]);
 		nJson["BILLING"]["PARTYBONUS"].get_to(gameConfig[nBILLING][4]);
 		nJson["BILLING"]["GUILDBOARD"].get_to(gameConfig[nBILLING][5]);
-		break;
-	case ITEM_DROP_BONUS:
+		
+	//case ITEM_DROP_BONUS:
 		nJson["ITEM_DROP_BONUS"].get_to(itemDropBonus);
 		memmove(&gameConfig[ITEM_DROP_BONUS], &itemDropBonus, sizeof(itemDropBonus));
-		break;
-	case TREASURE:
+	
+	//case TREASURE:
 		for (auto& x : nJson["TREASURE"].items())
 		{
 			for (auto& e : x.value().items())
@@ -641,8 +820,8 @@ int nConfig::ReadGameConfig(string path, string file, int key)
 			memmove(&ng_pTreasure[stoi(x.key())], &treasure, sizeof(STRUCT_TREASURE));
 
 		};
-		break;
-	case OTHER:
+	
+	//case OTHER:
 		nJson["OTHER"]["PARTY_DIF"].get_to(gameConfig[OTHER][0]);
 		nJson["OTHER"]["KefraLive"].get_to(gameConfig[OTHER][1]);
 		nJson["OTHER"]["GTorreHour"].get_to(gameConfig[OTHER][2]);
@@ -650,15 +829,12 @@ int nConfig::ReadGameConfig(string path, string file, int key)
 		nJson["OTHER"]["BableRoyalRHour"].get_to(gameConfig[OTHER][4]);
 		nJson["OTHER"]["maxNightmare"].get_to(gameConfig[OTHER][5]);
 		nJson["OTHER"]["PotionDelay"].get_to(gameConfig[OTHER][6]);
-		break;
-	default:
-		break;
-	}
+	
 
 	return TRUE;
 }
 
-int nConfig::WriteGameConfig(string path, string file, int key)
+int nConfig::WriteGameConfig(string path, string file)
 {
 
 	std::string fullpath = path + file;
@@ -670,15 +846,15 @@ int nConfig::WriteGameConfig(string path, string file, int key)
 					"evIndex": 1,
 					"evDelete": 0,
 					"evOn": 0,
-					"evItem": 475,
+					"evItem": 4026,
 					"evRate": 40,
 					"evStartIndex": 1,
-					"evCurrentIndex": 126,
+					"evCurrentIndex": 0,
 					"evEndIndex": 30000,
 					"evNotice": 1
 				   },
 "ETC_EVENT": {
-				"DOUBLEMODE": 0,
+				"DOUBLEMODE": 1,
 				"DEADPOINT": 1,
 				"DUNGEONEVENT": 0,
 				"StatSpapphire": 30,
@@ -829,6 +1005,45 @@ int nConfig::WriteGameConfig(string path, string file, int key)
 })"_json;
 
 #pragma endregion
+
+	//case nBILLING:
+	nJson["BILLING"]["BILLING"] = BILLING;
+	nJson["BILLING"]["CHARSELBILL"] = CHARSELBILL;
+	nJson["BILLING"]["FREEEXP"] = FREEEXP;
+	nJson["BILLING"]["GUILDBOARD"] = GUILDBOARD;
+	nJson["BILLING"]["PARTYBONUS"] = PARTYBONUS;
+	nJson["BILLING"]["POTIONCOUNT"] = POTIONCOUNT;
+	
+	//case DROP_ITEM_EVENT:
+	nJson["DROP_ITEM_EVENT"]["evCurrentIndex"] = evCurrentIndex;
+	nJson["DROP_ITEM_EVENT"]["evDelete"] = evDelete;
+	nJson["DROP_ITEM_EVENT"]["evEndIndex"] = evEndIndex;
+	nJson["DROP_ITEM_EVENT"]["evIndex"] = evIndex;
+	nJson["DROP_ITEM_EVENT"]["evItem"] = evItem;
+	nJson["DROP_ITEM_EVENT"]["evNotice"] = evNotice;
+	nJson["DROP_ITEM_EVENT"]["evOn"] = evOn;
+	nJson["DROP_ITEM_EVENT"]["evRate"] = evRate;
+	nJson["DROP_ITEM_EVENT"]["evStartIndex"] = evStartIndex;
+	
+	//case ETC_EVENT:
+	nJson["ETC_EVENT"]["BatleRoyalItem"] = BRItem;
+	nJson["ETC_EVENT"]["DEADPOINT"] = DEADPOINT;
+	nJson["ETC_EVENT"]["DOUBLEMODE"] = DOUBLEMODE;
+	nJson["ETC_EVENT"]["DUNGEONEVENT"] = DUNGEONEVENT;
+	nJson["ETC_EVENT"]["StatSpapphire"] = StatSapphire;	
+	
+	//case ITEM_DROP_BONUS:
+	nJson["ITEM_DROP_BONUS"] = g_pDropBonus;
+	
+	//case OTHER:
+	nJson["OTHER"]["BableRoyalRHour"] = BRHour;
+	nJson["OTHER"]["GTorreHour"] = GTorreHour;
+	nJson["OTHER"]["KefraLive"] = KefraLive;
+	nJson["OTHER"]["PARTY_DIF"] = PARTY_DIF;
+	nJson["OTHER"]["PotionDelay"] = PotionDelay;
+	nJson["OTHER"]["isDropItem"] = isDropItem;
+	nJson["OTHER"]["maxNightmare"] = maxNightmare;
+	
 
 	try
 	{

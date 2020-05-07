@@ -26,9 +26,6 @@ int MaxServerGroup = 0;
 int MaxServer = 0;
 int MaxServerNumber = 0;
 
-// Items que pode ser ganhado aleatoriamente por 1 hora de online
-int g_pRewardBonus[MAX_ITEM_REWARD_PER_HOUR] = { 412, 413, 4027 };
-
 // definição da base de força, inteligencia, dextreza, con, HP e HP das 4 classes
 int BaseSIDCHM[4][6] = 
 {
@@ -7320,10 +7317,8 @@ void BASE_SetDateFairy(STRUCT_ITEM *Item, int day)
 	//if (Item->sIndex < 3897 || Item->sIndex > 3913)
 	//	return;
 
-	if ((Item->sIndex > 3788 && Item->sIndex < 3792) ||
-		Item->sIndex > 3899 && Item->sIndex < 3914)
+	if ((Item->sIndex == 3789) ||Item->sIndex >= 3900 && Item->sIndex <= 3916)
 	{
-
 
 		Item->stEffect[0].cEffect = EF_WDAY;
 		Item->stEffect[0].cValue = day;
@@ -7403,12 +7398,8 @@ void  BASE_CheckFairyDate(STRUCT_ITEM *Item)
 
 	//if (Item->sIndex < 3900 || Item->sIndex > 3913)
 	//	return;
-	if ((Item->sIndex > 3788 && Item->sIndex < 3792) ||
-		Item->sIndex > 3899 && Item->sIndex < 3914)
+	if ((Item->sIndex == 3789) || Item->sIndex >= 3900 && Item->sIndex <= 3916)
 	{
-
-
-
 		int day = Item->stEffect[0].cValue;
 		int hour = Item->stEffect[1].cValue;
 		int min = Item->stEffect[2].cValue;

@@ -45,7 +45,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				if (pMob[a_iConn].MOB.Equip[5].sIndex != 0) { pMob[a_iConn].MOB.Equip[5].stEffect[0].cEffect = EF_SANC; pMob[a_iConn].MOB.Equip[5].stEffect[0].cValue = ival2; }
 				if (pMob[a_iConn].MOB.Equip[6].sIndex != 0) { pMob[a_iConn].MOB.Equip[6].stEffect[0].cEffect = EF_SANC; pMob[a_iConn].MOB.Equip[6].stEffect[0].cValue = ival2; }
 				if (pMob[a_iConn].MOB.Equip[7].sIndex != 0) { pMob[a_iConn].MOB.Equip[7].stEffect[0].cEffect = EF_SANC; pMob[a_iConn].MOB.Equip[7].stEffect[0].cValue = ival2; }
-				SendClientMsg(a_iConn, "[ToA sanc] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal sanc] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "isgod"))
@@ -53,7 +53,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				pUser[a_iConn].Admin = 1;
 				pMob[a_iConn].MOB.BaseScore.Level = 1010;
 				pMob[a_iConn].UpdateScore();
-				SendClientMsg(a_iConn, "[ToA isgod] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal isgod] <SUCESS>");
 			}
 			else if (!strcmp(sval1, "secclearskill"))
 			{
@@ -86,7 +86,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			else if (!strcmp(sval1, "clearskill"))
 			{
 				pMob[a_iConn].MOB.LearnedSkill = 0;
-				SendClientMsg(a_iConn, "[ToA clearskill] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal clearskill] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "soul"))
@@ -102,39 +102,39 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				pMob[a_iConn].MOB.BaseScore.Level = ival2;
 				SendEtc(a_iConn);
-				SendClientMsg(a_iConn, "[ToA level] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal level] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "hp"))
 			{
 				pMob[a_iConn].MOB.BaseScore.MaxHp = pMob[a_iConn].MOB.BaseScore.Hp = ival2;
 				pMob[a_iConn].MOB.CurrentScore.MaxHp = pMob[a_iConn].MOB.CurrentScore.Hp = ival2;
-				SendClientMsg(a_iConn, "[ToA hp] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal hp] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "mp"))
 			{
 				pMob[a_iConn].MOB.BaseScore.MaxMp = pMob[a_iConn].MOB.BaseScore.Mp = ival2;
 				pMob[a_iConn].MOB.CurrentScore.MaxMp = pMob[a_iConn].MOB.CurrentScore.Mp = ival2;
-				SendClientMsg(a_iConn, "[ToA mp] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal mp] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "ac"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Ac = ival2;
-				SendClientMsg(a_iConn, "[ToA ac] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal ac] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "dam"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Damage = ival2;
-				SendClientMsg(a_iConn, "[ToA dam] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal dam] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "exp"))
 			{
 				pMob[a_iConn].MOB.Exp = dval2;
-				SendClientMsg(a_iConn, "[ToA exp] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal exp] <SUCESS>");
 				SendEtc(a_iConn);
 				pMob[a_iConn].CheckGetLevel();
 			}
@@ -142,80 +142,80 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			else if (!strcmp(sval1, "str"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Str = ival2;
-				SendClientMsg(a_iConn, "[ToA str] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal str] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "int"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Int = ival2;
-				SendClientMsg(a_iConn, "[ToA int] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal int] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "dex"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Dex = ival2;
-				SendClientMsg(a_iConn, "[ToA dex] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal dex] <SUCESS>");
 
 			}
 
 			else if (!strcmp(sval1, "con"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Con = ival2;
-				SendClientMsg(a_iConn, "[ToA con] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal con] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "coin"))
 			{
 				pMob[a_iConn].MOB.Coin = ival2;
-				SendClientMsg(a_iConn, "[ToA coin] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal coin] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "skillbonus"))
 			{
 				pMob[a_iConn].MOB.SkillBonus = ival2;
-				SendClientMsg(a_iConn, "[ToA skillbonus] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal skillbonus] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "special0"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Special[0] = ival2;
-				SendClientMsg(a_iConn, "[ToA special0] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal special0] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "special1"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Special[1] = ival2;
-				SendClientMsg(a_iConn, "[ToA special1] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal special1] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "special2"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Special[2] = ival2;
-				SendClientMsg(a_iConn, "[ToA special2] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal special2] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "special3"))
 			{
 				pMob[a_iConn].MOB.BaseScore.Special[3] = ival2;
-				SendClientMsg(a_iConn, "[ToA special3] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal special3] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "scorebonus"))
 			{
 				pMob[a_iConn].MOB.ScoreBonus = ival2;
-				SendClientMsg(a_iConn, "[ToA scorebonus] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal scorebonus] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "attackrun"))
 			{
 				pMob[a_iConn].MOB.BaseScore.AttackRun = ival2;
-				SendClientMsg(a_iConn, "[ToA attackrun] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal attackrun] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "critical"))
 			{
 				pMob[a_iConn].MOB.Critical = ival2;
-				SendClientMsg(a_iConn, "[ToA critical] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal critical] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "learned"))
@@ -223,7 +223,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				int skillpos = ival2 % 24;
 				int learn = 1 << skillpos;
 
-				sprintf(temp, "[ToA learned] %d <SUCESS>", learn);
+				sprintf(temp, "[Eternal learned] %d <SUCESS>", learn);
 				SendClientMsg(a_iConn, temp);
 			}
 
@@ -309,25 +309,25 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			else if (!strcmp(sval1, "special"))
 			{
 				pMob[a_iConn].MOB.SpecialBonus = ival2;
-				SendClientMsg(a_iConn, "[ToA special] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal special] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "classmaster"))
 			{
 				pMob[a_iConn].Extra.ClassMaster = ival2;
-				SendClientMsg(a_iConn, "[ToA classmaster] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal classmaster] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "potiondelay"))
 			{
 				PotionDelay = ival2;
-				SendClientMsg(a_iConn, "[ToA potiondelay] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal potiondelay] <SUCESS>");
 				DrawConfig(TRUE);
 			}
 			else if (!strcmp(sval1, "partybonus"))
 			{
 				PARTYBONUS = ival2;
-				SendClientMsg(a_iConn, "[ToA partybonus] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal partybonus] <SUCESS>");
 				DrawConfig(TRUE);
 			}
 			else if (!strcmp(sval1, "createitem"))
@@ -350,7 +350,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				GridMulticast(pMob[a_iConn].TargetX, pMob[a_iConn].TargetY, (MSG_STANDARD*)&sm_cmn, 0);
 
-				SendClientMsg(a_iConn, "[ToA name] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal name] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "closearmia"))
@@ -374,7 +374,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				GridMulticast(pItem[i].PosX, pItem[i].PosY, (MSG_STANDARD*)&sm_cig, 0);
 
-				SendClientMsg(a_iConn, "[ToA closearmia] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal closearmia] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "openarmia"))
@@ -398,7 +398,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				GridMulticast(pItem[i].PosX, pItem[i].PosY, (MSG_STANDARD*)&sm_cig, 0);
 
-				SendClientMsg(a_iConn, "[ToA openarmia] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal openarmia] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "billmode"))
@@ -441,7 +441,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				CReadFiles::ReadQuestsRate();
 				CReadFiles::ReadCompRate();
 				CCastleZakum::ReadCastleQuest();
-				SendClientMsg(a_iConn, "[ToA reloadfile] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal reloadfile] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "clearcarry"))
@@ -452,7 +452,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 					SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pMob[a_iConn].MOB.Carry[i]);
 				}
 
-				SendClientMsg(a_iConn, "[ToA clearcarry] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal clearcarry] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "clearcargo"))
@@ -463,7 +463,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 					SendItem(a_iConn, ITEM_PLACE_CARRY, i, &pUser[a_iConn].Cargo[i]);
 				}
 
-				SendClientMsg(a_iConn, "[ToA clearcargo] <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal clearcargo] <SUCESS>");
 			}
 
 			else if (!strcmp(sval1, "item"))
@@ -489,7 +489,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				PutItem(a_iConn, &Item);
 
-				sprintf(temp, "[ToA item] Create item [%s] <SUCESS>", g_pItemList[Item.sIndex].Name);
+				sprintf(temp, "[Eternal item] Create item [%s] <SUCESS>", g_pItemList[Item.sIndex].Name);
 				SendClientMsg(a_iConn, temp);
 			}
 
@@ -706,7 +706,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 					MobKilled(i, a_iConn, 0, 0);
 				}
 			}
-			SendClientMsg(a_iConn, "[ToA KILL] KILL");
+			SendClientMsg(a_iConn, "[Eternal KILL] KILL");
 		}
 
 
@@ -715,13 +715,13 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			int ret = CreateMob(sval1, pMob[a_iConn].TargetX, pMob[a_iConn].TargetY, "npc", 0);
 
 			if (ret == 1)
-				SendClientMsg(a_iConn, "[ToA create] Create mob <SUCESS>");
+				SendClientMsg(a_iConn, "[Eternal create] Create mob <SUCESS>");
 			if (ret == 0)
-				SendClientMsg(a_iConn, "[ToA create] <ERROR> No monster file in boss directory ");
+				SendClientMsg(a_iConn, "[Eternal create] <ERROR> No monster file in boss directory ");
 			if (ret == -1)
-				SendClientMsg(a_iConn, "[ToA create] <ERROR> No empty mob");
+				SendClientMsg(a_iConn, "[Eternal create] <ERROR> No empty mob");
 			if (ret == -2)
-				SendClientMsg(a_iConn, "[ToA create] <ERROR> No empty mob grid");
+				SendClientMsg(a_iConn, "[Eternal create] <ERROR> No empty mob grid");
 		}
 
 		else if (!strcmp(cmd, "buff"))
@@ -784,12 +784,12 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 				if (WeekMode == -1)
 					WeekMode = 5;
-				SendClientMsg(a_iConn, "[ToA weekmode] FORCE GUILD MODE");
+				SendClientMsg(a_iConn, "[Eternal weekmode] FORCE GUILD MODE");
 				return;
 			}
 
 			ForceWeekMode = -1;
-			SendClientMsg(a_iConn, "[ToA weekmode] WEEKLY GUILD MODE");
+			SendClientMsg(a_iConn, "[Eternal weekmode] WEEKLY GUILD MODE");
 		}
 
 		
@@ -797,13 +797,13 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 		else if (!strcmp(cmd, "reloadguild"))
 		{
 			CReadFiles::ReadGuild();
-			SendClientMsg(a_iConn, "[ToA reloadguild] <SUCESS>");
+			SendClientMsg(a_iConn, "[Eternal reloadguild] <SUCESS>");
 		}
 
 		else if (!strcmp(cmd, "readguildname"))
 		{
 			BASE_InitializeGuildName();
-			SendClientMsg(a_iConn, "[ToA readguildname] <SUCESS>");
+			SendClientMsg(a_iConn, "[Eternal readguildname] <SUCESS>");
 		}
 
 		else if (!strcmp(cmd, "reboot"))
@@ -819,7 +819,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			pMob[GuildImpostoID[3]].MOB.Exp = 0;
 			pMob[GuildImpostoID[4]].MOB.Exp = 0;
 
-			SendClientMsg(a_iConn, "[ToA impost]  IMPOST <SUCESS>");
+			SendClientMsg(a_iConn, "[Eternal impost]  IMPOST <SUCESS>");
 		}
 
 		else if (!strcmp(cmd, "statsapphire"))
@@ -841,7 +841,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			CurrentWeather = ival1;
 			SendWeather();
 
-			SendClientMsg(a_iConn, "[ToA weather]  IMPOST <SUCESS>");
+			SendClientMsg(a_iConn, "[Eternal weather]  IMPOST <SUCESS>");
 		}
 
 		else if (!strcmp(cmd, "mute"))
@@ -864,7 +864,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 			SendScore(a_iConn);
 
-			sprintf(temp, "[ToA mute]  MUTE [%s] <SUCESS>", pMob[user].MOB.MobName);
+			sprintf(temp, "[Eternal mute]  MUTE [%s] <SUCESS>", pMob[user].MOB.MobName);
 			SendClientMsg(a_iConn, temp);
 			SendClientMsg(user, g_pMessageStringTable[_NN_Chat_Prohibition]);
 			return;
@@ -890,7 +890,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 
 			SendScore(a_iConn);
 
-			sprintf(temp, "[ToA desmute]  Desmute [%s] <SUCESS>", pMob[user].MOB.MobName);
+			sprintf(temp, "[Eternal desmute]  Desmute [%s] <SUCESS>", pMob[user].MOB.MobName);
 			SendClientMsg(a_iConn, temp);
 			SendClientMsg(user, g_pMessageStringTable[_NN_Chat_Free]);
 			return;
@@ -899,7 +899,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 		else if (!strcmp(cmd, "saveall"))
 		{
 			SaveAll();
-			SendClientMsg(a_iConn, "[ToA mute] SAVEALL");
+			SendClientMsg(a_iConn, "[Eternal mute] SAVEALL");
 		}
 
 		else if (!strcmp(cmd, "teleport"))

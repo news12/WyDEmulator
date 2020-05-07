@@ -595,7 +595,7 @@ lbl_PST1:
 				SendItem(user, ITEM_PLACE_EQUIP, 12, &pMob[user].MOB.Equip[12]);
 			}
 
-			if((pMob[user].MOB.Equip[13].sIndex >= 3900 && pMob[user].MOB.Equip[13].sIndex <= 3913) ||
+			if((pMob[user].MOB.Equip[13].sIndex >= 3900 && pMob[user].MOB.Equip[13].sIndex <= 3916) ||
 				(pMob[user].MOB.Equip[13].sIndex > 3788 && pMob[user].MOB.Equip[13].sIndex < 3792))
 			{
 				BASE_CheckFairyDate(&pMob[user].MOB.Equip[13]);
@@ -853,7 +853,7 @@ lbl_PST1:
 		
 										SendItem(nUser, ITEM_PLACE_CARGO, i, &pUser[nUser].Cargo[i]);
 		
-										sprintf(temp, "Personagem [%s] foi sorteado e ganhou {%s}.", pMob[nUser].MOB.MobName, g_pItemList[id].Name);
+										sprintf(temp, "Personagem [%s] foi sorteado e ganhou [%s].", pMob[nUser].MOB.MobName, g_pItemList[id].Name);
 										SendSpkMsg(nUser, temp, TNColor::White, true);
 										break;
 									}

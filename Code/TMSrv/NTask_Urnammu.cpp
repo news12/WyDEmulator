@@ -2,6 +2,12 @@
 
 void NTask_Urnammu(int a_iConn, int a_iTarget)
 {
+	if (!NPCBlock[Urnammu])
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_NPCBLOCKED]);
+		return;
+	}
+
 	if (pMob[a_iConn].Extra.ClassMaster != CELESTIALCS)
 	{
 		sprintf(temp, g_pMessageStringTable[_SN_NEEDCLASS], "Sub Celestial");

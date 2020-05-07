@@ -30,13 +30,17 @@ namespace ConfigIni {
 		static int WriteGrupItens(string path, string file);
 		static int ReadFadaAmmount(string path, string file);
 		static int WriteFadaAmmount(string path, string file);
+		static int ReadNPCBlock(string path, string file);
+		static int WriteNPCBlock(string path, string file);
+		static int ReadLottery(string path, string file);
+		static int WriteLottery(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
 	
 		//TM
-		static int ReadGameConfig(string path, string file, int key);
-		static int WriteGameConfig(string path, string file, int key);
+		static int ReadGameConfig(string path, string file);
+		static int WriteGameConfig(string path, string file);
 
 	static	struct GroupServer
 		{

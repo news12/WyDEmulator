@@ -69,7 +69,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define MECANICA_OFFLINE_TEMPO	1200 //3600	= 30min					
 #define SORTEIO_TEMPO 600 // 600 = 5 minutos
 #define MAX_ITEM_TRADE_OFF		2
-#define MAX_ITEM_REWARD_PER_HOUR 3
+#define MAX_ITEM_REWARD_PER_HOUR 10
 
 #define TK  0
 #define FM  1
@@ -101,6 +101,8 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_PREMIO_LOJAAFK 910
 #define IDC_READ_GROUP_ITENS 911
 #define IDC_READ_FADA_GROUP 912
+#define IDC_READ_NPC_BLOCK 913
+#define IDC_READ_LOTTERY 914
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -2902,6 +2904,39 @@ extern char g_pServerList[MAX_SERVERGROUP][MAX_SERVERNUMBER][64];
 extern int g_dwInitItem;
 extern bool ReceivedItem;
 
+//Config for Event
+//////////////////////////////////////
+extern int evNotice;
+extern int evStartIndex;
+extern int evEndIndex;
+extern int evCurrentIndex;
+extern int evRate;
+extern int evItem;
+extern int evIndex;
+extern int evOn;
+extern int evDelete;
+////////////////////////////////////
+extern int DOUBLEMODE;
+extern int DUNGEONEVENT;
+extern int DEADPOINT;
+extern int StatSapphire;
+extern int BRItem;
+
+extern int BILLING;
+extern  int FREEEXP;
+extern int CHARSELBILL;
+extern int POTIONCOUNT;
+extern int PARTYBONUS;
+extern int GUILDBOARD;
+
+extern int PARTY_DIF;
+extern int isDropItem;
+extern int KefraLive;
+extern int GTorreHour;
+extern int BRHour;
+extern int maxNightmare;
+extern int PotionDelay;
+
 extern int g_HeightWidth;
 extern int g_HeightHeight;
 extern int g_HeightPosX;
@@ -2952,6 +2987,7 @@ extern const std::string PATH_SETTINGS;
 extern const std::string PATH_EVENTS;
 extern const std::string PATH_EVENT_VemProEternal;
 extern const std::string PATH_EVENT_LojaAfk;
+extern const std::string PATH_EVENT_Lottery;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -2995,6 +3031,19 @@ extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
 extern int fadaAmmount[50];
 extern const char* WydPoints;
+extern enum eNPCBlock {
+	Uxmall,
+	Odin,
+	BlackOrackle,
+	Xama,
+	Shama,
+	Jeffi,
+	Perzens,
+	MestreHaby,
+	Kibita,
+	Urnammu
+};
+extern int NPCBlock[20];
 #pragma endregion
 
 #endif

@@ -5,6 +5,12 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 {
 	MSG_CombineItem *m = (MSG_CombineItem*)pMsg;
 
+	if (!NPCBlock[Odin])
+	{
+		SendClientMsg(conn, g_pMessageStringTable[_NN_NPCBLOCKED]);
+		return;
+	}
+
 	for (int i = 0; i < MAX_COMBINE; i++)
 	{
 		if (m->Item[i].sIndex == 0)

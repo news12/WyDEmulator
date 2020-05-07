@@ -7,6 +7,13 @@ void NTask_Uxmal(int a_iConn, int a_iTarget)
 	time(&now);
 	when = *localtime(&now);
 
+
+	if (!NPCBlock[Uxmall])
+	{
+		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_NPCBLOCKED]);
+		return;
+	}
+
 	if (when.tm_min >= 0 && when.tm_min <= 15 || when.tm_min >= 20 && when.tm_min <= 35 || when.tm_min >= 40 && when.tm_min <= 55)
 	{
 		SendSay(a_iTarget, g_pMessageStringTable[_NN_Night_Already]);
