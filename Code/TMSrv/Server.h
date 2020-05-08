@@ -79,6 +79,7 @@ void ReadGroupItens();
 void ReadFadaAmmount();
 void ReadNPCBlock();
 void ReadLottery();
+void ReadDropKefra();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

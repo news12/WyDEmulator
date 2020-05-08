@@ -1056,6 +1056,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadDropKefra(void)
+{
+	int status = nConfig::ReadDropKefra(PATH_SETTINGS, "dropKefra.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler dropKefra", "FILE ERROR", NULL);
+}
+
 void ReadLottery(void)
 {
 	int status = nConfig::ReadLottery(PATH_EVENT_Lottery, "lottery");
@@ -4073,6 +4081,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadFadaAmmount();
 	ReadNPCBlock();
 	ReadLottery();
+	ReadDropKefra();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4682,6 +4691,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&LoadNPCBlock");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&LoadFadaDourada");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&LoadAgruparItens");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&LoadDropKefra");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&ConfigExtra");
 
 		SetMenu(hWnd, hMenu);
@@ -4745,6 +4755,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_LOTTERY:
 			ReadLottery();
+			break;
+
+		case IDC_READ_DROP_KEFRA:
+			ReadDropKefra();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -10761,7 +10775,7 @@ int GetFirstSlotBag(int Conn)
 		{
 			SlotId = i;
 
-			break;
+			return TRUE;
 		}
 	}
 

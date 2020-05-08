@@ -103,6 +103,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_FADA_GROUP 912
 #define IDC_READ_NPC_BLOCK 913
 #define IDC_READ_LOTTERY 914
+#define IDC_READ_DROP_KEFRA 915
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3030,6 +3031,7 @@ extern int jsonSancRate[3][12];
 extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
 extern int fadaAmmount[50];
+extern STRUCT_ITEM dropKefra[10];
 extern const char* WydPoints;
 extern enum eNPCBlock {
 	Uxmall,

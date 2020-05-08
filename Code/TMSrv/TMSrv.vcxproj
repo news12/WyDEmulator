@@ -216,6 +216,7 @@
     <ClInclude Include="CUser.h" />
     <ClInclude Include="EventsEternal.h" />
     <ClInclude Include="FadaDourada.h" />
+    <ClInclude Include="KefraDrop.h" />
     <ClInclude Include="PassGroup.h" />
     <ClInclude Include="GetFunc.h" />
     <ClInclude Include="Language.h" />

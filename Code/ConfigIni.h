@@ -34,6 +34,8 @@ namespace ConfigIni {
 		static int WriteNPCBlock(string path, string file);
 		static int ReadLottery(string path, string file);
 		static int WriteLottery(string path, string file);
+		static int ReadDropKefra(string path, string file);
+		static int WriteDropKefra(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

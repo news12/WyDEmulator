@@ -18,6 +18,7 @@ STRUCT_EVENTS eEvents;
 STRUCT_QUIZ eQuiz[];
 STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
+STRUCT_ITEM dropKefra[10];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -731,6 +732,84 @@ int ConfigIni::nConfig::WriteLottery(string path, string file)
         }
 
 
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadDropKefra(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteDropKefra(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	memset(dropKefra, 0, sizeof(STRUCT_ITEM));
+
+	for (auto& x : nJson["DROP"]["Itens"].items())
+	{
+
+		vector<short> nDropKefra = x.value();
+		dropKefra[stoi(x.key())].sIndex = nDropKefra[0];
+		dropKefra[stoi(x.key())].stEffect->sValue = nDropKefra[1];
+		dropKefra[stoi(x.key())].stEffect[0].cEffect = nDropKefra[2];
+		dropKefra[stoi(x.key())].stEffect[0].cValue = nDropKefra[3];
+		dropKefra[stoi(x.key())].stEffect[1].cEffect = nDropKefra[4];
+		dropKefra[stoi(x.key())].stEffect[1].cValue = nDropKefra[5];
+		dropKefra[stoi(x.key())].stEffect[2].cEffect = nDropKefra[6];
+		dropKefra[stoi(x.key())].stEffect[2].cValue = nDropKefra[7];
+
+	};
+
+	return TRUE;
+	
+}
+
+int ConfigIni::nConfig::WriteDropKefra(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New dropKefra.json
+	auto nJson = R"(
+{
+"DROP": {
+		"Itens": {
+				"0": [0,0,0,0,0,0,0,0],
+				"1": [0,0,0,0,0,0,0,0],
+				"2": [0,0,0,0,0,0,0,0],
+				"3": [0,0,0,0,0,0,0,0],
+				"4": [0,0,0,0,0,0,0,0],
+				"5": [0,0,0,0,0,0,0,0],
+				"6": [0,0,0,0,0,0,0,0],
+				"7": [0,0,0,0,0,0,0,0],
+				"8": [0,0,0,0,0,0,0,0],
+				"9": [0,0,0,0,0,0,0,0]
+				
+				}
+		}
 })"_json;
 
 #pragma endregion

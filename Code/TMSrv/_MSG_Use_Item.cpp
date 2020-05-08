@@ -4819,7 +4819,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			}
 
 			pMob[a_iConn].GetCurrentScore(a_iConn);
-
+			SendClientMsg(a_iConn, "Upgrade +");
 			SendScore(a_iConn);
 			sprintf(temp, "useitem,upgrade success %d+%d - (%d,%d,%d)", dest->sIndex, sanc, item->stEffect[0].cEffect, item->stEffect[1].cEffect, item->stEffect[2].cEffect);
 
@@ -4848,13 +4848,15 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 					}
 				}
 				sprintf(temp, "useitem,upgrade fail-- %d+%d - (%d,%d,%d)", dest->sIndex, sanc, item->stEffect[0].cEffect, item->stEffect[1].cEffect, item->stEffect[2].cEffect);
-
+				SendClientMsg(a_iConn, "Upgrade -");
 				SendItem(a_iConn, m->DestType, m->DestPos, dest);
 				SendEmotion(a_iConn, 14, 3);
 			}
 			else
 			{
 				sprintf(temp, "useitem,upgrade fail %d+%d - (%d,%d,%d)", dest->sIndex, sanc, item->stEffect[0].cEffect, item->stEffect[1].cEffect, item->stEffect[2].cEffect);
+
+				SendClientMsg(a_iConn, "O upgrade do item falhou.");
 
 				int sFace = pMob[a_iConn].MOB.Equip[0].sIndex / 10;
 
@@ -4902,10 +4904,23 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			return;
 		}
 
-		int dam = BASE_GetItemAbilityNosanc(dest, EF_CRITICAL2);
+		//int dam = BASE_GetItemAbilityNosanc(dest, EF_CRITICAL2);
+		int dam = 0;
+		int effect = 0;
 
-		int max_add = m->DestPos != 6 && m->DestPos != 7 ? 90 : 0;
-		int min_add = m->DestPos != 6 && m->DestPos != 7 ? 50 : 0;
+		for (int i = 0; i < 3; i++)
+		{
+			if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
+			{
+				dam = dest->stEffect[i].cValue;
+				effect = dest->stEffect[i].cEffect;
+
+				break;
+			}
+		}
+
+		int max_add = m->DestPos != 6 && m->DestPos != 7 ? 50 : 0;
+		int min_add = m->DestPos != 6 && m->DestPos != 7 ? 5 : 0;
 
 		if (dam < min_add)
 		{
@@ -4934,15 +4949,17 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			{
 				if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
 				{
-					dest->stEffect[i].cEffect = EF_CRITICAL2;
+					dest->stEffect[i].cEffect = EF_CRITICAL;
 					dest->stEffect[i].cValue += m->DestPos != 6 && m->DestPos != 7 ? 10 : 1;
 
-					if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 90 : 0))
-						dest->stEffect[i].cValue = (m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 90 : 0);
+					if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0))
+						dest->stEffect[i].cValue = (m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0);
 
 					break;
 				}
 			}
+
+
 
 			pMob[a_iConn].GetCurrentScore(a_iConn);
 			SendClientMsg(a_iConn, "Upgrade +");
@@ -4967,7 +4984,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				{
 					if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
 					{
-						dest->stEffect[i].cEffect = EF_CRITICAL2;
+						dest->stEffect[i].cEffect = EF_CRITICAL;
 						if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 ? 10 : 10))
 							dest->stEffect[i].cValue -= m->DestPos != 6 && m->DestPos != 7 ? 10 : 10;
 						break;
