@@ -23,72 +23,51 @@ int fadaOn;
 void WINAPI InitMacro()
 {
 
+	
 	for (size_t i = 0; i < MAX_USER; i++)
 	{
-		for (size_t cFada = 0; cFada < 3; cFada++)
+		int PosX = pMob[i].TargetX;
+		int PosY = pMob[i].TargetY;
+		int EntradaAgua = FALSE;
+
+		if ((PosY >= 1767 && PosY <= 1774) && (PosX >= 1962 && PosX <= 1986))
 		{
-			if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[cFada])
-			{
-				fadaOn = TRUE;
-				break;
-			}
-			else
-				fadaOn = FALSE;
+	
+			pMob[i].MOB.MacroInside = FALSE;
+			pMob[i].MOB.SalaClear = FALSE;
+			EntradaAgua = TRUE;
 		}
 
-		if (fadaOn == TRUE)
-		{
-			int PosX = pMob[i].TargetX;
-			int PosY = pMob[i].TargetY;
-			pMob[i].MOB.MacroInside = 0;
-			for (int f = 0; f < 10; f++)
+		for (size_t cFada = 0; cFada < 3; cFada++)
 			{
-				if (PosX >= WaterScrollPosition[1][f][0] - 12 && PosY >= WaterScrollPosition[1][f][1] - 12
-					&& PosX <= WaterScrollPosition[1][f][0] + 12 && PosY <= WaterScrollPosition[1][f][1] + 12 && f >= 9)
+				if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[cFada])
 				{
-					pMob[i].MOB.MacroInside = TRUE;
+					fadaOn = TRUE;
 					break;
 				}
-
-				if (PosX >= WaterScrollPosition[1][f][0] - 8 && PosY >= WaterScrollPosition[1][f][1] - 8
-					&& PosX <= WaterScrollPosition[1][f][0] + 8 && PosY <= WaterScrollPosition[1][f][1] + 8)
-				{
-					pMob[i].MOB.MacroInside = TRUE;
-					break;
-				}
-
-				if (PosX >= WaterScrollPosition[2][f][0] - 12 && PosY >= WaterScrollPosition[2][f][1] - 12
-					&& PosX <= WaterScrollPosition[2][f][0] + 12 && PosY <= WaterScrollPosition[2][f][1] + 12 && f >= 9)
-				{
-					pMob[i].MOB.MacroInside = 1;
-					break;
-				}
-
-				if (PosX >= WaterScrollPosition[2][f][0] - 8 && PosY >= WaterScrollPosition[2][f][1] - 8
-					&& PosX <= WaterScrollPosition[2][f][0] + 8 && PosY <= WaterScrollPosition[2][f][1] + 8)
-				{
-					pMob[i].MOB.MacroInside = 1;
-					break;
-				}
-
-				if (((PosX / 4) != 491 || (PosY / 4) != 443) && (pMob[i].MOB.MacroInside == 0))
-				{
-					//if (pMob[i].MOB.SalaClear)
-					//	pMob[i].MOB.SalaClear = FALSE;
-
-					if (pMob[i].MOB.macroOn)
-						pMob[i].MOB.macroOn = FALSE;
-
-					//if (pMob[i].MOB.MacroInside)
-					//	pMob[i].MOB.MacroInside = FALSE;
-
-				}
-
-
+					fadaOn = FALSE;
+					pMob[i].MOB.macroOn = FALSE;
+					pMob[i].MOB.MacroInside = FALSE;
+					pMob[i].MOB.SalaClear = FALSE;
+					EntradaAgua = FALSE;
+				
 			}
-			if (!pMob[i].MOB.MacroInside || pMob[i].MOB.SalaClear)
+
+		
+		if (fadaOn)
+		{
+			if ((!pMob[i].MOB.MacroInside && EntradaAgua) || (pMob[i].MOB.SalaClear))
 			{
-				MacroOnline(i);
+				try
+				{
+					MacroOnline(i);
+				}
+				catch (const std::exception&)
+				{
+					sprintf(temp, "err,start MacroOnline %d", CurrentTime);
+					Log(temp, "-system macro perga", 0);
+				}
+				
 			}
 
 		}
@@ -98,6 +77,7 @@ void WINAPI InitMacro()
 
 void MacroOnline(int ClientID)
 {
+
 	int emptySlot = GetFirstSlotBag(ClientID);
 	if (!emptySlot)
 	{
@@ -105,14 +85,20 @@ void MacroOnline(int ClientID)
 		SendMsgExp(ClientID, temp, TNColor::CornflowerBlue, false);
 	}
 	else
+	{
+		Sleep(2000);
 		AtiveMacroPerga((int)ClientID);
+	}
+	
+		 
+
 }
 
 int AtiveMacroPerga(int conn)
 {
 
 	if (!fadaOn)
-		return FALSE;
+	return FALSE;
 
 	int isPergaN = FALSE;
 	int isPergaM = FALSE;
@@ -123,15 +109,15 @@ int AtiveMacroPerga(int conn)
 	int slotPerga = -1;
 	int pergaItem = 0;
 	short wp = 0;
-	short PosX;
+	short PosX ;
 	short PosY;
 	if (!pMob[conn].MOB.macroOn)
 	{
 		pMob[conn].MOB.macroOn = TRUE;
 		for (size_t i = 0; i < slotsInv; i++)
 		{
-			PosX = pMob[conn].TargetX;
-			PosY = pMob[conn].TargetY;
+			 PosX = pMob[conn].TargetX;
+			 PosY = pMob[conn].TargetY;
 			int inside = 0;
 			for (size_t p = 0; p < 9; p++)
 			{
@@ -140,19 +126,19 @@ int AtiveMacroPerga(int conn)
 					isPergaN = TRUE;
 					break;
 				}
-				if (pMob[conn].MOB.Carry[i].sIndex == PergaAguaM + p)
+					if (pMob[conn].MOB.Carry[i].sIndex == PergaAguaM + p)
 				{
 					isPergaM = TRUE;
 					break;
 
 				}
-				if (pMob[conn].MOB.Carry[i].sIndex == PergaAguaA + p)
+					if (pMob[conn].MOB.Carry[i].sIndex == PergaAguaA + p)
 				{
 					isPergaA = TRUE;
 					break;
 
 				}
-
+			
 			}
 			slotPerga = i;
 
@@ -182,37 +168,23 @@ int AtiveMacroPerga(int conn)
 						break;
 					}
 
-					if (((PosX / 4) != 491 || (PosY / 4) != 443) && (inside == 0))
-					{
-						//	if (pMob[conn].MOB.SalaClear)
-							//	pMob[conn].MOB.SalaClear = FALSE;
-
-						if (pMob[conn].MOB.macroOn)
-							pMob[conn].MOB.macroOn = FALSE;
-
-						//	if (pMob[conn].MOB.MacroInside)
-							//	pMob[conn].MOB.MacroInside = FALSE;
-
-						DoTeleport(conn, 1966, 1774);
-						break;
-					}
 
 				}
 				pMob[conn].MOB.MacroInside = inside;
 				STRUCT_ITEM* item = GetItemPointer(&pMob[conn].MOB, pUser[conn].Cargo, 1, slotPerga);
 				int Vol = BASE_GetItemAbility(item, EF_VOLATILE);
 				int amount = BASE_GetItemAmount(item);
-
-
+				
+				
 
 
 				if (Vol >= 21 && Vol <= 30)
 				{
-
+					
 					if (pMob[conn].Leader != -1 && pMob[conn].Leader)
 					{
 						SendClientMsg(conn, g_pMessageStringTable[_NN_Party_Leader_Only]);
-						SendItem(conn, 1, slotPerga, item);
+						SendItem(conn,1, slotPerga, item);
 						break;
 					}
 
@@ -221,11 +193,11 @@ int AtiveMacroPerga(int conn)
 					int Sala = Vol - 21;
 					int UserArea = Sala <= 7 ? GetUserInArea(WaterScrollPosition[wp][Sala][0] - 8, WaterScrollPosition[wp][Sala][1] - 8, WaterScrollPosition[wp][Sala][0] + 8,
 						WaterScrollPosition[wp][Sala][1] + 8, UserName) : GetUserInArea(WaterScrollPosition[wp][Sala][0] - 12, WaterScrollPosition[wp][Sala][1] - 12,
-							WaterScrollPosition[wp][Sala][0] + 12, WaterScrollPosition[wp][Sala][1] + 12, UserName);
+						WaterScrollPosition[wp][Sala][0] + 12, WaterScrollPosition[wp][Sala][1] + 12, UserName);
 
 					if (UserArea >= 1)
 						continue;
-
+					
 
 					WaterClear1[wp][Sala] = Sala <= 7 ? 30 : 15;
 
@@ -266,8 +238,8 @@ int AtiveMacroPerga(int conn)
 							GenerateMob(WATER_M_INITIAL + 11, 0, 0);
 					}
 
-
-					//BASE_ClearItem(&pMob[conn].MOB.Carry[slotPerga]);
+				
+						//BASE_ClearItem(&pMob[conn].MOB.Carry[slotPerga]);
 
 					if (amount > 1)
 						BASE_SetItemAmount(&pMob[conn].MOB.Carry[i], amount - 1);
@@ -275,7 +247,7 @@ int AtiveMacroPerga(int conn)
 						BASE_ClearItem(&pMob[conn].MOB.Carry[i]);
 
 					SendItem(conn, ITEM_PLACE_CARRY, i, &pMob[conn].MOB.Carry[i]);
-
+					
 					return TRUE;
 				}
 
@@ -303,21 +275,6 @@ int AtiveMacroPerga(int conn)
 						&& PosX <= WaterScrollPosition[wp][f][0] + 8 && PosY <= WaterScrollPosition[wp][f][1] + 8)
 					{
 						inside = 1;
-						break;
-					}
-
-					if (((PosX / 4) != 491 || (PosY / 4) != 443) && (inside == 0))
-					{
-						//	if (pMob[conn].MOB.SalaClear)
-							//	pMob[conn].MOB.SalaClear = FALSE;
-
-						if (pMob[conn].MOB.macroOn)
-							pMob[conn].MOB.macroOn = FALSE;
-
-						//	if (pMob[conn].MOB.MacroInside)
-							//	pMob[conn].MOB.MacroInside = FALSE;
-
-						DoTeleport(conn, 1966, 1774);
 						break;
 					}
 
@@ -421,13 +378,13 @@ int UseItem(int slotItem, int conn)
 {
 	try
 	{
-
+	
 		return TRUE;
 	}
 	catch (const std::exception&)
 	{
 		return FALSE;
 	}
-
+	
 }
 
