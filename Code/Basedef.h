@@ -87,7 +87,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define EMBLEMA_GUARDA 4042
 
 //#define PKDrop
-
+#define MAX_DROP_KEFRA 10
 #define IDC_EXIT 9000
 #define IDC_MOBRELOAD 9001
 #define IDC_REBOOT 9002
@@ -104,6 +104,8 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_NPC_BLOCK 913
 #define IDC_READ_LOTTERY 914
 #define IDC_READ_DROP_KEFRA 915
+#define IDC_READ_WARS_TIMER 916
+#define IDC_CONVERT_NPC 917
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -2989,6 +2991,7 @@ extern const std::string PATH_EVENTS;
 extern const std::string PATH_EVENT_VemProEternal;
 extern const std::string PATH_EVENT_LojaAfk;
 extern const std::string PATH_EVENT_Lottery;
+extern const std::string PATH_NewNPC;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3018,6 +3021,14 @@ struct STRUCT_QUIZ
 	char* Answer3;
 
 };
+
+struct STRUC_WARS
+{
+	DWORD Days[7];
+	int Hour;
+	int Minute;
+	DWORD Notice;
+};
 extern STRUCT_QUIZ eQuiz[MAX_QUIZ];
 extern int TOTAL_QUIZ;
 extern int goldQuiz;
@@ -3045,7 +3056,25 @@ extern enum eNPCBlock {
 	Kibita,
 	Urnammu
 };
+extern enum eWeekDay {
+	Sunday,
+	Monday,
+	Tuesday,
+	Wednesday,
+	Thursday,
+	Friday,
+	Saturday
+};
+extern enum eWars {
+	eTower,
+	eNoatum,
+	eCity,
+	eRvR,
+};
+#define MAX_WARS 4
 extern int NPCBlock[20];
+extern STRUC_WARS warsTimer[MAX_WARS];
+extern STRUCT_MOB exportNPCJson;
 #pragma endregion
 
 #endif

@@ -189,7 +189,9 @@ lbl_PST1:
 	{
 		try
 		{
+
 			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)InitMacro, NULL, 0, 0);
+			
 		}
 		catch (const std::exception&)
 		{
@@ -1589,16 +1591,15 @@ lbl_PST1:
 		if (SecCounter % 2 == 0 && pMob[i].MOB.CurrentScore.Hp <= 0 && pMob[i].TargetX == 1046 && pMob[i].TargetY == 1690)
 		{
 			pMob[i].DetectDeadOnCastle++;
-			SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
+		//	SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
 			if (pMob[i].DetectDeadOnCastle > 10)
 			{
 				DoRecall(i);
 			}
 		}
 		else
-		{
 			pMob[i].DetectDeadOnCastle = 0;
-		}
+	
 
 		if (i % 16 == Sec16 &&  pUser[i].Mode == USER_PLAY)
 		{
@@ -1622,7 +1623,7 @@ lbl_PST1:
 					{
 						pMob[i].DetectDeadOnCastle++;
 
-						SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
+						//SendClientSignalParmCoord(i, ESCENE_FIELD, _MSG_StartTime, pMob[i].DetectDeadOnCastle, 1046, 1690, 1046, 1690);
 
 						if (pMob[i].DetectDeadOnCastle > 1)
 						{
@@ -2473,14 +2474,15 @@ void ProcessMinTimer()
 		}
 
 
-		if (timeinfo->tm_wday == 0)
-		{
-			CastleServer = 1;
-		}
-		else
-		{
-			CastleServer = 0;
-		}
+		//if (timeinfo->tm_wday == 0)
+		//if (warsTimer[eNoatum].Days[timeinfo->tm_wday])
+		//{
+		//	CastleServer = 1;
+		//}
+		//else
+		//{
+		//	CastleServer = 0;
+		//}
 
 		if (1 != 0) // Likely to be a debug flag of sorts.. TODO: Check and decide if it stays
 		{

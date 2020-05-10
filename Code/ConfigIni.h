@@ -36,6 +36,8 @@ namespace ConfigIni {
 		static int WriteLottery(string path, string file);
 		static int ReadDropKefra(string path, string file);
 		static int WriteDropKefra(string path, string file);
+		static int ReadWarsTimer(string path, string file);
+		static int WriteWarsTimer(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
@@ -43,6 +45,7 @@ namespace ConfigIni {
 		//TM
 		static int ReadGameConfig(string path, string file);
 		static int WriteGameConfig(string path, string file);
+		static int ConvertNPC(string path, string file);
 
 	static	struct GroupServer
 		{
@@ -50,6 +53,8 @@ namespace ConfigIni {
 			int ServerNumber;
 			const char* Address;
 		};
+
+
 
 	private:
 

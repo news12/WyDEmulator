@@ -80,6 +80,8 @@ void ReadFadaAmmount();
 void ReadNPCBlock();
 void ReadLottery();
 void ReadDropKefra();
+void ReadWarsTimer();
+void ConvertNPC();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -106,7 +108,7 @@ void  ProcessAdultMount(int conn, int HpLost);
 void  ProcessBILLMessage(char *pMsg);
 void  ProcessDBMessage(char *Msg);
 void  CheckIdle(int conn); 
-void  FinishCastleWar();
+//void  FinishCastleWar();//movido para WarOfNoatum
 void  RegenMob(int conn);
 int   ProcessAffect(int conn);
 void  SendDamage(int x1, int y1, int x2, int y2);
@@ -125,7 +127,7 @@ void  SetColoseumDoor2(int state);
 void  GenerateColoseum(int InitID);
 void  DeleteColoseum();
 //void  SetArenaDoor(int state);//movido para WarOfCity
-void  SetCastleDoor(int state);
+//void  SetCastleDoor(int state);//movido para WarOfNoatum
 //void  DecideWinner();//movido para WarOfCity
 void  GuildProcess(); 
 void  StartLog();

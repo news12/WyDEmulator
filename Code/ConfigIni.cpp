@@ -18,7 +18,8 @@ STRUCT_EVENTS eEvents;
 STRUCT_QUIZ eQuiz[];
 STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
-STRUCT_ITEM dropKefra[10];
+STRUCT_ITEM dropKefra[];
+STRUC_WARS warsTimer[];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -69,6 +70,7 @@ int QuizOn;
 int SortQuiz;
 int groupItens[];
 int fadaAmmount[];
+STRUCT_MOB exportNPCJson;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
 //Maximo de config 100 maximo de subconfig 50
@@ -83,6 +85,7 @@ const string PATH_EVENTS = PATH_COMMON + "Events/";
 const string PATH_EVENT_VemProEternal = PATH_EVENTS + "VemProEternal/";
 const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
 const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
+const string PATH_NewNPC = "NewNPC/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -826,6 +829,102 @@ int ConfigIni::nConfig::WriteDropKefra(string path, string file)
 	}
 }
 
+int ConfigIni::nConfig::ReadWarsTimer(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteWarsTimer(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	memset(warsTimer, 0, sizeof(STRUC_WARS));
+	//Tower
+	nJson["WAR"]["Tower"].find("Days").value().get_to(warsTimer[eTower].Days);
+	nJson["WAR"]["Tower"].find("Hour").value().get_to(warsTimer[eTower].Hour);
+	nJson["WAR"]["Tower"].find("Minute").value().get_to(warsTimer[eTower].Minute);
+	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eTower].Notice);
+	//Noatum
+	nJson["WAR"]["Noatum"].find("Days").value().get_to(warsTimer[eNoatum].Days);
+	nJson["WAR"]["Noatum"].find("Hour").value().get_to(warsTimer[eNoatum].Hour);
+	nJson["WAR"]["Noatum"].find("Minute").value().get_to(warsTimer[eNoatum].Minute);
+	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eNoatum].Notice);
+	//City
+	nJson["WAR"]["City"].find("Days").value().get_to(warsTimer[eCity].Days);
+	nJson["WAR"]["City"].find("Hour").value().get_to(warsTimer[eCity].Hour);
+	nJson["WAR"]["City"].find("Minute").value().get_to(warsTimer[eCity].Minute);
+	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eCity].Notice);
+	//RvR
+	nJson["WAR"]["RvR"].find("Days").value().get_to(warsTimer[eRvR].Days);
+	nJson["WAR"]["RvR"].find("Hour").value().get_to(warsTimer[eRvR].Hour);
+	nJson["WAR"]["RvR"].find("Minute").value().get_to(warsTimer[eRvR].Minute);
+	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eRvR].Notice);
+
+	return TRUE;
+}
+
+int ConfigIni::nConfig::WriteWarsTimer(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New warsTimer.json
+	auto nJson = R"(
+{
+
+"WAR": {
+		"Tower": {
+				"Days": [0,1,1,1,1,0,0],
+				"Hour": 19,
+				"Minute": 0
+		
+				},
+		"Noatum": {
+				"Days": [1,0,0,0,0,0,0],
+				"Hour": 19,
+				"Minute": 0
+		
+				},
+				
+		"City": {
+				"Days": [0,0,0,0,0,0,1],
+				"Hour": 21,
+				"Minute": 0
+				},
+				
+		"RvR": {
+				"Days": [0,0,0,0,0,1,0],
+				"Hour": 21,
+				"Minute": 0
+				}
+
+	   }
+	
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int nConfig::ReadGameConfig(string path, string file)
 {
 	string fullpath = path + file;
@@ -1136,6 +1235,291 @@ int nConfig::WriteGameConfig(string path, string file)
 	}
 
 
+}
+
+int ConfigIni::nConfig::ConvertNPC(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New npc.json
+	auto nJson = R"(
+{
+"MOB": {
+
+				"MobName": 0,
+				"Clan": 0,
+				"Merchant": 0,
+				"Guild": 0,
+				"Class": 0,
+				"Rsv": 0,
+				"Quest": 0,
+				"Coin": 0,
+				"Exp": 0,
+				"SPX": 0,
+				"SPY": 0,
+				"BaseScpre": {
+				
+							"Level": 0,
+							"Ac": 0,
+							"Damage": 0,
+							"Merchant": 0,
+							"AttackRun": 0,
+							"Direction": 0,
+							"ChaosRate": 0,
+							"MaxHp": 0,
+							"MaxMp": 0,
+							"Hp": 0,
+							"Mp": 0,
+							"Str": 0,
+							"Int": 0,
+							"Dex": 0,
+							"Con": 0,
+							"Special1": 0,
+							"Special2": 0,
+							"Special3": 0,
+							"Special4": 0		
+				
+							 },
+				"CurrentScore": {
+				
+							"Level": 0,
+							"Ac": 0,
+							"Damage": 0,
+							"Merchant": 0,
+							"AttackRun": 0,
+							"Direction": 0,
+							"ChaosRate": 0,
+							"MaxHp": 0,
+							"MaxMp": 0,
+							"Hp": 0,
+							"Mp": 0,
+							"Str": 0,
+							"Int": 0,
+							"Dex": 0,
+							"Con": 0,
+							"Special1": 0,
+							"Special2": 0,
+							"Special3": 0,
+							"Special4": 0		
+				
+							 },
+							 
+							 
+				"Equip": {
+						"Face": [0,0,0,0,0,0,0,0],
+						"Helmet": [0,0,0,0,0,0,0,0],
+						"Armor": [0,0,0,0,0,0,0,0],
+						"Pant": [0,0,0,0,0,0,0,0],
+						"Glove": [0,0,0,0,0,0,0,0],
+						"Boot": [0,0,0,0,0,0,0,0],
+						"Weapon": [0,0,0,0,0,0,0,0],
+						"Shield": [0,0,0,0,0,0,0,0],
+						"Ring": [0,0,0,0,0,0,0,0],
+						"Amulet": [0,0,0,0,0,0,0,0],
+						"Orb": [0,0,0,0,0,0,0,0],
+						"Stone": [0,0,0,0,0,0,0,0],
+						"Guild": [0,0,0,0,0,0,0,0],
+						"Pixie": [0,0,0,0,0,0,0,0],
+						"Mount": [0,0,0,0,0,0,0,0],
+						"Mantle": [0,0,0,0,0,0,0,0]
+					    },
+			"Bag": {
+					 "0": [0,0,0,0,0,0,0,0]
+				
+				   },
+			"LearnedSkill": 0,
+			"Magic": 0,
+			"ScoreBonus": 0,
+			"SpecialBonus": 0,
+			"SkillBonus": 0,
+			"Critical": 0,
+			"SaveMana": 0,
+			"GuildLevel": 0,
+			"RegenHP": 0,
+			"RegenMP": 0,
+			"SkillBar": [0,0,0,0],
+			"Resist": [0,0,0,0],
+			"MacroOn": 0,
+			"MacroInside": 0,
+			"SalaClear": 0
+				
+	
+		}
+
+
+})"_json;
+
+#pragma endregion
+
+				nJson["MOB"]["MobName"].get_to(exportNPCJson.Merchant);
+				nJson["MOB"]["Clan"].get_to(exportNPCJson.Merchant);
+				nJson["MOB"]["Merchant"].get_to(exportNPCJson.Merchant);
+				nJson["MOB"]["Guild"].get_to(exportNPCJson.Guild);
+				nJson["MOB"]["Class"].get_to(exportNPCJson.Class);
+				nJson["MOB"]["Coin"].get_to(exportNPCJson.Coin);
+				nJson["MOB"]["Exp"].get_to(exportNPCJson.Exp);
+				nJson["MOB"]["SPX"].get_to(exportNPCJson.SPX);
+				nJson["MOB"]["SPY"].get_to(exportNPCJson.SPY);
+				//BaseScore
+				nJson["MOB"]["BaseScore"].find("Level").value().get_to(exportNPCJson.BaseScore.Level);
+				nJson["MOB"]["BaseScore"].find("Ac").value().get_to(exportNPCJson.BaseScore.Ac);
+				nJson["MOB"]["BaseScore"].find("Damage").value().get_to(exportNPCJson.BaseScore.Damage);
+				nJson["MOB"]["BaseScore"].find("Merchant").value().get_to(exportNPCJson.BaseScore.Merchant);
+				nJson["MOB"]["BaseScore"].find("AttackRun").value().get_to(exportNPCJson.BaseScore.AttackRun);
+				nJson["MOB"]["BaseScore"].find("Direction").value().get_to(exportNPCJson.BaseScore.Direction);
+				nJson["MOB"]["BaseScore"].find("ChaosRate").value().get_to(exportNPCJson.BaseScore.ChaosRate);
+				nJson["MOB"]["BaseScore"].find("MaxHp").value().get_to(exportNPCJson.BaseScore.MaxHp);
+				nJson["MOB"]["BaseScore"].find("MaxMp").value().get_to(exportNPCJson.BaseScore.MaxMp);
+				nJson["MOB"]["BaseScore"].find("Hp").value().get_to(exportNPCJson.BaseScore.Hp);
+				nJson["MOB"]["BaseScore"].find("Mp").value().get_to(exportNPCJson.BaseScore.Mp);
+				nJson["MOB"]["BaseScore"].find("Str").value().get_to(exportNPCJson.BaseScore.Str);
+				nJson["MOB"]["BaseScore"].find("Int").value().get_to(exportNPCJson.BaseScore.Int);
+				nJson["MOB"]["BaseScore"].find("Dex").value().get_to(exportNPCJson.BaseScore.Dex);
+				nJson["MOB"]["BaseScore"].find("Con").value().get_to(exportNPCJson.BaseScore.Con);
+				nJson["MOB"]["BaseScore"].find("Special1").value().get_to(exportNPCJson.BaseScore.Special[0]);
+				nJson["MOB"]["BaseScore"].find("Special2").value().get_to(exportNPCJson.BaseScore.Special[1]);
+				nJson["MOB"]["BaseScore"].find("Special3").value().get_to(exportNPCJson.BaseScore.Special[2]);
+				nJson["MOB"]["BaseScore"].find("Special4").value().get_to(exportNPCJson.BaseScore.Special[3]);
+				//passar o baseScore para CurrentScore
+				for (size_t i = 0; i < 16; i++)
+				{
+					STRUCT_ITEM* nItem = &exportNPCJson.Equip[i];
+					vector<short> arrayItem;
+					memcpy(&arrayItem, nItem, sizeof(STRUCT_ITEM));
+					switch (i)
+					{
+					case 0:
+						nJson["MOB"]["Equip"].find("Face").value().get_to(arrayItem);
+						break;
+					case 1:
+						nJson["MOB"]["Equip"].find("Helmet").value().get_to(arrayItem);
+						break;
+					case 2:
+						nJson["MOB"]["Equip"].find("Armor").value().get_to(arrayItem);
+						break;
+					case 3:
+						nJson["MOB"]["Equip"].find("Pant").value().get_to(arrayItem);
+						break;
+					case 4:
+						nJson["MOB"]["Equip"].find("Glove").value().get_to(arrayItem);
+						break;
+					case 5:
+						nJson["MOB"]["Equip"].find("Boot").value().get_to(arrayItem);
+						break;
+					case 6:
+						nJson["MOB"]["Equip"].find("Weapon").value().get_to(arrayItem);
+						break;
+					case 7:
+						nJson["MOB"]["Equip"].find("Shield").value().get_to(arrayItem);
+						break;
+					case 8:
+						nJson["MOB"]["Equip"].find("Ring").value().get_to(arrayItem);
+						break;
+					case 9:
+						nJson["MOB"]["Equip"].find("Amulet").value().get_to(arrayItem);
+						break;
+					case 10:
+						nJson["MOB"]["Equip"].find("Orb").value().get_to(arrayItem);
+						break;
+					case 11:
+						nJson["MOB"]["Equip"].find("Stone").value().get_to(arrayItem);
+						break;
+					case 12:
+						nJson["MOB"]["Equip"].find("Guild").value().get_to(arrayItem);
+						break;
+					case 13:
+						nJson["MOB"]["Equip"].find("Pixie").value().get_to(arrayItem);
+						break;
+					case 14:
+						nJson["MOB"]["Equip"].find("Mount").value().get_to(arrayItem);
+						break;
+					case 15:
+						nJson["MOB"]["Equip"].find("Mantle").value().get_to(arrayItem);
+						break;
+					default:
+						break;
+					}
+				}
+				//Equip
+				/*nJson["MOB"]["Equip"].find("Face").value().get_to(exportNPCJson.Equip[0].sIndex);
+				nJson["MOB"]["Equip"].find("Helmet").value().get_to(exportNPCJson.Equip[1].sIndex);
+				nJson["MOB"]["Equip"].find("Armor").value().get_to(exportNPCJson.Equip[2].sIndex);
+				nJson["MOB"]["Equip"].find("Pant").value().get_to(exportNPCJson.Equip[3].sIndex);
+				nJson["MOB"]["Equip"].find("Glove").value().get_to(exportNPCJson.Equip[4].sIndex);
+				nJson["MOB"]["Equip"].find("Boot").value().get_to(exportNPCJson.Equip[5].sIndex);
+				nJson["MOB"]["Equip"].find("Weapon").value().get_to(exportNPCJson.Equip[6].sIndex);
+				nJson["MOB"]["Equip"].find("Shield").value().get_to(exportNPCJson.Equip[7].sIndex);
+				nJson["MOB"]["Equip"].find("Ring").value().get_to(exportNPCJson.Equip[8].sIndex);
+				nJson["MOB"]["Equip"].find("Amulet").value().get_to(exportNPCJson.Equip[9].sIndex);
+				nJson["MOB"]["Equip"].find("Orb").value().get_to(exportNPCJson.Equip[10].sIndex);
+				nJson["MOB"]["Equip"].find("Stone").value().get_to(exportNPCJson.Equip[11].sIndex);
+				nJson["MOB"]["Equip"].find("Guild").value().get_to(exportNPCJson.Equip[12].sIndex);
+				nJson["MOB"]["Equip"].find("Pixie").value().get_to(exportNPCJson.Equip[13].sIndex);
+				nJson["MOB"]["Equip"].find("Mount").value().get_to(exportNPCJson.Equip[14].sIndex);
+				nJson["MOB"]["Equip"].find("Mantle").value().get_to(exportNPCJson.Equip[15]);*/
+				//for passando em todos os itens/slot e pegando os dados do array
+			/*	for (size_t i = 0; i < 16; i++)
+				{
+					g_MobBase[key].Equip[i].sIndex = equipSlot[i][0];
+					g_MobBase[key].Equip[i].stEffect->sValue = equipSlot[i][1];
+					g_MobBase[key].Equip[i].stEffect[0].cEffect = equipSlot[i][2];
+					g_MobBase[key].Equip[i].stEffect[0].cValue = equipSlot[i][3];
+					g_MobBase[key].Equip[i].stEffect[1].cEffect = equipSlot[i][4];
+					g_MobBase[key].Equip[i].stEffect[1].cValue = equipSlot[i][5];
+					g_MobBase[key].Equip[i].stEffect[2].cEffect = equipSlot[i][6];
+					g_MobBase[key].Equip[i].stEffect[2].cValue = equipSlot[i][7];
+				};*/
+				//for para pegar os itens inciais da mochila
+				/*/for (auto& x : nJson[className]["Bag"].items())
+				{
+
+					vector<short> equipBag = x.value();
+					g_MobBase[key].Carry[stoi(x.key())].sIndex = equipBag[0];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect->sValue = equipBag[1];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cEffect = equipBag[2];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cValue = equipBag[3];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cEffect = equipBag[4];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cValue = equipBag[5];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cEffect = equipBag[6];
+					g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cValue = equipBag[7];
+
+				};
+
+				nJson[className]["LearnedSkill"].get_to(g_MobBase[key].LearnedSkill);
+				nJson[className]["Magic"].get_to(g_MobBase[key].Magic);
+				nJson[className]["ScoreBonus"].get_to(g_MobBase[key].ScoreBonus);
+				nJson[className]["SpecialBonus"].get_to(g_MobBase[key].SpecialBonus);
+				nJson[className]["SkillBonus"].get_to(g_MobBase[key].SkillBonus);
+				nJson[className]["Critical"].get_to(g_MobBase[key].Critical);
+				nJson[className]["SaveMana"].get_to(g_MobBase[key].SaveMana);
+				nJson[className]["GuildLevel"].get_to(g_MobBase[key].GuildLevel);
+				nJson[className]["RegenHP"].get_to(g_MobBase[key].RegenHP);
+				nJson[className]["RegenMP"].get_to(g_MobBase[key].RegenMP);
+
+				vector<short> skill;
+				nJson[className]["SkillBar"].get_to(skill);
+				for (size_t i = 0; i < 4; i++)
+				{
+					g_MobBase[key].SkillBar[i] = skill[i];
+				}
+
+				vector<short> resist;
+				nJson[className]["Resist"].get_to(skill);
+				for (size_t i = 0; i < 4; i++)
+				{
+					g_MobBase[key].Resist[i] = skill[i];
+				}*/
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int nConfig::ReadExtra(string path, string file, int key)

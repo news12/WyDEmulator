@@ -7,7 +7,16 @@ void WarCity()
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-
+	if (warsTimer[eCity].Days[timeinfo->tm_wday] > 1)
+	{
+		sprintf(temp, "warTimer.json,error config days %d [permitido 0 ou 1] ", warsTimer[eCity].Days[timeinfo->tm_wday]);
+		MyLog(LogType::System, "War Citys", temp, 0, 0);
+	}
+	if (warsTimer[eCity].Days[timeinfo->tm_wday])
+	{
+		GuildDay = timeinfo->tm_wday;
+		GuildHour = warsTimer[eCity].Hour;
+	}
 	int day = GuildDay - 1;
 
 	if (day < 0)

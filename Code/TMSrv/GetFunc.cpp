@@ -1030,7 +1030,7 @@ int GetTeleportPosition(int conn, int *x, int *y)
 	{
 		if (!g_pRvrWar.Status)
 		{
-			SendClientMsg(conn, "Somente às 18:00hrs de sábado.");
+			SendClientMsg(conn, "Somente no horario da RvR.");
 			return 0;
 		}
 

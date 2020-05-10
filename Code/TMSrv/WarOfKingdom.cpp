@@ -4,29 +4,60 @@ void WarOfKingdom()
 {
 	time_t rawnow = time(NULL);
 	struct tm* now = localtime(&rawnow);
+	int minDefine = 5;
+	if (warsTimer[eRvR].Days[now->tm_wday] > 1)
+	{
+		sprintf(temp, "warTimer.json,error config days %d [permitido 0 ou 1] ", warsTimer[eRvR].Days[now->tm_wday]);
+		MyLog(LogType::System, "War RvR", temp, 0, 0);
+	}
 
 	// Inicia o RvR
-	if (/*now->tm_wday >= 1 && */ now->tm_wday == 6 /*&& NewbieEventServer*/)
+	//if (/*now->tm_wday >= 1 && */ now->tm_wday == 6 /*&& NewbieEventServer*/)
+	if (warsTimer[eRvR].Days[now->tm_wday])
 	{
-		if (now->tm_hour == 17 && now->tm_min == 55 && !g_pRvrWar.Annoucement)
+		int hourNotice = warsTimer[eRvR].Hour;
+		int minNotice;
+
+		if (!warsTimer[eRvR].Minute)
+			minNotice = 60 - minDefine;
+		else if (warsTimer[eRvR].Minute < 5)
 		{
-			SendNotice("A Guerra entre Reinos iniciará em 5 minutos. Acesse o teleporte de Noatun.");
+			hourNotice = warsTimer[eRvR].Hour - 1;
+			minNotice = (60 - minDefine) + warsTimer[eRvR].Minute;
+		}
+		else 
+			minNotice = warsTimer[eRvR].Minute - minDefine;
+		if (now->tm_hour == hourNotice && now->tm_min == minNotice && !g_pRvrWar.Annoucement)
+		{
+			sprintf(temp, g_pMessageStringTable[_DD_KINGDOMWAR_BEGIN], minDefine);
+			SendNotice(temp);
 
 			g_pRvrWar.Annoucement = 1;
 		}
-		else if (now->tm_hour == 18 && now->tm_min == 0 && !g_pRvrWar.Status)
+		else if (now->tm_hour == warsTimer[eRvR].Hour && now->tm_min == warsTimer[eRvR].Minute && !g_pRvrWar.Status)
 		{
 			g_pRvrWar.Status = 1;
 
-			SendNotice("Guerra entre Reinos iniciada. Acesse o teleporte de Noatun!");
+			sprintf(temp, g_pMessageStringTable[_DD_KINGDOMWAR_START]);
+			SendNotice(temp);
 
 			GenerateMob(TORRE_RVR_BLUE, 0, 0);
 			GenerateMob(TORRE_RVR_RED, 0, 0);
 
 			
 		}
+
+		int minFinish = warsTimer[eTower].Minute + 30;
+		int hourFinish = warsTimer[eTower].Hour;
+		if (minFinish > 30)
+		{
+			minFinish = 60 - warsTimer[eTower].Minute;
+			hourFinish += 1;
+		}
+		if (hourFinish >= 24)
+			hourFinish = 00;
 		// Enviará uma mensagem para o servidor a cada 5 minutos a respeito dos pontos atuais
-		else if (now->tm_hour == 18 && now->tm_min < 30 && !(now->tm_min % 5) && !g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
+		else if (now->tm_hour == hourFinish && now->tm_min < minFinish && !(now->tm_min % 5) && !g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
 		{
 			MSG_ChatColor sm_mt;
 			memset(&sm_mt, 0, sizeof(MSG_STANDARDPARM));
@@ -45,10 +76,10 @@ void WarOfKingdom()
 
 			g_pRvrWar.Annoucement_Point = 1;
 		}
-		else if (now->tm_hour == 18 && now->tm_min < 30 && (now->tm_min % 5) && g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
+		else if (now->tm_hour == hourFinish && now->tm_min < minFinish && (now->tm_min % 5) && g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
 			g_pRvrWar.Annoucement_Point = 0;
 
-		else if (now->tm_hour == 18 && now->tm_min == 30 && g_pRvrWar.Status == 1)
+		else if (now->tm_hour == hourFinish && now->tm_min == minFinish && g_pRvrWar.Status == 1)
 		{
 			for (INT32 i = 1000; i < 30000; i++)
 			{
@@ -56,27 +87,31 @@ void WarOfKingdom()
 					MobKilled(i, 29999, 0, 0);
 			}
 
+			sprintf(temp, g_pMessageStringTable[_DD_KINGDOMWAR_END]);
+			SendNotice(temp);
+			char* msgWinner = "Empate";
 			int winner = 0;
 			if (g_pRvrWar.Points[0] > g_pRvrWar.Points[1])
 			{
 				// Inserir o log que desejar
-				SendNotice("O reino blue foi o vencedora da Guerra entre Reinos");
+				//SendNotice("O reino blue foi o vencedora da Guerra entre Reinos");
 
 				winner = 7;
+				msgWinner = "BLUE";
 			}
 			else if (g_pRvrWar.Points[1] > g_pRvrWar.Points[0])
 			{
 				// Inserir o log que desejar
-				SendNotice("O reino red foi o vencedora da Guerra entre Reinos");
+				//SendNotice("O reino red foi o vencedora da Guerra entre Reinos");
 
 				winner = 8;
+				msgWinner = "RED";
 			}
 			else
-			{
-				SendNotice("A Guerra entre Reinos terminou em empate!");
-
 				winner = 0;
-			}
+
+			sprintf(temp, g_pMessageStringTable[_SN_KINGDOMWAR_DROP_], msgWinner);
+			SendNotice(temp);
 
 			g_pRvrWar.Points[0] = 0;
 			g_pRvrWar.Points[1] = 0;

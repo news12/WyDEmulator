@@ -23,20 +23,26 @@ int fadaOn;
 void WINAPI InitMacro()
 {
 
-	
 	for (size_t i = 0; i < MAX_USER; i++)
 	{
+
+		if (pMob[i].Mode != USER_PLAY)
+			continue;
+
 		int PosX = pMob[i].TargetX;
 		int PosY = pMob[i].TargetY;
 		int EntradaAgua = FALSE;
 
 		if ((PosY >= 1767 && PosY <= 1774) && (PosX >= 1962 && PosX <= 1986))
 		{
-	
+			pMob[i].MOB.macroOn = FALSE;
 			pMob[i].MOB.MacroInside = FALSE;
 			pMob[i].MOB.SalaClear = FALSE;
 			EntradaAgua = TRUE;
 		}
+
+		if (!EntradaAgua && !pMob[i].MOB.MacroInside && !pMob[i].MOB.SalaClear)
+			break;
 
 		for (size_t cFada = 0; cFada < 3; cFada++)
 			{
@@ -77,7 +83,7 @@ void WINAPI InitMacro()
 
 void MacroOnline(int ClientID)
 {
-
+	//CloseHandle(InitMacro);
 	int emptySlot = GetFirstSlotBag(ClientID);
 	if (!emptySlot)
 	{

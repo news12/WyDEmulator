@@ -447,6 +447,9 @@
     <ClCompile Include="FadaDourada.cpp">
       <Filter>Source Files\Packages\State Playing\Quest Subjects\specials</Filter>
     </ClCompile>
+    <ClCompile Include="KefraDrop.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Kefra</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">

@@ -17,6 +17,7 @@
 #include "ProcessDBMessage.h"
 #include "CCastleZakum.h"
 #include "FadaDourada.h"
+#include "KefraDrop.h"
 
 void MobKilled(int target, int a_iConn, int PosX, int PosY)
 {
@@ -1342,9 +1343,10 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 							int itemrand = rand() % 60;
 
 							STRUCT_ITEM *KefraItem = &pMob[target].MOB.Carry[itemrand];
-
+							//drop jogador que matou kefra
 							PutItem(a_iConn, KefraItem);
-
+							//drop guild que matou o kefra apenas 10 membros
+							KefraDrop(a_iConn);
 							sprintf(temp, "etc,kefra killed");
 							Log(temp, pMob[a_iConn].MOB.MobName, 0);
 						}

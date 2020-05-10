@@ -160,24 +160,45 @@ void WarOfTower::StandByProcess()
 	struct tm zone;
 	time_t now;
 	time(&now);
+	int minDefine = 5;
 	zone = *localtime(&now);
 
-	if (zone.tm_wday != 0 && zone.tm_wday != 6)
+	if (warsTimer[eTower].Days[zone.tm_wday] > 1)
 	{
-		if (zone.tm_hour == 21 && zone.tm_min >= 55 && TowerStage == 0)
+		sprintf(temp, "warTimer.json,error config days %d [permitido 0 ou 1] ", warsTimer[eTower].Days[zone.tm_wday]);
+		MyLog(LogType::System, "War Tower", temp, 0, 0);
+	}
+	//if (zone.tm_wday != 0 && zone.tm_wday != 6)
+	if (warsTimer[eTower].Days[zone.tm_wday])
+	{
+		int hourNotice = warsTimer[eTower].Hour;
+		int minNotice;
+
+		if (!warsTimer[eTower].Minute)
+			minNotice = 60 - minDefine;
+		else if (warsTimer[eTower].Minute < 5)
+		{
+			hourNotice = warsTimer[eTower].Hour - 1;
+			minNotice = (60 - minDefine) + warsTimer[eTower].Minute;
+		}
+		else
+			minNotice = warsTimer[eTower].Minute - minDefine;
+
+		//if (zone.tm_hour == 21 && zone.tm_min >= 55 && TowerStage == 0)
+		if (zone.tm_hour == hourNotice && zone.tm_min == minNotice && TowerStage == 0)
 		{
 			Initialize();
 
 			TowerStage = 1;
 
-			sprintf(temp, g_pMessageStringTable[_DN_CHANNELWAR_BEGIN], 5);
+			sprintf(temp, g_pMessageStringTable[_DN_CHANNELWAR_BEGIN], minDefine);
 
 			SendNotice(temp);
 
 			return;
 		}
 
-		if (zone.tm_hour == 22 && zone.tm_min == 0 && TowerStage == 1)
+		if (zone.tm_hour == warsTimer[eTower].Hour && zone.tm_min == warsTimer[eTower].Minute && TowerStage == 1)
 		{
 			TowerStage = 2;
 
@@ -185,7 +206,7 @@ void WarOfTower::StandByProcess()
 
 			GenerateMob(GTORRE, 0, 0);
 
-			SendNotice(g_pMessageStringTable[_DN_BASEWORSTART]);
+			SendNotice(g_pMessageStringTable[_DD__CHANNELWAR_START]);
 
 			return;
 		}
@@ -221,8 +242,17 @@ void WarOfTower::StandByProcess()
 		{
 			TowerCount = 100;
 		}
+		int minFinish = warsTimer[eTower].Minute + 30;
+		int hourFinish = warsTimer[eTower].Hour;
+		if (minFinish > 30)
+		{
+			minFinish = 60 - warsTimer[eTower].Minute;
+			hourFinish += 1;
+		}
+		if (hourFinish>=24)
+			hourFinish = 00;
 
-		if (zone.tm_hour == 22 && zone.tm_min >= 30 && TowerStage == 2)
+		if (zone.tm_hour == hourFinish && zone.tm_min >= minFinish && TowerStage == 2)
 		{
 			TowerStage = 3;
 
@@ -301,7 +331,7 @@ void WarOfTower::StandByProcess()
 			return;
 		}
 
-		if (zone.tm_hour == 22 && zone.tm_min == 45 && TowerStage == 3)
+		if (zone.tm_hour == hourFinish && zone.tm_min == (minFinish + 15) && TowerStage == 3)
 		{
 			TowerCount = 0;
 			TowerStage = 0;

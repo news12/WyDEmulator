@@ -104,6 +104,7 @@
     <ClCompile Include="CUser.cpp" />
     <ClCompile Include="EventsEternal.cpp" />
     <ClCompile Include="FadaDourada.cpp" />
+    <ClCompile Include="KefraDrop.cpp" />
     <ClCompile Include="PassGroup.cpp" />
     <ClCompile Include="GetFunc.cpp" />
     <ClCompile Include="MacroPerga.cpp" />

@@ -21,6 +21,8 @@
 #include "CReadFiles.h"
 #include "WarOfTower.h"
 #include "../ConfigIni.h"
+#include "WarOfNoatum.h"
+#include "CNPCGene.h"
 
 
 #pragma region Defines
@@ -553,7 +555,6 @@ unsigned int pAdminIP[MAX_ADMIN] = {0,};
 
 CNPCGenerator mNPCGen;
 CNPCSummon mSummon;
-
 CUser pUser[MAX_USER];
 CMob pMob[MAX_MOB];
 STRUCT_BLOCKMAC pMac[MAX_MAC];
@@ -1054,6 +1055,38 @@ void GuildZoneReport(void)
 HFONT__ *GetAFont()
 {
 	return 0;
+}
+
+void ConvertNPC(void)
+{
+	
+	for (size_t i = 0; i < MAX_NPCGENERATOR; i++)
+	{
+		memset(&exportNPCJson, 0, sizeof(STRUCT_MOB));
+		memcpy(&exportNPCJson, &mNPCGen.pList[i].Leader, sizeof(STRUCT_MOB));
+		std::string file = exportNPCJson.MobName;
+
+		if (exportNPCJson.MobName == nullptr)
+			continue;
+
+		nConfig::ConvertNPC(PATH_NewNPC, file);
+
+	}
+	
+}
+
+void ReadWarsTimer(void)
+{
+	int status = nConfig::ReadWarsTimer(PATH_SETTINGS, "warsTimer.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler warsTime", "FILE ERROR", NULL);
+
+	DrawConfig(TRUE);
+
+	g_pRvrWar.Annoucement = warsTimer[eRvR].Notice;
+	TowerStage = warsTimer[eTower].Notice;
+	CastleServer = warsTimer[eNoatum].Notice;
 }
 
 void ReadDropKefra(void)
@@ -1749,9 +1782,9 @@ void DrawConfig(int wb)
 
 	y += 16;
 
-	SetTextColor(hDC, color);
-
-	sprintf(String, "Treasure Settings:");
+	//SetTextColor(hDC, color);
+	//desativado sistema de Treasure antigo
+	/*sprintf(String, "Treasure Settings:");
 	len = strlen(String);
 	
 	TextOutA(hDC, x, y, String, len);
@@ -1816,7 +1849,7 @@ void DrawConfig(int wb)
 
 	TextOutA(hDC, x, y, String, len);
 
-	y += 16;
+	y += 16;*/
 	
 	//if (wb)
 	//	fprintf(fp, "%s\n", String);
@@ -1834,8 +1867,8 @@ void DrawConfig(int wb)
 	//	fprintf(fp, "%s\n", String);
 
 	SetTextColor(hDC, backcolor);
-	sprintf(String, " partydif: %d | kefrastatus: %d | GTorreHour: %d | DropItem: %d",
-		PARTY_DIF, KefraLive, GTorreHour, isDropItem);
+	sprintf(String, " partydif: %d | kefrastatus: %d  | DropItem: %d",
+		PARTY_DIF, KefraLive, isDropItem);
 
 	len = strlen(String);
 
@@ -1858,6 +1891,173 @@ void DrawConfig(int wb)
 	TextOutA(hDC, x, y, String, len);
 
 	y += 16;
+
+	sprintf(String, separator1);
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	SetTextColor(hDC, color);
+
+	sprintf(String, "Guerras Status:");
+
+	len = strlen(String);
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	/*------GUERRA DE TORRE Visual TM*/
+	char* gambiZero1 = warsTimer[eTower].Minute < 10 ? "0" : "";
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Guerra de Torre: Horario: %d : %s%d",
+		warsTimer[eTower].Hour, gambiZero1,warsTimer[eTower].Minute);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+	char* torreSunday = warsTimer[eTower].Days[Sunday] ? "X" : " ";
+	char* torreMonday = warsTimer[eTower].Days[Monday] ? "X" : " ";
+	char* torreTuesday = warsTimer[eTower].Days[Tuesday] ? "X" : " ";
+	char* torreWednesday = warsTimer[eTower].Days[Wednesday] ? "X" : " ";
+	char* torreThursday = warsTimer[eTower].Days[Thursday] ? "X" : " ";
+	char* torreFriday = warsTimer[eTower].Days[Friday] ? "X" : " ";
+	char* torreSaturday = warsTimer[eTower].Days[Saturday] ? "X" : " ";
+	
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Dias da Semana : Domingo(%s)| Segunda(%s)| Terça(%s)| Quarta(%s)| Quinta(%s)| Sexta(%s)| Sábado(%s)",
+		torreSunday, torreMonday, torreTuesday, torreWednesday, torreThursday, torreFriday, torreSaturday);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	sprintf(String, separator2);
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+
+	y += 16;
+
+	/*------GUERRA DE NOATUM Visual TM*/
+	char* gambiZero2 = warsTimer[eNoatum].Minute < 10 ? "0":"";
+	
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Guerra de Noatum: Horario: %d : %s%d",
+		warsTimer[eNoatum].Hour, gambiZero2, warsTimer[eNoatum].Minute);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+	char* noatumSunday = warsTimer[eNoatum].Days[Sunday] ? "X" : " ";
+	char* noatumMonday = warsTimer[eNoatum].Days[Monday] ? "X" : " ";
+	char* noatumTuesday = warsTimer[eNoatum].Days[Tuesday] ? "X" : " ";
+	char* noatumWednesday = warsTimer[eNoatum].Days[Wednesday] ? "X" : " ";
+	char* noatumThursday = warsTimer[eNoatum].Days[Thursday] ? "X" : " ";
+	char* noatumFriday = warsTimer[eNoatum].Days[Friday] ? "X" : " ";
+	char* noatumSaturday = warsTimer[eNoatum].Days[Saturday] ? "X" : " ";
+
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Dias da Semana : Domingo(%s)| Segunda(%s)| Terça(%s)| Quarta(%s)| Quinta(%s)| Sexta(%s)| Sábado(%s)",
+		noatumSunday, noatumMonday, noatumTuesday, noatumWednesday, noatumThursday, noatumFriday, noatumSaturday);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	sprintf(String, separator2);
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+
+	y += 16;
+
+	/*------GUERRA RvR Visual TM*/
+	char* gambiZero3 = warsTimer[eRvR].Minute < 10 ? "0" : "";
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Guerra RvR: Horario: %d : %s%d",
+		warsTimer[eRvR].Hour, gambiZero3, warsTimer[eRvR].Minute);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+	char* rvrSunday = warsTimer[eRvR].Days[Sunday] ? "X" : " ";
+	char* rvrMonday = warsTimer[eRvR].Days[Monday] ? "X" : " ";
+	char* rvrTuesday = warsTimer[eRvR].Days[Tuesday] ? "X" : " ";
+	char* rvrWednesday = warsTimer[eRvR].Days[Wednesday] ? "X" : " ";
+	char* rvrThursday = warsTimer[eRvR].Days[Thursday] ? "X" : " ";
+	char* rvrFriday = warsTimer[eRvR].Days[Friday] ? "X" : " ";
+	char* rvrSaturday = warsTimer[eRvR].Days[Saturday] ? "X" : " ";
+
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Dias da Semana : Domingo(%s)| Segunda(%s)| Terça(%s)| Quarta(%s)| Quinta(%s)| Sexta(%s)| Sábado(%s)",
+		rvrSunday, rvrMonday, rvrTuesday, rvrWednesday, rvrThursday, rvrFriday, rvrSaturday);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	sprintf(String, separator2);
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+
+	y += 16;
+
+	/*------GUERRA Cidades Visual TM*/
+	char* gambiZero4 = warsTimer[eCity].Minute < 10 ? "0" : "";
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Guerra de Cidades: Horario: %d : %s%d",
+		warsTimer[eCity].Hour, gambiZero4, warsTimer[eCity].Minute);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+	char* citySunday = warsTimer[eCity].Days[Sunday] ? "X" : " ";
+	char* cityMonday = warsTimer[eCity].Days[Monday] ? "X" : " ";
+	char* cityTuesday = warsTimer[eCity].Days[Tuesday] ? "X" : " ";
+	char* cityWednesday = warsTimer[eCity].Days[Wednesday] ? "X" : " ";
+	char* cityThursday = warsTimer[eCity].Days[Thursday] ? "X" : " ";
+	char* cityFriday = warsTimer[eCity].Days[Friday] ? "X" : " ";
+	char* citySaturday = warsTimer[eCity].Days[Saturday] ? "X" : " ";
+
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Dias da Semana : Domingo(%s)| Segunda(%s)| Terça(%s)| Quarta(%s)| Quinta(%s)| Sexta(%s)| Sábado(%s)",
+		citySunday, cityMonday, cityTuesday, cityWednesday, cityThursday, cityFriday, citySaturday);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	sprintf(String, separator2);
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
 
 	//if (wb)
 		//fprintf(fp, "%s\n", String);
@@ -4068,7 +4268,6 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	BASE_InitializeHitRate();
 
 	StartLog();
-
 	memset(&g_pTreasure, 0, sizeof(g_pTreasure));
 
 	BASE_ReadQuestDiaria();
@@ -4082,6 +4281,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadNPCBlock();
 	ReadLottery();
 	ReadDropKefra();
+	ReadWarsTimer();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4665,34 +4865,39 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&File");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_MOBRELOAD, "&LoadMob");
+		AppendMenu(hSubMenu, MF_STRING, IDC_MOBRELOAD, "&Load Mob");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Mob");
 
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_REBOOT, "&Desligar");
 		AppendMenu(hSubMenu, MF_STRING, IDC_SAVEALL, "&SaveAll");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&LoadGuild");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&LoadGuildName");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&LoadGameConfig");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&LoadSkillData");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&Load Guild");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&Load GuildName");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&Load GameConfig");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&Load SkillData");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&LoadQuiz");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&LoadPremioLojaAfk");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&LoadLottery");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&Load Quiz");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&Load PremioLojaAfk");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&Load Lottery");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_READSANCRATE, "&LoadSanc");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSANCRATE, "&Load Sanc");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&LoadNPCBlock");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&LoadFadaDourada");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&LoadAgruparItens");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&LoadDropKefra");
-		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&ConfigExtra");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&Load NPCBlock");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&Load FadaDourada");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&Load AgruparItens");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&Load DropKefra");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load WarsTimer");
+		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
+
+		hSubMenu = CreatePopupMenu();
+		AppendMenu(hSubMenu, MF_STRING, IDC_CONVERT_NPC, "&Convert NPC to Json");
+		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Tools");
 
 		SetMenu(hWnd, hMenu);
 	} break;
@@ -4759,6 +4964,14 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_DROP_KEFRA:
 			ReadDropKefra();
+			break;
+
+		case IDC_READ_WARS_TIMER:
+			ReadWarsTimer();
+			break;
+
+		case IDC_CONVERT_NPC:
+			ConvertNPC();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -5002,6 +5215,7 @@ void CheckIdle(int conn)
 	}
 }
 
+/*
 void FinishCastleWar()
 {
 	SetCastleDoor(1);
@@ -5038,7 +5252,7 @@ void FinishCastleWar()
 	}
 
 	ClearArea(1036, 1672, 1144, 1764);
-}
+}*/
 
 void RegenMob(int conn)
 {
@@ -5076,9 +5290,11 @@ void RegenMob(int conn)
 
 				GridMulticast(pMob[conn].TargetX, pMob[conn].TargetY, (MSG_STANDARD*)&sm, 0);
 
+				//Contador Altar de Thor
 				pUser[conn].CastleStatus++;
+				SendClientSignalParmCoord(conn, ESCENE_FIELD, _MSG_StartTime, pUser[conn].CastleStatus++, 1046, 1690, 1046, 1690);
 
-				if (pUser[conn].CastleStatus > 22)
+				if (pUser[conn].CastleStatus > 22)//Dominou o Altar
 				{
 					sprintf(temp, g_pMessageStringTable[_SN_S_charge_castle], pMob[conn].MOB.MobName);
 					SendNotice(temp);
@@ -6831,6 +7047,7 @@ void SetArenaDoor(int state)
 	}
 }
 */
+/*
 void SetCastleDoor(int state)
 {
 	for (int i = 0; i < 4; i++)
@@ -6877,7 +7094,7 @@ void SetCastleDoor(int state)
 		}
 		pItem[DoorId].Delay = 0;
 	}
-}
+}*/
 
 /*
 void DecideWinner()
@@ -7397,7 +7614,7 @@ void StartLog()
 
 	sprintf(temp, ".\\Log\\System\\System_%02d_%02d_%04d_%02d_%02d_%02d.txt", when.tm_mday, when.tm_mon + 1, when.tm_year + 1900, when.tm_hour, when.tm_min, when.tm_sec);
 
-	fLogFile = fopen(temp, "wt");
+	FLogSystem = fopen(temp, "wt");
 
 	LastLogSystem = when.tm_mday;
 
