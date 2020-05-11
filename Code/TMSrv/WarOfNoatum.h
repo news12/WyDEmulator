@@ -26,3 +26,4 @@
 void WarNoatum();
 void FinishCastleWar();
 void  SetCastleDoor(int state);
+void MasterCastle(int conn);

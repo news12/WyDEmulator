@@ -1025,9 +1025,9 @@ void CReadFiles::WriteRanking()
 	{
 		if (rankingSystem.grindRanking.getElement(i)->Name[0] != 0 && rankingSystem.grindRanking.getElement(i)->Level < 1000)
 		{
-			fprintf(fp, "%d,%s,%d,%d,%s,%s,%d,%d \n", pos, rankingSystem.grindRanking.getElement(i)->Name,
+			fprintf(fp, "%d,%s,%d,%s,%s,%d,%d \n", pos, rankingSystem.grindRanking.getElement(i)->Name,
 				rankingSystem.grindRanking.getElement(i)->Level,
-				rankingSystem.grindRanking.getElement(i)->Value,
+				//rankingSystem.grindRanking.getElement(i)->Value,
 				classmaster[rankingSystem.grindRanking.getElement(i)->ClassMaster],
 				classe[rankingSystem.grindRanking.getElement(i)->Class],
 				rankingSystem.grindRanking.getElement(i)->GuildIndex,

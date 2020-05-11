@@ -230,6 +230,19 @@ void DecideWinner()
 
 	if (g_pGuildZone[1].ChargeGuild == g_pGuildZone[0].ChargeGuild && g_pGuildZone[2].ChargeGuild == g_pGuildZone[0].ChargeGuild && g_pGuildZone[3].ChargeGuild == g_pGuildZone[0].ChargeGuild)
 		g_pGuildZone[4].ChargeGuild = g_pGuildZone[0].ChargeGuild;
+
+	for (int i = MAX_USER; i < MAX_MOB; i++)
+	{
+		if (pMob[i].Mode == MOB_EMPTY)
+			continue;
+
+		if (pMob[i].MOB.Equip[0].sIndex == 219 ||
+			strncmp(pMob[i].MOB.MobName, "Balmus", NAME_LENGTH) == 0 ||
+			strncmp(pMob[i].MOB.MobName, "Bruce", NAME_LENGTH) == 0 ||
+			strncmp(pMob[i].MOB.MobName, "Empis", NAME_LENGTH) == 0 ||
+			strncmp(pMob[i].MOB.MobName, "Kara", NAME_LENGTH) == 0 )
+			DeleteMob(i, 2);
+	}
 }
 
 void ClearChallanger()

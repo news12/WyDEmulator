@@ -3075,6 +3075,9 @@ extern enum eWars {
 extern int NPCBlock[20];
 extern STRUC_WARS warsTimer[MAX_WARS];
 extern STRUCT_MOB exportNPCJson;
+extern int notWarNoatum;
+extern int playerAltar;
+extern int countAltarDec;
 #pragma endregion
 
 #endif

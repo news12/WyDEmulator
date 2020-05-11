@@ -29,7 +29,9 @@
 
 int TowerCount = 0;
 int TowerStage = 0;
-
+int notWarNoatum = FALSE;
+int playerAltar;
+int countAltarDec = 0;
 int GuildTower = 0;
 int GuildScore[MAX_GUILD];
 
@@ -1086,7 +1088,7 @@ void ReadWarsTimer(void)
 
 	g_pRvrWar.Annoucement = warsTimer[eRvR].Notice;
 	TowerStage = warsTimer[eTower].Notice;
-	CastleServer = warsTimer[eNoatum].Notice;
+	notWarNoatum = warsTimer[eNoatum].Notice;
 }
 
 void ReadDropKefra(void)
@@ -5260,7 +5262,7 @@ void RegenMob(int conn)
 	{
 		
 		int Guild = pMob[conn].MOB.Guild;
-		if (CastleState <= 1 || pMob[conn].TargetX != 1046 || pMob[conn].TargetY != 1690 || Guild <= 0 || pMob[conn].MOB.GuildLevel < 6 || Guild == g_pGuildZone[4].ChargeGuild)
+		/*if (CastleState <= 1 || pMob[conn].TargetX != 1046 || pMob[conn].TargetY != 1690 || Guild <= 0 || pMob[conn].MOB.GuildLevel < 6 || Guild == g_pGuildZone[4].ChargeGuild)
 			pUser[conn].CastleStatus = 0;
 		
 		else
@@ -5308,7 +5310,7 @@ void RegenMob(int conn)
 						ClearCrown(i);
 				}
 			}
-		}
+		}*/
 
 		pUser[conn].Unk_2736++;
 

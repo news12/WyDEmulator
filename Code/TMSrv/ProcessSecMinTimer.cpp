@@ -741,17 +741,11 @@ lbl_PST1:
 				}
 			}
 
-			if (pUser[i].Mode != USER_EMPTY)
-			{
+			//if (pUser[i].Mode != USER_EMPTY)
+			//{
 
-			}
+			//}
 		}
-	}
-
-	if (!(SecCounter % 2))
-	{
-		//Guerra de Reinos
-		WarOfKingdom();
 	}
 
 	if (SecCounter % 2 == 0)
@@ -760,6 +754,20 @@ lbl_PST1:
 		time_t now;
 		time(&now);
 		when = *localtime(&now);
+
+		for (size_t i = 0; i < MAX_USER; i++)
+		{
+			if (pUser[i].Mode != USER_PLAY)
+				continue;
+			//Altar Thor
+			if (CastleServer == 1 
+				&& (pMob[i].TargetX >= 1042 && pMob[i].TargetX <= 1162)
+				&&(pMob[i].TargetY >= 1679 && pMob[i].TargetY <= 1771))
+				MasterCastle(i);
+		}
+
+		//Guerra de Reinos
+		WarOfKingdom();
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)
 		{
@@ -2475,14 +2483,13 @@ void ProcessMinTimer()
 
 
 		//if (timeinfo->tm_wday == 0)
-		//if (warsTimer[eNoatum].Days[timeinfo->tm_wday])
-		//{
-		//	CastleServer = 1;
-		//}
-		//else
-		//{
-		//	CastleServer = 0;
-		//}
+		if (warsTimer[eNoatum].Days[timeinfo->tm_wday])
+		{
+			CastleServer = 1;
+		}
+		else
+			CastleServer = 0;
+		
 
 		if (1 != 0) // Likely to be a debug flag of sorts.. TODO: Check and decide if it stays
 		{
