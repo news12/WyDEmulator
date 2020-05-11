@@ -26,7 +26,7 @@ void WINAPI InitMacro()
 	for (size_t i = 0; i < MAX_USER; i++)
 	{
 
-		if (pMob[i].Mode != USER_PLAY)
+		if (pUser[i].Mode != USER_PLAY)
 			continue;
 
 		int PosX = pMob[i].TargetX;
