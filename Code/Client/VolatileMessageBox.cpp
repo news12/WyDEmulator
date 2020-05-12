@@ -7,6 +7,11 @@ bool SetVolatileMessageBoxText(int itemID, char* text)
 	case 3314:
 		sprintf(text, "Deseja comer esse delicioso Frango Assado?");
 		return true;
+	case 3790:
+	case 3791:
+	case 3792:
+		sprintf(text, "Deseja realmente utilizar esse contrato?");
+		return true;
 	case 4038:
 	case 4039:
 	case 4040:
@@ -26,6 +31,10 @@ int AddVolatileMessageItem(int itemID)
 	switch (itemID)
 	{
 	case 3314:
+		return 1;
+	case 3790:
+	case 3791:
+	case 3792:
 		return 1;
 	case 4038:
 	case 4039:

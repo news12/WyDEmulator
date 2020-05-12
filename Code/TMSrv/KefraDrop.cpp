@@ -20,6 +20,7 @@ void KefraDrop(int killer)
 
 		STRUCT_ITEM* drop = &dropKefra[sortNum];
 
+		//drop random 10 players da guild que matou kefra
 		if (pMob[i].MOB.Guild == guildKilled 
 			&& (PosX >= 2341 && PosX <= 2392)
 			&& (PosY >= 3906 && PosY <= 3953))
@@ -35,6 +36,31 @@ void KefraDrop(int killer)
 
 			break;
 		}
+
+		//Buff Soul 1hora todos os jogadores online
+
+		int sAffect = GetEmptyAffect(i, 29);
+
+		if (sAffect == -1 || pMob[i].Affect[sAffect].Type == 29)
+			continue;
+		
+			pMob[i].Affect[sAffect].Type = 29;
+			pMob[i].Affect[sAffect].Level = 2;
+			pMob[i].Affect[sAffect].Value = 0;
+			pMob[i].Affect[sAffect].Time = AFFECT_1H;
+			pMob[i].GetCurrentScore(i);
+			SendScore(i);
+
+			int Guild = pMob[killer].MOB.Guild;
+				int Groups = ServerGroup;
+				int Server = Guild / MAX_GUILD;
+
+				char Name[256];
+				char Buff[256] = "1hr Soul";
+
+				BASE_GetGuildName(Groups, Guild, Name);
+			sprintf(temp, "!A Guild [%s] derrotou Kefra,você recebeu [%s] aproveite!", Name,Buff);
+			SendClientMsg(i, temp);
 	}
 	return;
 

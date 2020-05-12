@@ -3731,6 +3731,64 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 #pragma endregion
 #pragma endregion
 
+#pragma region >> Contratos /Bau de itens
+	if (Vol == 210)
+	{
+		int slotVago = GetFirstSlotBag(a_iConn);
+
+		if (!slotVago)
+		{
+			SendClientMsg(a_iConn, "Você não tem espaço suficiente na mochila");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+		STRUCT_ITEM itemReceive;
+		switch (item->sIndex)
+		{
+		case 3790://Contrato Sem Sela N
+			itemReceive.sIndex = 2366;
+			itemReceive.stEffect[0].cEffect = 100;
+			itemReceive.stEffect[0].cValue = 100;
+			itemReceive.stEffect[1].cEffect = 5;
+			itemReceive.stEffect[1].cValue = 10;
+			itemReceive.stEffect[2].cEffect = 0;
+			itemReceive.stEffect[2].cValue = 0;
+			break;
+		case 3791://Contrato Sem Sela B
+			itemReceive.sIndex = 2371;
+			itemReceive.stEffect[0].cEffect = 100;
+			itemReceive.stEffect[0].cValue = 100;
+			itemReceive.stEffect[1].cEffect = 5;
+			itemReceive.stEffect[1].cValue = 10;
+			itemReceive.stEffect[2].cEffect = 0;
+			itemReceive.stEffect[2].cValue = 0;
+			break;
+		case 3792://Contrato Macro eternal 7d
+			itemReceive.sIndex = 3789;
+			itemReceive.stEffect[0].cEffect = 0;
+			itemReceive.stEffect[0].cValue = 0;
+			itemReceive.stEffect[1].cEffect = 0;
+			itemReceive.stEffect[1].cValue = 0;
+			itemReceive.stEffect[2].cEffect = 0;
+			itemReceive.stEffect[2].cValue = 0;
+			break;
+		default:
+			break;
+		}
+		
+		PutItem(a_iConn, &itemReceive);
+
+		memset(item, 0, sizeof(STRUCT_ITEM));
+
+		SendItem(a_iConn, m->SourType, m->SourPos, item);
+
+
+		sprintf(temp, "useitem,item contrato type: %d", item->sIndex);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+		
+	}
+#pragma endregion
+
 #pragma region >> Itens Entrada Quests
 	if (Vol == 184)
 	{

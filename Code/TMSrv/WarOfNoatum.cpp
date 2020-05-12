@@ -97,6 +97,8 @@ void FinishCastleWar()
 
 	CastleState = 0;
 
+	pUser[playerAltar].CastleStatus = 0;
+
 	for (int i = 0; i < MAX_USER; i++)
 	{
 		if (pUser[i].Mode != USER_PLAY)

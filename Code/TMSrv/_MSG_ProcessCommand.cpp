@@ -663,6 +663,71 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			CloseUser(tid);
 		}
 
+		else if (!strcmp(cmd, "ir"))
+		{
+			if (sval1[0] == 0)
+				return;
+
+			sval1[NAME_LENGTH - 1] = 0;
+			sval1[NAME_LENGTH - 2] = 0;
+
+			int user = GetUserByName(sval1);
+			int x = pMob[user].TargetX;
+			int y = pMob[user].TargetY;
+
+			if (user == 0)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			if (pUser[user].Mode != USER_PLAY)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			DoTeleport(a_iConn, x, y);
+
+			sprintf(temp, "[%s] se teleportou até você", pMob[a_iConn].MOB.MobName);
+			SendClientMsg(user, temp);
+
+			sprintf(temp, "Você se teleportou até [%s]", pMob[user].MOB.MobName);
+			SendClientMsg(a_iConn, temp);
+		}
+
+		else if (!strcmp(cmd, "summon"))
+		{
+			if (sval1[0] == 0)
+				return;
+
+			sval1[NAME_LENGTH - 1] = 0;
+			sval1[NAME_LENGTH - 2] = 0;
+
+			int user = GetUserByName(sval1);
+			int x = pMob[a_iConn].TargetX;
+			int y = pMob[a_iConn].TargetY;
+			if (user == 0)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			if (pUser[user].Mode != USER_PLAY)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			SummonPlayer(x, y, user);
+
+			sprintf(temp, "Você foi sumonado por [%s]", pMob[a_iConn].MOB.MobName);
+			SendClientMsg(user, temp);
+
+			sprintf(temp, "Você sumonou [%s]", pMob[user].MOB.MobName);
+			SendClientMsg(a_iConn, temp);
+		}
+
 		else if (!strcmp(cmd, "allsummon"))
 		{
 			int x = pMob[a_iConn].TargetX;

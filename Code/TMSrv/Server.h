@@ -188,6 +188,7 @@ void  ReadLevelItemConfig(void);
 void  DoItemLevel(int conn);
 void  SetCircletSubGod(int conn);
 void  SummonServer(int tx, int ty);
+void  SummonPlayer(int x, int y, int conn);
 void  DoGreatTeleport(int mob, int x, int y);
 void  SendDamageKingdom(int x1, int y1, int x2, int y2, int Clan);
 void  SendDamageLeader(int x1, int y1, int x2, int y2);

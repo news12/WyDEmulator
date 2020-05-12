@@ -255,7 +255,7 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	}
 
 	//Fadas Eternal
-	if (item->sIndex > 3788 && item->sIndex < 3792)
+	if (item->sIndex == 3789 || item->sIndex == 3793)
 	{
 		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
@@ -268,6 +268,42 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		sprintf_s(line7, 128, "Macro auto perga M e A");
 		*color7 = Yellow;
 		sprintf_s(line8, 128, "Bônus de 32%% Exp ");
+		*color8 = Yellow;
+		return 10;
+	}
+
+	//Contrato Montaria
+	if (item->sIndex >= 3790 && item->sIndex <= 3791)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Contrato para receber beneficios.");
+		*color3 = White;
+		sprintf_s(line4, 128, "Clique direito para usar.");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Receba uma Montaria ");
+		*color7 = Yellow;
+		sprintf_s(line8, 128, "de acordo com o tipo de contrato ");
+		*color8 = Yellow;
+		return 10;
+	}
+
+	//Contrato Macro
+	if (item->sIndex == 3792)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Contrato para receber beneficios.");
+		*color3 = White;
+		sprintf_s(line4, 128, "Clique direito para usar.");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Receba uma Macro para agua ");
+		*color7 = Yellow;
+		sprintf_s(line8, 128, "Macro(7d) consumivel ao equipar ");
 		*color8 = Yellow;
 		return 10;
 	}
