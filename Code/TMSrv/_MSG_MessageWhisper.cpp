@@ -94,7 +94,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	if (strcmp(m->MobName, "QuizTest") == 0)
+	/*if (strcmp(m->MobName, "QuizTest") == 0)
 	{
 		questionQuiz();
 	
@@ -102,7 +102,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendQuizMessage(a_iConn, eQuiz[SortQuiz].Title, eQuiz[SortQuiz].Answer0, 
 			eQuiz[SortQuiz].Answer1, eQuiz[SortQuiz].Answer2, eQuiz[SortQuiz].Answer3, eQuiz[SortQuiz].Correct);
 		return;
-	}
+	}*/
 
 	/*Evento VemProEternal*/
 	if (strcmp(m->MobName, "VemProEternal") == 0)
@@ -123,14 +123,14 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	if (strcmp(m->MobName, "rVemProEternal") == 0)
+	/*if (strcmp(m->MobName, "rVemProEternal") == 0)
 	{
 		sprintf(temp, "Evento liberado novamente para a Conta:  %s ", pUser[a_iConn].AccountName);
 		SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
 		nConfig::WriteEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal, FALSE);
 		pUser[a_iConn].VemProEternal = FALSE;
 		return;
-	}
+	}*/
 	/*Evento VemProEternal*/
 
 	//Definir senha de grupo
@@ -269,7 +269,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 #pragma endregion
-	else if (strcmp(m->MobName, "nig") == 0)
+	/*else if (strcmp(m->MobName, "nig") == 0)
 	{
 		char tmptime[256];
 
@@ -283,7 +283,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 		SendClientMsg(a_iConn, tmptime);
 		return;
-	}
+	}*/
 
 	else if (strcmp(m->MobName, "spk") == 0)
 	{
@@ -334,7 +334,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	else if (strcmp(m->MobName, "srv") == 0)
+	/*else if (strcmp(m->MobName, "srv") == 0)
 	{
 		int srv = 0;
 
@@ -360,7 +360,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 		DBServerSocket.SendOneMessage((char*)&sm_cs, sizeof(MSG_DBServerChange));
 		return;
-	}
+	}*/
 
 	else if (strcmp(m->MobName, "nt") == 0)
 	{
@@ -429,11 +429,11 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	else if (strcmp(m->MobName, "day") == 0)
+	/*else if (strcmp(m->MobName, "day") == 0)
 	{
 		SendClientMsg(a_iConn, "!#11  2");
 		return;
-	}
+	}*/
 
 	else if (strcmp(m->MobName, "oldeffect") == 0)
 	{
@@ -653,7 +653,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	}
 
 	//Macro agua
-	else if (strcmp(m->MobName, "macroAgua") == 0)
+	/*else if (strcmp(m->MobName, "macroAgua") == 0)
 	{
 	size_t fadaMacro = 3789;
 		//if (!pMob[a_iConn].MacroPerga)
@@ -675,7 +675,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		//	MyLog(LogType::Command, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
 		//}
 		return;
-	}
+	}*/
 
 	else if (strcmp(m->MobName, "time") == 0)
 	{

@@ -520,7 +520,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			for (int j = 0; j < MAX_EQUIP; j++)
 				SendItem(a_iConn, 0, j, &pMob[a_iConn].MOB.Equip[j]);
 		}
-
+		//fin set
 		else if (!strcmp(cmd, "ban"))
 		{
 			int tid = GetUserByName(sval2);

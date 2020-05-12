@@ -25,13 +25,27 @@ void WINAPI InitMacro()
 
 	for (size_t i = 0; i < MAX_USER; i++)
 	{
+		int EntradaAgua = FALSE;
 
 		if (pUser[i].Mode != USER_PLAY)
 			continue;
-
+		
+			if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[0] 
+				&& pMob[i].MOB.Equip[13].sIndex == fadasEternal[1]
+				&& pMob[i].MOB.Equip[13].sIndex == fadasEternal[2])
+				fadaOn = TRUE;
+			else
+			{
+				fadaOn = FALSE;
+				pMob[i].MOB.macroOn = FALSE;
+				pMob[i].MOB.MacroInside = FALSE;
+				pMob[i].MOB.SalaClear = FALSE;
+				continue;
+			}
+				
+		
 		int PosX = pMob[i].TargetX;
 		int PosY = pMob[i].TargetY;
-		int EntradaAgua = FALSE;
 
 		if ((PosY >= 1767 && PosY <= 1774) && (PosX >= 1962 && PosX <= 1986))
 		{
@@ -42,22 +56,14 @@ void WINAPI InitMacro()
 		}
 
 		if (!EntradaAgua && !pMob[i].MOB.MacroInside && !pMob[i].MOB.SalaClear)
-			break;
-
-		for (size_t cFada = 0; cFada < 3; cFada++)
-			{
-				if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[cFada])
-				{
-					fadaOn = TRUE;
-					break;
-				}
-					fadaOn = FALSE;
-					pMob[i].MOB.macroOn = FALSE;
-					pMob[i].MOB.MacroInside = FALSE;
-					pMob[i].MOB.SalaClear = FALSE;
-					EntradaAgua = FALSE;
-				
-			}
+		{
+			SendClientMsg(i, "Você esta longe da entrada da água!!");
+			fadaOn = FALSE;
+			pMob[i].MOB.macroOn = FALSE;
+			pMob[i].MOB.MacroInside = FALSE;
+			pMob[i].MOB.SalaClear = FALSE;
+			continue;
+		}
 
 		
 		if (fadaOn)
@@ -92,7 +98,7 @@ void MacroOnline(int ClientID)
 	}
 	else
 	{
-		Sleep(2000);
+		Sleep(4000);
 		AtiveMacroPerga((int)ClientID);
 	}
 	
@@ -104,7 +110,12 @@ int AtiveMacroPerga(int conn)
 {
 
 	if (!fadaOn)
-	return FALSE;
+	{
+		pMob[conn].MOB.macroOn = FALSE;
+		pMob[conn].MOB.MacroInside = FALSE;
+		pMob[conn].MOB.SalaClear = FALSE;
+		return FALSE;
+	}
 
 	int isPergaN = FALSE;
 	int isPergaM = FALSE;
@@ -202,7 +213,12 @@ int AtiveMacroPerga(int conn)
 						WaterScrollPosition[wp][Sala][0] + 12, WaterScrollPosition[wp][Sala][1] + 12, UserName);
 
 					if (UserArea >= 1)
+					{
+						sprintf(temp, g_pMessageStringTable[_NN_Someone_is_on_quest], UserName, UserArea - 1);
+
+						SendClientMsg(i, temp);
 						continue;
+					}
 					
 
 					WaterClear1[wp][Sala] = Sala <= 7 ? 30 : 15;
@@ -311,7 +327,12 @@ int AtiveMacroPerga(int conn)
 							WaterScrollPosition[wp][Sala][0] + 12, WaterScrollPosition[wp][Sala][1] + 12, UserName);
 
 					if (UserArea >= 1)
+					{
+						sprintf(temp, g_pMessageStringTable[_NN_Someone_is_on_quest], UserName, UserArea - 1);
+
+						SendClientMsg(i, temp);
 						continue;
+					}
 
 
 					WaterClear1[wp][Sala] = Sala <= 7 ? 30 : 15;
