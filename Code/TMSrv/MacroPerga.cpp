@@ -57,7 +57,7 @@ void WINAPI InitMacro()
 
 		if (!EntradaAgua && !pMob[i].MOB.MacroInside && !pMob[i].MOB.SalaClear)
 		{
-			SendClientMsg(i, "Você esta longe da entrada da água!!");
+			//SendClientMsg(i, "Você esta longe da entrada da água!!");
 			fadaOn = FALSE;
 			pMob[i].MOB.macroOn = FALSE;
 			pMob[i].MOB.MacroInside = FALSE;
@@ -216,7 +216,7 @@ int AtiveMacroPerga(int conn)
 					{
 						sprintf(temp, g_pMessageStringTable[_NN_Someone_is_on_quest], UserName, UserArea - 1);
 
-						SendClientMsg(i, temp);
+						SendClientMsg(conn, temp);
 						continue;
 					}
 					
@@ -330,7 +330,7 @@ int AtiveMacroPerga(int conn)
 					{
 						sprintf(temp, g_pMessageStringTable[_NN_Someone_is_on_quest], UserName, UserArea - 1);
 
-						SendClientMsg(i, temp);
+						SendClientMsg(conn, temp);
 						continue;
 					}
 

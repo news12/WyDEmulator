@@ -255,7 +255,7 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	}
 
 	//Fadas Eternal
-	if (item->sIndex == 3789 || item->sIndex == 3793)
+	if (item->sIndex == 3789)
 	{
 		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
@@ -305,6 +305,40 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*color7 = Yellow;
 		sprintf_s(line8, 128, "Macro(7d) consumivel ao equipar ");
 		*color8 = Yellow;
+		return 10;
+	}
+
+	//Kit +1
+	if (item->sIndex == 3793)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Kit de joias.");
+		*color3 = White;
+		sprintf_s(line4, 128, "Clique direito para usar.");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Recebe uma joia aleatoria (4x)");
+		*color7 = Yellow;
+		sprintf_s(line8, 128, "Recebe uma pedra do Sabio ");
+		*color8 = Yellow;
+		return 10;
+	}
+
+	//Kit +1
+	if (item->sIndex == 3794)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Bau de joias.");
+		*color3 = White;
+		sprintf_s(line4, 128, "Clique direito para usar.");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Recebe uma joia aleatoria");
+		*color7 = Yellow;
 		return 10;
 	}
 

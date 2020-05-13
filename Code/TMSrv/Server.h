@@ -208,6 +208,7 @@ int GetUserLojaMac(int conn);
 int GetUserInAreaMac2(int notUsage, int x1, int y1);
 void SetBigCuboDoor(int state);
 int GetFirstSlotBag(int Conn);
+int GetSlotsVagoBag(int Conn);
 STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem);
 
 // External func

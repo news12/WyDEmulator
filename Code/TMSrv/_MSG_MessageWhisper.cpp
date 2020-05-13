@@ -429,11 +429,11 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	/*else if (strcmp(m->MobName, "day") == 0)
+	else if (strcmp(m->MobName, "day") == 0)
 	{
 		SendClientMsg(a_iConn, "!#11  2");
 		return;
-	}*/
+	}
 
 	else if (strcmp(m->MobName, "oldeffect") == 0)
 	{
@@ -1602,4 +1602,5 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		MyLog(LogType::Command, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);;
 		return;
 	}
+	//return;
 }

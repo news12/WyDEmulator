@@ -5,6 +5,9 @@
 #include <string>
 #include <sstream>
 #include "Quiz.h"
+#include "ItensEntradaQuest.h"
+#include "Contratos.h"
+#include "Events.h"
 
 void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 {
@@ -3731,60 +3734,23 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 #pragma endregion
 #pragma endregion
 
-#pragma region >> Contratos /Bau de itens
+#pragma region >> Itens Click Direito
 	if (Vol == 210)
 	{
-		int slotVago = GetFirstSlotBag(a_iConn);
-
-		if (!slotVago)
-		{
-			SendClientMsg(a_iConn, "Você não tem espaço suficiente na mochila");
-			SendItem(a_iConn, m->SourType, m->SourPos, item);
-			return;
-		}
-		STRUCT_ITEM itemReceive;
 		switch (item->sIndex)
 		{
 		case 3790://Contrato Sem Sela N
-			itemReceive.sIndex = 2366;
-			itemReceive.stEffect[0].cEffect = 100;
-			itemReceive.stEffect[0].cValue = 100;
-			itemReceive.stEffect[1].cEffect = 5;
-			itemReceive.stEffect[1].cValue = 10;
-			itemReceive.stEffect[2].cEffect = 0;
-			itemReceive.stEffect[2].cValue = 0;
-			break;
 		case 3791://Contrato Sem Sela B
-			itemReceive.sIndex = 2371;
-			itemReceive.stEffect[0].cEffect = 100;
-			itemReceive.stEffect[0].cValue = 100;
-			itemReceive.stEffect[1].cEffect = 5;
-			itemReceive.stEffect[1].cValue = 10;
-			itemReceive.stEffect[2].cEffect = 0;
-			itemReceive.stEffect[2].cValue = 0;
-			break;
 		case 3792://Contrato Macro eternal 7d
-			itemReceive.sIndex = 3789;
-			itemReceive.stEffect[0].cEffect = 0;
-			itemReceive.stEffect[0].cValue = 0;
-			itemReceive.stEffect[1].cEffect = 0;
-			itemReceive.stEffect[1].cValue = 0;
-			itemReceive.stEffect[2].cEffect = 0;
-			itemReceive.stEffect[2].cValue = 0;
+			itemContract(m, item, a_iConn);
+			break;
+		case 3793:
+		case 3794:
+			itemJoiasEvent(m, item, a_iConn);
 			break;
 		default:
 			break;
 		}
-		
-		PutItem(a_iConn, &itemReceive);
-
-		memset(item, 0, sizeof(STRUCT_ITEM));
-
-		SendItem(a_iConn, m->SourType, m->SourPos, item);
-
-
-		sprintf(temp, "useitem,item contrato type: %d", item->sIndex);
-		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
 		
 	}
 #pragma endregion
@@ -3792,32 +3758,8 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 #pragma region >> Itens Entrada Quests
 	if (Vol == 184)
 	{
-		//entradas quest mortal
 		if (item->sIndex >= VELA && item->sIndex <= EMBLEMA_GUARDA)
-		{
-			switch (item->sIndex)
-			{
-			case VELA:
-				DoTeleport(a_iConn, 2370 + rand() % 5 - 3, 2106 + rand() % 5 - 3);
-				break;
-			case COLHEITA:
-				DoTeleport(a_iConn, 2217 + rand() % 5 - 3, 1714 + rand() % 5 - 3);
-				break;
-			case CURA_BATEDOR:
-				DoTeleport(a_iConn, 452 + rand() % 5 - 3, 3912 + rand() % 5 - 3);
-				break;
-			case MANA_BATEDOR:
-				DoTeleport(a_iConn, 667 + rand() % 5 - 3, 3767 + rand() % 5 - 3);
-				break;
-			case EMBLEMA_GUARDA:
-				DoTeleport(a_iConn, 1300 + rand() % 5 - 3, 4036 + rand() % 5 - 3);
-				break;
-			default:
-				break;
-			}
-
-			SendItem(a_iConn, m->SourType, m->SourPos, item);
-		}
+			itemEnterQuest(m, item, a_iConn);
 	}
 #pragma endregion
 

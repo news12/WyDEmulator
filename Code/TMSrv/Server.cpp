@@ -11012,6 +11012,19 @@ int GetFirstSlotBag(int Conn)
 	
 }
 
+int GetSlotsVagoBag(int Conn)
+{
+
+	int SlotId = 0;
+
+	for (int i = 0; i < pMob[Conn].MaxCarry; i++)
+	{
+		if (pMob[Conn].MOB.Carry[i].sIndex == 0)
+			SlotId++;
+	}
+		return SlotId;
+}
+
 STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem)
 {
 	STRUCT_ITEM *Item;
