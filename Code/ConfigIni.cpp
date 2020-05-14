@@ -85,6 +85,7 @@ const string PATH_EVENTS = PATH_COMMON + "Events/";
 const string PATH_EVENT_VemProEternal = PATH_EVENTS + "VemProEternal/";
 const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
 const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
+const string PATH_EVENT_Box = PATH_EVENTS + "Box/";
 const string PATH_NewNPC = "NewNPC/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
@@ -927,7 +928,41 @@ int ConfigIni::nConfig::WriteWarsTimer(string path, string file)
 
 int ConfigIni::nConfig::ReadBoxEvent(string path, string file)
 {
-	return 0;
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteBoxEvent(PATH_EVENT_Box, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	memset(dropKefra, 0, sizeof(STRUCT_ITEM));
+
+	for (auto& x : nJson["DROP"]["Itens"].items())
+	{
+
+		vector<short> nDropKefra = x.value();
+		dropKefra[stoi(x.key())].sIndex = nDropKefra[0];
+		dropKefra[stoi(x.key())].stEffect->sValue = nDropKefra[1];
+		dropKefra[stoi(x.key())].stEffect[0].cEffect = nDropKefra[2];
+		dropKefra[stoi(x.key())].stEffect[0].cValue = nDropKefra[3];
+		dropKefra[stoi(x.key())].stEffect[1].cEffect = nDropKefra[4];
+		dropKefra[stoi(x.key())].stEffect[1].cValue = nDropKefra[5];
+		dropKefra[stoi(x.key())].stEffect[2].cEffect = nDropKefra[6];
+		dropKefra[stoi(x.key())].stEffect[2].cValue = nDropKefra[7];
+
+	};
+
+	return TRUE;
 }
 
 int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
@@ -937,21 +972,26 @@ int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
 #pragma region Txt New boxEvent.json
 	auto nJson = R"(
 {
-"DROP": {
-		"Itens": {
-				"0": [0,0,0,0,0,0,0,0],
-				"1": [0,0,0,0,0,0,0,0],
-				"2": [0,0,0,0,0,0,0,0],
-				"3": [0,0,0,0,0,0,0,0],
-				"4": [0,0,0,0,0,0,0,0],
-				"5": [0,0,0,0,0,0,0,0],
-				"6": [0,0,0,0,0,0,0,0],
-				"7": [0,0,0,0,0,0,0,0],
-				"8": [0,0,0,0,0,0,0,0],
-				"9": [0,0,0,0,0,0,0,0]
-				
-				}
-		}
+"EVENTS": {
+		"N": {
+			  "0": [2397,0,61,5,0,0,0,0],
+			  "1": [2401,0,61,5,0,0,0,0],
+			  "2": [2402,0,61,5,0,0,0,0]
+			 },
+		"M": {
+			  "0": [2399,0,61,5,0,0,0,0],
+			  "1": [2400,0,61,5,0,0,0,0],
+			  "2": [2404,0,61,5,0,0,0,0],
+			  "3": [2405,0,61,5,0,0,0,0]
+			 },
+		"A": {
+			  "0": [2411,0,61,3,0,0,0,0],
+			  "1": [2412,0,61,3,0,0,0,0],
+			  "2": [2413,0,61,3,0,0,0,0]
+			 }
+
+		  }
+
 })"_json;
 
 #pragma endregion

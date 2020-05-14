@@ -2991,6 +2991,7 @@ extern const std::string PATH_EVENTS;
 extern const std::string PATH_EVENT_VemProEternal;
 extern const std::string PATH_EVENT_LojaAfk;
 extern const std::string PATH_EVENT_Lottery;
+extern const std::string PATH_EVENT_Box;
 extern const std::string PATH_NewNPC;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
@@ -3043,6 +3044,7 @@ extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
 extern int fadaAmmount[50];
 extern STRUCT_ITEM dropKefra[10];
+extern STRUCT_ITEM BoxEvent[3][4];
 extern const char* WydPoints;
 extern enum eNPCBlock {
 	Uxmall,

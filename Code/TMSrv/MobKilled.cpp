@@ -468,6 +468,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 25;
 								}
 
+								if(pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									exp /= 2;
+
 								exp = 6 * exp / 10;
 
 								//if (exp > eMob)
@@ -597,6 +600,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 25;
 								}
 
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									exp /= 2;
+
 								exp = 6 * exp / 10;
 
 								if (pMob[a_iConn].ExpBonus > 0 && pMob[a_iConn].ExpBonus < 500)
@@ -704,6 +710,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									exp *= DOUBLEMODE;
 
 								if (KefraLive == 0)
+									exp /= 2;
+
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
 									exp /= 2;
 
 								if (NewbieEventServer)
@@ -838,6 +847,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								if (KefraLive == 0)
 									exp /= 2;
 
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									exp /= 2;
+
 								if (NewbieEventServer)
 									exp += (exp * 15) / 100;
 								else
@@ -967,6 +979,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								if (KefraLive == 0)
 									exp /= 2;
 
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									exp /= 2;
+
 								if (NewbieEventServer)
 									exp += (exp * 15) / 100;
 								else
@@ -1052,6 +1067,33 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 6.80f;
 								}
 
+								if (pMob[party].Extra.ClassMaster == ARCH)
+								{
+									if (myLevel <= 200) // Exp Média 90k
+										exp /= 0.72f;
+
+									else if (myLevel <= 300)// Exp Média 70k
+										exp /= 0.84f;
+
+									else if (myLevel <= 356)// Exp Média 30k
+										exp /= 1.40f;
+
+									else if (myLevel <= 360)// Exp Média 8k
+										exp /= 2.75f;
+
+									else if (myLevel <= 370)// Exp Média 6k
+										exp /= 3.60f;
+
+									else if (myLevel <= 380) // Exp Média 2.5k
+										exp /= 8;
+
+									else if (myLevel <= 390)  // Exp Média 1.8k
+										exp /= 15;
+
+									else if (myLevel <= 400) // Exp Média 1k
+										exp /= 25;
+								}
+
 								exp = 6 * exp / 10;
 
 								if (exp > eMob)
@@ -1067,6 +1109,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									exp *= DOUBLEMODE;
 
 								if (KefraLive == 0)
+									exp /= 2;
+
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
 									exp /= 2;
 
 								if (NewbieEventServer)
@@ -1225,6 +1270,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									exp *= DOUBLEMODE;
 
 								if (KefraLive == 0)
+									exp /= 2;
+
+								if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
 									exp /= 2;
 
 								if (NewbieEventServer)

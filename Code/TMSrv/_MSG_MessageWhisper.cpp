@@ -269,7 +269,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 #pragma endregion
-	/*else if (strcmp(m->MobName, "nig") == 0)
+	else if (strcmp(m->MobName, "nig") == 0)//comando alto time não mexer
 	{
 		char tmptime[256];
 
@@ -283,7 +283,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 		SendClientMsg(a_iConn, tmptime);
 		return;
-	}*/
+	}
 
 	else if (strcmp(m->MobName, "spk") == 0)
 	{
@@ -429,7 +429,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	else if (strcmp(m->MobName, "day") == 0)
+	else if (strcmp(m->MobName, "day") == 0)////comando alto time não mexer
 	{
 		SendClientMsg(a_iConn, "!#11  2");
 		return;
@@ -1602,5 +1602,5 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		MyLog(LogType::Command, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);;
 		return;
 	}
-	//return;
+	return;
 }
