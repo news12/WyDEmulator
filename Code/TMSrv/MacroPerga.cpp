@@ -17,7 +17,7 @@
 #include "ProcessDBMessage.h"
 #include "MacroPerga.h"
 //Fadas Eternal
-short fadasEternal[3]{ 3789,3790,3791 };
+short fadasEternal[3]{ 3789,3795,3796 };
 int fadaOn;
 
 void WINAPI InitMacro()
@@ -31,8 +31,8 @@ void WINAPI InitMacro()
 			continue;
 		
 			if (pMob[i].MOB.Equip[13].sIndex == fadasEternal[0] 
-				&& pMob[i].MOB.Equip[13].sIndex == fadasEternal[1]
-				&& pMob[i].MOB.Equip[13].sIndex == fadasEternal[2])
+				|| pMob[i].MOB.Equip[13].sIndex == fadasEternal[1]
+				|| pMob[i].MOB.Equip[13].sIndex == fadasEternal[2])
 				fadaOn = TRUE;
 			else
 			{

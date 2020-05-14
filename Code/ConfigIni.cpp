@@ -925,6 +925,49 @@ int ConfigIni::nConfig::WriteWarsTimer(string path, string file)
 	}
 }
 
+int ConfigIni::nConfig::ReadBoxEvent(string path, string file)
+{
+	return 0;
+}
+
+int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New boxEvent.json
+	auto nJson = R"(
+{
+"DROP": {
+		"Itens": {
+				"0": [0,0,0,0,0,0,0,0],
+				"1": [0,0,0,0,0,0,0,0],
+				"2": [0,0,0,0,0,0,0,0],
+				"3": [0,0,0,0,0,0,0,0],
+				"4": [0,0,0,0,0,0,0,0],
+				"5": [0,0,0,0,0,0,0,0],
+				"6": [0,0,0,0,0,0,0,0],
+				"7": [0,0,0,0,0,0,0,0],
+				"8": [0,0,0,0,0,0,0,0],
+				"9": [0,0,0,0,0,0,0,0]
+				
+				}
+		}
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int nConfig::ReadGameConfig(string path, string file)
 {
 	string fullpath = path + file;

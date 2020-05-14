@@ -38,6 +38,8 @@ namespace ConfigIni {
 		static int WriteDropKefra(string path, string file);
 		static int ReadWarsTimer(string path, string file);
 		static int WriteWarsTimer(string path, string file);
+		static int ReadBoxEvent(string path, string file);
+		static int WriteBoxEvent(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

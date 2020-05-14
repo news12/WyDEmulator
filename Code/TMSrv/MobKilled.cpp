@@ -2379,19 +2379,19 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								if ((!strcmp(pMob[target].MOB.MobName, "AranhaAmald")) || (!strcmp(pMob[target].MOB.MobName, "GargulaAmald"))
 									|| (!strcmp(pMob[target].MOB.MobName, "HorizonAmald")) || (!strcmp(pMob[target].MOB.MobName, "MorlockAmald")))
 								{
-									if (g_quests.HouseNLeft >= 4000) return;
+									if (g_quests.HouseNLeft >= 4001) return;
 
 									
 									SendCounterMob(a_iConn, g_quests.HouseNLeft, 4000);
 
 									g_quests.HouseNLeft++;
 
-									if (g_quests.HouseNLeft == 4000)
+									if (g_quests.HouseNLeft == 4001)
 									{
 										if (g_quests.HouseNStatus == false)
 										{
 											CreateMob("Solitario", 3684, 3684, "npc", 0);
-											SendNoticeArea("O BOSS foi summonado no primeiro andar.", 3604, 3601, 3690, 3690);
+											SendNoticeArea("O BOSS [Solitário] foi summonado no primeiro andar.", 3604, 3601, 3690, 3690);
 											g_quests.HouseNStatus = true;
 										}
 
@@ -2528,11 +2528,21 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											{
 												STRUCT_ITEM item;
 												memset(&item, 0, sizeof(STRUCT_ITEM));
+												long long expGain = QuestDiaria[pUser[a_iConn].QuestAtiva].ExpReward;
+												int coinGain = QuestDiaria[pUser[a_iConn].QuestAtiva].GoldReward;
+												coinGain += pMob[a_iConn].MOB.Coin;
+												expGain += pMob[a_iConn].MOB.Exp;
 
-												pMob[a_iConn].MOB.Exp += QuestDiaria[pUser[a_iConn].QuestAtiva].ExpReward;
-												pMob[a_iConn].MOB.Coin += QuestDiaria[pUser[a_iConn].QuestAtiva].GoldReward;
+												if (coinGain >= MAX_COIN)
+													coinGain = MAX_COIN - pMob[a_iConn].MOB.Coin;
 
-												sprintf(temp, "Adquiriu %d de exp", QuestDiaria[pUser[a_iConn].QuestAtiva].GoldReward);
+												if (expGain >= MAX_EXP)
+													expGain = MAX_EXP - pMob[a_iConn].MOB.Exp;
+
+												pMob[a_iConn].MOB.Exp += expGain;
+												pMob[a_iConn].MOB.Coin += coinGain;
+
+												sprintf(temp, "Adquiriu %d de exp", QuestDiaria[pUser[a_iConn].QuestAtiva].ExpReward);
 												SendMsgExp(a_iConn, temp, TNColor::Default, false);
 
 												sprintf(temp, "Adquiriu %d de gold", QuestDiaria[pUser[a_iConn].QuestAtiva].GoldReward);

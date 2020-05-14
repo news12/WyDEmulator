@@ -10327,11 +10327,11 @@ void SummonServer(int tx, int ty)
 
 void SummonPlayer(int x, int y, int conn)
 {
-	int summon = 0;
+	
 	if (pUser[conn].Mode != USER_PLAY)
 		return;
 
-	DoGreatTeleport(x, y, conn);
+	DoGreatTeleport(conn, x, y);
 }
 
 void MobAttack(int attacker, MSG_Attack sm)
