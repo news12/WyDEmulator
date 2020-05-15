@@ -342,6 +342,21 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		return 10;
 	}
 
+	if (item->sIndex >= 3210 && item->sIndex <= 3212)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Box de Eventos.");
+		*color3 = White;
+		sprintf_s(line4, 128, "Clique direito para usar.");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Receba um item aleatorio do evento");
+		*color7 = Yellow;
+		return 10;
+	}
+
 	//Moedas Epoints.
 	if (item->sIndex > 3015 && item->sIndex < 3020)
 	{

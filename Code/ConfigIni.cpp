@@ -20,6 +20,7 @@ STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
 STRUCT_ITEM dropKefra[];
 STRUC_WARS warsTimer[];
+STRUCT_ITEM BoxEvent[][5];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -73,6 +74,9 @@ int fadaAmmount[];
 STRUCT_MOB exportNPCJson;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
+ DWORD MAX_BOX_N = 0;
+ DWORD MAX_BOX_M = 0;
+ DWORD MAX_BOX_A = 0;
 //Maximo de config 100 maximo de subconfig 50
 short gameConfig[maxGameConfig][MaxSubConfig];
 //PATH Folders, difinir extern no basedef.h
@@ -945,21 +949,49 @@ int ConfigIni::nConfig::ReadBoxEvent(string path, string file)
 	json nJson;
 	spath >> nJson;
 
-	memset(dropKefra, 0, sizeof(STRUCT_ITEM));
+	memset(BoxEvent, 0, sizeof(STRUCT_ITEM));
 
-	for (auto& x : nJson["DROP"]["Itens"].items())
+	nJson["EVENTS"]["MAX_N"].get_to(MAX_BOX_N);
+	nJson["EVENTS"]["MAX_M"].get_to(MAX_BOX_M);
+	nJson["EVENTS"]["MAX_A"].get_to(MAX_BOX_A);
+
+	for (auto& x : nJson["EVENTS"]["N"].items())
 	{
+		vector<short> nBoxEvent = x.value();
+		BoxEvent[0][stoi(x.key())].sIndex = nBoxEvent[0];
+		BoxEvent[0][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+		BoxEvent[0][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+		BoxEvent[0][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+		BoxEvent[0][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+		BoxEvent[0][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+		BoxEvent[0][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+		BoxEvent[0][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
+	};
 
-		vector<short> nDropKefra = x.value();
-		dropKefra[stoi(x.key())].sIndex = nDropKefra[0];
-		dropKefra[stoi(x.key())].stEffect->sValue = nDropKefra[1];
-		dropKefra[stoi(x.key())].stEffect[0].cEffect = nDropKefra[2];
-		dropKefra[stoi(x.key())].stEffect[0].cValue = nDropKefra[3];
-		dropKefra[stoi(x.key())].stEffect[1].cEffect = nDropKefra[4];
-		dropKefra[stoi(x.key())].stEffect[1].cValue = nDropKefra[5];
-		dropKefra[stoi(x.key())].stEffect[2].cEffect = nDropKefra[6];
-		dropKefra[stoi(x.key())].stEffect[2].cValue = nDropKefra[7];
+	for (auto& x : nJson["EVENTS"]["M"].items())
+	{
+		vector<short> nBoxEvent = x.value();
+		BoxEvent[1][stoi(x.key())].sIndex = nBoxEvent[0];
+		BoxEvent[1][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+		BoxEvent[1][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+		BoxEvent[1][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+		BoxEvent[1][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+		BoxEvent[1][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+		BoxEvent[1][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+		BoxEvent[1][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
+	};
 
+	for (auto& x : nJson["EVENTS"]["A"].items())
+	{
+		vector<short> nBoxEvent = x.value();
+		BoxEvent[2][stoi(x.key())].sIndex = nBoxEvent[0];
+		BoxEvent[2][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+		BoxEvent[2][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+		BoxEvent[2][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+		BoxEvent[2][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+		BoxEvent[2][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+		BoxEvent[2][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+		BoxEvent[2][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
 	};
 
 	return TRUE;
@@ -973,10 +1005,14 @@ int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
 	auto nJson = R"(
 {
 "EVENTS": {
+		"MAX_N": 4,
+		"MAX_M": 4,
+		"MAX_A": 3,
 		"N": {
-			  "0": [2397,0,61,5,0,0,0,0],
-			  "1": [2401,0,61,5,0,0,0,0],
-			  "2": [2402,0,61,5,0,0,0,0]
+			  "0": [2396,0,61,5,0,0,0,0],
+			  "1": [2397,0,61,5,0,0,0,0],
+			  "2": [2401,0,61,5,0,0,0,0],
+			  "3": [2402,0,61,5,0,0,0,0]
 			 },
 		"M": {
 			  "0": [2399,0,61,5,0,0,0,0],

@@ -1059,6 +1059,15 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadBoxEvent(void)
+{
+	int status = nConfig::ReadBoxEvent(PATH_EVENT_Box, "boxEventClick.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler boxEventClick", "FILE ERROR", NULL);
+
+}
+
 void ConvertNPC(void)
 {
 	
@@ -4284,6 +4293,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadLottery();
 	ReadDropKefra();
 	ReadWarsTimer();
+	ReadBoxEvent();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4883,6 +4893,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&Load Quiz");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&Load PremioLojaAfk");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&Load Lottery");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOX_EVENT, "&Load Box Event");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -4974,6 +4985,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_CONVERT_NPC:
 			ConvertNPC();
+			break;
+
+		case IDC_READ_BOX_EVENT:
+			ReadBoxEvent();
 			break;
 
 		case IDC_READGAMECONFIG:

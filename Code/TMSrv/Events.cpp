@@ -88,3 +88,64 @@ void itemJoiasEvent(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn)
 		return;
 	}
 }
+
+void boxEvent(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn)
+{
+	DWORD itemRand;
+
+	int slotVago = GetFirstSlotBag(a_iConn);
+	if (!slotVago)
+	{
+		SendClientMsg(a_iConn, "Você não tem espaço suficiente na mochila");
+		SendItem(a_iConn, m->SourType, m->SourPos, Item);
+		return;
+	}
+	//Box N
+	if (Item->sIndex == 3210)
+	{
+		itemRand = rand() % MAX_BOX_N;
+		
+		PutItem(a_iConn, &BoxEvent[0][itemRand]);
+
+		memset(Item, 0, sizeof(STRUCT_ITEM));
+
+		SendItem(a_iConn, m->SourType, m->SourPos, Item);
+
+		sprintf(temp, "useitem,item BoxEvent type: %d", Item->sIndex);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+		return;
+
+	}
+	//Box M
+	if (Item->sIndex == 3211)
+	{
+		itemRand = rand() % MAX_BOX_M;
+
+		PutItem(a_iConn, &BoxEvent[1][itemRand]);
+
+		memset(Item, 0, sizeof(STRUCT_ITEM));
+
+		SendItem(a_iConn, m->SourType, m->SourPos, Item);
+
+		sprintf(temp, "useitem,item BoxEvent type: %d", Item->sIndex);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+		return;
+
+	}
+	//Box A
+	if (Item->sIndex == 3212)
+	{
+		itemRand = rand() % MAX_BOX_A;
+
+		PutItem(a_iConn, &BoxEvent[2][itemRand]);
+
+		memset(Item, 0, sizeof(STRUCT_ITEM));
+
+		SendItem(a_iConn, m->SourType, m->SourPos, Item);
+
+		sprintf(temp, "useitem,item BoxEvent type: %d", Item->sIndex);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+		return;
+
+	}
+}

@@ -3739,6 +3739,11 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 	{
 		switch (item->sIndex)
 		{
+		case 3210:
+		case 3211:
+		case 3212:
+			boxEvent(m, item, a_iConn);
+			break;
 		case 3790://Contrato Sem Sela N
 		case 3791://Contrato Sem Sela B
 		case 3792://Contrato Macro eternal 7d

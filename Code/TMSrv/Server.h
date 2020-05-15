@@ -82,6 +82,7 @@ void ReadLottery();
 void ReadDropKefra();
 void ReadWarsTimer();
 void ConvertNPC();
+void ReadBoxEvent();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

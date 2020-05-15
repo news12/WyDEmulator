@@ -106,6 +106,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_DROP_KEFRA 915
 #define IDC_READ_WARS_TIMER 916
 #define IDC_CONVERT_NPC 917
+#define IDC_READ_BOX_EVENT 918
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3044,7 +3045,10 @@ extern STRUCT_ITEM premioLojaAfk;
 extern int groupItens[100];
 extern int fadaAmmount[50];
 extern STRUCT_ITEM dropKefra[10];
-extern STRUCT_ITEM BoxEvent[3][4];
+extern STRUCT_ITEM BoxEvent[3][5];
+extern DWORD MAX_BOX_N;
+extern DWORD MAX_BOX_M;
+extern DWORD MAX_BOX_A;
 extern const char* WydPoints;
 extern enum eNPCBlock {
 	Uxmall,

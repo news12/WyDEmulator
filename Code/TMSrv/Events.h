@@ -6,3 +6,4 @@
 #include <sstream>
 
 void itemJoiasEvent(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn);
+void boxEvent(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn);
