@@ -28,7 +28,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 	else
 		Log(logtemp, "Chat GM", 0);
 
-	if (level >= 8)
+	if (level >= 1)
 	{
 		if (a_iConn <= 0 && a_iConn >= MAX_USER)
 			return;

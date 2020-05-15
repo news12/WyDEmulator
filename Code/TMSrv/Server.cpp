@@ -9690,11 +9690,23 @@ BOOL SetAffect(int conn, int skillnum, int time, int Level)
 	if(sType == 1 || sType == 3 || sType == 10)
 		sTime = 4;
 
+	
 	if (sType == sAffectType && (unsigned int)sTime > pMob[conn].Affect[EmptyAffect].Time)
 		pMob[conn].Affect[EmptyAffect].Time = sTime;
 
 	else
 		pMob[conn].Affect[EmptyAffect].Time = sTime;
+
+	//correção Timer Soul
+	//if (sType == 29)
+	//{
+		//if (pMob[conn].MOB.CurrentScore.Level <= 40)
+		//	sTime = 5;
+		//else
+		//	sTime = 50;
+
+		//pMob[conn].Affect[EmptyAffect].Time = sTime;
+	//}
 
 	if (sType == sAffectType && Level > pMob[conn].Affect[EmptyAffect].Level)
 		pMob[conn].Affect[EmptyAffect].Level = Level;

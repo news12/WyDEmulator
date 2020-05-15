@@ -1494,7 +1494,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				}
 			}
 #pragma endregion
-#pragma region Velocidade
+#pragma region Teleporte
 			else if (skillnum == 41)
 			{
 				int skill_target = (Special / 25) + 2;
@@ -1661,6 +1661,8 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					SameLeaderGuild = 0;
 			}
 
+
+
 #pragma region Time
 			if (SameLeaderGuild)
 			{
@@ -1696,6 +1698,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					SendScore(idx);
 				}
 			}
+
 #pragma endregion
 #pragma endregion
 #pragma region Transformações

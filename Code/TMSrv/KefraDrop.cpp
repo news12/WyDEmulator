@@ -37,11 +37,11 @@ void KefraDrop(int killer)
 			break;
 		}
 
-		//Buff Soul 1hora todos os jogadores online
+		//Buff Soul 1hora todos os personagens menos ARCHs
 
 		int sAffect = GetEmptyAffect(i, 29);
 
-		if (sAffect == -1 || pMob[i].Affect[sAffect].Type == 29)
+		if (sAffect == -1 || pMob[i].Extra.ClassMaster == ARCH)
 			continue;
 		
 			pMob[i].Affect[sAffect].Type = 29;
