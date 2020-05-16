@@ -533,3 +533,5 @@
 #define _NN_ENCAMPMENTBORN 537
 #define _NN_NPCBLOCKED 538
 #define _DD__CHANNELWAR_START 539
+#define _SN_S_is_charging_King 540
+#define _SN_S_CONQUEST_King 541

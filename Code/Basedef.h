@@ -107,6 +107,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_WARS_TIMER 916
 #define IDC_CONVERT_NPC 917
 #define IDC_READ_BOX_EVENT 918
+#define IDC_READ_ALTAR_OF_KING 919
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -424,6 +425,8 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define RUNEQUEST_LV6_MOB_INITIAL2			4277
 #define RUNEQUEST_LV6_MOB_END2				4283
 #define RUNEQUEST_LV6_MOB_BOSS				4276
+
+#define ALTAR_OF_KING_BOSS					4630
 
 
 #define GTORRE								1076
@@ -2993,6 +2996,7 @@ extern const std::string PATH_EVENT_VemProEternal;
 extern const std::string PATH_EVENT_LojaAfk;
 extern const std::string PATH_EVENT_Lottery;
 extern const std::string PATH_EVENT_Box;
+extern const std::string PATH_EVENT_AltarOfKing;
 extern const std::string PATH_NewNPC;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
@@ -3024,13 +3028,53 @@ struct STRUCT_QUIZ
 
 };
 
-struct STRUC_WARS
+struct STRUCT_WARS
 {
 	DWORD Days[7];
 	int Hour;
 	int Minute;
 	DWORD Notice;
 };
+
+struct STRUCT_BOSS 
+{
+	int ID;
+	std::string NAME;
+	STRUCT_ITEM FACE;
+	int	LEVEL;
+	int HP;
+	int CON;
+	int	MP;
+	int AC;
+	int DAN;
+	int MAGI;
+	std::string	MSG1;
+	std::string MSG2;
+	std::string MSG3;
+};
+struct STRUCT_MSG_GREEN
+{
+	int StartX;
+	int StartY;
+	int DestX;
+	int DestY;
+};
+struct STRUCT_ALTAR_KING
+{
+	DWORD Days[7];
+	int Hour[3];
+	int HourFinish;
+	int Min[3];
+	int Duration;
+	int nTimer;
+	int TimerAltar;
+	DWORD Notice;
+	STRUCT_ITEM Rewards[5];
+	STRUCT_BOSS BossStatus;
+	STRUCT_MSG_GREEN spotMSG;
+};
+
+
 extern STRUCT_QUIZ eQuiz[MAX_QUIZ];
 extern int TOTAL_QUIZ;
 extern int goldQuiz;
@@ -3079,7 +3123,9 @@ extern enum eWars {
 };
 #define MAX_WARS 4
 extern int NPCBlock[20];
-extern STRUC_WARS warsTimer[MAX_WARS];
+extern STRUCT_WARS warsTimer[MAX_WARS];
+extern STRUCT_ALTAR_KING altarKing;
+extern BOOL StartAltarKing;
 extern STRUCT_MOB exportNPCJson;
 extern int notWarNoatum;
 extern int playerAltar;

@@ -20,6 +20,7 @@
 #include "WarOfNoatum.h"
 #include "WarOfCity.h"
 #include "WarOfKingdom.h"
+#include "AltarOfKing.h"
 
 void ProcessSecTimer()
 {
@@ -764,10 +765,27 @@ lbl_PST1:
 				&& (pMob[i].TargetX >= 1042 && pMob[i].TargetX <= 1162)
 				&&(pMob[i].TargetY >= 1679 && pMob[i].TargetY <= 1771))
 				MasterCastle(i);
+
+			if (StartAltarKing && altarKing.nTimer > 0)
+				altarKing.nTimer--;
+			else if(StartAltarKing)
+			{
+				sprintf(temp, "Ninguem dominou o Altar do Rei, Evento encerrado!!!");
+				SendNotice(temp);
+				//Sleep(2000);
+				noWinner();
+			}
+
+			if (StartAltarKing && (pMob[i].TargetX >= altarKing.spotMSG.StartX && pMob[i].TargetX <= altarKing.spotMSG.DestX)
+				&& (pMob[i].TargetY >= altarKing.spotMSG.StartY && pMob[i].TargetY <= altarKing.spotMSG.DestY))
+				dominatorKing(i);
+	
 		}
 
 		//Guerra de Reinos
 		WarOfKingdom();
+		startKing();
+		
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)
 		{

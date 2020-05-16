@@ -1059,6 +1059,16 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadAltarOfKing(void)
+{
+	StartAltarKing = FALSE;
+	altarKing.HourFinish = FALSE;
+	int status = nConfig::ReadAltarOfKing(PATH_EVENT_AltarOfKing, "AltarOfKing.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler AltarOfKing", "FILE ERROR", NULL);
+}
+
 void ReadBoxEvent(void)
 {
 	int status = nConfig::ReadBoxEvent(PATH_EVENT_Box, "boxEventClick.json");
@@ -3802,6 +3812,26 @@ void GenerateMob(int index, int PosX, int PosY)
 
 	int nindex = index;
 
+	if (index == altarKing.BossStatus.ID)
+	{
+		//strcpy(&mNPCGen.pList[index].Leader.MobName[16], altarKing.BossStatus.NAME.c_str());
+		//strcpy(&mNPCGen.pList[index].Follower.MobName[16], altarKing.BossStatus.NAME.c_str());
+		mNPCGen.pList[index].Leader.CurrentScore.Ac = altarKing.BossStatus.AC;
+		mNPCGen.pList[index].Leader.Equip[0] = altarKing.BossStatus.FACE;
+		mNPCGen.pList[index].Leader.CurrentScore.Damage = altarKing.BossStatus.DAN;
+		mNPCGen.pList[index].Leader.CurrentScore.MaxHp = altarKing.BossStatus.HP;
+		mNPCGen.pList[index].Leader.CurrentScore.Con = altarKing.BossStatus.CON;
+		mNPCGen.pList[index].Leader.CurrentScore.Hp = altarKing.BossStatus.HP;
+		mNPCGen.pList[index].Leader.CurrentScore.Level = altarKing.BossStatus.LEVEL;
+		mNPCGen.pList[index].Leader.Magic = altarKing.BossStatus.MAGI;
+		mNPCGen.pList[index].Leader.CurrentScore.MaxMp = altarKing.BossStatus.MP;
+		mNPCGen.pList[index].Leader.CurrentScore.Mp = altarKing.BossStatus.MP;
+		strcpy(&mNPCGen.pList[index].SegmentAction[0][80], altarKing.BossStatus.MSG1.c_str());
+		strcpy(&mNPCGen.pList[index].SegmentAction[1][80], altarKing.BossStatus.MSG2.c_str());
+		strcpy(&mNPCGen.pList[index].SegmentAction[2][80], altarKing.BossStatus.MSG3.c_str());
+		
+	}
+
 	for (int i = 0; i < MAX_MOB_MERC; i++)
 	{
 		if (index != pMobMerc[i].GenerateIndex || index == 0)
@@ -4294,6 +4324,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadDropKefra();
 	ReadWarsTimer();
 	ReadBoxEvent();
+	ReadAltarOfKing();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4894,6 +4925,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&Load PremioLojaAfk");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&Load Lottery");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOX_EVENT, "&Load Box Event");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_ALTAR_OF_KING, "&Load Altar Of King");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -4989,6 +5021,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_BOX_EVENT:
 			ReadBoxEvent();
+			break;
+
+		case IDC_READ_ALTAR_OF_KING:
+			ReadAltarOfKing();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -7883,6 +7919,7 @@ void MyLog(LogType logType, char* str1, char* str2, char* str3, unsigned int ip)
 			break;
 		}
 	}
+
 
 	SetWindowText(hWndMain, LogTemp);
 

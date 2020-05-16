@@ -19,7 +19,7 @@ STRUCT_QUIZ eQuiz[];
 STRUCT_ITEM premioLojaAfk;
 int jsonSancRate[3][12];
 STRUCT_ITEM dropKefra[];
-STRUC_WARS warsTimer[];
+STRUCT_WARS warsTimer[];
 STRUCT_ITEM BoxEvent[][5];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
@@ -71,6 +71,8 @@ int QuizOn;
 int SortQuiz;
 int groupItens[];
 int fadaAmmount[];
+STRUCT_ALTAR_KING altarKing;
+BOOL StartAltarKing;
 STRUCT_MOB exportNPCJson;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];
@@ -89,6 +91,7 @@ const string PATH_EVENTS = PATH_COMMON + "Events/";
 const string PATH_EVENT_VemProEternal = PATH_EVENTS + "VemProEternal/";
 const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
 const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
+const string PATH_EVENT_AltarOfKing = PATH_EVENTS + "AltarOfKing/";
 const string PATH_EVENT_Box = PATH_EVENTS + "Box/";
 const string PATH_NewNPC = "NewNPC/";
 //Files Json, definir extern no basedef.h
@@ -853,7 +856,7 @@ int ConfigIni::nConfig::ReadWarsTimer(string path, string file)
 	json nJson;
 	spath >> nJson;
 
-	memset(warsTimer, 0, sizeof(STRUC_WARS));
+	memset(warsTimer, 0, sizeof(STRUCT_WARS));
 	//Tower
 	nJson["WAR"]["Tower"].find("Days").value().get_to(warsTimer[eTower].Days);
 	nJson["WAR"]["Tower"].find("Hour").value().get_to(warsTimer[eTower].Hour);
@@ -1028,6 +1031,149 @@ int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
 
 		  }
 
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadAltarOfKing(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteAltarOfKing(PATH_EVENT_AltarOfKing, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	ifstream spath(fullpath);
+	json nJson;
+	spath >> nJson;
+
+	memset(&altarKing.BossStatus.FACE, 0, sizeof(STRUCT_ITEM));
+	nJson["INDEX"]["Timer"].find("Days").value().get_to(altarKing.Days);
+	nJson["INDEX"]["Timer"].find("Hour").value().get_to(altarKing.Hour);
+	nJson["INDEX"]["Timer"].find("Minute").value().get_to(altarKing.Min);
+	nJson["INDEX"]["Timer"].find("Notice").value().get_to(altarKing.Notice);
+
+	for (auto& x : nJson["INDEX"]["Reward"].items())
+	{
+		vector<short> nReward = x.value();
+		altarKing.Rewards[stoi(x.key())].sIndex = nReward[0];
+		altarKing.Rewards[stoi(x.key())].stEffect->sValue = nReward[1];
+		altarKing.Rewards[stoi(x.key())].stEffect[0].cEffect = nReward[2];
+		altarKing.Rewards[stoi(x.key())].stEffect[0].cValue = nReward[3];
+		altarKing.Rewards[stoi(x.key())].stEffect[1].cEffect = nReward[4];
+		altarKing.Rewards[stoi(x.key())].stEffect[1].cValue = nReward[5];
+		altarKing.Rewards[stoi(x.key())].stEffect[2].cEffect = nReward[6];
+		altarKing.Rewards[stoi(x.key())].stEffect[2].cValue = nReward[7];
+	};
+
+	nJson["INDEX"]["Boss"].find("ID").value().get_to(altarKing.BossStatus.ID);
+	nJson["INDEX"]["Boss"].find("NAME").value().get_to(altarKing.BossStatus.NAME);
+	vector<short> nface;
+	nJson["INDEX"]["Boss"].find("FACE").value().get_to(nface);
+	altarKing.BossStatus.FACE.sIndex = nface[0];
+	altarKing.BossStatus.FACE.stEffect->sValue = nface[1];
+	altarKing.BossStatus.FACE.stEffect[0].cEffect = nface[2];
+	altarKing.BossStatus.FACE.stEffect[0].cValue = nface[3];
+	altarKing.BossStatus.FACE.stEffect[1].cEffect = nface[4];
+	altarKing.BossStatus.FACE.stEffect[1].cValue = nface[5];
+	altarKing.BossStatus.FACE.stEffect[2].cEffect = nface[6];
+	altarKing.BossStatus.FACE.stEffect[2].cValue = nface[7];
+
+	nJson["INDEX"]["Boss"].find("LEVEL").value().get_to(altarKing.BossStatus.LEVEL);
+	nJson["INDEX"]["Boss"].find("HP").value().get_to(altarKing.BossStatus.HP);
+	nJson["INDEX"]["Boss"].find("CON").value().get_to(altarKing.BossStatus.CON);
+	nJson["INDEX"]["Boss"].find("MP").value().get_to(altarKing.BossStatus.MP);
+	nJson["INDEX"]["Boss"].find("AC").value().get_to(altarKing.BossStatus.AC);
+	nJson["INDEX"]["Boss"].find("DAN").value().get_to(altarKing.BossStatus.DAN);
+	nJson["INDEX"]["Boss"].find("MAGIC").value().get_to(altarKing.BossStatus.MAGI);
+	nJson["INDEX"]["Boss"].find("MSG1").value().get_to(altarKing.BossStatus.MSG1);
+	nJson["INDEX"]["Boss"].find("MSG2").value().get_to(altarKing.BossStatus.MSG2);
+	nJson["INDEX"]["Boss"].find("MSG3").value().get_to(altarKing.BossStatus.MSG3);
+
+	nJson["INDEX"]["Counter"].find("StartX").value().get_to(altarKing.spotMSG.StartX);
+	nJson["INDEX"]["Counter"].find("StartY").value().get_to(altarKing.spotMSG.StartY);
+	nJson["INDEX"]["Counter"].find("DestX").value().get_to(altarKing.spotMSG.DestX);
+	nJson["INDEX"]["Counter"].find("DestY").value().get_to(altarKing.spotMSG.DestY);
+
+	nJson["INDEX"]["TimerAltar"].get_to(altarKing.TimerAltar);
+	nJson["INDEX"]["Duration"].get_to(altarKing.Duration);
+
+
+	return TRUE;
+}
+
+int ConfigIni::nConfig::WriteAltarOfKing(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New AltarOfKing.json
+	auto nJson = R"(
+{
+"INDEX": {
+	     "Timer": {
+						"Days": [1,1,1,1,1,1,1],
+						"Hour": [12,16,3],
+						"Minute": [30,16,5],
+						"Notice": 0
+
+		           },
+						
+		"Reward": {
+		
+					"0": [413,0,61,5,0,0,0,0],
+					"1": [4028,0,0,0,0,0,0,0],
+					"2": [4140,0,0,0,0,0,0,0],
+					"3": [3314,0,0,0,0,0,0,0],
+					"4": [777,0,61,5,0,0,0,0]
+		
+				  },
+				  
+		"Boss":{
+				"ID": 4630,
+				"NAME": "Altar Guardian",
+				"FACE": [174,0,0,0,0,0,0,0],
+				"LEVEL": 100,
+				"HP": 10000,
+				"CON": 5000,
+				"MP": 10000,
+				"AC": 5000,
+				"DAN": 1000,
+				"MAGIC": 1000,
+				"MSG1": "Haa.haaa.Saiam do Altar humanos....",
+				"MSG2": "Haa.haaa.Sou o guardiao do altar....",
+				"MSG3": "graaaa.Vou matar todos voces...."
+			   },
+			   
+		"Counter": {
+					"StartX": 1065,
+					"StartY": 1714,
+					"DestX": 1128,
+					"DestY": 1742
+		
+				   },
+		"TimerAltar": 60,
+		"Duration": 1800
+		 
+		  }
 })"_json;
 
 #pragma endregion
@@ -1356,7 +1502,7 @@ int nConfig::WriteGameConfig(string path, string file)
 
 }
 
-int ConfigIni::nConfig::ConvertNPC(string path, string file)
+int nConfig::ConvertNPC(string path, string file)
 {
 	string fullpath = path + file;
 
