@@ -8,6 +8,7 @@
 #include "ItensEntradaQuest.h"
 #include "Contratos.h"
 #include "Events.h"
+#include "BoxPremium.h"
 
 void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 {
@@ -3743,6 +3744,9 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		case 3211:
 		case 3212:
 			boxEvent(m, item, a_iConn);
+			break;
+		case 3213:
+			bagWarrior(m, item, a_iConn);
 			break;
 		case 3790://Contrato Sem Sela N
 		case 3791://Contrato Sem Sela B

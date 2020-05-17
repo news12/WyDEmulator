@@ -127,6 +127,9 @@
     <Filter Include="Source Files\EventsEternal\AltarOfKing">
       <UniqueIdentifier>{e87c5570-ceef-4a6f-bddb-11b18f75aba4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EventsEternal\AutoEvent">
+      <UniqueIdentifier>{772d1f44-0174-4e64-9538-925f90b3a4d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -471,6 +474,12 @@
     <ClCompile Include="AltarOfKing.cpp">
       <Filter>Source Files\EventsEternal\AltarOfKing</Filter>
     </ClCompile>
+    <ClCompile Include="BoxPremium.cpp">
+      <Filter>Source Files\Packages\State Playing\Item\VolClick</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoEvent.cpp">
+      <Filter>Source Files\EventsEternal\AutoEvent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -567,6 +576,12 @@
       <Filter>Header Files\Item</Filter>
     </ClInclude>
     <ClInclude Include="AltarOfKing.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxPremium.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoEvent.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>

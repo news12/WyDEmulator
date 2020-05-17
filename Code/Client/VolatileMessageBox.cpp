@@ -18,6 +18,7 @@ bool SetVolatileMessageBoxText(int itemID, char* text)
 		sprintf(text, "Deseja realmente utilizar esse contrato?");
 		return true;
 		//Bau
+	case 3213:
 	case 3793:
 	case 3794:
 		sprintf(text, "Deseja abrir esse Bau?");
@@ -43,6 +44,7 @@ int AddVolatileMessageItem(int itemID)
 	case 3210:
 	case 3211:
 	case 3212:
+	case 3213:
 	case 3314:
 		return 1;
 	case 3790:

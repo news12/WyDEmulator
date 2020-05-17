@@ -21,6 +21,7 @@
 #include "WarOfCity.h"
 #include "WarOfKingdom.h"
 #include "AltarOfKing.h"
+#include "AutoEvent.h"
 
 void ProcessSecTimer()
 {
@@ -785,6 +786,8 @@ lbl_PST1:
 		//Guerra de Reinos
 		WarOfKingdom();
 		startKing();
+		fAutoNotice();
+		fAutoDouble();
 		
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)

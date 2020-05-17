@@ -108,6 +108,8 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_CONVERT_NPC 917
 #define IDC_READ_BOX_EVENT 918
 #define IDC_READ_ALTAR_OF_KING 919
+#define IDC_READ_BAG_WARRIOR 920
+#define IDC_READ_AUTO_EVENT 921
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3074,7 +3076,30 @@ struct STRUCT_ALTAR_KING
 	STRUCT_MSG_GREEN spotMSG;
 };
 
+struct STRUCT_aNOTICE
+{
+	int MaxNotice;
+	DWORD Days[7];
+	DWORD Hours[24];
+	std::string Notice[100];
+};
 
+struct STRUCT_aDOUBLE
+{
+	DWORD DayStart;
+	int HourStart;
+	int MinStart;
+	std::string MSGStart;
+	DWORD DayEnd;
+	int HourEnd;
+	int MinEnd;
+	int MultEXP;
+	std::string MSGEnd;
+	BOOL start;
+};
+
+extern STRUCT_aDOUBLE autoDouble;
+extern STRUCT_aNOTICE autoNotice;
 extern STRUCT_QUIZ eQuiz[MAX_QUIZ];
 extern int TOTAL_QUIZ;
 extern int goldQuiz;
@@ -3130,6 +3155,7 @@ extern STRUCT_MOB exportNPCJson;
 extern int notWarNoatum;
 extern int playerAltar;
 extern int countAltarDec;
+extern STRUCT_ITEM sbagWarrior[6];
 #pragma endregion
 
 #endif

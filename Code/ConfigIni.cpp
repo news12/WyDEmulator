@@ -21,6 +21,9 @@ int jsonSancRate[3][12];
 STRUCT_ITEM dropKefra[];
 STRUCT_WARS warsTimer[];
 STRUCT_ITEM BoxEvent[][5];
+STRUCT_ITEM sbagWarrior[];
+STRUCT_aDOUBLE autoDouble;
+STRUCT_aNOTICE autoNotice;
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -1270,6 +1273,192 @@ int ConfigIni::nConfig::WriteAltarOfKing(string path, string file)
 		"Duration": 1800
 		 
 		  }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadBagWarrior(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteBagWarrior(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(sbagWarrior, 0, sizeof(STRUCT_ITEM));
+
+		for (auto& x : nJson["ITENS"]["Reward"].items())
+		{
+
+			vector<short> nbagWarrior = x.value();
+			sbagWarrior[stoi(x.key())].sIndex = nbagWarrior[0];
+			sbagWarrior[stoi(x.key())].stEffect->sValue = nbagWarrior[1];
+			sbagWarrior[stoi(x.key())].stEffect[0].cEffect = nbagWarrior[2];
+			sbagWarrior[stoi(x.key())].stEffect[0].cValue = nbagWarrior[3];
+			sbagWarrior[stoi(x.key())].stEffect[1].cEffect = nbagWarrior[4];
+			sbagWarrior[stoi(x.key())].stEffect[1].cValue = nbagWarrior[5];
+			sbagWarrior[stoi(x.key())].stEffect[2].cEffect = nbagWarrior[6];
+			sbagWarrior[stoi(x.key())].stEffect[2].cValue = nbagWarrior[7];
+
+		};
+		//int vect = sizeof(sbagWarrior) / sizeof(sbagWarrior[0]);
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteBagWarrior(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New bagWarrior.json
+	auto nJson = R"(
+{
+"ITENS": {
+		"Reward": {
+					"0": [3381,0,0,0,0,0,0,0],
+					"1": [3363,0,0,0,0,0,0,0],
+					"2": [3467,0,0,0,0,0,0,0],
+					"3": [3378,0,0,0,0,0,0,0],
+					"4": [3366,0,0,0,0,0,0,0],
+					"5": [3467,0,0,0,0,0,0,0]
+				  }
+		 }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadAutoEvent(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteAltarOfKing(PATH_EVENT_AltarOfKing, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&autoDouble, 0, sizeof(STRUCT_aDOUBLE));
+		memset(&autoNotice, 0, sizeof(STRUCT_aNOTICE));
+		nJson["EVENT"]["DOUBLE"].find("DayStart").value().get_to(autoDouble.DayStart);
+		nJson["EVENT"]["DOUBLE"].find("HourStart").value().get_to(autoDouble.HourStart);
+		nJson["EVENT"]["DOUBLE"].find("MinStart").value().get_to(autoDouble.MinStart);
+		nJson["EVENT"]["DOUBLE"].find("MSGStart").value().get_to(autoDouble.MSGStart);
+		nJson["EVENT"]["DOUBLE"].find("DayEnd").value().get_to(autoDouble.DayEnd);
+		nJson["EVENT"]["DOUBLE"].find("HourEnd").value().get_to(autoDouble.HourEnd);
+		nJson["EVENT"]["DOUBLE"].find("MinEnd").value().get_to(autoDouble.MinEnd);
+		nJson["EVENT"]["DOUBLE"].find("MultEXP").value().get_to(autoDouble.MultEXP);
+		nJson["EVENT"]["DOUBLE"].find("MSGEnd").value().get_to(autoDouble.MSGEnd);
+		
+		nJson["EVENT"]["NOTICE"].find("MaxNotice").value().get_to(autoNotice.MaxNotice);
+	
+		nJson["EVENT"]["NOTICE"].find("Days").value().get_to(autoNotice.Days);
+		nJson["EVENT"]["NOTICE"].find("Hours").value().get_to(autoNotice.Hours);
+		vector<string> nNotice;
+		nJson["EVENT"]["NOTICE"].find("Notice").value().get_to(nNotice);
+
+		for (size_t i = 0; i < autoNotice.MaxNotice; i++)
+		{
+			autoNotice.Notice[i] = nNotice[i];
+		}
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+
+
+}
+
+int ConfigIni::nConfig::WriteAutoEvent(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New eventAuto.json
+	auto nJson = R"(
+{
+"EVENT": {
+		"DOUBLE": {
+				"DayStart": 6,
+				"HourStart": 0,
+				"MinStart": 0,
+				"MSGStart" : "O Evento Double Exp foi ativado!!!",
+				"DayEnd": 1,
+				"HourEnd": 0,
+				"MinEnd": 0,
+				"MultEXP": 2,
+				"MSGEnd": "O Evento Double Exp foi desativado!!!"
+			   },
+		"NOTICE": {
+				"MaxNotice": 10,
+				"Days": [1,1,1,1,1,1,1],
+				"Hours": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+				"Notice": [
+							"Bem vindo ao Eternal WYD!!!",
+							"Visite nossa pagina www.eternalwyd.com.br",
+							"Participe de nossas redes sociais e concorra a premios",
+							"Reporte bugs e ou erros e seja recompensado por isso",
+							"Reporte conduta inadequada de outros jogadores e seja recompensado",
+							"Dê sua opniao sobre novos eventos em nossa pagina, e concorra a premios",
+							"Nao forneca sua senha para ninguem, voce e total responsavel pela sua account",
+							"Utilizacao de programas auxiliares sere passivo de ban permanente",
+							"Esta gostando do Eternal WYD? divulgue-nos em suas redes sociais!!",
+							"Novo por aqui? use o comando /VemProEternal e receba bonus para novatos"
+						  ]
+			  }
+	    }
 })"_json;
 
 #pragma endregion

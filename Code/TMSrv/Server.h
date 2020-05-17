@@ -84,6 +84,8 @@ void ReadWarsTimer();
 void ConvertNPC();
 void ReadBoxEvent();
 void ReadAltarOfKing();
+void ReadBagWarrior();
+void ReadAutoEvent();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

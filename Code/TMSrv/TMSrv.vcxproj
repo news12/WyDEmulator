@@ -96,6 +96,8 @@
     <ClCompile Include="..\ConfigIni.cpp" />
     <ClCompile Include="..\CPSock.cpp" />
     <ClCompile Include="AltarOfKing.cpp" />
+    <ClCompile Include="AutoEvent.cpp" />
+    <ClCompile Include="BoxPremium.cpp" />
     <ClCompile Include="CCastleZakum.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CMob.cpp" />
@@ -213,6 +215,8 @@
     <ClInclude Include="..\CPSock.h" />
     <ClInclude Include="..\ItemEffect.h" />
     <ClInclude Include="AltarOfKing.h" />
+    <ClInclude Include="AutoEvent.h" />
+    <ClInclude Include="BoxPremium.h" />
     <ClInclude Include="CCastleZakum.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CMob.h" />

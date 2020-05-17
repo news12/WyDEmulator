@@ -1059,6 +1059,22 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadAutoEvent()
+{
+	int status = nConfig::ReadAutoEvent(PATH_SETTINGS, "eventAuto.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler eventAuto", "FILE ERROR", NULL);
+}
+
+void ReadBagWarrior(void)
+{
+	int status = nConfig::ReadBagWarrior(PATH_SETTINGS, "bagWarrior.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler bagWarrior", "FILE ERROR", NULL);
+}
+
 void ReadAltarOfKing(void)
 {
 	StartAltarKing = FALSE;
@@ -4325,6 +4341,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadWarsTimer();
 	ReadBoxEvent();
 	ReadAltarOfKing();
+	ReadBagWarrior();
+	ReadAutoEvent();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4915,17 +4933,18 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_REBOOT, "&Desligar");
 		AppendMenu(hSubMenu, MF_STRING, IDC_SAVEALL, "&SaveAll");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILD, "&Load Guild");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&Load GuildName");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&Load GameConfig");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&Load SkillData");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&Load Guild Name");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&Load Game Config");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&Load Skill Data");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 		hSubMenu = CreatePopupMenu();
 		AppendMenu(hSubMenu, MF_STRING, IDC_READQUIZ, "&Load Quiz");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&Load PremioLojaAfk");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_PREMIO_LOJAAFK, "&Load Premio Loja Afk");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_LOTTERY, "&Load Lottery");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOX_EVENT, "&Load Box Event");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_ALTAR_OF_KING, "&Load Altar Of King");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_AUTO_EVENT, "&Load Auto Event");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -4933,11 +4952,12 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Rates");
 
 		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&Load NPCBlock");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&Load FadaDourada");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&Load AgruparItens");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&Load DropKefra");
-		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load WarsTimer");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_NPC_BLOCK, "&Load NPC Block");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_FADA_GROUP, "&Load Fada Dourada");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GROUP_ITENS, "&Load Agrupar Itens");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&Load Drop Kefra");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load Wars Timer");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BAG_WARRIOR, "&Load Bag Warrior");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
 		hSubMenu = CreatePopupMenu();
@@ -5026,6 +5046,14 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		case IDC_READ_ALTAR_OF_KING:
 			ReadAltarOfKing();
 			break;
+
+		case IDC_READ_BAG_WARRIOR:
+			ReadBagWarrior();
+			break;
+
+		case IDC_READ_AUTO_EVENT:
+			ReadAutoEvent();
+				break;
 
 		case IDC_READGAMECONFIG:
 		{

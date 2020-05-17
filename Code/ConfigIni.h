@@ -42,6 +42,10 @@ namespace ConfigIni {
 		static int WriteBoxEvent(string path, string file);
 		static int ReadAltarOfKing(string path, string file);
 		static int WriteAltarOfKing(string path, string file);
+		static int ReadBagWarrior(string path, string file);
+		static int WriteBagWarrior(string path, string file);
+		static int ReadAutoEvent(string path, string file);
+		static int WriteAutoEvent(string path, string file);
 
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

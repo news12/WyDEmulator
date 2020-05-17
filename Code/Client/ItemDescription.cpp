@@ -356,6 +356,27 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*color7 = Yellow;
 		return 10;
 	}
+	//Bau do Guerreiro
+	if (item->sIndex == 3213)
+	{
+		sprintf_s(line1, 128, "[Item Premium]");
+		*color1 = Yellow;
+		sprintf_s(line2, 128, "Bau Premium.");
+		*color2 = White;
+		sprintf_s(line3, 128, "Clique direito para usar.");
+		*color3 = White;
+		sprintf_s(line4, 128, "[ATRIBUTOS:]");
+		*color4 = Orange;
+		sprintf_s(line5, 128, "1x Poção Divina(30d)");
+		*color5 = Yellow;
+		sprintf_s(line6, 128, "1x Poção Saude(30d)");
+		*color6 = Yellow;
+		sprintf_s(line7, 128, "2x Bolsa do Andarilho");
+		*color7 = Yellow;
+		sprintf_s(line8, 128, "1x Elixir da Coragem(30d)");
+		*color8 = Yellow;
+		return 10;
+	}
 
 	//Moedas Epoints.
 	if (item->sIndex > 3015 && item->sIndex < 3020)
