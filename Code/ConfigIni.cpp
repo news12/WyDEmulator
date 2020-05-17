@@ -145,18 +145,27 @@ int nConfig::ReadEventsEternal(string path, string file, int key)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	switch (key)
+	try
 	{
-	case VemProEternal:
-		//eEvents.name = (char*)file.c_str();
-		nJson["EVENTSETERNAL"]["VemProEternal"].get_to(eEvents.eventValue);
-		break;
-	default:
-		break;
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		switch (key)
+		{
+		case VemProEternal:
+			//eEvents.name = (char*)file.c_str();
+			nJson["EVENTSETERNAL"]["VemProEternal"].get_to(eEvents.eventValue);
+			break;
+		default:
+			break;
+		}
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
 	}
 
 }
@@ -216,57 +225,64 @@ int ConfigIni::nConfig::ReadQuiz(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	nJson["CONFIG"]["ToTalQuiz"].get_to(TOTAL_QUIZ);
-	nJson["CONFIG"]["GOLD"].get_to(goldQuiz);
-	nJson["CONFIG"]["EXP"].get_to(expQuiz);
-
-	for (auto& x : nJson["QUESTIONS"].items())
+	try
 	{
-		string Title = x.value().find("Title").value();
-		int tLength = Title.size();
-		int Correct = x.value().find("Correct").value();
-		string Answer0 = x.value().find("Answer0").value();
-		int tA0 = Answer0.size();
-		string Answer1 = x.value().find("Answer1").value();
-		int tA1 = Answer1.size();
-		string Answer2 = x.value().find("Answer2").value();
-		int tA2 = Answer2.size();
-		string Answer3 = x.value().find("Answer3").value();
-		int tA3 = Answer3.size();
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-		char* cTitle = new char[tLength +1];
-		copy(Title.begin(), Title.end(), cTitle);
-		cTitle[tLength] = '\0';
-		eQuiz[stoi(x.key())].Title = cTitle;
+		nJson["CONFIG"]["ToTalQuiz"].get_to(TOTAL_QUIZ);
+		nJson["CONFIG"]["GOLD"].get_to(goldQuiz);
+		nJson["CONFIG"]["EXP"].get_to(expQuiz);
 
-		eQuiz[stoi(x.key())].Correct = Correct;
+		for (auto& x : nJson["QUESTIONS"].items())
+		{
+			string Title = x.value().find("Title").value();
+			int tLength = Title.size();
+			int Correct = x.value().find("Correct").value();
+			string Answer0 = x.value().find("Answer0").value();
+			int tA0 = Answer0.size();
+			string Answer1 = x.value().find("Answer1").value();
+			int tA1 = Answer1.size();
+			string Answer2 = x.value().find("Answer2").value();
+			int tA2 = Answer2.size();
+			string Answer3 = x.value().find("Answer3").value();
+			int tA3 = Answer3.size();
 
-		char* cA0 = new char[tA0 + 1];
-		copy(Answer0.begin(), Answer0.end(), cA0);
-		cA0[tA0] = '\0';
-		eQuiz[stoi(x.key())].Answer0 = cA0;
+			char* cTitle = new char[tLength + 1];
+			copy(Title.begin(), Title.end(), cTitle);
+			cTitle[tLength] = '\0';
+			eQuiz[stoi(x.key())].Title = cTitle;
 
-		char* cA1 = new char[tA1 + 1];
-		copy(Answer1.begin(), Answer1.end(), cA1);
-		cA1[tA1] = '\0';
-		eQuiz[stoi(x.key())].Answer1 = cA1;
+			eQuiz[stoi(x.key())].Correct = Correct;
 
-		char* cA2 = new char[tA2 + 1];
-		copy(Answer2.begin(), Answer2.end(), cA2);
-		cA2[tA2] = '\0';
-		eQuiz[stoi(x.key())].Answer2 = cA2;
+			char* cA0 = new char[tA0 + 1];
+			copy(Answer0.begin(), Answer0.end(), cA0);
+			cA0[tA0] = '\0';
+			eQuiz[stoi(x.key())].Answer0 = cA0;
 
-		char* cA3 = new char[tA3 + 1];
-		copy(Answer3.begin(), Answer3.end(), cA3);
-		cA3[tA3] = '\0';
-		eQuiz[stoi(x.key())].Answer3 = cA3;
+			char* cA1 = new char[tA1 + 1];
+			copy(Answer1.begin(), Answer1.end(), cA1);
+			cA1[tA1] = '\0';
+			eQuiz[stoi(x.key())].Answer1 = cA1;
 
-	};
-	return TRUE;
+			char* cA2 = new char[tA2 + 1];
+			copy(Answer2.begin(), Answer2.end(), cA2);
+			cA2[tA2] = '\0';
+			eQuiz[stoi(x.key())].Answer2 = cA2;
+
+			char* cA3 = new char[tA3 + 1];
+			copy(Answer3.begin(), Answer3.end(), cA3);
+			cA3[tA3] = '\0';
+			eQuiz[stoi(x.key())].Answer3 = cA3;
+
+		};
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 	
 }
 
@@ -341,28 +357,35 @@ int ConfigIni::nConfig::ReadSancRate(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	for (auto& x : nJson["SANC"]["ORI"].items())
+	try
 	{
-		x.value().get_to(jsonSancRate[0][stoi(x.key())]);
-	}
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	for (auto& x : nJson["SANC"]["LAC"].items())
+		for (auto& x : nJson["SANC"]["ORI"].items())
+		{
+			x.value().get_to(jsonSancRate[0][stoi(x.key())]);
+		}
+
+		for (auto& x : nJson["SANC"]["LAC"].items())
+		{
+			x.value().get_to(jsonSancRate[1][stoi(x.key())]);
+		}
+
+		for (auto& x : nJson["SANC"]["AMAGO"].items())
+		{
+			x.value().get_to(jsonSancRate[2][stoi(x.key())]);
+		}
+
+		memmove(g_pSancRate, jsonSancRate, sizeof(g_pSancRate));
+
+		return TRUE;
+	}
+	catch (const std::exception&)
 	{
-		x.value().get_to(jsonSancRate[1][stoi(x.key())]);
+		return FALSE;
 	}
-
-	for (auto& x : nJson["SANC"]["AMAGO"].items())
-	{
-		x.value().get_to(jsonSancRate[2][stoi(x.key())]);
-	}
-
-	memmove(g_pSancRate, jsonSancRate, sizeof(g_pSancRate));
-
-	return TRUE;
 }
 
 int ConfigIni::nConfig::WriteSancRate(string path, string file)
@@ -449,20 +472,29 @@ int ConfigIni::nConfig::ReadPremioLojaAfk(string path, string file)
 		return FALSE;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	vector<short> itemPremio;
-	nJson["SHOP"]["Item"].get_to(itemPremio);
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		vector<short> itemPremio;
+		nJson["SHOP"]["Item"].get_to(itemPremio);
 
-	premioLojaAfk.sIndex = itemPremio[0];
-	premioLojaAfk.stEffect->sValue = itemPremio[1];
-	premioLojaAfk.stEffect[0].cEffect = itemPremio[2];
-	premioLojaAfk.stEffect[0].cValue = itemPremio[3];
-	premioLojaAfk.stEffect[1].cEffect = itemPremio[4];
-	premioLojaAfk.stEffect[1].cValue = itemPremio[5];
-	premioLojaAfk.stEffect[2].cEffect = itemPremio[6];
-	premioLojaAfk.stEffect[2].cValue = itemPremio[7];
+		premioLojaAfk.sIndex = itemPremio[0];
+		premioLojaAfk.stEffect->sValue = itemPremio[1];
+		premioLojaAfk.stEffect[0].cEffect = itemPremio[2];
+		premioLojaAfk.stEffect[0].cValue = itemPremio[3];
+		premioLojaAfk.stEffect[1].cEffect = itemPremio[4];
+		premioLojaAfk.stEffect[1].cValue = itemPremio[5];
+		premioLojaAfk.stEffect[2].cEffect = itemPremio[6];
+		premioLojaAfk.stEffect[2].cValue = itemPremio[7];
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int ConfigIni::nConfig::ReadGroupItens(string path, string file)
@@ -480,13 +512,22 @@ int ConfigIni::nConfig::ReadGroupItens(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	memset(&groupItens, 0, sizeof(groupItens));
-	for (auto& x : nJson["GROUP"].items())
+	try
 	{
-		x.value().get_to(groupItens[stoi(x.key())]);
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&groupItens, 0, sizeof(groupItens));
+		for (auto& x : nJson["GROUP"].items())
+		{
+			x.value().get_to(groupItens[stoi(x.key())]);
+		}
+		
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
 	}
 }
 
@@ -583,13 +624,22 @@ int ConfigIni::nConfig::ReadFadaAmmount(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	memset(&fadaAmmount, 0, sizeof(fadaAmmount));
-	for (auto& x : nJson["GROUP"].items())
+	try
 	{
-		x.value().get_to(fadaAmmount[stoi(x.key())]);
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&fadaAmmount, 0, sizeof(fadaAmmount));
+		for (auto& x : nJson["GROUP"].items())
+		{
+			x.value().get_to(fadaAmmount[stoi(x.key())]);
+		}
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
 	}
 }
 
@@ -639,23 +689,30 @@ int ConfigIni::nConfig::ReadNPCBlock(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	memset(&NPCBlock, 0, sizeof(eNPCBlock));
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&NPCBlock, 0, sizeof(eNPCBlock));
 
-	nJson["NPC"]["Uxmall"].get_to(NPCBlock[Uxmall]);
-	nJson["NPC"]["Odin"].get_to(NPCBlock[Odin]);
-	nJson["NPC"]["BlackOrackle"].get_to(NPCBlock[BlackOrackle]);
-	nJson["NPC"]["Xama"].get_to(NPCBlock[Xama]);
-	nJson["NPC"]["Shama"].get_to(NPCBlock[Shama]);
-	nJson["NPC"]["Jeffi"].get_to(NPCBlock[Jeffi]);
-	nJson["NPC"]["Perzens"].get_to(NPCBlock[Perzens]);
-	nJson["NPC"]["MestreHaby"].get_to(NPCBlock[MestreHaby]);
-	nJson["NPC"]["Kibita"].get_to(NPCBlock[Kibita]);
-	nJson["NPC"]["Urnammu"].get_to(NPCBlock[Urnammu]);
+		nJson["NPC"]["Uxmall"].get_to(NPCBlock[Uxmall]);
+		nJson["NPC"]["Odin"].get_to(NPCBlock[Odin]);
+		nJson["NPC"]["BlackOrackle"].get_to(NPCBlock[BlackOrackle]);
+		nJson["NPC"]["Xama"].get_to(NPCBlock[Xama]);
+		nJson["NPC"]["Shama"].get_to(NPCBlock[Shama]);
+		nJson["NPC"]["Jeffi"].get_to(NPCBlock[Jeffi]);
+		nJson["NPC"]["Perzens"].get_to(NPCBlock[Perzens]);
+		nJson["NPC"]["MestreHaby"].get_to(NPCBlock[MestreHaby]);
+		nJson["NPC"]["Kibita"].get_to(NPCBlock[Kibita]);
+		nJson["NPC"]["Urnammu"].get_to(NPCBlock[Urnammu]);
 
-	return TRUE;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int ConfigIni::nConfig::WriteNPCBlock(string path, string file)
@@ -710,13 +767,22 @@ int ConfigIni::nConfig::ReadLottery(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	memset(&g_pRewardBonus, 0, sizeof(g_pRewardBonus));
-	for (auto& x : nJson["REWARD"].items())
+	try
 	{
-		x.value().get_to(g_pRewardBonus[stoi(x.key())]);
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&g_pRewardBonus, 0, sizeof(g_pRewardBonus));
+		for (auto& x : nJson["REWARD"].items())
+		{
+			x.value().get_to(g_pRewardBonus[stoi(x.key())]);
+		}
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
 	}
 }
 
@@ -774,28 +840,35 @@ int ConfigIni::nConfig::ReadDropKefra(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	memset(dropKefra, 0, sizeof(STRUCT_ITEM));
-
-	for (auto& x : nJson["DROP"]["Itens"].items())
+	try
 	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-		vector<short> nDropKefra = x.value();
-		dropKefra[stoi(x.key())].sIndex = nDropKefra[0];
-		dropKefra[stoi(x.key())].stEffect->sValue = nDropKefra[1];
-		dropKefra[stoi(x.key())].stEffect[0].cEffect = nDropKefra[2];
-		dropKefra[stoi(x.key())].stEffect[0].cValue = nDropKefra[3];
-		dropKefra[stoi(x.key())].stEffect[1].cEffect = nDropKefra[4];
-		dropKefra[stoi(x.key())].stEffect[1].cValue = nDropKefra[5];
-		dropKefra[stoi(x.key())].stEffect[2].cEffect = nDropKefra[6];
-		dropKefra[stoi(x.key())].stEffect[2].cValue = nDropKefra[7];
+		memset(dropKefra, 0, sizeof(STRUCT_ITEM));
 
-	};
+		for (auto& x : nJson["DROP"]["Itens"].items())
+		{
 
-	return TRUE;
+			vector<short> nDropKefra = x.value();
+			dropKefra[stoi(x.key())].sIndex = nDropKefra[0];
+			dropKefra[stoi(x.key())].stEffect->sValue = nDropKefra[1];
+			dropKefra[stoi(x.key())].stEffect[0].cEffect = nDropKefra[2];
+			dropKefra[stoi(x.key())].stEffect[0].cValue = nDropKefra[3];
+			dropKefra[stoi(x.key())].stEffect[1].cEffect = nDropKefra[4];
+			dropKefra[stoi(x.key())].stEffect[1].cValue = nDropKefra[5];
+			dropKefra[stoi(x.key())].stEffect[2].cEffect = nDropKefra[6];
+			dropKefra[stoi(x.key())].stEffect[2].cValue = nDropKefra[7];
+
+		};
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 	
 }
 
@@ -852,33 +925,40 @@ int ConfigIni::nConfig::ReadWarsTimer(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	memset(warsTimer, 0, sizeof(STRUCT_WARS));
-	//Tower
-	nJson["WAR"]["Tower"].find("Days").value().get_to(warsTimer[eTower].Days);
-	nJson["WAR"]["Tower"].find("Hour").value().get_to(warsTimer[eTower].Hour);
-	nJson["WAR"]["Tower"].find("Minute").value().get_to(warsTimer[eTower].Minute);
-	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eTower].Notice);
-	//Noatum
-	nJson["WAR"]["Noatum"].find("Days").value().get_to(warsTimer[eNoatum].Days);
-	nJson["WAR"]["Noatum"].find("Hour").value().get_to(warsTimer[eNoatum].Hour);
-	nJson["WAR"]["Noatum"].find("Minute").value().get_to(warsTimer[eNoatum].Minute);
-	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eNoatum].Notice);
-	//City
-	nJson["WAR"]["City"].find("Days").value().get_to(warsTimer[eCity].Days);
-	nJson["WAR"]["City"].find("Hour").value().get_to(warsTimer[eCity].Hour);
-	nJson["WAR"]["City"].find("Minute").value().get_to(warsTimer[eCity].Minute);
-	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eCity].Notice);
-	//RvR
-	nJson["WAR"]["RvR"].find("Days").value().get_to(warsTimer[eRvR].Days);
-	nJson["WAR"]["RvR"].find("Hour").value().get_to(warsTimer[eRvR].Hour);
-	nJson["WAR"]["RvR"].find("Minute").value().get_to(warsTimer[eRvR].Minute);
-	nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eRvR].Notice);
+		memset(warsTimer, 0, sizeof(STRUCT_WARS));
+		//Tower
+		nJson["WAR"]["Tower"].find("Days").value().get_to(warsTimer[eTower].Days);
+		nJson["WAR"]["Tower"].find("Hour").value().get_to(warsTimer[eTower].Hour);
+		nJson["WAR"]["Tower"].find("Minute").value().get_to(warsTimer[eTower].Minute);
+		nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eTower].Notice);
+		//Noatum
+		nJson["WAR"]["Noatum"].find("Days").value().get_to(warsTimer[eNoatum].Days);
+		nJson["WAR"]["Noatum"].find("Hour").value().get_to(warsTimer[eNoatum].Hour);
+		nJson["WAR"]["Noatum"].find("Minute").value().get_to(warsTimer[eNoatum].Minute);
+		nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eNoatum].Notice);
+		//City
+		nJson["WAR"]["City"].find("Days").value().get_to(warsTimer[eCity].Days);
+		nJson["WAR"]["City"].find("Hour").value().get_to(warsTimer[eCity].Hour);
+		nJson["WAR"]["City"].find("Minute").value().get_to(warsTimer[eCity].Minute);
+		nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eCity].Notice);
+		//RvR
+		nJson["WAR"]["RvR"].find("Days").value().get_to(warsTimer[eRvR].Days);
+		nJson["WAR"]["RvR"].find("Hour").value().get_to(warsTimer[eRvR].Hour);
+		nJson["WAR"]["RvR"].find("Minute").value().get_to(warsTimer[eRvR].Minute);
+		nJson["WAR"]["Tower"].find("Notice").value().get_to(warsTimer[eRvR].Notice);
 
-	return TRUE;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int ConfigIni::nConfig::WriteWarsTimer(string path, string file)
@@ -948,56 +1028,63 @@ int ConfigIni::nConfig::ReadBoxEvent(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	memset(BoxEvent, 0, sizeof(STRUCT_ITEM));
-
-	nJson["EVENTS"]["MAX_N"].get_to(MAX_BOX_N);
-	nJson["EVENTS"]["MAX_M"].get_to(MAX_BOX_M);
-	nJson["EVENTS"]["MAX_A"].get_to(MAX_BOX_A);
-
-	for (auto& x : nJson["EVENTS"]["N"].items())
+	try
 	{
-		vector<short> nBoxEvent = x.value();
-		BoxEvent[0][stoi(x.key())].sIndex = nBoxEvent[0];
-		BoxEvent[0][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
-		BoxEvent[0][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
-		BoxEvent[0][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
-		BoxEvent[0][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
-		BoxEvent[0][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
-		BoxEvent[0][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
-		BoxEvent[0][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
-	};
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	for (auto& x : nJson["EVENTS"]["M"].items())
+		memset(BoxEvent, 0, sizeof(STRUCT_ITEM));
+
+		nJson["EVENTS"]["MAX_N"].get_to(MAX_BOX_N);
+		nJson["EVENTS"]["MAX_M"].get_to(MAX_BOX_M);
+		nJson["EVENTS"]["MAX_A"].get_to(MAX_BOX_A);
+
+		for (auto& x : nJson["EVENTS"]["N"].items())
+		{
+			vector<short> nBoxEvent = x.value();
+			BoxEvent[0][stoi(x.key())].sIndex = nBoxEvent[0];
+			BoxEvent[0][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+			BoxEvent[0][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+			BoxEvent[0][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+			BoxEvent[0][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+			BoxEvent[0][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+			BoxEvent[0][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+			BoxEvent[0][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
+		};
+
+		for (auto& x : nJson["EVENTS"]["M"].items())
+		{
+			vector<short> nBoxEvent = x.value();
+			BoxEvent[1][stoi(x.key())].sIndex = nBoxEvent[0];
+			BoxEvent[1][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+			BoxEvent[1][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+			BoxEvent[1][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+			BoxEvent[1][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+			BoxEvent[1][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+			BoxEvent[1][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+			BoxEvent[1][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
+		};
+
+		for (auto& x : nJson["EVENTS"]["A"].items())
+		{
+			vector<short> nBoxEvent = x.value();
+			BoxEvent[2][stoi(x.key())].sIndex = nBoxEvent[0];
+			BoxEvent[2][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
+			BoxEvent[2][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
+			BoxEvent[2][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
+			BoxEvent[2][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
+			BoxEvent[2][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
+			BoxEvent[2][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
+			BoxEvent[2][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
+		};
+
+		return TRUE;
+	}
+	catch (const std::exception&)
 	{
-		vector<short> nBoxEvent = x.value();
-		BoxEvent[1][stoi(x.key())].sIndex = nBoxEvent[0];
-		BoxEvent[1][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
-		BoxEvent[1][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
-		BoxEvent[1][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
-		BoxEvent[1][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
-		BoxEvent[1][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
-		BoxEvent[1][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
-		BoxEvent[1][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
-	};
-
-	for (auto& x : nJson["EVENTS"]["A"].items())
-	{
-		vector<short> nBoxEvent = x.value();
-		BoxEvent[2][stoi(x.key())].sIndex = nBoxEvent[0];
-		BoxEvent[2][stoi(x.key())].stEffect->sValue = nBoxEvent[1];
-		BoxEvent[2][stoi(x.key())].stEffect[0].cEffect = nBoxEvent[2];
-		BoxEvent[2][stoi(x.key())].stEffect[0].cValue = nBoxEvent[3];
-		BoxEvent[2][stoi(x.key())].stEffect[1].cEffect = nBoxEvent[4];
-		BoxEvent[2][stoi(x.key())].stEffect[1].cValue = nBoxEvent[5];
-		BoxEvent[2][stoi(x.key())].stEffect[2].cEffect = nBoxEvent[6];
-		BoxEvent[2][stoi(x.key())].stEffect[2].cValue = nBoxEvent[7];
-	};
-
-	return TRUE;
+		return FALSE;
+	}
 }
 
 int ConfigIni::nConfig::WriteBoxEvent(string path, string file)
@@ -1061,64 +1148,73 @@ int ConfigIni::nConfig::ReadAltarOfKing(string path, string file)
 		if (!creat)
 			return creat;
 	}
-
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	memset(&altarKing.BossStatus.FACE, 0, sizeof(STRUCT_ITEM));
-	nJson["INDEX"]["Timer"].find("Days").value().get_to(altarKing.Days);
-	nJson["INDEX"]["Timer"].find("Hour").value().get_to(altarKing.Hour);
-	nJson["INDEX"]["Timer"].find("Minute").value().get_to(altarKing.Min);
-	nJson["INDEX"]["Timer"].find("Notice").value().get_to(altarKing.Notice);
-
-	for (auto& x : nJson["INDEX"]["Reward"].items())
+	try
 	{
-		vector<short> nReward = x.value();
-		altarKing.Rewards[stoi(x.key())].sIndex = nReward[0];
-		altarKing.Rewards[stoi(x.key())].stEffect->sValue = nReward[1];
-		altarKing.Rewards[stoi(x.key())].stEffect[0].cEffect = nReward[2];
-		altarKing.Rewards[stoi(x.key())].stEffect[0].cValue = nReward[3];
-		altarKing.Rewards[stoi(x.key())].stEffect[1].cEffect = nReward[4];
-		altarKing.Rewards[stoi(x.key())].stEffect[1].cValue = nReward[5];
-		altarKing.Rewards[stoi(x.key())].stEffect[2].cEffect = nReward[6];
-		altarKing.Rewards[stoi(x.key())].stEffect[2].cValue = nReward[7];
-	};
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	nJson["INDEX"]["Boss"].find("ID").value().get_to(altarKing.BossStatus.ID);
-	nJson["INDEX"]["Boss"].find("NAME").value().get_to(altarKing.BossStatus.NAME);
-	vector<short> nface;
-	nJson["INDEX"]["Boss"].find("FACE").value().get_to(nface);
-	altarKing.BossStatus.FACE.sIndex = nface[0];
-	altarKing.BossStatus.FACE.stEffect->sValue = nface[1];
-	altarKing.BossStatus.FACE.stEffect[0].cEffect = nface[2];
-	altarKing.BossStatus.FACE.stEffect[0].cValue = nface[3];
-	altarKing.BossStatus.FACE.stEffect[1].cEffect = nface[4];
-	altarKing.BossStatus.FACE.stEffect[1].cValue = nface[5];
-	altarKing.BossStatus.FACE.stEffect[2].cEffect = nface[6];
-	altarKing.BossStatus.FACE.stEffect[2].cValue = nface[7];
+		memset(&altarKing.BossStatus.FACE, 0, sizeof(STRUCT_ITEM));
+		nJson["INDEX"]["Timer"].find("Days").value().get_to(altarKing.Days);
+		nJson["INDEX"]["Timer"].find("Hour").value().get_to(altarKing.Hour);
+		nJson["INDEX"]["Timer"].find("Minute").value().get_to(altarKing.Min);
+		nJson["INDEX"]["Timer"].find("Notice").value().get_to(altarKing.Notice);
 
-	nJson["INDEX"]["Boss"].find("LEVEL").value().get_to(altarKing.BossStatus.LEVEL);
-	nJson["INDEX"]["Boss"].find("HP").value().get_to(altarKing.BossStatus.HP);
-	nJson["INDEX"]["Boss"].find("CON").value().get_to(altarKing.BossStatus.CON);
-	nJson["INDEX"]["Boss"].find("MP").value().get_to(altarKing.BossStatus.MP);
-	nJson["INDEX"]["Boss"].find("AC").value().get_to(altarKing.BossStatus.AC);
-	nJson["INDEX"]["Boss"].find("DAN").value().get_to(altarKing.BossStatus.DAN);
-	nJson["INDEX"]["Boss"].find("MAGIC").value().get_to(altarKing.BossStatus.MAGI);
-	nJson["INDEX"]["Boss"].find("MSG1").value().get_to(altarKing.BossStatus.MSG1);
-	nJson["INDEX"]["Boss"].find("MSG2").value().get_to(altarKing.BossStatus.MSG2);
-	nJson["INDEX"]["Boss"].find("MSG3").value().get_to(altarKing.BossStatus.MSG3);
+		for (auto& x : nJson["INDEX"]["Reward"].items())
+		{
+			vector<short> nReward = x.value();
+			altarKing.Rewards[stoi(x.key())].sIndex = nReward[0];
+			altarKing.Rewards[stoi(x.key())].stEffect->sValue = nReward[1];
+			altarKing.Rewards[stoi(x.key())].stEffect[0].cEffect = nReward[2];
+			altarKing.Rewards[stoi(x.key())].stEffect[0].cValue = nReward[3];
+			altarKing.Rewards[stoi(x.key())].stEffect[1].cEffect = nReward[4];
+			altarKing.Rewards[stoi(x.key())].stEffect[1].cValue = nReward[5];
+			altarKing.Rewards[stoi(x.key())].stEffect[2].cEffect = nReward[6];
+			altarKing.Rewards[stoi(x.key())].stEffect[2].cValue = nReward[7];
+		};
 
-	nJson["INDEX"]["Counter"].find("StartX").value().get_to(altarKing.spotMSG.StartX);
-	nJson["INDEX"]["Counter"].find("StartY").value().get_to(altarKing.spotMSG.StartY);
-	nJson["INDEX"]["Counter"].find("DestX").value().get_to(altarKing.spotMSG.DestX);
-	nJson["INDEX"]["Counter"].find("DestY").value().get_to(altarKing.spotMSG.DestY);
+		nJson["INDEX"]["Boss"].find("ID").value().get_to(altarKing.BossStatus.ID);
+		nJson["INDEX"]["Boss"].find("NAME").value().get_to(altarKing.BossStatus.NAME);
+		vector<short> nface;
+		nJson["INDEX"]["Boss"].find("FACE").value().get_to(nface);
+		altarKing.BossStatus.FACE.sIndex = nface[0];
+		altarKing.BossStatus.FACE.stEffect->sValue = nface[1];
+		altarKing.BossStatus.FACE.stEffect[0].cEffect = nface[2];
+		altarKing.BossStatus.FACE.stEffect[0].cValue = nface[3];
+		altarKing.BossStatus.FACE.stEffect[1].cEffect = nface[4];
+		altarKing.BossStatus.FACE.stEffect[1].cValue = nface[5];
+		altarKing.BossStatus.FACE.stEffect[2].cEffect = nface[6];
+		altarKing.BossStatus.FACE.stEffect[2].cValue = nface[7];
 
-	nJson["INDEX"]["TimerAltar"].get_to(altarKing.TimerAltar);
-	nJson["INDEX"]["Duration"].get_to(altarKing.Duration);
+		nJson["INDEX"]["Boss"].find("LEVEL").value().get_to(altarKing.BossStatus.LEVEL);
+		nJson["INDEX"]["Boss"].find("HP").value().get_to(altarKing.BossStatus.HP);
+		nJson["INDEX"]["Boss"].find("CON").value().get_to(altarKing.BossStatus.CON);
+		nJson["INDEX"]["Boss"].find("MP").value().get_to(altarKing.BossStatus.MP);
+		nJson["INDEX"]["Boss"].find("AC").value().get_to(altarKing.BossStatus.AC);
+		nJson["INDEX"]["Boss"].find("DAN").value().get_to(altarKing.BossStatus.DAN);
+		nJson["INDEX"]["Boss"].find("MAGIC").value().get_to(altarKing.BossStatus.MAGI);
+		nJson["INDEX"]["Boss"].find("MSG1").value().get_to(altarKing.BossStatus.MSG1);
+		nJson["INDEX"]["Boss"].find("MSG2").value().get_to(altarKing.BossStatus.MSG2);
+		nJson["INDEX"]["Boss"].find("MSG3").value().get_to(altarKing.BossStatus.MSG3);
+
+		nJson["INDEX"]["Counter"].find("StartX").value().get_to(altarKing.spotMSG.StartX);
+		nJson["INDEX"]["Counter"].find("StartY").value().get_to(altarKing.spotMSG.StartY);
+		nJson["INDEX"]["Counter"].find("DestX").value().get_to(altarKing.spotMSG.DestX);
+		nJson["INDEX"]["Counter"].find("DestY").value().get_to(altarKing.spotMSG.DestY);
+
+		nJson["INDEX"]["TimerAltar"].get_to(altarKing.TimerAltar);
+		nJson["INDEX"]["Duration"].get_to(altarKing.Duration);
 
 
-	return TRUE;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+	
+
+	
 }
 
 int ConfigIni::nConfig::WriteAltarOfKing(string path, string file)
@@ -1207,13 +1303,15 @@ int nConfig::ReadGameConfig(string path, string file)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	memset(gameConfig, 0, sizeof(gameConfig));
-	
-	//case DROP_ITEM_EVENT:
+		memset(gameConfig, 0, sizeof(gameConfig));
+
+		//case DROP_ITEM_EVENT:
 		nJson["DROP_ITEM_EVENT"]["evIndex"].get_to(gameConfig[DROP_ITEM_EVENT][0]);
 		nJson["DROP_ITEM_EVENT"]["evDelete"].get_to(gameConfig[DROP_ITEM_EVENT][1]);
 		nJson["DROP_ITEM_EVENT"]["evOn"].get_to(gameConfig[DROP_ITEM_EVENT][2]);
@@ -1223,27 +1321,27 @@ int nConfig::ReadGameConfig(string path, string file)
 		nJson["DROP_ITEM_EVENT"]["evCurrentIndex"].get_to(gameConfig[DROP_ITEM_EVENT][6]);
 		nJson["DROP_ITEM_EVENT"]["evEndIndex"].get_to(gameConfig[DROP_ITEM_EVENT][7]);
 		nJson["DROP_ITEM_EVENT"]["evNotice"].get_to(gameConfig[DROP_ITEM_EVENT][8]);
-	
-	//case ETC_EVENT:
+
+		//case ETC_EVENT:
 		nJson["ETC_EVENT"]["DOUBLEMODE"].get_to(gameConfig[ETC_EVENT][0]);
 		nJson["ETC_EVENT"]["DEADPOINT"].get_to(gameConfig[ETC_EVENT][1]);
 		nJson["ETC_EVENT"]["DUNGEONEVENT"].get_to(gameConfig[ETC_EVENT][2]);
 		nJson["ETC_EVENT"]["StatSpapphire"].get_to(gameConfig[ETC_EVENT][3]);
 		nJson["ETC_EVENT"]["BatleRoyalItem"].get_to(gameConfig[ETC_EVENT][4]);
-		
-	//case nBILLING:
+
+		//case nBILLING:
 		nJson["BILLING"]["BILLING"].get_to(gameConfig[nBILLING][0]);
 		nJson["BILLING"]["FREEEXP"].get_to(gameConfig[nBILLING][1]);
 		nJson["BILLING"]["CHARSELBILL"].get_to(gameConfig[nBILLING][2]);
 		nJson["BILLING"]["POTIONCOUNT"].get_to(gameConfig[nBILLING][3]);
 		nJson["BILLING"]["PARTYBONUS"].get_to(gameConfig[nBILLING][4]);
 		nJson["BILLING"]["GUILDBOARD"].get_to(gameConfig[nBILLING][5]);
-		
-	//case ITEM_DROP_BONUS:
+
+		//case ITEM_DROP_BONUS:
 		nJson["ITEM_DROP_BONUS"].get_to(itemDropBonus);
 		memmove(&gameConfig[ITEM_DROP_BONUS], &itemDropBonus, sizeof(itemDropBonus));
-	
-	//case TREASURE:
+
+		//case TREASURE:
 		for (auto& x : nJson["TREASURE"].items())
 		{
 			for (auto& e : x.value().items())
@@ -1257,14 +1355,14 @@ int nConfig::ReadGameConfig(string path, string file)
 				treasure->Target[stoi(e.key())].stEffect[0].cValue = ntreasure[2];
 				treasure->Target[stoi(e.key())].stEffect[1].cEffect = ntreasure[3];
 				treasure->Target[stoi(e.key())].stEffect[1].cValue = ntreasure[4];
-			//	memmove(&treasure[stoi(x.key())][stoi(e.key())], &ntreasure, sizeof(ntreasure));
+				//	memmove(&treasure[stoi(x.key())][stoi(e.key())], &ntreasure, sizeof(ntreasure));
 			}
 
 			memmove(&ng_pTreasure[stoi(x.key())], &treasure, sizeof(STRUCT_TREASURE));
 
 		};
-	
-	//case OTHER:
+
+		//case OTHER:
 		nJson["OTHER"]["PARTY_DIF"].get_to(gameConfig[OTHER][0]);
 		nJson["OTHER"]["KefraLive"].get_to(gameConfig[OTHER][1]);
 		nJson["OTHER"]["GTorreHour"].get_to(gameConfig[OTHER][2]);
@@ -1272,9 +1370,14 @@ int nConfig::ReadGameConfig(string path, string file)
 		nJson["OTHER"]["BableRoyalRHour"].get_to(gameConfig[OTHER][4]);
 		nJson["OTHER"]["maxNightmare"].get_to(gameConfig[OTHER][5]);
 		nJson["OTHER"]["PotionDelay"].get_to(gameConfig[OTHER][6]);
-	
 
-	return TRUE;
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int nConfig::WriteGameConfig(string path, string file)
@@ -1803,37 +1906,44 @@ int nConfig::ReadExtra(string path, string file, int key)
 			return creat;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	
-	switch (key)
+	try
 	{
-	case MORTAL:
-		nJson["CHARACTER_CREATE"]["MORTAL"].get_to(CharaCreate[MORTAL]);
-		break;
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
 
-	case ARCH:
-		nJson["CHARACTER_CREATE"]["ARCH"].get_to(CharaCreate[ARCH]);
-		break;
+		switch (key)
+		{
+		case MORTAL:
+			nJson["CHARACTER_CREATE"]["MORTAL"].get_to(CharaCreate[MORTAL]);
+			break;
 
-	case CELESTIAL:
-		nJson["CHARACTER_CREATE"]["CELESTIAL"].get_to(CharaCreate[CELESTIAL]);
-		break;
+		case ARCH:
+			nJson["CHARACTER_CREATE"]["ARCH"].get_to(CharaCreate[ARCH]);
+			break;
 
-	case CELESTIALCS:
-		nJson["CHARACTER_CREATE"]["CELESTIALCS"].get_to(CharaCreate[CELESTIALCS]);
-		break;
+		case CELESTIAL:
+			nJson["CHARACTER_CREATE"]["CELESTIAL"].get_to(CharaCreate[CELESTIAL]);
+			break;
 
-	case SCELESTIAL:
-		nJson["CHARACTER_CREATE"]["SCELESTIAL"].get_to(CharaCreate[SCELESTIAL]);
-		break;
+		case CELESTIALCS:
+			nJson["CHARACTER_CREATE"]["CELESTIALCS"].get_to(CharaCreate[CELESTIALCS]);
+			break;
 
-	default:
-		break;
+		case SCELESTIAL:
+			nJson["CHARACTER_CREATE"]["SCELESTIAL"].get_to(CharaCreate[SCELESTIAL]);
+			break;
+
+		default:
+			break;
+		}
+
+		return TRUE;
 	}
-
-	return TRUE;
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
 }
 
 int nConfig::WriteExtra(string path, string file, int key)
@@ -1921,17 +2031,15 @@ int nConfig::ReadConfigNews(string path, string file, int key)
 		if (!creat)
 			return creat;
 	}
-
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-	GroupServer Server0;
-	GroupServer Server1;
-    GroupServer Server2;
-		
+	
 	try
 	{
-
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		GroupServer Server0;
+		GroupServer Server1;
+		GroupServer Server2;
 	
 		switch (key)
 		{
@@ -2079,131 +2187,140 @@ int nConfig::ReadbaseMob(string path, string file, int key)
 		return FALSE;
 	}
 
-	ifstream spath(fullpath);
-	json nJson;
-	spath >> nJson;
-
-	for (int i = 0; i < 2; i++)
+	try
 	{
-		g_MobBase[0].MobName[i] = Class[key][i];
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		for (int i = 0; i < 2; i++)
+		{
+			g_MobBase[0].MobName[i] = Class[key][i];
+		}
+
+		switch (key)
+		{
+		case TK:
+			className = "TK";
+			break;
+		case FM:
+			className = "FM";
+			break;
+		case BM:
+			className = "BM";
+			break;
+		case HT:
+			className = "HT";
+			break;
+		default:
+			break;
+		}
+
+		//Base
+		nJson[className]["Merchant"].get_to(g_MobBase[key].Merchant);
+		nJson[className]["Guild"].get_to(g_MobBase[key].Guild);
+		nJson[className]["Class"].get_to(g_MobBase[key].Class);
+		nJson[className]["Coin"].get_to(g_MobBase[key].Coin);
+		nJson[className]["Exp"].get_to(g_MobBase[key].Exp);
+		nJson[className]["SPX"].get_to(g_MobBase[key].SPX);
+		nJson[className]["SPY"].get_to(g_MobBase[key].SPY);
+		//BaseScore
+		nJson[className]["BaseScore"].find("Level").value().get_to(g_MobBase[key].BaseScore.Level);
+		nJson[className]["BaseScore"].find("Ac").value().get_to(g_MobBase[key].BaseScore.Ac);
+		nJson[className]["BaseScore"].find("Damage").value().get_to(g_MobBase[key].BaseScore.Damage);
+		nJson[className]["BaseScore"].find("Merchant").value().get_to(g_MobBase[key].BaseScore.Merchant);
+		nJson[className]["BaseScore"].find("AttackRun").value().get_to(g_MobBase[key].BaseScore.AttackRun);
+		nJson[className]["BaseScore"].find("Direction").value().get_to(g_MobBase[key].BaseScore.Direction);
+		nJson[className]["BaseScore"].find("ChaosRate").value().get_to(g_MobBase[key].BaseScore.ChaosRate);
+		nJson[className]["BaseScore"].find("MaxHp").value().get_to(g_MobBase[key].BaseScore.MaxHp);
+		nJson[className]["BaseScore"].find("MaxMp").value().get_to(g_MobBase[key].BaseScore.MaxMp);
+		nJson[className]["BaseScore"].find("Hp").value().get_to(g_MobBase[key].BaseScore.Hp);
+		nJson[className]["BaseScore"].find("Mp").value().get_to(g_MobBase[key].BaseScore.Mp);
+		nJson[className]["BaseScore"].find("Str").value().get_to(g_MobBase[key].BaseScore.Str);
+		nJson[className]["BaseScore"].find("Int").value().get_to(g_MobBase[key].BaseScore.Int);
+		nJson[className]["BaseScore"].find("Dex").value().get_to(g_MobBase[key].BaseScore.Dex);
+		nJson[className]["BaseScore"].find("Con").value().get_to(g_MobBase[key].BaseScore.Con);
+		nJson[className]["BaseScore"].find("Special1").value().get_to(g_MobBase[key].BaseScore.Special[0]);
+		nJson[className]["BaseScore"].find("Special2").value().get_to(g_MobBase[key].BaseScore.Special[1]);
+		nJson[className]["BaseScore"].find("Special3").value().get_to(g_MobBase[key].BaseScore.Special[2]);
+		nJson[className]["BaseScore"].find("Special4").value().get_to(g_MobBase[key].BaseScore.Special[3]);
+		//passar o baseScore para CurrentScore
+		memmove(&g_MobBase[key].CurrentScore, &g_MobBase[key].BaseScore, sizeof(STRUCT_SCORE));
+		//Equip
+		nJson[className]["Equip"].find("Face").value().get_to(equipSlot[0]);
+		nJson[className]["Equip"].find("Helmet").value().get_to(equipSlot[1]);
+		nJson[className]["Equip"].find("Armor").value().get_to(equipSlot[2]);
+		nJson[className]["Equip"].find("Pant").value().get_to(equipSlot[3]);
+		nJson[className]["Equip"].find("Glove").value().get_to(equipSlot[4]);
+		nJson[className]["Equip"].find("Boot").value().get_to(equipSlot[5]);
+		nJson[className]["Equip"].find("Weapon").value().get_to(equipSlot[6]);
+		nJson[className]["Equip"].find("Shield").value().get_to(equipSlot[7]);
+		nJson[className]["Equip"].find("Ring").value().get_to(equipSlot[8]);
+		nJson[className]["Equip"].find("Amulet").value().get_to(equipSlot[9]);
+		nJson[className]["Equip"].find("Orb").value().get_to(equipSlot[10]);
+		nJson[className]["Equip"].find("Stone").value().get_to(equipSlot[11]);
+		nJson[className]["Equip"].find("Guild").value().get_to(equipSlot[12]);
+		nJson[className]["Equip"].find("Pixie").value().get_to(equipSlot[13]);
+		nJson[className]["Equip"].find("Mount").value().get_to(equipSlot[14]);
+		nJson[className]["Equip"].find("Mantle").value().get_to(equipSlot[15]);
+		//for passando em todos os itens/slot e pegando os dados do array
+		for (size_t i = 0; i < 16; i++)
+		{
+			g_MobBase[key].Equip[i].sIndex = equipSlot[i][0];
+			g_MobBase[key].Equip[i].stEffect->sValue = equipSlot[i][1];
+			g_MobBase[key].Equip[i].stEffect[0].cEffect = equipSlot[i][2];
+			g_MobBase[key].Equip[i].stEffect[0].cValue = equipSlot[i][3];
+			g_MobBase[key].Equip[i].stEffect[1].cEffect = equipSlot[i][4];
+			g_MobBase[key].Equip[i].stEffect[1].cValue = equipSlot[i][5];
+			g_MobBase[key].Equip[i].stEffect[2].cEffect = equipSlot[i][6];
+			g_MobBase[key].Equip[i].stEffect[2].cValue = equipSlot[i][7];
+		};
+		//for para pegar os itens inciais da mochila
+		for (auto& x : nJson[className]["Bag"].items())
+		{
+
+			vector<short> equipBag = x.value();
+			g_MobBase[key].Carry[stoi(x.key())].sIndex = equipBag[0];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect->sValue = equipBag[1];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cEffect = equipBag[2];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cValue = equipBag[3];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cEffect = equipBag[4];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cValue = equipBag[5];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cEffect = equipBag[6];
+			g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cValue = equipBag[7];
+
+		};
+
+		nJson[className]["LearnedSkill"].get_to(g_MobBase[key].LearnedSkill);
+		nJson[className]["Magic"].get_to(g_MobBase[key].Magic);
+		nJson[className]["ScoreBonus"].get_to(g_MobBase[key].ScoreBonus);
+		nJson[className]["SpecialBonus"].get_to(g_MobBase[key].SpecialBonus);
+		nJson[className]["SkillBonus"].get_to(g_MobBase[key].SkillBonus);
+		nJson[className]["Critical"].get_to(g_MobBase[key].Critical);
+		nJson[className]["SaveMana"].get_to(g_MobBase[key].SaveMana);
+		nJson[className]["GuildLevel"].get_to(g_MobBase[key].GuildLevel);
+		nJson[className]["RegenHP"].get_to(g_MobBase[key].RegenHP);
+		nJson[className]["RegenMP"].get_to(g_MobBase[key].RegenMP);
+
+		vector<short> skill;
+		nJson[className]["SkillBar"].get_to(skill);
+		for (size_t i = 0; i < 4; i++)
+		{
+			g_MobBase[key].SkillBar[i] = skill[i];
+		}
+
+		vector<short> resist;
+		nJson[className]["Resist"].get_to(skill);
+		for (size_t i = 0; i < 4; i++)
+		{
+			g_MobBase[key].Resist[i] = skill[i];
+		}
+
+		return TRUE;
 	}
-
-	switch (key)
+	catch (const std::exception&)
 	{
-	case TK:
-		className = "TK";
-		break;
-	case FM:
-		className = "FM";
-		break;
-	case BM:
-		className = "BM";
-		break;
-	case HT:
-		className = "HT";
-		break;
-	default:
-		break;
-	}
-
-	//Base
-	nJson[className]["Merchant"].get_to(g_MobBase[key].Merchant);
-	nJson[className]["Guild"].get_to(g_MobBase[key].Guild);
-	nJson[className]["Class"].get_to(g_MobBase[key].Class);
-	nJson[className]["Coin"].get_to(g_MobBase[key].Coin);
-	nJson[className]["Exp"].get_to(g_MobBase[key].Exp);
-	nJson[className]["SPX"].get_to(g_MobBase[key].SPX);
-	nJson[className]["SPY"].get_to(g_MobBase[key].SPY);
-	//BaseScore
-	nJson[className]["BaseScore"].find("Level").value().get_to(g_MobBase[key].BaseScore.Level);
-	nJson[className]["BaseScore"].find("Ac").value().get_to(g_MobBase[key].BaseScore.Ac);
-	nJson[className]["BaseScore"].find("Damage").value().get_to(g_MobBase[key].BaseScore.Damage);
-	nJson[className]["BaseScore"].find("Merchant").value().get_to(g_MobBase[key].BaseScore.Merchant);
-	nJson[className]["BaseScore"].find("AttackRun").value().get_to(g_MobBase[key].BaseScore.AttackRun);
-	nJson[className]["BaseScore"].find("Direction").value().get_to(g_MobBase[key].BaseScore.Direction);
-	nJson[className]["BaseScore"].find("ChaosRate").value().get_to(g_MobBase[key].BaseScore.ChaosRate);
-	nJson[className]["BaseScore"].find("MaxHp").value().get_to(g_MobBase[key].BaseScore.MaxHp);
-	nJson[className]["BaseScore"].find("MaxMp").value().get_to(g_MobBase[key].BaseScore.MaxMp);
-	nJson[className]["BaseScore"].find("Hp").value().get_to(g_MobBase[key].BaseScore.Hp);
-	nJson[className]["BaseScore"].find("Mp").value().get_to(g_MobBase[key].BaseScore.Mp);
-	nJson[className]["BaseScore"].find("Str").value().get_to(g_MobBase[key].BaseScore.Str);
-	nJson[className]["BaseScore"].find("Int").value().get_to(g_MobBase[key].BaseScore.Int);
-	nJson[className]["BaseScore"].find("Dex").value().get_to(g_MobBase[key].BaseScore.Dex);
-	nJson[className]["BaseScore"].find("Con").value().get_to(g_MobBase[key].BaseScore.Con);
-	nJson[className]["BaseScore"].find("Special1").value().get_to(g_MobBase[key].BaseScore.Special[0]);
-	nJson[className]["BaseScore"].find("Special2").value().get_to(g_MobBase[key].BaseScore.Special[1]);
-	nJson[className]["BaseScore"].find("Special3").value().get_to(g_MobBase[key].BaseScore.Special[2]);
-	nJson[className]["BaseScore"].find("Special4").value().get_to(g_MobBase[key].BaseScore.Special[3]);
-	//passar o baseScore para CurrentScore
-	memmove(&g_MobBase[key].CurrentScore, &g_MobBase[key].BaseScore, sizeof(STRUCT_SCORE));
-	//Equip
-	nJson[className]["Equip"].find("Face").value().get_to(equipSlot[0]);
-	nJson[className]["Equip"].find("Helmet").value().get_to(equipSlot[1]);
-	nJson[className]["Equip"].find("Armor").value().get_to(equipSlot[2]);
-	nJson[className]["Equip"].find("Pant").value().get_to(equipSlot[3]);
-	nJson[className]["Equip"].find("Glove").value().get_to(equipSlot[4]);
-	nJson[className]["Equip"].find("Boot").value().get_to(equipSlot[5]);
-	nJson[className]["Equip"].find("Weapon").value().get_to(equipSlot[6]);
-	nJson[className]["Equip"].find("Shield").value().get_to(equipSlot[7]);
-	nJson[className]["Equip"].find("Ring").value().get_to(equipSlot[8]);
-	nJson[className]["Equip"].find("Amulet").value().get_to(equipSlot[9]);
-	nJson[className]["Equip"].find("Orb").value().get_to(equipSlot[10]);
-	nJson[className]["Equip"].find("Stone").value().get_to(equipSlot[11]);
-	nJson[className]["Equip"].find("Guild").value().get_to(equipSlot[12]);
-	nJson[className]["Equip"].find("Pixie").value().get_to(equipSlot[13]);
-	nJson[className]["Equip"].find("Mount").value().get_to(equipSlot[14]);
-	nJson[className]["Equip"].find("Mantle").value().get_to(equipSlot[15]);
-	//for passando em todos os itens/slot e pegando os dados do array
-	for (size_t i = 0; i < 16; i++)
-	{
-		g_MobBase[key].Equip[i].sIndex = equipSlot[i][0];
-		g_MobBase[key].Equip[i].stEffect->sValue = equipSlot[i][1];
-		g_MobBase[key].Equip[i].stEffect[0].cEffect = equipSlot[i][2];
-		g_MobBase[key].Equip[i].stEffect[0].cValue = equipSlot[i][3];
-		g_MobBase[key].Equip[i].stEffect[1].cEffect = equipSlot[i][4];
-		g_MobBase[key].Equip[i].stEffect[1].cValue = equipSlot[i][5];
-		g_MobBase[key].Equip[i].stEffect[2].cEffect = equipSlot[i][6];
-		g_MobBase[key].Equip[i].stEffect[2].cValue = equipSlot[i][7];
-	};
-	//for para pegar os itens inciais da mochila
-	for (auto& x : nJson[className]["Bag"].items())
-	{
-		
-		vector<short> equipBag = x.value();
-		g_MobBase[key].Carry[stoi(x.key())].sIndex = equipBag[0];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect->sValue = equipBag[1];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cEffect = equipBag[2];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[0].cValue = equipBag[3];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cEffect = equipBag[4];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[1].cValue = equipBag[5];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cEffect = equipBag[6];
-		g_MobBase[key].Carry[stoi(x.key())].stEffect[2].cValue = equipBag[7];
-
-	};
-
-	nJson[className]["LearnedSkill"].get_to(g_MobBase[key].LearnedSkill);
-	nJson[className]["Magic"].get_to(g_MobBase[key].Magic);
-	nJson[className]["ScoreBonus"].get_to(g_MobBase[key].ScoreBonus);
-	nJson[className]["SpecialBonus"].get_to(g_MobBase[key].SpecialBonus);
-	nJson[className]["SkillBonus"].get_to(g_MobBase[key].SkillBonus);
-	nJson[className]["Critical"].get_to(g_MobBase[key].Critical);
-	nJson[className]["SaveMana"].get_to(g_MobBase[key].SaveMana);
-	nJson[className]["GuildLevel"].get_to(g_MobBase[key].GuildLevel);
-	nJson[className]["RegenHP"].get_to(g_MobBase[key].RegenHP);
-	nJson[className]["RegenMP"].get_to(g_MobBase[key].RegenMP);
-
-	vector<short> skill;
-	nJson[className]["SkillBar"].get_to(skill);
-	for (size_t i = 0; i < 4 ; i++)
-	{
-		g_MobBase[key].SkillBar[i] = skill[i];
-	}
-
-	vector<short> resist;
-	nJson[className]["Resist"].get_to(skill);
-	for (size_t i = 0; i < 4; i++)
-	{
-		g_MobBase[key].Resist[i] = skill[i];
+		return FALSE;
 	}
 }
 
