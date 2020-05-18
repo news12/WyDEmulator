@@ -2091,13 +2091,19 @@ void DrawConfig(int wb)
 
 	y += 16;
 
-	sprintf(String, separator2);
+	sprintf(String, separator1);
 	len = strlen(String);
 
 	TextOutA(hDC, x, y, String, len);
 
-	//if (wb)
-		//fprintf(fp, "%s\n", String);
+	SetTextColor(hDC, color);
+
+	sprintf(String, "Evento Altar do Rei Status:");
+
+	len = strlen(String);
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
 
 	if (hFont && h)
 		h = (HFONT)SelectObject(hDC, h);

@@ -2594,7 +2594,6 @@ struct		 MSG_ReqTransper
 
 const short _MSG_SendCastleState			= (172 | FLAG_GAME2CLIENT | FLAG_CLIENT2GAME); // SignalParm
 const short _MSG_SendCastleState2			= (173 | FLAG_GAME2CLIENT | FLAG_CLIENT2GAME); // SignalParm	
-const short _MSG_SendAltarState				= (174 | FLAG_GAME2CLIENT | FLAG_CLIENT2GAME); // SignalParm	
 
 const short  _MSG_MobLeft					= (176 | FLAG_GAME2CLIENT | FLAG_CLIENT2GAME); //SignalParm
 

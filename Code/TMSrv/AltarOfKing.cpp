@@ -158,7 +158,7 @@ void dominatorKing(int conn)
 				MSG_STANDARDPARM sm;
 				memset(&sm, 0, sizeof(MSG_STANDARDPARM));
 
-				sm.Type = _MSG_SendAltarState;
+				sm.Type = _MSG_SendCastleState2;
 				sm.Size = sizeof(MSG_STANDARDPARM);
 				sm.ID = conn;
 				sm.Parm = 1;
