@@ -99,19 +99,18 @@ public:
 	unsigned int Unk_2732; // 2732 // Something related to BILLING (ReqBillSec?????)
 	int Unk_2736; // 2736
 	int Range; // 2740
-	int CastleStatus; // 2744
+	DWORD CastleStatus; // 2744
+	DWORD AltarStatus;
 	char Unk9[400]; // 2748 // LastSkillTick // size correto é 400.
 	int Donate;
 	INT16 VemProEternal;
 	int MuteChat;
 	int KingChat;
-
 	unsigned int UseItemTime;
 	unsigned int Message;
 	unsigned int AttackTime;
 	unsigned int LastClientTick;
 	unsigned int PotionTime;
-
 	int OnlyTrade;
 	int LojinhaTimer;
 	char PartyPassword[6];

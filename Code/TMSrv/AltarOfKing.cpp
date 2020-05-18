@@ -49,9 +49,10 @@ void startKing()
 		if (!altarKing.Min[StartNum])
 			minNotice = 60 - minDefine;
 
+		hourNotice = altarKing.Hour[StartNum];
 		if (altarKing.Min[StartNum] < 5)
 		{
-			hourNotice = altarKing.Hour[StartNum] - 1;
+			hourNotice -= 1;
 			minNotice = (60 - minDefine) + altarKing.Min[StartNum];
 		}
 		else
@@ -88,7 +89,7 @@ void Winner(int conn)
 {
 	//int Guild = pMob[conn].MOB.Guild;
 	StartAltarKing = FALSE;
-	pUser[playerAltar].CastleStatus = 0;
+	pUser[playerAltar].AltarStatus = 0;
 	int itemRand = rand() % 5;
 	clearKing();
 	for (int i = MAX_USER; i < MAX_MOB; i++)
@@ -108,7 +109,7 @@ void Winner(int conn)
 void noWinner()
 {
 	StartAltarKing = FALSE;
-	pUser[playerAltar].CastleStatus = 0;
+	pUser[playerAltar].AltarStatus = 0;
 	for (int i = MAX_USER; i < MAX_MOB; i++)
 	{
 		if (pMob[i].GenerateIndex == altarKing.BossStatus.ID)
@@ -133,21 +134,21 @@ void dominatorKing(int conn)
 
 		if (!StartAltarKing || pMob[conn].TargetX != 1106 || pMob[conn].TargetY != 1731)
 		{
-			pUser[conn].CastleStatus = 0;
+			pUser[conn].AltarStatus = 0;
 
 			if (playerAltar == conn)
 				playerAltar = 0;
 
 			else
 				SendClientSignalParm(conn, ESCENE_FIELD, _MSG_StartTime,
-					pUser[playerAltar].CastleStatus);
+					pUser[playerAltar].AltarStatus);
 
 		}
 
 		else
 		{
 			
-			if (pUser[conn].CastleStatus == 0)
+			if (pUser[conn].AltarStatus == 0)
 				{
 					playerAltar = conn;
 					sprintf(temp, "O Jogador [%s] esta tentando dominar o Altar do Rei", pMob[conn].MOB.MobName);
@@ -157,16 +158,16 @@ void dominatorKing(int conn)
 				MSG_STANDARDPARM sm;
 				memset(&sm, 0, sizeof(MSG_STANDARDPARM));
 
-				sm.Type = _MSG_SendCastleState2;
+				sm.Type = _MSG_SendAltarState;
 				sm.Size = sizeof(MSG_STANDARDPARM);
 				sm.ID = conn;
 				sm.Parm = 1;
 
 				GridMulticast(pMob[conn].TargetX, pMob[conn].TargetY, (MSG_STANDARD*)&sm, 0);
 
-				SendClientSignalParm(conn, ESCENE_FIELD, _MSG_StartTime, pUser[conn].CastleStatus++);
+				SendClientSignalParm(conn, ESCENE_FIELD, _MSG_StartTime, pUser[conn].AltarStatus++);
 				
-				if (pUser[conn].CastleStatus >= altarKing.TimerAltar)//Dominou o Altar
+				if (pUser[conn].AltarStatus >= altarKing.TimerAltar)//Dominou o Altar
 				{
 					sprintf(temp, "O Jogador [% s] dominou o Altar do Rei, Evento encerrado!!!", pMob[conn].MOB.MobName);
 					SendNotice(temp);

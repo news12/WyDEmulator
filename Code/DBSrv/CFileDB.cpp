@@ -622,14 +622,15 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 			if(ret == 0)
 			{
-				//SendDBSignal(conn, m->ID, _MSG_DBAccountLoginFail_Account);
-
-				file.Info.NumericToken[0] = -1;
+				SendDBSignal(conn, m->ID, _MSG_DBAccountLoginFail_Account);
+				return FALSE;
+				//desativando criação de conta direto no client
+				/*file.Info.NumericToken[0] = -1;
 
 				DBWriteAccount(&file);
 
 				memcpy(&file.Info.AccountName, m->AccountName, ACCOUNTNAME_LENGTH);
-				memcpy(&file.Info.AccountPass, m->AccountPassword, ACCOUNTPASS_LENGTH);
+				memcpy(&file.Info.AccountPass, m->AccountPassword, ACCOUNTPASS_LENGTH);*/
 
 			}
 

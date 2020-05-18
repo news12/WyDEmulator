@@ -47,7 +47,8 @@ void fAutoDouble()
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	BOOL minusHour;
-	if (autoDouble.HourStart == autoDouble.HourEnd)
+	if (autoDouble.HourStart == autoDouble.HourEnd 
+		&& autoDouble.DayStart == autoDouble.DayEnd)
 		minusHour = TRUE;
 	else
 		minusHour = FALSE;
