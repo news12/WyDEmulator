@@ -23,6 +23,7 @@
 #include "../ConfigIni.h"
 #include "WarOfNoatum.h"
 #include "CNPCGene.h"
+#include "SombraNegra.h"
 
 
 #pragma region Defines
@@ -1059,6 +1060,27 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void WriteSombraNegra()
+{
+	int status = nConfig::WriteStatusSombraNegra(PATH_SOMBRA_NEGRA, "status.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao gravar status.json Sombra Negra", "FILE ERROR", NULL);
+}
+
+void ReadSombraNegra()
+{
+	int status = nConfig::ReadSombraNegra(PATH_SOMBRA_NEGRA, "sombraNegra.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler sombraNegra.json", "FILE ERROR", NULL);
+
+	status = nConfig::ReadStatusSombraNegra(PATH_SOMBRA_NEGRA, "status.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler status.json Sombra Negra", "FILE ERROR", NULL);
+}
+
 void ReadAutoEvent()
 {
 	int status = nConfig::ReadAutoEvent(PATH_SETTINGS, "eventAuto.json");
@@ -2091,16 +2113,55 @@ void DrawConfig(int wb)
 
 	y += 16;
 
-	sprintf(String, separator1);
+	sprintf(String, separator2);
 	len = strlen(String);
 
 	TextOutA(hDC, x, y, String, len);
 
+	y += 16;
+
+	sprintf(String, separator1);
+	len = strlen(String);
+
 	SetTextColor(hDC, color);
 
-	sprintf(String, "Evento Altar do Rei Status:");
+	sprintf(String, "Evento Altar do Rei:");
 
 	len = strlen(String);
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	char* aMin0 = altarKing.Min[0] < 10 ? "0" : "";
+	char* aMin1 = altarKing.Min[1] < 10 ? "0" : "";
+	char* aMin2 = altarKing.Min[2] < 10 ? "0" : "";
+
+	char* rSunday = altarKing.Days[Sunday] ? "X" : " ";
+	char* rMonday = altarKing.Days[Monday] ? "X" : " ";
+	char* rTuesday = altarKing.Days[Tuesday] ? "X" : " ";
+	char* rWednesday = altarKing.Days[Wednesday] ? "X" : " ";
+	char* rThursday = altarKing.Days[Thursday] ? "X" : " ";
+	char* rFriday = altarKing.Days[Friday] ? "X" : " ";
+	char* rSaturday = altarKing.Days[Saturday] ? "X" : " ";
+
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Dias da Semana : Domingo(%s)| Segunda(%s)| Terça(%s)| Quarta(%s)| Quinta(%s)| Sexta(%s)| Sábado(%s)",
+		rSunday, rMonday, rTuesday, rWednesday, rThursday, rFriday, rSaturday);
+
+	len = strlen(String);
+
+	TextOutA(hDC, x, y, String, len);
+
+	y += 16;
+
+	SetTextColor(hDC, backcolor);
+	sprintf(String, " Horarios: %d : %s%d | %d : %s%d | %d : %s%d",
+		altarKing.Hour[0], aMin0, altarKing.Min[0], altarKing.Hour[1], aMin1, altarKing.Min[1],
+		altarKing.Hour[2], aMin2, altarKing.Min[2]);
+
+	len = strlen(String);
+
 	TextOutA(hDC, x, y, String, len);
 
 	y += 16;
@@ -3834,6 +3895,12 @@ void GenerateMob(int index, int PosX, int PosY)
 
 	int nindex = index;
 
+	if (index == bSombraNegra.Boss.ID)
+		genSombraNegra(index);
+
+	if (index == bSombraNegra.Guardian.ID)
+		genGuardianSombraNegra(index);
+
 	if (index == altarKing.BossStatus.ID)
 	{
 		//strcpy(&mNPCGen.pList[index].Leader.MobName[16], altarKing.BossStatus.NAME.c_str());
@@ -4349,6 +4416,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadAltarOfKing();
 	ReadBagWarrior();
 	ReadAutoEvent();
+	ReadSombraNegra();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -4964,6 +5032,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_DROP_KEFRA, "&Load Drop Kefra");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load Wars Timer");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BAG_WARRIOR, "&Load Bag Warrior");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_SOMBRA_NEGRA, "&Load Sombra Negra");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
 		hSubMenu = CreatePopupMenu();
@@ -5061,6 +5130,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			ReadAutoEvent();
 				break;
 
+		case IDC_READ_SOMBRA_NEGRA:
+			ReadSombraNegra();
+			break;
+
 		case IDC_READGAMECONFIG:
 		{
 			ReadConfig();
@@ -5085,7 +5158,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		CReadFiles::WriteGuild();
 
 		nConfig::WriteGameConfig(PATH_CONFIG, "gameConfig.json");
-		
+		WriteSombraNegra();
 
 		if (fLogFile)
 			fclose(fLogFile);

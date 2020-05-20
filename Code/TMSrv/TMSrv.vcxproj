@@ -116,6 +116,7 @@
     <ClCompile Include="MacroPerga.cpp" />
     <ClCompile Include="NTask_Xamã.cpp" />
     <ClCompile Include="Quiz.cpp" />
+    <ClCompile Include="SombraNegra.cpp" />
     <ClCompile Include="WarOfCity.cpp" />
     <ClCompile Include="WarOfKingdom.cpp" />
     <ClCompile Include="WarOfNoatum.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SendFunc.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="SombraNegra.h" />
     <ClInclude Include="WarOfCity.h" />
     <ClInclude Include="WarOfKingdom.h" />
     <ClInclude Include="WarOfNoatum.h" />

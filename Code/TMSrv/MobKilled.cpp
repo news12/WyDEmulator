@@ -18,6 +18,7 @@
 #include "CCastleZakum.h"
 #include "FadaDourada.h"
 #include "KefraDrop.h"
+#include "SombraNegra.h"
 
 void MobKilled(int target, int a_iConn, int PosX, int PosY)
 {
@@ -1683,6 +1684,20 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								else if (GenerateIndex >= NIGHTMARE_A_INITIAL && GenerateIndex <= NIGHTMARE_A_END)
 									GenerateMob(GenerateIndex, 0, 0);//Pesa A
 #pragma endregion
+
+#pragma region Sombra Negra
+									//Boss
+								else if (GenerateID == bSombraNegra.Boss.ID)
+									{
+										sombraNegraKilled(a_iConn);
+									}
+									//Guardiao
+								else if(GenerateID == bSombraNegra.Guardian.ID)
+									{
+										guardianKilled();
+									}
+#pragma endregion
+
 #pragma region Carta de Duelo (M)							
 								else if (GenerateID >= SECRET_ROOM_M_SALA1_MOB_1 && GenerateID <= SECRET_ROOM_M_SALA1_MOB_2)
 								{

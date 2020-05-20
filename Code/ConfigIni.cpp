@@ -24,6 +24,8 @@ STRUCT_ITEM BoxEvent[][5];
 STRUCT_ITEM sbagWarrior[];
 STRUCT_aDOUBLE autoDouble;
 STRUCT_aNOTICE autoNotice;
+STRUCT_SOMBRA_NEGRA bSombraNegra;
+STRUCT_STATUS_BOSS statusSombraNegra;
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -97,6 +99,8 @@ const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
 const string PATH_EVENT_AltarOfKing = PATH_EVENTS + "AltarOfKing/";
 const string PATH_EVENT_Box = PATH_EVENTS + "Box/";
 const string PATH_NewNPC = "NewNPC/";
+const string PATH_NewBoss = "NewBoss/";
+const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -1177,7 +1181,9 @@ int ConfigIni::nConfig::ReadAltarOfKing(string path, string file)
 		};
 
 		nJson["INDEX"]["Boss"].find("ID").value().get_to(altarKing.BossStatus.ID);
-		nJson["INDEX"]["Boss"].find("NAME").value().get_to(altarKing.BossStatus.NAME);
+		string nName;
+		nJson["INDEX"]["Boss"].find("NAME").value().get_to(nName);
+		altarKing.BossStatus.NAME = nName.c_str();
 		vector<short> nface;
 		nJson["INDEX"]["Boss"].find("FACE").value().get_to(nface);
 		altarKing.BossStatus.FACE.sIndex = nface[0];
@@ -1465,6 +1471,507 @@ int ConfigIni::nConfig::WriteAutoEvent(string path, string file)
 
 	try
 	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteSombraNegra(PATH_SOMBRA_NEGRA, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&bSombraNegra, 0, sizeof(STRUCT_SOMBRA_NEGRA));
+		//memset(&bSombraNegra.Boss, 0, sizeof(STRUCT_BOSS));
+		//(&bSombraNegra.Guardian, 0, sizeof(STRUCT_BOSS));
+
+		nJson["STATUS"]["Days"].get_to(bSombraNegra.Days);
+		nJson["STATUS"]["StartHour"].get_to(bSombraNegra.StartHour);
+		nJson["STATUS"]["EndHour"].get_to(bSombraNegra.EndHour);
+		nJson["STATUS"]["Follow"].get_to(bSombraNegra.follow);
+		nJson["STATUS"]["NoticeStart"].get_to(bSombraNegra.NoticeStart);
+		nJson["STATUS"]["NoticeEnd1"].get_to(bSombraNegra.NoticeEnd1);
+		nJson["STATUS"]["NoticeEnd2"].get_to(bSombraNegra.NoticeEnd2);
+#pragma region  Boss	
+		nJson["BOSS"]["ID"].get_to(bSombraNegra.Boss.ID);
+		string nName;
+		nJson["BOSS"]["NAME"].get_to(nName);
+		bSombraNegra.Boss.NAME = nName.c_str();
+		vector<short> nFace;
+		nJson["BOSS"]["FACE"].get_to(nFace);
+		bSombraNegra.Boss.FACE.sIndex = nFace[0];
+		bSombraNegra.Boss.FACE.stEffect->sValue = nFace[1];
+		bSombraNegra.Boss.FACE.stEffect[0].cEffect = nFace[2];
+		bSombraNegra.Boss.FACE.stEffect[0].cValue = nFace[3];
+		bSombraNegra.Boss.FACE.stEffect[1].cEffect = nFace[4];
+		bSombraNegra.Boss.FACE.stEffect[1].cValue = nFace[5];
+		bSombraNegra.Boss.FACE.stEffect[2].cEffect = nFace[6];
+		bSombraNegra.Boss.FACE.stEffect[2].cValue = nFace[7];
+
+		vector<short> nHelm;
+		nJson["BOSS"]["HELM"].get_to(nHelm);
+		bSombraNegra.Boss.HELM.sIndex = nHelm[0];
+		bSombraNegra.Boss.HELM.stEffect->sValue = nHelm[1];
+		bSombraNegra.Boss.HELM.stEffect[0].cEffect = nHelm[2];
+		bSombraNegra.Boss.HELM.stEffect[0].cValue = nHelm[3];
+		bSombraNegra.Boss.HELM.stEffect[1].cEffect = nHelm[4];
+		bSombraNegra.Boss.HELM.stEffect[1].cValue = nHelm[5];
+		bSombraNegra.Boss.HELM.stEffect[2].cEffect = nHelm[6];
+		bSombraNegra.Boss.HELM.stEffect[2].cValue = nHelm[7];
+
+		vector<short> nBody;
+		nJson["BOSS"]["BODY"].get_to(nBody);
+		bSombraNegra.Boss.BODY.sIndex = nBody[0];
+		bSombraNegra.Boss.BODY.stEffect->sValue = nBody[1];
+		bSombraNegra.Boss.BODY.stEffect[0].cEffect = nBody[2];
+		bSombraNegra.Boss.BODY.stEffect[0].cValue = nBody[3];
+		bSombraNegra.Boss.BODY.stEffect[1].cEffect = nBody[4];
+		bSombraNegra.Boss.BODY.stEffect[1].cValue = nBody[5];
+		bSombraNegra.Boss.BODY.stEffect[2].cEffect = nBody[6];
+		bSombraNegra.Boss.BODY.stEffect[2].cValue = nBody[7];
+
+		vector<short> nLeg;
+		nJson["BOSS"]["LEG"].get_to(nLeg);
+		bSombraNegra.Boss.LEG.sIndex = nLeg[0];
+		bSombraNegra.Boss.LEG.stEffect->sValue = nLeg[1];
+		bSombraNegra.Boss.LEG.stEffect[0].cEffect = nLeg[2];
+		bSombraNegra.Boss.LEG.stEffect[0].cValue = nLeg[3];
+		bSombraNegra.Boss.LEG.stEffect[1].cEffect = nLeg[4];
+		bSombraNegra.Boss.LEG.stEffect[1].cValue = nLeg[5];
+		bSombraNegra.Boss.LEG.stEffect[2].cEffect = nLeg[6];
+		bSombraNegra.Boss.LEG.stEffect[2].cValue = nLeg[7];
+
+		vector<short> nGlove;
+		nJson["BOSS"]["GLOVE"].get_to(nGlove);
+		bSombraNegra.Boss.GLOVE.sIndex = nGlove[0];
+		bSombraNegra.Boss.GLOVE.stEffect->sValue = nGlove[1];
+		bSombraNegra.Boss.GLOVE.stEffect[0].cEffect = nGlove[2];
+		bSombraNegra.Boss.GLOVE.stEffect[0].cValue = nGlove[3];
+		bSombraNegra.Boss.GLOVE.stEffect[1].cEffect = nGlove[4];
+		bSombraNegra.Boss.GLOVE.stEffect[1].cValue = nGlove[5];
+		bSombraNegra.Boss.GLOVE.stEffect[2].cEffect = nGlove[6];
+		bSombraNegra.Boss.GLOVE.stEffect[2].cValue = nGlove[7];
+
+		vector<short> nBoot;
+		nJson["BOSS"]["BOOT"].get_to(nBoot);
+		bSombraNegra.Boss.BOOT.sIndex = nBoot[0];
+		bSombraNegra.Boss.BOOT.stEffect->sValue = nBoot[1];
+		bSombraNegra.Boss.BOOT.stEffect[0].cEffect = nBoot[2];
+		bSombraNegra.Boss.BOOT.stEffect[0].cValue = nBoot[3];
+		bSombraNegra.Boss.BOOT.stEffect[1].cEffect = nBoot[4];
+		bSombraNegra.Boss.BOOT.stEffect[1].cValue = nBoot[5];
+		bSombraNegra.Boss.BOOT.stEffect[2].cEffect = nBoot[6];
+		bSombraNegra.Boss.BOOT.stEffect[2].cValue = nBoot[7];
+
+		vector<short> nWeapon;
+		nJson["BOSS"]["WEAPON"].get_to(nWeapon);
+		bSombraNegra.Boss.WEAPON.sIndex = nWeapon[0];
+		bSombraNegra.Boss.WEAPON.stEffect->sValue = nWeapon[1];
+		bSombraNegra.Boss.WEAPON.stEffect[0].cEffect = nWeapon[2];
+		bSombraNegra.Boss.WEAPON.stEffect[0].cValue = nWeapon[3];
+		bSombraNegra.Boss.WEAPON.stEffect[1].cEffect = nWeapon[4];
+		bSombraNegra.Boss.WEAPON.stEffect[1].cValue = nWeapon[5];
+		bSombraNegra.Boss.WEAPON.stEffect[2].cEffect = nWeapon[6];
+		bSombraNegra.Boss.WEAPON.stEffect[2].cValue = nWeapon[7];
+
+		vector<short> nShield;
+		nJson["BOSS"]["SHIELD"].get_to(nShield);
+		bSombraNegra.Boss.SHIELD.sIndex = nShield[0];
+		bSombraNegra.Boss.SHIELD.stEffect->sValue = nShield[1];
+		bSombraNegra.Boss.SHIELD.stEffect[0].cEffect = nShield[2];
+		bSombraNegra.Boss.SHIELD.stEffect[0].cValue = nShield[3];
+		bSombraNegra.Boss.SHIELD.stEffect[1].cEffect = nShield[4];
+		bSombraNegra.Boss.SHIELD.stEffect[1].cValue = nShield[5];
+		bSombraNegra.Boss.SHIELD.stEffect[2].cEffect = nShield[6];
+		bSombraNegra.Boss.SHIELD.stEffect[2].cValue = nShield[7];
+
+		vector<short> nPixie;
+		nJson["BOSS"]["PIXIE"].get_to(nPixie);
+		bSombraNegra.Boss.PIXIE.sIndex = nPixie[0];
+		bSombraNegra.Boss.PIXIE.stEffect->sValue = nPixie[1];
+		bSombraNegra.Boss.PIXIE.stEffect[0].cEffect = nPixie[2];
+		bSombraNegra.Boss.PIXIE.stEffect[0].cValue = nPixie[3];
+		bSombraNegra.Boss.PIXIE.stEffect[1].cEffect = nPixie[4];
+		bSombraNegra.Boss.PIXIE.stEffect[1].cValue = nPixie[5];
+		bSombraNegra.Boss.PIXIE.stEffect[2].cEffect = nPixie[6];
+		bSombraNegra.Boss.PIXIE.stEffect[2].cValue = nPixie[7];
+		
+		nJson["BOSS"]["StartX"].get_to(bSombraNegra.Boss.StartX);
+		nJson["BOSS"]["StartY"].get_to(bSombraNegra.Boss.StartY);
+		nJson["BOSS"]["DestX"].get_to(bSombraNegra.Boss.DestX);
+		nJson["BOSS"]["DestY"].get_to(bSombraNegra.Boss.DestY);
+		nJson["BOSS"]["REGEN"].get_to(bSombraNegra.Boss.REGEN);
+		nJson["BOSS"]["LEVEL"].get_to(bSombraNegra.Boss.LEVEL);
+		nJson["BOSS"]["HP"].get_to(bSombraNegra.Boss.HP);
+		nJson["BOSS"]["MP"].get_to(bSombraNegra.Boss.MP);
+		nJson["BOSS"]["AC"].get_to(bSombraNegra.Boss.AC);
+		nJson["BOSS"]["DAN"].get_to(bSombraNegra.Boss.DAN);
+		nJson["BOSS"]["MAGIC"].get_to(bSombraNegra.Boss.MAGI);
+		nJson["BOSS"]["STR"].get_to(bSombraNegra.Boss.STR);
+		nJson["BOSS"]["INT"].get_to(bSombraNegra.Boss.INT);
+		nJson["BOSS"]["DEX"].get_to(bSombraNegra.Boss.DEX);
+		nJson["BOSS"]["CON"].get_to(bSombraNegra.Boss.CON);
+		nJson["BOSS"]["MSG1"].get_to(bSombraNegra.Boss.MSG1);
+		nJson["BOSS"]["MSG2"].get_to(bSombraNegra.Boss.MSG2);
+		nJson["BOSS"]["MSG3"].get_to(bSombraNegra.Boss.MSG3);
+
+#pragma endregion
+
+#pragma region Guardian
+		nJson["GUARDIAN"]["ID"].get_to(bSombraNegra.Guardian.ID);
+		string gName;
+		nJson["GUARDIAN"]["NAME"].get_to(gName);
+		bSombraNegra.Guardian.NAME = gName.c_str();
+		memset(&nFace, 0, 8);
+		nJson["GUARDIAN"]["FACE"].get_to(nFace);
+		bSombraNegra.Guardian.FACE.sIndex = nFace[0];
+		bSombraNegra.Guardian.FACE.stEffect->sValue = nFace[1];
+		bSombraNegra.Guardian.FACE.stEffect[0].cEffect = nFace[2];
+		bSombraNegra.Guardian.FACE.stEffect[0].cValue = nFace[3];
+		bSombraNegra.Guardian.FACE.stEffect[1].cEffect = nFace[4];
+		bSombraNegra.Guardian.FACE.stEffect[1].cValue = nFace[5];
+		bSombraNegra.Guardian.FACE.stEffect[2].cEffect = nFace[6];
+		bSombraNegra.Guardian.FACE.stEffect[2].cValue = nFace[7];
+
+		memset(&nHelm, 0, 8);
+		nJson["GUARDIAN"]["HELM"].get_to(nHelm);
+		bSombraNegra.Guardian.HELM.sIndex = nHelm[0];
+		bSombraNegra.Guardian.HELM.stEffect->sValue = nHelm[1];
+		bSombraNegra.Guardian.HELM.stEffect[0].cEffect = nHelm[2];
+		bSombraNegra.Guardian.HELM.stEffect[0].cValue = nHelm[3];
+		bSombraNegra.Guardian.HELM.stEffect[1].cEffect = nHelm[4];
+		bSombraNegra.Guardian.HELM.stEffect[1].cValue = nHelm[5];
+		bSombraNegra.Guardian.HELM.stEffect[2].cEffect = nHelm[6];
+		bSombraNegra.Guardian.HELM.stEffect[2].cValue = nHelm[7];
+
+		memset(&nBody, 0, 8);
+		nJson["GUARDIAN"]["BODY"].get_to(nBody);
+		bSombraNegra.Guardian.BODY.sIndex = nBody[0];
+		bSombraNegra.Guardian.BODY.stEffect->sValue = nBody[1];
+		bSombraNegra.Guardian.BODY.stEffect[0].cEffect = nBody[2];
+		bSombraNegra.Guardian.BODY.stEffect[0].cValue = nBody[3];
+		bSombraNegra.Guardian.BODY.stEffect[1].cEffect = nBody[4];
+		bSombraNegra.Guardian.BODY.stEffect[1].cValue = nBody[5];
+		bSombraNegra.Guardian.BODY.stEffect[2].cEffect = nBody[6];
+		bSombraNegra.Guardian.BODY.stEffect[2].cValue = nBody[7];
+
+		memset(&nLeg, 0, 8);
+		nJson["GUARDIAN"]["LEG"].get_to(nLeg);
+		bSombraNegra.Guardian.LEG.sIndex = nLeg[0];
+		bSombraNegra.Guardian.LEG.stEffect->sValue = nLeg[1];
+		bSombraNegra.Guardian.LEG.stEffect[0].cEffect = nLeg[2];
+		bSombraNegra.Guardian.LEG.stEffect[0].cValue = nLeg[3];
+		bSombraNegra.Guardian.LEG.stEffect[1].cEffect = nLeg[4];
+		bSombraNegra.Guardian.LEG.stEffect[1].cValue = nLeg[5];
+		bSombraNegra.Guardian.LEG.stEffect[2].cEffect = nLeg[6];
+		bSombraNegra.Guardian.LEG.stEffect[2].cValue = nLeg[7];
+
+		memset(&nGlove, 0, 8);
+		nJson["GUARDIAN"]["GLOVE"].get_to(nGlove);
+		bSombraNegra.Guardian.GLOVE.sIndex = nGlove[0];
+		bSombraNegra.Guardian.GLOVE.stEffect->sValue = nGlove[1];
+		bSombraNegra.Guardian.GLOVE.stEffect[0].cEffect = nGlove[2];
+		bSombraNegra.Guardian.GLOVE.stEffect[0].cValue = nGlove[3];
+		bSombraNegra.Guardian.GLOVE.stEffect[1].cEffect = nGlove[4];
+		bSombraNegra.Guardian.GLOVE.stEffect[1].cValue = nGlove[5];
+		bSombraNegra.Guardian.GLOVE.stEffect[2].cEffect = nGlove[6];
+		bSombraNegra.Guardian.GLOVE.stEffect[2].cValue = nGlove[7];
+
+		memset(&nBoot, 0, 8);
+		nJson["GUARDIAN"]["BOOT"].get_to(nBoot);
+		bSombraNegra.Guardian.BOOT.sIndex = nBoot[0];
+		bSombraNegra.Guardian.BOOT.stEffect->sValue = nBoot[1];
+		bSombraNegra.Guardian.BOOT.stEffect[0].cEffect = nBoot[2];
+		bSombraNegra.Guardian.BOOT.stEffect[0].cValue = nBoot[3];
+		bSombraNegra.Guardian.BOOT.stEffect[1].cEffect = nBoot[4];
+		bSombraNegra.Guardian.BOOT.stEffect[1].cValue = nBoot[5];
+		bSombraNegra.Guardian.BOOT.stEffect[2].cEffect = nBoot[6];
+		bSombraNegra.Guardian.BOOT.stEffect[2].cValue = nBoot[7];
+
+		memset(&nWeapon, 0, 8);
+		nJson["GUARDIAN"]["WEAPON"].get_to(nWeapon);
+		bSombraNegra.Guardian.WEAPON.sIndex = nWeapon[0];
+		bSombraNegra.Guardian.WEAPON.stEffect->sValue = nWeapon[1];
+		bSombraNegra.Guardian.WEAPON.stEffect[0].cEffect = nWeapon[2];
+		bSombraNegra.Guardian.WEAPON.stEffect[0].cValue = nWeapon[3];
+		bSombraNegra.Guardian.WEAPON.stEffect[1].cEffect = nWeapon[4];
+		bSombraNegra.Guardian.WEAPON.stEffect[1].cValue = nWeapon[5];
+		bSombraNegra.Guardian.WEAPON.stEffect[2].cEffect = nWeapon[6];
+		bSombraNegra.Guardian.WEAPON.stEffect[2].cValue = nWeapon[7];
+
+		memset(&nShield, 0, 8);
+		nJson["GUARDIAN"]["SHIELD"].get_to(nShield);
+		bSombraNegra.Guardian.SHIELD.sIndex = nShield[0];
+		bSombraNegra.Guardian.SHIELD.stEffect->sValue = nShield[1];
+		bSombraNegra.Guardian.SHIELD.stEffect[0].cEffect = nShield[2];
+		bSombraNegra.Guardian.SHIELD.stEffect[0].cValue = nShield[3];
+		bSombraNegra.Guardian.SHIELD.stEffect[1].cEffect = nShield[4];
+		bSombraNegra.Guardian.SHIELD.stEffect[1].cValue = nShield[5];
+		bSombraNegra.Guardian.SHIELD.stEffect[2].cEffect = nShield[6];
+		bSombraNegra.Guardian.SHIELD.stEffect[2].cValue = nShield[7];
+
+		memset(&nPixie, 0, 8);
+		nJson["BOSS"]["PIXIE"].get_to(nPixie);
+		bSombraNegra.Guardian.PIXIE.sIndex = nPixie[0];
+		bSombraNegra.Guardian.PIXIE.stEffect->sValue = nPixie[1];
+		bSombraNegra.Guardian.PIXIE.stEffect[0].cEffect = nPixie[2];
+		bSombraNegra.Guardian.PIXIE.stEffect[0].cValue = nPixie[3];
+		bSombraNegra.Guardian.PIXIE.stEffect[1].cEffect = nPixie[4];
+		bSombraNegra.Guardian.PIXIE.stEffect[1].cValue = nPixie[5];
+		bSombraNegra.Guardian.PIXIE.stEffect[2].cEffect = nPixie[6];
+		bSombraNegra.Guardian.PIXIE.stEffect[2].cValue = nPixie[7];
+
+		nJson["GUARDIAN"]["StartX"].get_to(bSombraNegra.Guardian.StartX);
+		nJson["GUARDIAN"]["StartY"].get_to(bSombraNegra.Guardian.StartY);
+		nJson["GUARDIAN"]["DestX"].get_to(bSombraNegra.Guardian.DestX);
+		nJson["GUARDIAN"]["DestY"].get_to(bSombraNegra.Guardian.DestY);
+		nJson["GUARDIAN"]["REGEN"].get_to(bSombraNegra.Guardian.REGEN);
+		nJson["GUARDIAN"]["LEVEL"].get_to(bSombraNegra.Guardian.LEVEL);
+		nJson["GUARDIAN"]["HP"].get_to(bSombraNegra.Guardian.HP);
+		nJson["GUARDIAN"]["MP"].get_to(bSombraNegra.Guardian.MP);
+		nJson["GUARDIAN"]["AC"].get_to(bSombraNegra.Guardian.AC);
+		nJson["GUARDIAN"]["DAN"].get_to(bSombraNegra.Guardian.DAN);
+		nJson["GUARDIAN"]["MAGIC"].get_to(bSombraNegra.Guardian.MAGI);
+		nJson["GUARDIAN"]["STR"].get_to(bSombraNegra.Guardian.STR);
+		nJson["GUARDIAN"]["INT"].get_to(bSombraNegra.Guardian.INT);
+		nJson["GUARDIAN"]["DEX"].get_to(bSombraNegra.Guardian.DEX);
+		nJson["GUARDIAN"]["CON"].get_to(bSombraNegra.Guardian.CON);
+		nJson["GUARDIAN"]["MSG1"].get_to(bSombraNegra.Guardian.MSG1);
+		nJson["GUARDIAN"]["MSG2"].get_to(bSombraNegra.Guardian.MSG2);
+		nJson["GUARDIAN"]["MSG3"].get_to(bSombraNegra.Guardian.MSG3);
+#pragma endregion
+
+		for (auto& x : nJson["DROP"].items())
+		{
+
+			vector<short> nDrop = x.value();
+			bSombraNegra.Drop[stoi(x.key())].sIndex = nDrop[0];
+			bSombraNegra.Drop[stoi(x.key())].stEffect->sValue = nDrop[1];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[0].cEffect = nDrop[2];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[0].cValue = nDrop[3];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[1].cEffect = nDrop[4];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[1].cValue = nDrop[5];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[2].cEffect = nDrop[6];
+			bSombraNegra.Drop[stoi(x.key())].stEffect[2].cValue = nDrop[7];
+
+		};
+
+		for (auto& x : nJson["DROPPARTY"].items())
+		{
+
+			vector<short> nDropParty = x.value();
+			bSombraNegra.DropParty[stoi(x.key())].sIndex = nDropParty[0];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect->sValue = nDropParty[1];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[0].cEffect = nDropParty[2];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[0].cValue = nDropParty[3];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[1].cEffect = nDropParty[4];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[1].cValue = nDropParty[5];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[2].cEffect = nDropParty[6];
+			bSombraNegra.DropParty[stoi(x.key())].stEffect[2].cValue = nDropParty[7];
+
+		};
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteSombraNegra(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New SombraNegra.json
+	auto nJson = R"(
+{
+"STATUS": {
+
+			"Days": [1,1,1,1,1,1,1],
+			"StartHour": 10,
+			"EndHour": 23,
+			"Follow": 4,
+			"NoticeStart": "Sombra Negra acaba de aparecer no Castelo de Gelo!!!",
+			"NoticeEnd1": "O Grupo de [%s] dorrotou Sombra Negra!!!",
+			"NoticeEnd2": "Sombra Negra desapareceu do Castelo de Gelo!!"
+		  },
+"BOSS": {
+				"ID": 4103,
+				"NAME": "Sombra Negra",
+				"FACE": [174,0,0,0,0,0,0,0],
+				"HELM": [1225,0,43,0,26,50,0,0],
+				"BODY": [1226,0,43,0,0,0,0,0],
+				"LEG": [1227,0,43,0,0,0,0,0],
+				"GLOVE": [1228,0,43,0,0,0,0,0],
+				"BOOT": [1229,0,43,0,0,0,0,0],
+				"WEAPON": [3591,0,43,0,26,100,0,0],
+				"SHIELD": [0,0,0,0,0,0,0,0],
+				"PIXIE": [1936,43,5,0,0,0,0,0],
+				"StartX": 3818,
+				"StartY": 2880,
+				"DestX": 3820,
+				"DestY": 2890,
+				"REGEN": 209,
+				"LEVEL": 399,
+				"HP": 15000,
+				"MP": 5000,
+				"AC": 7000,
+				"DAN": 6000,
+				"MAGIC": 1000,
+				"STR": 5,
+				"INT": 1000,
+				"DEX": 8000,
+				"CON": 8000,
+				"MSG1": "Haa.haaa.Irei aniquilar todos....",
+				"MSG2": "Haa.haaa.Saiam do meu territorio....",
+				"MSG3": "graaaa.A morte te aguarda...."
+
+		},
+		
+"GUARDIAN": {
+				"ID": 4631,
+				"NAME": "Guardian Shadow",
+				"FACE": [174,0,0,0,0,0,0,0],
+				"HELM": [1225,0,43,0,26,50,0,0],
+				"BODY": [1226,0,43,0,0,0,0,0],
+				"LEG": [1227,0,43,0,0,0,0,0],
+				"GLOVE": [1228,0,43,0,0,0,0,0],
+				"BOOT": [1229,0,43,0,0,0,0,0],
+				"WEAPON": [3591,0,43,0,26,100,0,0],
+				"SHIELD": [0,0,0,0,0,0,0,0],
+				"PIXIE": [1936,43,5,0,0,0,0,0],
+				"StartX": 3818,
+				"StartY": 2880,
+				"DestX": 3820,
+				"DestY": 2890,
+				"REGEN": 209,
+				"LEVEL": 200,
+				"HP": 34000,
+				"MP": 5000,
+				"AC": 5000,
+				"DAN": 1000,
+				"MAGIC": 1000,
+				"STR": 5,
+				"INT": 1000,
+				"DEX": 8000,
+				"CON": 12000,
+				"MSG1": "Haa.haaa.Terao que nos derrotar antes de chegar em nosso Mestre....",
+				"MSG2": "Haa.haaa.Saiam do nosso castelo....",
+				"MSG3": "graaaa.Nao permitiremos que incomodem o Mestre...."
+			},
+		
+"DROP": {
+			"0": [412,0,61,5,0,0,0,0],
+			"1": [413,0,61,5,0,0,0,0],
+			"2": [4029,0,0,0,0,0,0,0],
+			"3": [670,0,61,5,0,0,0,0],
+			"4": [671,0,61,5,0,0,0,0],
+			"5": [1741,0,61,5,0,0,0,0]
+		},	
+
+"DROPPARTY": {
+				"0": [412,0,61,5,0,0,0,0],
+				"1": [413,0,61,5,0,0,0,0],
+				"2": [4029,0,0,0,0,0,0,0],
+				"3": [670,0,61,5,0,0,0,0],
+				"4": [671,0,61,5,0,0,0,0],
+				"5": [412,0,61,10,0,0,0,0]
+		     }			
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadStatusSombraNegra(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteSombraNegra(PATH_SOMBRA_NEGRA, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&statusSombraNegra, 0, sizeof(STRUCT_STATUS_BOSS));
+		string pName;
+		nJson["STATUS"]["aLive"].get_to(statusSombraNegra.aLive);
+		nJson["STATUS"]["PlayerKiled"].get_to(pName);
+		int tLength = pName.size();
+		char* nName = new char[tLength + 1];
+		copy(pName.begin(), pName.end(), nName);
+		nName[tLength] = '\0';
+		statusSombraNegra.PlayerKiled = nName;
+		nJson["STATUS"]["DayKiled"].get_to(statusSombraNegra.DayKiled);
+		nJson["STATUS"]["HourKiled"].get_to(statusSombraNegra.HourKiled);
+		nJson["STATUS"]["MinKiled"].get_to(statusSombraNegra.MinKiled);
+	
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteStatusSombraNegra(string path, string file)
+{
+	std::string fullpath = path + file;
+
+	json nJson;
+	try
+	{
+		const char* pName = statusSombraNegra.PlayerKiled ? statusSombraNegra.PlayerKiled : "NINGUEM";
+		
+		nJson["STATUS"]["aLive"] = statusSombraNegra.aLive;
+		nJson["STATUS"]["PlayerKiled"] = pName;
+		nJson["STATUS"]["DayKiled"] = statusSombraNegra.DayKiled;
+		nJson["STATUS"]["HourKiled"] = statusSombraNegra.HourKiled;
+		nJson["STATUS"]["MinKiled"] = statusSombraNegra.MinKiled;
+
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

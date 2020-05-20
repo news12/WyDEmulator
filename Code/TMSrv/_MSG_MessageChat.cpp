@@ -118,12 +118,12 @@ void Exec_MSG_MessageChat(int a_iConn, char *pMsg)
 		return;
 	}
 
-	else if (strcmp(szCmd, "$rochluc") == 0)
-	{
-	pMob[a_iConn].MOB.BaseScore.Level = 1010;
-	SendEtc(a_iConn);
-		return;
-	}
+	//else if (strcmp(szCmd, "$rochluc") == 0)
+	//{
+	//pMob[a_iConn].MOB.BaseScore.Level = 1010;
+	//SendEtc(a_iConn);
+	//	return;
+	//}
 
 	else if (strcmp(szCmd, "whisper") == 0)
 	{

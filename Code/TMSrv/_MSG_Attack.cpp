@@ -1,4 +1,5 @@
 #include "ProcessClientMessage.h"
+#include "SombraNegra.h"
 
 void Exec_MSG_Attack(int a_iConn, char* pMsg)
 {
@@ -2227,6 +2228,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		{
 			SendSetHpMp(idx);
 		}
+
 		if (pMob[idx].MOB.CurrentScore.Hp <= 0)
 		{
 			pMob[idx].MOB.CurrentScore.Hp = 0;
@@ -2261,7 +2263,12 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				else
 					SetBattle(partyMemberId, idx);
 			}
-
+#pragma region Boss Sombra Negra
+			if (!strcmp(pMob[idx].MOB.MobName, "Sombra Negra "))
+			{
+				checkHPBoss(idx);
+			}
+#pragma endregion
 
 			mleader = pMob[idx].Leader;
 			if (mleader <= 0)

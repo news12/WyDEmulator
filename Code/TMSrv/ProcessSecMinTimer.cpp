@@ -22,6 +22,7 @@
 #include "WarOfKingdom.h"
 #include "AltarOfKing.h"
 #include "AutoEvent.h"
+#include "SombraNegra.h"
 
 void ProcessSecTimer()
 {
@@ -788,6 +789,8 @@ lbl_PST1:
 		startKing();
 		fAutoNotice();
 		fAutoDouble();
+
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBoss, NULL, 0, 0);
 		
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)

@@ -46,7 +46,7 @@ namespace ConfigIni {
 		static int WriteBagWarrior(string path, string file);
 		static int ReadAutoEvent(string path, string file);
 		static int WriteAutoEvent(string path, string file);
-
+		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
 	
@@ -54,6 +54,10 @@ namespace ConfigIni {
 		static int ReadGameConfig(string path, string file);
 		static int WriteGameConfig(string path, string file);
 		static int ConvertNPC(string path, string file);
+		static int ReadSombraNegra(string path, string file);
+		static int WriteSombraNegra(string path, string file);
+		static int ReadStatusSombraNegra(string path, string file);
+		static int WriteStatusSombraNegra(string path, string file);
 
 	static	struct GroupServer
 		{

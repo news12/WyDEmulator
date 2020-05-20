@@ -130,6 +130,12 @@
     <Filter Include="Source Files\EventsEternal\AutoEvent">
       <UniqueIdentifier>{772d1f44-0174-4e64-9538-925f90b3a4d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Boss">
+      <UniqueIdentifier>{38f07130-98b6-43c6-ae59-48b501011691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Boss">
+      <UniqueIdentifier>{e6f2ab4f-79ee-4221-9720-eac309bf9fa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -480,6 +486,9 @@
     <ClCompile Include="AutoEvent.cpp">
       <Filter>Source Files\EventsEternal\AutoEvent</Filter>
     </ClCompile>
+    <ClCompile Include="SombraNegra.cpp">
+      <Filter>Source Files\Packages\State Playing\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -583,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="AutoEvent.h">
       <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SombraNegra.h">
+      <Filter>Header Files\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -86,6 +86,8 @@ void ReadBoxEvent();
 void ReadAltarOfKing();
 void ReadBagWarrior();
 void ReadAutoEvent();
+void ReadSombraNegra();
+void WriteSombraNegra();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

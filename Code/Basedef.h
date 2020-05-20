@@ -110,6 +110,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_ALTAR_OF_KING 919
 #define IDC_READ_BAG_WARRIOR 920
 #define IDC_READ_AUTO_EVENT 921
+#define IDC_READ_SOMBRA_NEGRA 922
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -276,7 +277,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define		REF_14					22
 #define		REF_15					27
 
-#define		MAX_HP					100000
+#define		MAX_HP					400000
 #define		MAX_MP					100000
 #define		MAX_DAMAGE				1000000
 #define		MAX_DAMAGE_MG			190000000
@@ -3000,6 +3001,8 @@ extern const std::string PATH_EVENT_Lottery;
 extern const std::string PATH_EVENT_Box;
 extern const std::string PATH_EVENT_AltarOfKing;
 extern const std::string PATH_NewNPC;
+extern const std::string PATH_NewBoss;
+extern const std::string PATH_SOMBRA_NEGRA;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3041,18 +3044,35 @@ struct STRUCT_WARS
 struct STRUCT_BOSS 
 {
 	int ID;
-	std::string NAME;
+	const char* NAME;
 	STRUCT_ITEM FACE;
+	STRUCT_ITEM HELM;
+	STRUCT_ITEM BODY;
+	STRUCT_ITEM LEG;
+	STRUCT_ITEM GLOVE;
+	STRUCT_ITEM BOOT;
+	STRUCT_ITEM WEAPON;
+	STRUCT_ITEM SHIELD;
+	STRUCT_ITEM PIXIE;
+	int StartX;
+	int StartY;
+	int DestX;
+	int DestY;
+	int REGEN;
 	int	LEVEL;
 	int HP;
-	int CON;
 	int	MP;
 	int AC;
 	int DAN;
 	int MAGI;
+	int STR;
+	int INT;
+	int DEX;
+	int CON;
 	std::string	MSG1;
 	std::string MSG2;
 	std::string MSG3;
+	
 };
 struct STRUCT_MSG_GREEN
 {
@@ -3098,6 +3118,37 @@ struct STRUCT_aDOUBLE
 	BOOL start;
 };
 
+struct STRUCT_SOMBRA_NEGRA
+{
+	STRUCT_BOSS Boss;
+	STRUCT_BOSS Guardian;
+	int Days[7];
+	DWORD StartHour;
+	DWORD EndHour;
+	int follow;
+	std::string NoticeStart;
+	std::string NoticeEnd1;
+	std::string NoticeEnd2;
+	STRUCT_ITEM Drop[6];
+	STRUCT_ITEM DropParty[6];
+	BOOL hp70;
+	BOOL hp50;
+	BOOL hp10;
+	BOOL spawned;
+	DWORD numGuardian;
+
+};
+
+struct STRUCT_STATUS_BOSS
+{
+	BOOL aLive;
+	const char* PlayerKiled;
+	DWORD DayKiled;
+	DWORD HourKiled;
+	DWORD MinKiled;
+};
+extern STRUCT_STATUS_BOSS statusSombraNegra;
+extern STRUCT_SOMBRA_NEGRA bSombraNegra;
 extern STRUCT_aDOUBLE autoDouble;
 extern STRUCT_aNOTICE autoNotice;
 extern STRUCT_QUIZ eQuiz[MAX_QUIZ];

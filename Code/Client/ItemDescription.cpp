@@ -375,6 +375,8 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*color7 = Yellow;
 		sprintf_s(line8, 128, "1x Elixir da Coragem(30d)");
 		*color8 = Yellow;
+		sprintf_s(line9, 128, "1x Sephira (30d)");
+		*color9 = Yellow;
 		return 10;
 	}
 
