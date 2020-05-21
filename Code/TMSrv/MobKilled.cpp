@@ -180,9 +180,11 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 				continue;
 
 			if (pMob[i].TargetX >= AREA_RVR_MINX && pMob[i].TargetX <= AREA_RVR_MAXX && pMob[i].TargetY >= AREA_RVR_MINY && pMob[i].TargetY <= AREA_RVR_MAXY)
-				SendClientMsg(i, "A torre do reino foi destruída");// se quiser pode fala qual da seguinte forma:  , (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red", (towerId == 0) ? "Blue" : "Red");
+			{
+				sprintf(temp, "A Torre do Reino [%s] foi Destruida!!", (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red");
+				SendClientMsg(i, temp);// se quiser pode fala qual da seguinte forma:  , (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red", (towerId == 0) ? "Blue" : "Red");
 
-
+			}
 			// RVR
 			if (pMob[i].TargetX >= AREA_RVR_MINX && pMob[i].TargetX <= AREA_RVR_MAXX &&
 				pMob[i].TargetY >= AREA_RVR_MINY && pMob[i].TargetY <= AREA_RVR_MAXY && g_pRvrWar.Status == 1)
@@ -196,12 +198,12 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 				if (cape == 7)
 				{
 					posX = 1754 + rand() % 4;
-					posY = 1971 + rand() % 20;
+					posY = 1982 + rand() % 4;
 				}
 				else if (cape == 8)
 				{
-					posX = 1711 + rand() % 4;
-					posY = 1971 + rand() % 20;
+					posX = 1694 + rand() % 4;
+					posY = 1980 + rand() % 4;
 				}
 
 				if (posX != 0 && posY != 0)
