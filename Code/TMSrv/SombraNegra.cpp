@@ -14,7 +14,7 @@ void WINAPI initBoss()
 
 	if (bSombraNegra.Days[timeinfo->tm_wday])
 	{
-		if (timeinfo->tm_wday != statusSombraNegra.DayKiled)
+		if (timeinfo->tm_wday != statusSombraNegra.DayKiled && statusSombraNegra.aLive)
 		{
 			statusSombraNegra.aLive = 0;
 			statusSombraNegra.PlayerKiled = "NINGUEM";
@@ -29,7 +29,7 @@ void WINAPI initBoss()
 			&& !statusSombraNegra.aLive && !bSombraNegra.spawned)
 			startBoss();
 
-		if (timeinfo->tm_hour >= bSombraNegra.EndHour && !statusSombraNegra.aLive)
+		if (timeinfo->tm_hour >= bSombraNegra.EndHour && !statusSombraNegra.aLive && !bSombraNegra.spawned)
 			noKiller();
 	
 	}
@@ -411,6 +411,7 @@ void randDrop()
 
 void noKiller()
 {
+	bSombraNegra.spawned = FALSE;
 	statusSombraNegra.aLive = 0;
 	statusSombraNegra.PlayerKiled = "NINGUEM";
 	statusSombraNegra.DayKiled = 0;
