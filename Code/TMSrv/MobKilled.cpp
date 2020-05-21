@@ -181,7 +181,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 			if (pMob[i].TargetX >= AREA_RVR_MINX && pMob[i].TargetX <= AREA_RVR_MAXX && pMob[i].TargetY >= AREA_RVR_MINY && pMob[i].TargetY <= AREA_RVR_MAXY)
 			{
-				sprintf(temp, "A Torre do Reino [%s] foi Destruida!!", (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red");
+				sprintf(temp, "A Torre do Reino [%s] foi Destruida!!", pMob[i].GenerateIndex == TORRE_RVR_BLUE ? "Blue" : "Red");
 				SendClientMsg(i, temp);// se quiser pode fala qual da seguinte forma:  , (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red", (towerId == 0) ? "Blue" : "Red");
 
 			}
