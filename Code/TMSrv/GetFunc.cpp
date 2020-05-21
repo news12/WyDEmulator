@@ -1044,15 +1044,15 @@ int GetTeleportPosition(int conn, int *x, int *y)
 		INT32 posX = 0,
 			posY = 0;
 
-		if (cape == 7)
+		if (cape == 7)//Blue
 		{
 			*x = 1754 - rand() % 4;
-			*y = 1971 + rand() % 20;
+			*y = 1982 + rand() % 4;
 		}
-		else
+		else //Red
 		{
-			*x = 1711 + rand() % 4;
-			*y = 1971 + rand() % 20;
+			*x = 1694 + rand() % 4;
+			*y = 1980 + rand() % 4;
 		}
 
 		SendCounterMob(conn, g_pRvrWar.Points[0], g_pRvrWar.Points[1]);
