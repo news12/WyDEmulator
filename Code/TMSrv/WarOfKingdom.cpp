@@ -145,3 +145,26 @@ void WarOfKingdom()
 		}
 	}
 }
+
+void WarRandTower(int index)
+{
+	DWORD nRand = rand() % 4;
+
+	if (index == TORRE_RVR_RED)
+	{
+		mNPCGen.pList[index].Leader.SPX = RandTorreRed[nRand][0];
+		mNPCGen.pList[index].Leader.SPY = RandTorreRed[nRand][1];
+
+		mNPCGen.pList[index].SegmentListX[0] = RandTorreRed[nRand][0];
+		mNPCGen.pList[index].SegmentListY[0] = RandTorreRed[nRand][1];
+	}
+	else if (index == TORRE_RVR_BLUE)
+	{
+		mNPCGen.pList[index].Leader.SPX = RandTorreBlue[nRand][0];
+		mNPCGen.pList[index].Leader.SPY = RandTorreBlue[nRand][1];
+
+		mNPCGen.pList[index].SegmentListX[0] = RandTorreBlue[nRand][0];
+		mNPCGen.pList[index].SegmentListY[0] = RandTorreBlue[nRand][1];
+	}
+	
+}

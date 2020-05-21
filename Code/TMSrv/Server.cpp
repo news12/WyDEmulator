@@ -24,6 +24,7 @@
 #include "WarOfNoatum.h"
 #include "CNPCGene.h"
 #include "SombraNegra.h"
+#include "WarOfKingdom.h"
 
 
 #pragma region Defines
@@ -35,7 +36,18 @@ int playerAltar;
 int countAltarDec = 0;
 int GuildTower = 0;
 int GuildScore[MAX_GUILD];
-
+short RandTorreRed[4][2]{ 
+						  {1684, 2014},
+						  {1712, 2014},
+						  {1712, 1948},
+						  {1684, 1949} 
+						};
+short RandTorreBlue[4][2]{
+						  {1739, 2011},
+						  {1768, 2011},
+						  {1763, 1948},
+						  {1744, 1949}
+						 };
 using ConfigIni::nConfig;
 
 int ServerDown = -1000;
@@ -3900,6 +3912,9 @@ void GenerateMob(int index, int PosX, int PosY)
 
 	if (index == bSombraNegra.Guardian.ID)
 		genGuardianSombraNegra(index);
+
+	if (index == TORRE_RVR_RED || index == TORRE_RVR_BLUE)
+		WarRandTower(index);
 
 	if (index == altarKing.BossStatus.ID)
 	{

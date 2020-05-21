@@ -23,3 +23,4 @@
 
 
 void WarOfKingdom();
+void WarRandTower(int index);

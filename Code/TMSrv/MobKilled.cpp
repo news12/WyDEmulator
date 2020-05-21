@@ -172,6 +172,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 		else
 			towerId = 0;
 
+		const char* tDeath = towerId == 1 ? "Blue" : "Red";
+
 		g_pRvrWar.Points[towerId] += 25;
 
 		for (INT32 i = 1; i < MAX_USER; i++)
@@ -181,7 +183,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 			if (pMob[i].TargetX >= AREA_RVR_MINX && pMob[i].TargetX <= AREA_RVR_MAXX && pMob[i].TargetY >= AREA_RVR_MINY && pMob[i].TargetY <= AREA_RVR_MAXY)
 			{
-				sprintf(temp, "A Torre do Reino [%s] foi Destruida!!", pMob[i].GenerateIndex == TORRE_RVR_BLUE ? "Blue" : "Red");
+				sprintf(temp, "A Torre do Reino [%s] foi Destruida!!", tDeath);
 				SendClientMsg(i, temp);// se quiser pode fala qual da seguinte forma:  , (pMob[i].GenerateIndex == TORRE_RVR_BLUE) ? "Blue" : "Red", (towerId == 0) ? "Blue" : "Red");
 
 			}

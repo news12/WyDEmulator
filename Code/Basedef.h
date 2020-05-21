@@ -447,10 +447,10 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define TORRE_RVR_BLUE 288
 #define TORRE_RVR_RED 289
 
-#define AREA_RVR_MINX 1710
-#define AREA_RVR_MINY 1755
-#define AREA_RVR_MAXX 1968
-#define AREA_RVR_MAXY 1995
+#define AREA_RVR_MINX 1679
+#define AREA_RVR_MINY 1940
+#define AREA_RVR_MAXX 1774
+#define AREA_RVR_MAXY 2023
 
 ////////////////////////////////////////////////////////////
 
@@ -3207,6 +3207,8 @@ extern int notWarNoatum;
 extern int playerAltar;
 extern int countAltarDec;
 extern STRUCT_ITEM sbagWarrior[6];
+extern short RandTorreRed[4][2];
+extern short RandTorreBlue[4][2];
 #pragma endregion
 
 #endif
