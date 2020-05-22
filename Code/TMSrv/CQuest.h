@@ -73,6 +73,10 @@ void NTask_Uxmal(int a_iConn, int a_iTarget);
 void NTask_Forseti(int a_iConn, int a_iTarget, int confirm);
 void NTask_Xamã(int a_iConn, int a_iTarget, int confirm);
 
+//Event Trade
+void NTask_EventTrade(int a_iConn, int a_iTarget, int NpcGrade);
+void NTask_StartEventTrade();
+
 
 
 

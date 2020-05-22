@@ -26,6 +26,9 @@ void NTask_QuestCoveiro(int a_iConn, int a_iTarget)
 
 		STRUCT_ITEM *item = GetFirstItemBag(a_iConn, itemQuest);
 
+		if (item == nullptr)
+			continue;
+
 		int amount = BASE_GetItemAmount(item);
 
 		if (amount > 1)
@@ -81,6 +84,9 @@ void NTask_QuestJardineiro(int a_iConn, int a_iTarget)
 			continue;
 
 		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		if (item == nullptr)
+			continue;
 
 		int amount = BASE_GetItemAmount(item);
 
@@ -139,6 +145,9 @@ void NTask_QuestKaizen(int a_iConn, int a_iTarget)
 
 		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
 
+		if (item == nullptr)
+			continue;
+
 		int amount = BASE_GetItemAmount(item);
 
 		if (amount > 1)
@@ -195,6 +204,9 @@ void NTask_QuestHidra(int a_iConn, int a_iTarget)
 
 		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
 
+		if (item == nullptr)
+			continue;
+
 		int amount = BASE_GetItemAmount(item);
 
 		if (amount > 1)
@@ -250,6 +262,9 @@ void NTask_QuestElfos(int a_iConn, int a_iTarget)
 			continue;
 
 		STRUCT_ITEM* item = GetFirstItemBag(a_iConn, itemQuest);
+
+		if (item == nullptr)
+			continue;
 
 		int amount = BASE_GetItemAmount(item);
 

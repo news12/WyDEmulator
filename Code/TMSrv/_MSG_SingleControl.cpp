@@ -108,39 +108,46 @@ void Exec_MSG_Quest(int a_iConn, char *pMsg)
 	{
 		switch (npcGrade)
 		{
-		case 4:
-			NTask_TrainingChief(a_iConn, npcIndex); break;
-		case 5:
-			NTask_QuestCoveiro(a_iConn, npcIndex); break;
-		case 6:
-			NTask_QuestJardineiro(a_iConn, npcIndex); break;
-		case 7:
-			NTask_QuestKaizen(a_iConn, npcIndex); break;
-		case 8:
-			NTask_QuestHidra(a_iConn, npcIndex); break;
-		case 9:
-			NTask_QuestElfos(a_iConn, npcIndex); break;
-		case 10:
-			NTask_QuestMolarGargula(a_iConn, npcIndex); break;
-		case 12:
-			NTask_MestreHaby(a_iConn, npcIndex, confirm); break;			
-		case 37:
-			NTask_SacerdoteJester(a_iConn, npcIndex); break;
-		case 38:
-			NTask_Sobrevivente(a_iConn, npcIndex); break;
-		case 39:
-			NTask_Forseti(a_iConn, npcIndex, confirm); break;
-		case 40:
-			NTask_GuardaHelgardh(a_iConn, npcIndex); break;
-		case 41:
-			NTask_Xamã(a_iConn, npcIndex, confirm); break;
+			case 4:
+				NTask_TrainingChief(a_iConn, npcIndex); break;
+			case 5:
+				NTask_QuestCoveiro(a_iConn, npcIndex); break;
+			case 6:
+				NTask_QuestJardineiro(a_iConn, npcIndex); break;
+			case 7:
+				NTask_QuestKaizen(a_iConn, npcIndex); break;
+			case 8:
+				NTask_QuestHidra(a_iConn, npcIndex); break;
+			case 9:
+				NTask_QuestElfos(a_iConn, npcIndex); break;
+			case 10:
+				NTask_QuestMolarGargula(a_iConn, npcIndex); break;
+			case 12:
+				NTask_MestreHaby(a_iConn, npcIndex, confirm); break;			
+			case 37:
+				NTask_SacerdoteJester(a_iConn, npcIndex); break;
+			case 38:
+				NTask_Sobrevivente(a_iConn, npcIndex); break;
+			case 39:
+				NTask_Forseti(a_iConn, npcIndex, confirm); break;
+			case 40:
+				NTask_GuardaHelgardh(a_iConn, npcIndex); break;
+			case 41:
+				NTask_Xamã(a_iConn, npcIndex, confirm); break;
 
-		case 42:
-		{
-			DoTeleport(a_iConn, 2637 + rand() % 5 - 3, 2642 + rand() % 5 - 3);
-			break;
+			case 42:
+			{
+				DoTeleport(a_iConn, 2637 + rand() % 5 - 3, 2642 + rand() % 5 - 3);
+				break;
 
-		}
+			}
+
+			case 43:
+			case 44:
+			case 45:
+			case 46:
+			case 47:
+				NTask_EventTrade(a_iConn, npcIndex, npcGrade); break;
 			
 
 			

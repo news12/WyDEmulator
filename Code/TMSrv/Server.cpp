@@ -1072,6 +1072,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadEventTrade()
+{
+	int status = nConfig::ReadEventTrade(PATH_EVENT_Trade, "tradeEvent.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler tradeEvent", "FILE ERROR", NULL);
+}
+
 void WriteSombraNegra()
 {
 	int status = nConfig::WriteStatusSombraNegra(PATH_SOMBRA_NEGRA, "status.json");
@@ -4432,6 +4440,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadBagWarrior();
 	ReadAutoEvent();
 	ReadSombraNegra();
+	ReadEventTrade();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -5034,6 +5043,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOX_EVENT, "&Load Box Event");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_ALTAR_OF_KING, "&Load Altar Of King");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_AUTO_EVENT, "&Load Auto Event");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_EVENT_TRADE, "&Load Event Trade");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -5147,6 +5157,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_SOMBRA_NEGRA:
 			ReadSombraNegra();
+			break;
+
+		case IDC_READ_EVENT_TRADE:
+			ReadEventTrade();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -11214,16 +11228,18 @@ int GetSlotsVagoBag(int Conn)
 STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem)
 {
 	STRUCT_ITEM *Item;
-	//memset(&Item, 0, sizeof(STRUCT_ITEM));
+	//memset(Item, 0, sizeof(STRUCT_ITEM));
 	for (int i = 0; i < pMob[Conn].MaxCarry; i++)
 	{
 		if (pMob[Conn].MOB.Carry[i].sIndex == idItem)
 		{
 			Item = &pMob[Conn].MOB.Carry[i];
 
+			return Item;
+
 			break;
 		}
 	}
 
-	return Item;
+	return nullptr;
 }

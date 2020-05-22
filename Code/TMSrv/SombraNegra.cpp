@@ -29,7 +29,7 @@ void WINAPI initBoss()
 			&& !statusSombraNegra.aLive && !bSombraNegra.spawned)
 			startBoss();
 
-		if (timeinfo->tm_hour >= bSombraNegra.EndHour && !statusSombraNegra.aLive && !bSombraNegra.spawned)
+		if (timeinfo->tm_hour >= bSombraNegra.EndHour && !statusSombraNegra.aLive && bSombraNegra.spawned)
 			noKiller();
 	
 	}

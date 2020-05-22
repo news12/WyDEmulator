@@ -111,6 +111,7 @@
     <ClCompile Include="FadaDourada.cpp" />
     <ClCompile Include="ItensEntradaQuest.cpp" />
     <ClCompile Include="KefraDrop.cpp" />
+    <ClCompile Include="NTask_EventTrade.cpp" />
     <ClCompile Include="PassGroup.cpp" />
     <ClCompile Include="GetFunc.cpp" />
     <ClCompile Include="MacroPerga.cpp" />

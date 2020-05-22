@@ -26,6 +26,7 @@ STRUCT_aDOUBLE autoDouble;
 STRUCT_aNOTICE autoNotice;
 STRUCT_SOMBRA_NEGRA bSombraNegra;
 STRUCT_STATUS_BOSS statusSombraNegra;
+STRUCT_EVENT_TRADE EventTrade;
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -98,6 +99,7 @@ const string PATH_EVENT_LojaAfk = PATH_EVENTS + "LojaAfk/";
 const string PATH_EVENT_Lottery = PATH_EVENTS + "Lottery/";
 const string PATH_EVENT_AltarOfKing = PATH_EVENTS + "AltarOfKing/";
 const string PATH_EVENT_Box = PATH_EVENTS + "Box/";
+const string PATH_EVENT_Trade = PATH_EVENTS + "NPCTrade/";
 const string PATH_NewNPC = "NewNPC/";
 const string PATH_NewBoss = "NewBoss/";
 const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
@@ -1465,6 +1467,305 @@ int ConfigIni::nConfig::WriteAutoEvent(string path, string file)
 						  ]
 			  }
 	    }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadEventTrade(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteEventTrade(PATH_EVENT_Trade, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		nJson["STATUS"]["Days"].get_to(EventTrade.Days);
+		nJson["STATUS"]["HourStart"].get_to(EventTrade.HourStart);
+		nJson["STATUS"]["MinStart"].get_to(EventTrade.MinStart);
+		nJson["STATUS"]["HourEnd"].get_to(EventTrade.HourEnd);
+		nJson["STATUS"]["MinEnd"].get_to(EventTrade.MinEnd);
+		nJson["STATUS"]["MSGStart"].get_to(EventTrade.MSGStart);
+		nJson["STATUS"]["MSGEnd"].get_to(EventTrade.MSGEnd);
+		nJson["STATUS"]["MSG"].get_to(EventTrade.MSG);
+		nJson["STATUS"]["MsgErr"].get_to(EventTrade.MsgErr);
+		nJson["STATUS"]["MsgBag"].get_to(EventTrade.MsgBag);
+		nJson["STATUS"]["MsgLimit"].get_to(EventTrade.MsgLimit);
+
+		//NPC1
+		nJson["NPC1"]["TradeLimit"].get_to(EventTrade.NPC1.TradeLimit);
+		vector<short> nReceiv1;
+		nJson["NPC1"]["ItemReceive"].get_to(nReceiv1);
+		EventTrade.NPC1.ItemReceive.sIndex = nReceiv1[0];
+		EventTrade.NPC1.ItemReceive.stEffect->sValue = nReceiv1[1];
+		EventTrade.NPC1.ItemReceive.stEffect[0].cEffect = nReceiv1[2];
+		EventTrade.NPC1.ItemReceive.stEffect[0].cValue = nReceiv1[3];
+		EventTrade.NPC1.ItemReceive.stEffect[1].cEffect = nReceiv1[4];
+		EventTrade.NPC1.ItemReceive.stEffect[1].cValue = nReceiv1[5];
+		EventTrade.NPC1.ItemReceive.stEffect[2].cEffect = nReceiv1[6];
+		EventTrade.NPC1.ItemReceive.stEffect[2].cValue = nReceiv1[7];
+
+		nJson["NPC1"]["BaseRand"].get_to(EventTrade.NPC1.BaseRand);
+		nJson["NPC1"]["Rates"].get_to(EventTrade.NPC1.Rates);
+
+		for (auto& x : nJson["NPC1"]["Reward"].items())
+		{
+
+			vector<short> nReward1 = x.value();
+			EventTrade.NPC1.Reward[stoi(x.key())].sIndex = nReward1[0];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect->sValue = nReward1[1];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[0].cEffect = nReward1[2];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[0].cValue = nReward1[3];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[1].cEffect = nReward1[4];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[1].cValue = nReward1[5];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[2].cEffect = nReward1[6];
+			EventTrade.NPC1.Reward[stoi(x.key())].stEffect[2].cValue = nReward1[7];
+
+		};
+
+		//NPC2
+		nJson["NPC2"]["TradeLimit"].get_to(EventTrade.NPC2.TradeLimit);
+		vector<short> nReceiv2;
+		nJson["NPC2"]["ItemReceive"].get_to(nReceiv2);
+		EventTrade.NPC2.ItemReceive.sIndex = nReceiv2[0];
+		EventTrade.NPC2.ItemReceive.stEffect->sValue = nReceiv2[1];
+		EventTrade.NPC2.ItemReceive.stEffect[0].cEffect = nReceiv2[2];
+		EventTrade.NPC2.ItemReceive.stEffect[0].cValue = nReceiv2[3];
+		EventTrade.NPC2.ItemReceive.stEffect[1].cEffect = nReceiv2[4];
+		EventTrade.NPC2.ItemReceive.stEffect[1].cValue = nReceiv2[5];
+		EventTrade.NPC2.ItemReceive.stEffect[2].cEffect = nReceiv2[6];
+		EventTrade.NPC2.ItemReceive.stEffect[2].cValue = nReceiv2[7];
+
+		nJson["NPC2"]["BaseRand"].get_to(EventTrade.NPC2.BaseRand);
+		nJson["NPC2"]["Rates"].get_to(EventTrade.NPC2.Rates);
+
+		for (auto& x : nJson["NPC2"]["Reward"].items())
+		{
+
+			vector<short> nReward2 = x.value();
+			EventTrade.NPC2.Reward[stoi(x.key())].sIndex = nReward2[0];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect->sValue = nReward2[1];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[0].cEffect = nReward2[2];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[0].cValue = nReward2[3];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[1].cEffect = nReward2[4];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[1].cValue = nReward2[5];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[2].cEffect = nReward2[6];
+			EventTrade.NPC2.Reward[stoi(x.key())].stEffect[2].cValue = nReward2[7];
+
+		};
+
+		//NPC3
+		nJson["NPC3"]["TradeLimit"].get_to(EventTrade.NPC3.TradeLimit);
+		vector<short> nReceiv3;
+		nJson["NPC3"]["ItemReceive"].get_to(nReceiv3);
+		EventTrade.NPC3.ItemReceive.sIndex = nReceiv3[0];
+		EventTrade.NPC3.ItemReceive.stEffect->sValue = nReceiv3[1];
+		EventTrade.NPC3.ItemReceive.stEffect[0].cEffect = nReceiv3[2];
+		EventTrade.NPC3.ItemReceive.stEffect[0].cValue = nReceiv3[3];
+		EventTrade.NPC3.ItemReceive.stEffect[1].cEffect = nReceiv3[4];
+		EventTrade.NPC3.ItemReceive.stEffect[1].cValue = nReceiv3[5];
+		EventTrade.NPC3.ItemReceive.stEffect[2].cEffect = nReceiv3[6];
+		EventTrade.NPC3.ItemReceive.stEffect[2].cValue = nReceiv3[7];
+
+		nJson["NPC3"]["BaseRand"].get_to(EventTrade.NPC3.BaseRand);
+		nJson["NPC3"]["Rates"].get_to(EventTrade.NPC3.Rates);
+
+		for (auto& x : nJson["NPC3"]["Reward"].items())
+		{
+
+			vector<short> nReward3 = x.value();
+			EventTrade.NPC3.Reward[stoi(x.key())].sIndex = nReward3[0];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect->sValue = nReward3[1];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[0].cEffect = nReward3[2];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[0].cValue = nReward3[3];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[1].cEffect = nReward3[4];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[1].cValue = nReward3[5];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[2].cEffect = nReward3[6];
+			EventTrade.NPC3.Reward[stoi(x.key())].stEffect[2].cValue = nReward3[7];
+
+		};
+
+		//NPC4
+		nJson["NPC4"]["TradeLimit"].get_to(EventTrade.NPC4.TradeLimit);
+		vector<short> nReceiv4;
+		nJson["NPC4"]["ItemReceive"].get_to(nReceiv4);
+		EventTrade.NPC4.ItemReceive.sIndex = nReceiv4[0];
+		EventTrade.NPC4.ItemReceive.stEffect->sValue = nReceiv4[1];
+		EventTrade.NPC4.ItemReceive.stEffect[0].cEffect = nReceiv4[2];
+		EventTrade.NPC4.ItemReceive.stEffect[0].cValue = nReceiv4[3];
+		EventTrade.NPC4.ItemReceive.stEffect[1].cEffect = nReceiv4[4];
+		EventTrade.NPC4.ItemReceive.stEffect[1].cValue = nReceiv4[5];
+		EventTrade.NPC4.ItemReceive.stEffect[2].cEffect = nReceiv4[6];
+		EventTrade.NPC4.ItemReceive.stEffect[2].cValue = nReceiv4[7];
+
+		nJson["NPC4"]["BaseRand"].get_to(EventTrade.NPC4.BaseRand);
+		nJson["NPC4"]["Rates"].get_to(EventTrade.NPC4.Rates);
+
+		for (auto& x : nJson["NPC4"]["Reward"].items())
+		{
+
+			vector<short> nReward4 = x.value();
+			EventTrade.NPC4.Reward[stoi(x.key())].sIndex = nReward4[0];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect->sValue = nReward4[1];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[0].cEffect = nReward4[2];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[0].cValue = nReward4[3];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[1].cEffect = nReward4[4];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[1].cValue = nReward4[5];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[2].cEffect = nReward4[6];
+			EventTrade.NPC4.Reward[stoi(x.key())].stEffect[2].cValue = nReward4[7];
+
+		};
+
+		//NPC5
+		nJson["NPC5"]["TradeLimit"].get_to(EventTrade.NPC5.TradeLimit);
+		vector<short> nReceiv5;
+		nJson["NPC5"]["ItemReceive"].get_to(nReceiv5);
+		EventTrade.NPC5.ItemReceive.sIndex = nReceiv5[0];
+		EventTrade.NPC5.ItemReceive.stEffect->sValue = nReceiv5[1];
+		EventTrade.NPC5.ItemReceive.stEffect[0].cEffect = nReceiv5[2];
+		EventTrade.NPC5.ItemReceive.stEffect[0].cValue = nReceiv5[3];
+		EventTrade.NPC5.ItemReceive.stEffect[1].cEffect = nReceiv5[4];
+		EventTrade.NPC5.ItemReceive.stEffect[1].cValue = nReceiv5[5];
+		EventTrade.NPC5.ItemReceive.stEffect[2].cEffect = nReceiv5[6];
+		EventTrade.NPC5.ItemReceive.stEffect[2].cValue = nReceiv5[7];
+
+		nJson["NPC5"]["BaseRand"].get_to(EventTrade.NPC5.BaseRand);
+		nJson["NPC5"]["Rates"].get_to(EventTrade.NPC5.Rates);
+
+		for (auto& x : nJson["NPC5"]["Reward"].items())
+		{
+
+			vector<short> nReward5 = x.value();
+			EventTrade.NPC5.Reward[stoi(x.key())].sIndex = nReward5[0];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect->sValue = nReward5[1];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[0].cEffect = nReward5[2];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[0].cValue = nReward5[3];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[1].cEffect = nReward5[4];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[1].cValue = nReward5[5];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[2].cEffect = nReward5[6];
+			EventTrade.NPC5.Reward[stoi(x.key())].stEffect[2].cValue = nReward5[7];
+
+		};
+		
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteEventTrade(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New tradeEvent.json
+	auto nJson = R"(
+{
+"STATUS": {
+			"Days": [1,1,1,1,1,1,1],
+			"HourStart": 0,
+			"MinStart": 0,
+			"HourEnd": 23,
+			"MinEnd": 0,
+			"MSGStart": "Evento de Troca Eternal foi iniciado!!",
+			"MSGEnd": "Evento de troca Eternal foi finalizado!!!",
+			"MSG": "Traga o item [%s]",
+			"MsgErr": "Preciso do item [%s]",
+			"MsgBag": "Voce precisa de espaco na mochila",
+			"MsgLimit": "Voce atingiu o limite de troca de hoje."
+			
+		  },
+"NPC1": {
+			"TradeLimit": 0,
+			"ItemReceive": [4900,0,0,0,0,0,0,0],
+			"BaseRand": 100,
+			"Rates": [50,20,20,7,2],
+			"Reward": {
+						"0": [419,0,0,0,0,0,0,0],
+						"1": [420,0,0,0,0,0,0,0],
+						"2": [412,0,0,0,0,0,0,0],
+						"3": [413,0,0,0,0,0,0,0],
+						"4": [4901,0,0,0,0,0,0,0]
+					  }
+		},
+"NPC2": {
+			"TradeLimit": 0,
+			"ItemReceive": [4901,0,0,0,0,0,0,0],
+			"BaseRand": 100,
+			"Rates": [50,20,20,7,2],
+			"Reward": {
+						"0": [3346,0,0,0,0,0,0,0],
+						"1": [3345,0,0,0,0,0,0,0],
+						"2": [3344,0,0,0,0,0,0,0],
+						"3": [3361,0,0,0,0,0,0,0],
+						"4": [4902,0,0,0,0,0,0,0]
+					  }
+		},
+"NPC3": {
+			"TradeLimit": 0,
+			"ItemReceive": [4902,0,0,0,0,0,0,0],
+			"BaseRand": 100,
+			"Rates": [50,20,20,7,2],
+			"Reward": {
+						"0": [3389,0,0,0,0,0,0,0],
+						"1": [3388,0,0,0,0,0,0,0],
+						"2": [3387,0,0,0,0,0,0,0],
+						"3": [3386,0,0,0,0,0,0,0],
+						"4": [4903,0,0,0,0,0,0,0]
+					  }
+		},
+"NPC4": {
+			"TradeLimit": 0,
+			"ItemReceive": [4903,0,0,0,0,0,0,0],
+			"BaseRand": 100,
+			"Rates": [50,20,20,7,2],
+			"Reward": {
+						"0": [3439,0,0,0,0,0,0,0],
+						"1": [3438,0,0,0,0,0,0,0],
+						"2": [3454,0,0,0,0,0,0,0],
+						"3": [3467,0,0,0,0,0,0,0],
+						"4": [4904,0,0,0,0,0,0,0]
+					  }
+		},
+"NPC5": {
+			"TradeLimit": 0,
+			"ItemReceive": [4904,0,0,0,0,0,0,0],
+			"BaseRand": 100,
+			"Rates": [50,20,20,7,2],
+			"Reward": {
+						"0": [4901,0,0,0,0,0,0,0],
+						"1": [4026,0,0,0,0,0,0,0],
+						"2": [4027,0,0,0,0,0,0,0],
+						"3": [4028,0,0,0,0,0,0,0],
+						"4": [4029,0,0,0,0,0,0,0]
+					  }
+		}
+
 })"_json;
 
 #pragma endregion

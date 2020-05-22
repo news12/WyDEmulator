@@ -111,6 +111,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_BAG_WARRIOR 920
 #define IDC_READ_AUTO_EVENT 921
 #define IDC_READ_SOMBRA_NEGRA 922
+#define IDC_READ_EVENT_TRADE 923
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -430,6 +431,8 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define RUNEQUEST_LV6_MOB_BOSS				4276
 
 #define ALTAR_OF_KING_BOSS					4630
+#define EVENT_TRADE_NPC1_INIT				4632
+#define EVENT_TRADE_NPC1_END				4636
 
 
 #define GTORRE								1076
@@ -3003,6 +3006,7 @@ extern const std::string PATH_EVENT_AltarOfKing;
 extern const std::string PATH_NewNPC;
 extern const std::string PATH_NewBoss;
 extern const std::string PATH_SOMBRA_NEGRA;
+extern const std::string PATH_EVENT_Trade;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3147,6 +3151,37 @@ struct STRUCT_STATUS_BOSS
 	DWORD HourKiled;
 	DWORD MinKiled;
 };
+
+struct STRUCT_NPC_TRADE
+{
+	DWORD TradeLimit;
+	STRUCT_ITEM ItemReceive;
+	STRUCT_ITEM Reward[5];
+	int BaseRand;
+	int Rates[5];
+};
+
+struct STRUCT_EVENT_TRADE
+{
+	int Days[7];
+	int HourStart;
+	int MinStart;
+	int HourEnd;
+	int MinEnd;
+	std::string MSGStart;
+	std::string MSGEnd;
+	std::string MSG;
+	std::string MsgErr;
+	std::string MsgBag;
+	std::string MsgLimit;
+	STRUCT_NPC_TRADE NPC1;
+	STRUCT_NPC_TRADE NPC2;
+	STRUCT_NPC_TRADE NPC3;
+	STRUCT_NPC_TRADE NPC4;
+	STRUCT_NPC_TRADE NPC5;
+	BOOL started;
+};
+extern STRUCT_EVENT_TRADE EventTrade;
 extern STRUCT_STATUS_BOSS statusSombraNegra;
 extern STRUCT_SOMBRA_NEGRA bSombraNegra;
 extern STRUCT_aDOUBLE autoDouble;

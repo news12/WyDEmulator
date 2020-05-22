@@ -88,6 +88,7 @@ void ReadBagWarrior();
 void ReadAutoEvent();
 void ReadSombraNegra();
 void WriteSombraNegra();
+void ReadEventTrade();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

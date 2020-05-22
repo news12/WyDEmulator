@@ -46,6 +46,8 @@ namespace ConfigIni {
 		static int WriteBagWarrior(string path, string file);
 		static int ReadAutoEvent(string path, string file);
 		static int WriteAutoEvent(string path, string file);
+		static int ReadEventTrade(string path, string file);
+		static int WriteEventTrade(string path, string file);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

@@ -136,6 +136,9 @@
     <Filter Include="Source Files\Packages\State Playing\Boss">
       <UniqueIdentifier>{e6f2ab4f-79ee-4221-9720-eac309bf9fa7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\State Playing\Quest Subjects\EventTrade">
+      <UniqueIdentifier>{bac25e7f-3c8f-4e07-be4e-f7c65dbdc49f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -488,6 +491,9 @@
     </ClCompile>
     <ClCompile Include="SombraNegra.cpp">
       <Filter>Source Files\Packages\State Playing\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="NTask_EventTrade.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\EventTrade</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

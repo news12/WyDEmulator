@@ -791,7 +791,7 @@ lbl_PST1:
 		fAutoDouble();
 
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBoss, NULL, 0, 0);
-		
+		NTask_StartEventTrade();
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)
 		{
