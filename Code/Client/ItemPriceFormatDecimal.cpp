@@ -58,7 +58,7 @@ void HKD_ItemPrice_FormatDecimal_02(char* pointer, int gold)
 
 	std::setprecision(tValue);
 
-	itoa(tValue, st, 10);
+	_itoa(tValue, st, 10);
 
 
 	int len = strlen(st);
@@ -96,7 +96,7 @@ void HKD_ItemPrice_FormatDecimal_03(char* pointer, int gold)
 	char result[20];
 	memset(result, 0, sizeof result);
 
-	itoa(gold, st, 10);
+	_itoa(gold, st, 10);
 
 	int len = strlen(st);
 	int sum = ((len - 1) / 3);

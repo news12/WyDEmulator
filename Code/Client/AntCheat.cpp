@@ -126,7 +126,7 @@ void I_loop()
 
 void Msg_I_Br()
 {
-	MessageBoxA(NULL, "AntiHacker\n\nA integridade do processo foi corrompida!", Config.MsgBox_Title, MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
+	MessageBoxA(NULL, "GameGuard\n\nA integridade do processo foi corrompida!", Config.MsgBox_Title, MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
 }
 
 void Injetado()
@@ -156,7 +156,8 @@ void I_Scan()
 {
 again:
 	I_loop();
-	Sleep(58000);
+	DetectID();
+	Sleep(20000);
 	goto again;
 }
 
@@ -167,7 +168,7 @@ void Dll_Inject()
 
 void Msg_W_Br()
 {
-	MessageBoxA(NULL, "AntiHacker\n\nConteúdo suspeito detectado!", Config.MsgBox_Title, MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
+	MessageBoxA(NULL, "GameGuard\n\nConteúdo suspeito detectado!", Config.MsgBox_Title, MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
 }
 
 
@@ -229,6 +230,7 @@ void W_Scan()
 {
 again:
 	TitleCheckWindow();
+	initialize();
 	Sleep(1000);
 	goto again;
 }

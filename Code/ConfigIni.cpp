@@ -1509,12 +1509,24 @@ int ConfigIni::nConfig::ReadEventTrade(string path, string file)
 		nJson["STATUS"]["MinStart"].get_to(EventTrade.MinStart);
 		nJson["STATUS"]["HourEnd"].get_to(EventTrade.HourEnd);
 		nJson["STATUS"]["MinEnd"].get_to(EventTrade.MinEnd);
-		nJson["STATUS"]["MSGStart"].get_to(EventTrade.MSGStart);
-		nJson["STATUS"]["MSGEnd"].get_to(EventTrade.MSGEnd);
-		nJson["STATUS"]["MSG"].get_to(EventTrade.MSG);
-		nJson["STATUS"]["MsgErr"].get_to(EventTrade.MsgErr);
-		nJson["STATUS"]["MsgBag"].get_to(EventTrade.MsgBag);
-		nJson["STATUS"]["MsgLimit"].get_to(EventTrade.MsgLimit);
+		string MSGStart;
+		string MSGEnd;
+		string MSG;
+		string MsgErr;
+		string MsgBag;
+		string MsgLimit;
+		nJson["STATUS"]["MSGStart"].get_to(MSGStart);
+		EventTrade.MSGStart = MSGStart.c_str();
+		nJson["STATUS"]["MSGEnd"].get_to(MSGEnd);
+		EventTrade.MSGEnd = MSGEnd.c_str();
+		nJson["STATUS"]["MSG"].get_to(MSG);
+		EventTrade.MSG = MSG.c_str();
+		nJson["STATUS"]["MsgErr"].get_to(MsgErr);
+		EventTrade.MsgErr = MsgErr.c_str();
+		nJson["STATUS"]["MsgBag"].get_to(MsgBag);
+		EventTrade.MsgBag = MsgBag.c_str();
+		nJson["STATUS"]["MsgLimit"].get_to(MsgLimit);
+		EventTrade.MsgLimit = MsgLimit.c_str();
 
 		//NPC1
 		nJson["NPC1"]["TradeLimit"].get_to(EventTrade.NPC1.TradeLimit);

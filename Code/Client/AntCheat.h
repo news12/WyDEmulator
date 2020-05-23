@@ -23,6 +23,7 @@ void I_Scan();
 void Injetado();
 void Msg_I_Br();
 void Dll_Inject();
+void DetectID();
 //void AntiInject();
 //BOOLEAN BlockAPI(HANDLE hProcess, CHAR* libName, CHAR* apiName);
 

@@ -149,7 +149,7 @@ rProcess:
 
 		if (!GetSlotsVagoBag(a_iConn))
 		{
-			sprintf(temp, EventTrade.MsgBag.c_str());
+			sprintf(temp, EventTrade.MsgBag);
 			SendSay(a_iTarget, temp);
 			SendCarry(a_iConn);
 			return;
@@ -172,7 +172,7 @@ rProcess:
 
 		PutItem(a_iConn, &itemReceiv);
 
-		sprintf(temp, "!Parabens voce recebeu [%s] no evento de troca", g_pItemList[itemReceiv.sIndex].Name);
+		sprintf(temp, "Parabens voce recebeu [%s] no evento de troca", g_pItemList[itemReceiv.sIndex].Name);
 		SendSay(a_iTarget, temp);
 
 		sprintf(temp, "itens,event trade :%s item:%d", pMob[a_iConn].MOB.MobName, itemReceiv.sIndex);
@@ -183,7 +183,7 @@ rProcess:
 		
 	SendCarry(a_iConn);
 
-		sprintf(temp, EventTrade.MsgErr.c_str(), g_pItemList[idItem].Name);
+		sprintf(temp, EventTrade.MsgErr, g_pItemList[idItem].Name);
 		SendSay(a_iTarget, temp);
 		return;
 
@@ -210,7 +210,7 @@ void NTask_StartEventTrade()
 				GenerateMob(i, 0, 0);
 			}
 
-			sprintf(temp, EventTrade.MSGStart.c_str());
+			sprintf(temp, EventTrade.MSGStart);
 			SendNotice(temp);
 			
 		}
@@ -229,7 +229,7 @@ void NTask_StartEventTrade()
 				}
 			}
 
-			sprintf(temp, EventTrade.MSGEnd.c_str());
+			sprintf(temp, EventTrade.MSGEnd);
 			SendNotice(temp);
 
 		}

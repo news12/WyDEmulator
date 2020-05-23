@@ -21,7 +21,7 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 		return;
 	}
 		
-	/*if (Size < sizeof(MSG_AccountLogin) || m->ClientVersion != ClientVersion)
+	if (Size < sizeof(MSG_AccountLogin) || m->ClientVersion != ClientVersion)
 	{
 		sprintf(temp, g_pMessageStringTable[_NN_Version_Not_Match_Rerun], APP_VERSION);
 		SendClientMsg(conn, temp);
@@ -30,7 +30,7 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 
 		CloseUser(conn);
 		return;
-	}*/
+	}
 			
 	if(pUser[conn].Mode != USER_ACCEPT)
 	{

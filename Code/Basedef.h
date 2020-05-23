@@ -116,7 +116,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_SHUTDOWNNP 9050
 
 
-#define		APP_VERSION				1003
+#define		APP_VERSION				1025
 
 #define		GAME_PORT				8281	  // Game server listening port, client connects to it
 #define		DB_PORT					7514      // DB server listening port, Game server connects to it
@@ -3168,12 +3168,12 @@ struct STRUCT_EVENT_TRADE
 	int MinStart;
 	int HourEnd;
 	int MinEnd;
-	std::string MSGStart;
-	std::string MSGEnd;
-	std::string MSG;
-	std::string MsgErr;
-	std::string MsgBag;
-	std::string MsgLimit;
+	const char* MSGStart;
+	const char* MSGEnd;
+	const char* MSG;
+	const char* MsgErr;
+	const char* MsgBag;
+	const char* MsgLimit;
 	STRUCT_NPC_TRADE NPC1;
 	STRUCT_NPC_TRADE NPC2;
 	STRUCT_NPC_TRADE NPC3;

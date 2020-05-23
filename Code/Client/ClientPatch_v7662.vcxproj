@@ -26,6 +26,7 @@
     <ClCompile Include="client_handler.cpp" />
     <ClCompile Include="client_receiver.cpp" />
     <ClCompile Include="client_sended.cpp" />
+    <ClCompile Include="Detecta_ProcessID.cpp" />
     <ClCompile Include="GetItemAbilityEsferas.cpp" />
     <ClCompile Include="GreenTime.cpp" />
     <ClCompile Include="hooknaked.cpp" />
@@ -114,6 +115,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.dll</TargetExt>
+    <OutDir>..\..\..\ClientAlpha</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,6 +151,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

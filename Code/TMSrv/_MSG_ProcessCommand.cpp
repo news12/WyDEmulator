@@ -520,7 +520,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			for (int j = 0; j < MAX_EQUIP; j++)
 				SendItem(a_iConn, 0, j, &pMob[a_iConn].MOB.Equip[j]);
 		}
-		//fin set
+		//fim set
 		else if (!strcmp(cmd, "ban"))
 		{
 			int tid = GetUserByName(sval2);
@@ -536,21 +536,47 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				SendClientMsg(a_iConn, "Can't find user.");
 				return;
 			}
-			if (!strcmp(sval1, "3horas"))
+			else if (!strcmp(sval1, "3horas"))
 			{
 				SendBanAccount(tid, Banned::Tempo3horas);
 				return;
 			}
-			if (!strcmp(sval1, "3dias"))
+			else if (!strcmp(sval1, "3dias"))
 			{
 				SendBanAccount(tid, Banned::Tempo3dias);
 				return;
 			}
-			if (!strcmp(sval1, "7dias"))
+			else if (!strcmp(sval1, "7dias"))
 			{
 				SendBanAccount(tid, Banned::Tempo7dias);
 				return;
 			}
+			else if (!strcmp(sval1, "15dias"))
+			{
+				SendBanAccount(tid, Banned::Tempo15dias);
+				return;
+			}
+			else if (!strcmp(sval1, "30dias"))
+			{
+				SendBanAccount(tid, Banned::Tempo30dias);
+				return;
+			}
+			else if (!strcmp(sval1, "permanente"))
+			{
+				SendBanAccount(tid, Banned::Permanente);
+				return;
+			}
+			else if (!strcmp(sval1, "mac"))
+			{
+				SendBanAccount(tid, Banned::Mac);
+				return;
+			}
+			else if (!strcmp(sval1, "analise"))
+			{
+				SendBanAccount(tid, Banned::Analise);
+				return;
+			}
+
 			return;
 		}
 		else if (!strcmp(cmd, "gfame"))

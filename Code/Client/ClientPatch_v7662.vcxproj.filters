@@ -92,6 +92,9 @@
     <ClCompile Include="BaseCli.cpp">
       <Filter>Base</Filter>
     </ClCompile>
+    <ClCompile Include="Detecta_ProcessID.cpp">
+      <Filter>Source Files\AntCheat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
