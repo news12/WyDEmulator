@@ -3703,35 +3703,41 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 			if (MOB.Equip[0].sIndex == 22 && IsWolf != 0)
 			{
-				DamAdd = 10;
-				//RegAdd += 15;
+				DamAdd = 20;
+				RegAdd = 5;
 				Critical += 5;
 			}
 			else if (MOB.Equip[0].sIndex == 23 && IsBear != 0)
 			{
 				HpAdd = 10;
-				RegAdd += 20;//Old 30
-				AttAdd += 20;
+				RegAdd = 20;//Old 30
+				AttAdd = 20;
 			}
 			else if (MOB.Equip[0].sIndex == 24 && IsAsta != 0)
 			{
 				DamAdd = 10;
 				AcAdd = 5;
 				HpAdd = 5;
-				RegAdd += 20;//15
-				AttAdd += 20;
+				RegAdd = 15;//15
+				AttAdd = 20;
 			}
 			//Titan
 			else if (MOB.Equip[0].sIndex == 25)
-				AttAdd += 35;
+			{
+				AttAdd = 10;
+				AcAdd = 20;
+				HpAdd = 5;
+				RegAdd = 20;
+			}
 			//Eden
 			else if (MOB.Equip[0].sIndex == 32)
 			{
-				DamAdd = 20;
+				DamAdd = 15;
 				AcAdd = 5;
 				HpAdd = 10;
-				RegAdd += 10;
-				AttAdd += 25;
+				RegAdd = 10;
+				AttAdd = 25;
+				Critical += 5;
 			}
 
 			int sanc = (special3 + (Extra->ClassMaster != ARCH && Extra->ClassMaster != MORTAL ? MOB.CurrentScore.Level + MAX_LEVEL : MOB.CurrentScore.Level) * 2) / 3;

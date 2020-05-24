@@ -98,7 +98,7 @@ void MacroOnline(int ClientID)
 	}
 	else
 	{
-		Sleep(4000);
+		Sleep(3000);
 		AtiveMacroPerga((int)ClientID);
 	}
 	
