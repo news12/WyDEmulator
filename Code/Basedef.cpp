@@ -3543,6 +3543,9 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 		{
 			int value = Affect[i].Level * 3 / 4 + Affect[i].Value;
 
+			if (Extra->ClassMaster == ARCH || Extra->ClassMaster != MORTAL)
+				value *= 2;
+
 			if (Extra->ClassMaster != ARCH && Extra->ClassMaster != MORTAL)
 				value *= 3;
 

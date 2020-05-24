@@ -3097,8 +3097,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 			else
 				deltaexp /= 6;
 
-			if (killed_clan == 7 && killer_clan == 8 || killed_clan == 8 && killer_clan == 7)
-				SameClan = 1;
+			//desativado verificação de reino pra perca de cp
+			//if (killed_clan == 7 && killer_clan == 8 || killed_clan == 8 && killer_clan == 7)
+			//	SameClan = 1;
 
 			int killed_guild = pMob[target].MOB.Guild;
 			int killer_guild = pMob[a_iConn].MOB.Guild;
@@ -3125,7 +3126,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 		int village = BASE_GetVillage(pMob[target].TargetX, pMob[target].TargetY);
 		int ZoneUnk = 0;
 
-		if (killed_x == 1 && killed_y == 31)
+		if (killed_x == 1 && killed_y == 31 /*|| killed_x == 19 && killed_y == 30*/)
 			ZoneUnk = 1;
 
 		if (arena != 5 || village != 5 || ZoneUnk)
@@ -3211,7 +3212,12 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 #pragma region Perca de CP
 			else
 			{
-				if (AtWar == 0)
+				int ZoneUnk = 0;
+
+				if (killed_x == 1 && killed_y == 31 || killed_x == 19 && killed_y == 30)
+					ZoneUnk = 1;
+
+				if (AtWar == 0 || !ZoneUnk)
 				{
 					int LostPk = 3 * killed_pkpoint / -25;
 

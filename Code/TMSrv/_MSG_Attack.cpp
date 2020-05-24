@@ -427,7 +427,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			continue;
 		}
 
-		if (a_iConn != idx && a_iConn > 0 && a_iConn < MAX_USER && idx > 0 && idx < MAX_USER && CastleState == 0 && GTorreState == 0 && NewbieEventServer == 0)
+		/*if (a_iConn != idx && a_iConn > 0 && a_iConn < MAX_USER && idx > 0 && idx < MAX_USER && CastleState == 0 && GTorreState == 0 && NewbieEventServer == 0)
 		{
 			int AttackerPK = pUser[a_iConn].PKMode;
 			int TargetPK = pUser[idx].PKMode;
@@ -441,7 +441,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				m->Dam[i].Damage = 0;
 				continue;
 			}
-		}
+		}*/
 
 #pragma region Ataque físico
 		if (dam == -2)
@@ -1795,7 +1795,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			if (CastleState != 0 && mapX == 8 && mapY == 13)
 				isWar = 1;
 
-			if (mapX == 1 && mapY == 31)
+			if (mapX == 1 && mapY == 31 || mapX == 19 && mapY == 30)//define o mapa que o jogador vai ficar pk
 				MapPK = 1;
 
 
