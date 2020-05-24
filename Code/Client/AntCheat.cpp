@@ -157,7 +157,7 @@ void I_Scan()
 again:
 	I_loop();
 	DetectID();
-	Sleep(20000);
+	Sleep(10000);
 	goto again;
 }
 
@@ -230,7 +230,7 @@ void W_Scan()
 {
 again:
 	TitleCheckWindow();
-	initialize();
+	//dectMaqVirtual();
 	Sleep(1000);
 	goto again;
 }
@@ -273,6 +273,81 @@ bool IsInsideVPC()
 	__except (IsInsideVPC_exceptionFilter(GetExceptionInformation()))
 	{
 	}
+
+	return rc;
+}
+
+void AllToUpper(char* str, unsigned long len)
+{
+	for (unsigned long c = 0; c < len; c++)
+	{
+		if (str[c] >= 'a' && str[c] <= 'z')
+		{
+			str[c] -= 32;
+		}
+	}
+}
+
+unsigned char* ScanDataForString(unsigned char* data, unsigned long data_length, unsigned char* string2)
+{
+	unsigned long string_length = strlen((char*)string2);
+	for (unsigned long i = 0; i <= (data_length - string_length); i++)
+	{
+		if (strncmp((char*)(&data[i]), (char*)string2, string_length) == 0) return &data[i];
+	}
+	return 0;
+}
+
+bool isVBoxBios()
+{
+	HKEY hk = 0;
+	int ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Services\\mssmbios\\data", 0, KEY_ALL_ACCESS, &hk);
+	if (ret == ERROR_SUCCESS)
+	{
+		unsigned long type = 0;
+		unsigned long length = 0;
+		ret = RegQueryValueEx(hk, "SMBiosData", 0, &type, 0, &length);
+		if (ret == ERROR_SUCCESS)
+		{
+			if (length)
+			{
+				char* p = (char*)LocalAlloc(LMEM_ZEROINIT, length);
+				if (p)
+				{
+					ret = RegQueryValueEx(hk, "SMBiosData", 0, &type, (unsigned char*)p, &length);
+					if (ret == ERROR_SUCCESS)
+					{
+						AllToUpper(p, length);
+						unsigned char* x1 = ScanDataForString((unsigned char*)p, length, (unsigned char*)"INNOTEK GMBH");
+						unsigned char* x2 = ScanDataForString((unsigned char*)p, length, (unsigned char*)"VIRTUALBOX");
+						unsigned char* x3 = ScanDataForString((unsigned char*)p, length, (unsigned char*)"SUN MICROSYSTEMS");
+						unsigned char* x4 = ScanDataForString((unsigned char*)p, length, (unsigned char*)"VIRTUAL MACHINE");
+						unsigned char* x5 = ScanDataForString((unsigned char*)p, length, (unsigned char*)"VBOXVER");
+						if (x1 || x2 || x3 || x4 || x5)
+						{
+							return true;
+						}
+					}
+					LocalFree(p);
+				}
+			}
+		}
+		RegCloseKey(hk);
+	}
+	return false;
+}
+
+bool isInsideVBox()
+{
+	bool rc = false;
+	HKEY HK = 0;
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\ACPI\\DSDT\\VBOX__", 0, KEY_READ, &HK) == ERROR_SUCCESS)
+	{
+	//	MessageBox(0, "VirtualBox detected", "waliedassar", 0);
+		rc = true;
+	}
+
+
 
 	return rc;
 }

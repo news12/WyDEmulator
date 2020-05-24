@@ -8941,18 +8941,42 @@ void TransferGroup(int conn, int trans)
 		{
 			int novolider = 0;
 
+			if (trans)
+			{
+				novolider = trans;
+				int first;
+				int connFirst;
+				int newLider;
+				for (size_t nn = 0; nn < MAX_PARTY; nn++)
+				{
+					int partyconn = pMob[conn].PartyList[nn];
+
+					if (partyconn > 0 && partyconn <= MAX_MOB)
+					{
+
+						if (nn == 0)
+						{
+							first = nn;
+							connFirst = partyconn;
+						}
+					
+						if (partyconn == novolider)
+							newLider = nn;
+					
+					}
+				}
+
+				pMob[conn].PartyList[first] = novolider;
+				pMob[conn].PartyList[newLider] = connFirst;
+			}
+
 			for (int i = 0; i < MAX_PARTY; i++)
 			{
 				int partyconn = pMob[conn].PartyList[i];
 
 				if (partyconn != 0 && partyconn < MAX_USER)
 				{
-					novolider = partyconn;
-
-					if (trans)
-					{
-						novolider = trans;
-					}
+					//novolider = partyconn;
 
 					for (int s = 0; s < 7; s++)
 					{

@@ -39,7 +39,7 @@ int __stdcall DllMain(HINSTANCE hInstDLL, DWORD catchReason, LPVOID lpResrv)
 			Dll_Inject();
 			TitleCheckWindow();
 			YProtectionMain();
-			initialize();
+			//initialize();
 			DisableThreadLibraryCalls(hInstDLL);
 
 			if (lpResrv == nullptr) // Dynamic Load

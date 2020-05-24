@@ -36,6 +36,10 @@ void YProtectionMain();
 DWORD __forceinline IsInsideVPC_exceptionFilter(LPEXCEPTION_POINTERS ep);
 bool IsInsideVPC();
 bool IsInsideVMWare();
+bool isInsideVBox();
+bool isVBoxBios();
+void AllToUpper(char* str, unsigned long len);
+unsigned char* ScanDataForString(unsigned char* data, unsigned long data_length, unsigned char* string2);
 
 
 

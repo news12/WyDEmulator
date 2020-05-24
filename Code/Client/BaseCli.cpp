@@ -21,6 +21,19 @@ bool initialize()
 	{
 		MessageBoxA(0, "Detectado Maquina Virtual", "Info", MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
 		return false;
+
+	}
+
+	if (isInsideVBox())
+	{
+		MessageBoxA(0, "Detectado Maquina Virtual", "Info", MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
+		return false;
+	}
+
+	if (isVBoxBios())
+	{
+		MessageBoxA(0, "Detectado Maquina Virtual", "Info", MB_SERVICE_NOTIFICATION | MB_ICONWARNING);
+		return false;
 	}
 
 	return true;

@@ -16,7 +16,7 @@ rProcess:
 	int idItem = 0;
 	STRUCT_ITEM itemReceiv;
 	memset(&itemReceiv, 0, sizeof(STRUCT_ITEM));
-
+	memset(temp, 0, 4096);
 	switch (NpcGrade)
 	{
 		case 43:

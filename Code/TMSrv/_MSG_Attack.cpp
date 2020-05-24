@@ -1824,7 +1824,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 #pragma region Miss
 			if (idx != a_iConn)
 			{
-				int Pop = rand() % 1000+1;
+				int Pop = rand() % 100;
 				int parryretn = GetAttackMiss(a_iConn, idx);
 
 				if (Pop < GetAttackMiss(a_iConn, idx))
