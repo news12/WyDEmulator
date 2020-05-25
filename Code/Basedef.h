@@ -59,6 +59,7 @@ enum Banned
 	Permanente,
 	Analise,
 	Mac,
+	Ativa,
 };
 enum { _Max_Recycle_Bin_ = 10 };
 
@@ -112,6 +113,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_AUTO_EVENT 921
 #define IDC_READ_SOMBRA_NEGRA 922
 #define IDC_READ_EVENT_TRADE 923
+#define IDC_READ_COLISEU 940
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -464,7 +466,7 @@ typedef struct
 {
 	uint16_t min, hora, dia, mes, ano;
 
-	uint16_t Permanente, Analyze;
+	uint16_t Permanente, Analyze, Ativa;
 
 	char Grade[102];
 
@@ -3168,12 +3170,12 @@ struct STRUCT_EVENT_TRADE
 	int MinStart;
 	int HourEnd;
 	int MinEnd;
-	const char* MSGStart;
-	const char* MSGEnd;
-	const char* MSG;
-	const char* MsgErr;
-	const char* MsgBag;
-	const char* MsgLimit;
+	std::string MSGStart;
+	std::string MSGEnd;
+	std::string MSG;
+	std::string MsgErr;
+	std::string MsgBag;
+	std::string MsgLimit;
 	STRUCT_NPC_TRADE NPC1;
 	STRUCT_NPC_TRADE NPC2;
 	STRUCT_NPC_TRADE NPC3;
@@ -3181,6 +3183,20 @@ struct STRUCT_EVENT_TRADE
 	STRUCT_NPC_TRADE NPC5;
 	BOOL started;
 };
+
+struct STRUCT_COLISEU
+{
+	DWORD Days[7];
+	DWORD Hour[2];
+	DWORD Min[2];
+	int Item;
+};
+struct STRUCT_AUTOBAN
+{
+	std::string BanTye;
+	BOOL Status;
+};
+extern STRUCT_COLISEU nColiseu[3];
 extern STRUCT_EVENT_TRADE EventTrade;
 extern STRUCT_STATUS_BOSS statusSombraNegra;
 extern STRUCT_SOMBRA_NEGRA bSombraNegra;
@@ -3244,6 +3260,9 @@ extern int countAltarDec;
 extern STRUCT_ITEM sbagWarrior[6];
 extern short RandTorreRed[4][2];
 extern short RandTorreBlue[4][2];
+extern STRUCT_AUTOBAN autoBan;
+extern const std::string PATH_BAN;
+extern const std::string PATH_AUTO_BAN;
 #pragma endregion
 
 #endif

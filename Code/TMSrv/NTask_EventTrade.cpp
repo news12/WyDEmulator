@@ -16,7 +16,7 @@ rProcess:
 	int idItem = 0;
 	STRUCT_ITEM itemReceiv;
 	memset(&itemReceiv, 0, sizeof(STRUCT_ITEM));
-	memset(temp, 0, 4096);
+	//memset(temp, 0, 4096);
 	switch (NpcGrade)
 	{
 		case 43:
@@ -149,8 +149,8 @@ rProcess:
 
 		if (!GetSlotsVagoBag(a_iConn))
 		{
-			sprintf(temp, EventTrade.MsgBag);
-			SendSay(a_iTarget, temp);
+			//sprintf(temp, EventTrade.MsgBag);
+			SendSay(a_iTarget, strFmt(EventTrade.MsgBag.c_str()));
 			SendCarry(a_iConn);
 			return;
 		}
@@ -173,7 +173,8 @@ rProcess:
 		PutItem(a_iConn, &itemReceiv);
 
 		sprintf(temp, "Parabens voce recebeu [%s] no evento de troca", g_pItemList[itemReceiv.sIndex].Name);
-		SendSay(a_iTarget, temp);
+		//SendSay(a_iTarget, temp);
+		SendMsgExp(a_iConn, temp, TNColor::CornflowerBlue, false);
 
 		sprintf(temp, "itens,event trade :%s item:%d", pMob[a_iConn].MOB.MobName, itemReceiv.sIndex);
 		MyLog(LogType::Itens, temp, 0, 0, pUser[a_iConn].IP);
@@ -183,8 +184,8 @@ rProcess:
 		
 	SendCarry(a_iConn);
 
-		sprintf(temp, EventTrade.MsgErr, g_pItemList[idItem].Name);
-		SendSay(a_iTarget, temp);
+		//sprintf(temp, EventTrade.MsgErr, g_pItemList[idItem].Name);
+		SendSay(a_iTarget, strFmt(EventTrade.MsgErr.c_str(), g_pItemList[idItem].Name));
 		return;
 
 
@@ -210,8 +211,8 @@ void NTask_StartEventTrade()
 				GenerateMob(i, 0, 0);
 			}
 
-			sprintf(temp, EventTrade.MSGStart);
-			SendNotice(temp);
+			//sprintf(temp, EventTrade.MSGStart);
+			SendNotice(strFmt(EventTrade.MSGStart.c_str()));
 			
 		}
 
@@ -229,8 +230,8 @@ void NTask_StartEventTrade()
 				}
 			}
 
-			sprintf(temp, EventTrade.MSGEnd);
-			SendNotice(temp);
+			//sprintf(temp, EventTrade.MSGEnd);
+			SendNotice(strFmt(EventTrade.MSGEnd.c_str()));
 
 		}
 	}

@@ -8,7 +8,7 @@ void SendRecycle(int conn);
 void SendQuest(int conn);
 void SendClientPac(int conn);
 void SendBanAccount(int conn, int type);
-int ReadBanMac(char* Mac);
+int ReadBanMac(char* Mac, int size);
 void SendHpMp(int conn);
 void SendNoticeChief(char *Message);
 void SendSummonChief();

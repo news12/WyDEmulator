@@ -139,6 +139,9 @@
     <Filter Include="Source Files\Packages\State Playing\Quest Subjects\EventTrade">
       <UniqueIdentifier>{bac25e7f-3c8f-4e07-be4e-f7c65dbdc49f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AutoBan">
+      <UniqueIdentifier>{9428c0d1-7322-4bf7-bf2b-a0533e042512}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -495,6 +498,9 @@
     <ClCompile Include="NTask_EventTrade.cpp">
       <Filter>Source Files\Packages\State Playing\Quest Subjects\EventTrade</Filter>
     </ClCompile>
+    <ClCompile Include="AutoBan.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -601,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="SombraNegra.h">
       <Filter>Header Files\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoBan.h">
+      <Filter>Header Files\AutoBan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

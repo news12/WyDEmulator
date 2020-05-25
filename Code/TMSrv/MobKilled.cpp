@@ -3117,6 +3117,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 			if (TowerStage != 0)
 				AtWar = 1;
+
+			if (StartAltarKing)
+				AtWar = 1;
 		}
 #pragma endregion
 
@@ -3217,7 +3220,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 				if (killed_x == 1 && killed_y == 31 || killed_x == 19 && killed_y == 30)
 					ZoneUnk = 1;
 
-				if (AtWar == 0 || !ZoneUnk)
+				if (AtWar == 0 && !ZoneUnk)
 				{
 					int LostPk = 3 * killed_pkpoint / -25;
 

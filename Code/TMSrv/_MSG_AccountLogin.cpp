@@ -58,16 +58,23 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 		memcpy(&BannedUser[conn], &BannedUser[conn], sizeof(AccountBanned));
 		auto account = &BannedUser[conn];
 
-		if (account->Permanente == TRUE)
+		if (account->Permanente)
 		{
 			SendClientMsg(conn, "Conta permanentemente. Entre em contato com o suporte para mais informações.");
 			pUser[conn].cSock.SendMessageA();
 			return;
 		}
 
-		if (account->Analyze == TRUE)
+		if (account->Analyze)
 		{
 			SendClientMsg(conn, "Estamos analizando a sua conta. Entre em contato com o suporte.");
+			pUser[conn].cSock.SendMessageA();
+			return;
+		}
+
+		if (account->Ativa)
+		{
+			SendClientMsg(conn, "Conta aguardando ativação por email.");
 			pUser[conn].cSock.SendMessageA();
 			return;
 		}
@@ -84,8 +91,16 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 		}
 		remove(strFmt("Ban/%s.bin", m->AccountName));
 	}
+	char arrayMac[20];
+	memcpy(arrayMac, m->AdapterName, sizeof(pUser[conn].Mac));
+	int tMac = ReadBanMac(arrayMac, sizeof(pUser[conn].Mac));
 
-	int tMac = 0;
+	if (tMac)
+	{
+		SendClientMsg(conn, strFmt("Esse computador foi banido, entre em contato com a Staff Eternal "));
+		pUser[conn].cSock.SendMessageA();
+		return;
+	}
 
 	if (m->Size < sizeof(MSG_AccountLogin))
 		memset(pUser[conn].Mac, 0xFF, sizeof(pUser[conn].Mac));

@@ -89,6 +89,7 @@ void ReadAutoEvent();
 void ReadSombraNegra();
 void WriteSombraNegra();
 void ReadEventTrade();
+void ReadColiseu();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);

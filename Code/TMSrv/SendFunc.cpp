@@ -1970,7 +1970,7 @@ char* strFmt(const char* str, ...)
 	return buffer;
 }
 
-int ReadBanMac(char* Mac)
+int ReadBanMac(char* Mac, int size)
 {
 	FILE* arq = NULL;
 	fopen_s(&arq, "Ban/Mac/MacList.txt", "r");
@@ -1980,26 +1980,28 @@ int ReadBanMac(char* Mac)
 		MessageBoxA(0, "Arquivo não encontrado", "Maclist.txt", 0);
 		ExitProcess(1);
 	}
+
+	Mac[size] = '\0';
 	char line[100];
 	memset(&line, 0, 100);
 
-	char mac[25];
-	memset(&mac, 0, 25);
+	char mac[20];
+	memset(&mac, 0, 20);
 
 	while ((fscanf(arq, "%[^\n]", line)) != EOF)
 	{
 		fgetc(arq);
 		sscanf(line, "%s", &mac);
-
+	
 		if (!strcmp(mac, Mac))
 		{
 			fclose(arq);
-			return 1;
+			return TRUE;
 		}
 	}
 
 	fclose(arq);
-	return -1;
+	return FALSE;
 }
 
 void SendBanAccount(int conn, int type)
@@ -2121,6 +2123,17 @@ void SendBanAccount(int conn, int type)
 		ban->Analyze = TRUE;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
+		break;
+	}
+
+	/* Ban Inativo */
+	case Banned::Ativa:
+	{
+
+		ban->Ativa = TRUE;
+		sprintf(temp, "!Conta [%s] Não foi ativada por email", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Inativo", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}

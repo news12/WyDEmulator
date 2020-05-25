@@ -48,6 +48,8 @@ namespace ConfigIni {
 		static int WriteAutoEvent(string path, string file);
 		static int ReadEventTrade(string path, string file);
 		static int WriteEventTrade(string path, string file);
+		static int ReadColiseu(string path, string file);
+		static int WriteColiseu(string path, string file);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
@@ -60,6 +62,8 @@ namespace ConfigIni {
 		static int WriteSombraNegra(string path, string file);
 		static int ReadStatusSombraNegra(string path, string file);
 		static int WriteStatusSombraNegra(string path, string file);
+		static int ReadAutoBan(string path, string file);
+		static int WriteAutoBan(string path, string file);
 
 	static	struct GroupServer
 		{

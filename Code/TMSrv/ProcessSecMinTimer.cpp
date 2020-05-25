@@ -1499,17 +1499,21 @@ lbl_PST1:
 		}
 #pragma endregion
 #pragma region Coliseu N - No PvP
-
-		if ((when.tm_hour == 11 || when.tm_hour == 19) && when.tm_min == 55 && !g_quests.Annoucement)
+		if (nColiseu[0].Days[when.tm_wday])
 		{
-			SendNotice("!O Coliseu {N} iniciará em 5 minutos. Acesse pelo NPC Xamã.");
 
-			g_quests.Annoucement = 1;
-		}
 
-		if ((when.tm_min == 10) && when.tm_sec == 0) // Reset Coliseu N
-		{
-			ClearMapa(27, 11);
+			if ((when.tm_hour == nColiseu[0].Hour[0] - 1 || when.tm_hour == nColiseu[0].Hour[1] - 1) && when.tm_min >= 55 && !g_quests.Annoucement)
+			{
+				SendNotice("!O Coliseu {N} iniciará em 5 minutos. Acesse pelo NPC Xamã.");
+
+				g_quests.Annoucement = 1;
+			}
+
+			if ((when.tm_min == 10) && when.tm_sec == 0) // Reset Coliseu N
+			{
+				ClearMapa(27, 11);
+			}
 		}
 #pragma endregion
 

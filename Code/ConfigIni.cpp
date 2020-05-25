@@ -27,6 +27,8 @@ STRUCT_aNOTICE autoNotice;
 STRUCT_SOMBRA_NEGRA bSombraNegra;
 STRUCT_STATUS_BOSS statusSombraNegra;
 STRUCT_EVENT_TRADE EventTrade;
+STRUCT_COLISEU nColiseu[];
+STRUCT_AUTOBAN autoBan;
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -103,6 +105,8 @@ const string PATH_EVENT_Trade = PATH_EVENTS + "NPCTrade/";
 const string PATH_NewNPC = "NewNPC/";
 const string PATH_NewBoss = "NewBoss/";
 const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
+const string PATH_BAN = "Ban/";
+const string PATH_AUTO_BAN = PATH_BAN + "AutoBan/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -1509,24 +1513,12 @@ int ConfigIni::nConfig::ReadEventTrade(string path, string file)
 		nJson["STATUS"]["MinStart"].get_to(EventTrade.MinStart);
 		nJson["STATUS"]["HourEnd"].get_to(EventTrade.HourEnd);
 		nJson["STATUS"]["MinEnd"].get_to(EventTrade.MinEnd);
-		string MSGStart;
-		string MSGEnd;
-		string MSG;
-		string MsgErr;
-		string MsgBag;
-		string MsgLimit;
-		nJson["STATUS"]["MSGStart"].get_to(MSGStart);
-		EventTrade.MSGStart = MSGStart.c_str();
-		nJson["STATUS"]["MSGEnd"].get_to(MSGEnd);
-		EventTrade.MSGEnd = MSGEnd.c_str();
-		nJson["STATUS"]["MSG"].get_to(MSG);
-		EventTrade.MSG = MSG.c_str();
-		nJson["STATUS"]["MsgErr"].get_to(MsgErr);
-		EventTrade.MsgErr = MsgErr.c_str();
-		nJson["STATUS"]["MsgBag"].get_to(MsgBag);
-		EventTrade.MsgBag = MsgBag.c_str();
-		nJson["STATUS"]["MsgLimit"].get_to(MsgLimit);
-		EventTrade.MsgLimit = MsgLimit.c_str();
+		nJson["STATUS"]["MSGStart"].get_to(EventTrade.MSGStart);
+		nJson["STATUS"]["MSGEnd"].get_to(EventTrade.MSGEnd);
+		nJson["STATUS"]["MSG"].get_to(EventTrade.MSG);
+		nJson["STATUS"]["MsgErr"].get_to(EventTrade.MsgErr);
+		nJson["STATUS"]["MsgBag"].get_to(EventTrade.MsgBag);
+		nJson["STATUS"]["MsgLimit"].get_to(EventTrade.MsgLimit);
 
 		//NPC1
 		nJson["NPC1"]["TradeLimit"].get_to(EventTrade.NPC1.TradeLimit);
@@ -1778,6 +1770,94 @@ int ConfigIni::nConfig::WriteEventTrade(string path, string file)
 					  }
 		}
 
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadColiseu(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteColiseu(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&nColiseu, 0, sizeof(STRUCT_COLISEU));
+
+		nJson["N"]["Days"].get_to(nColiseu[0].Days);
+		nJson["N"]["Hour"].get_to(nColiseu[0].Hour);
+		nJson["N"]["Min"].get_to(nColiseu[0].Min);
+		nJson["N"]["Item"].get_to(nColiseu[0].Item);
+
+		nJson["M"]["Days"].get_to(nColiseu[1].Days);
+		nJson["M"]["Hour"].get_to(nColiseu[1].Hour);
+		nJson["M"]["Min"].get_to(nColiseu[1].Min);
+		nJson["M"]["Item"].get_to(nColiseu[1].Item);
+
+		nJson["A"]["Days"].get_to(nColiseu[2].Days);
+		nJson["A"]["Hour"].get_to(nColiseu[2].Hour);
+		nJson["A"]["Min"].get_to(nColiseu[2].Min);
+		nJson["A"]["Item"].get_to(nColiseu[2].Item);
+		
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+
+}
+
+int ConfigIni::nConfig::WriteColiseu(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New coliseu.json
+	auto nJson = R"(
+{
+"N": {
+		"Days": [1,1,1,1,1,1,1],
+		"Hour": [12,20],
+		"Min": [0,0],
+		"Item": 3170
+	 },
+"M": {
+		"Days": [0,0,0,0,0,0,0],
+		"Hour": [12,20],
+		"Min": [0,0],
+		"Item": 0
+	 },
+"A": {
+		"Days": [0,0,0,0,0,0,0],
+		"Hour": [12,20],
+		"Min": [0,0],
+		"Item": 0
+	 }
 })"_json;
 
 #pragma endregion
@@ -2285,6 +2365,53 @@ int ConfigIni::nConfig::WriteStatusSombraNegra(string path, string file)
 		nJson["STATUS"]["HourKiled"] = statusSombraNegra.HourKiled;
 		nJson["STATUS"]["MinKiled"] = statusSombraNegra.MinKiled;
 
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadAutoBan(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) 
+		return FALSE;
+	
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&autoBan, 0, sizeof(STRUCT_AUTOBAN));
+		nJson["BAN"]["BanTye"].get_to(autoBan.BanTye);
+		nJson["BAN"]["Status"] = autoBan.Status;
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteAutoBan(string path, string file)
+{
+	std::string fullpath = path + file;
+
+	json nJson;
+	try
+	{
+		
+		nJson["BAN"]["BanTye"] = autoBan.BanTye;
+		nJson["BAN"]["Status"] = autoBan.Status;
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

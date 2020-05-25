@@ -576,6 +576,11 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 				SendBanAccount(tid, Banned::Analise);
 				return;
 			}
+			else if (!strcmp(sval1, "ativa"))
+			{
+				SendBanAccount(tid, Banned::Ativa);
+				return;
+			}
 
 			return;
 		}

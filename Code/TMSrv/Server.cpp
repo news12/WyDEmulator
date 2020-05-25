@@ -1072,6 +1072,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadColiseu()
+{
+	int status = nConfig::ReadColiseu(PATH_SETTINGS, "coliseu.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler coliseu", "FILE ERROR", NULL);
+}
+
 void ReadEventTrade()
 {
 	int status = nConfig::ReadEventTrade(PATH_EVENT_Trade, "tradeEvent.json");
@@ -4441,6 +4449,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadAutoEvent();
 	ReadSombraNegra();
 	ReadEventTrade();
+	ReadColiseu();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -5044,6 +5053,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_ALTAR_OF_KING, "&Load Altar Of King");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_AUTO_EVENT, "&Load Auto Event");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_EVENT_TRADE, "&Load Event Trade");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_COLISEU, "&Load Event Coliseu");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -5161,6 +5171,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_EVENT_TRADE:
 			ReadEventTrade();
+			break;
+
+		case IDC_READ_COLISEU:
+			ReadColiseu();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -8124,6 +8138,7 @@ int  GetEmptyNPCMob()
 
 	return 0;
 }
+
 
 int  GetUserByName(char *name)
 {

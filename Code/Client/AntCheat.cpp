@@ -115,6 +115,16 @@ void I_loop()
 		(GetModuleHandle("Hook756.dll")) ||
 		(GetModuleHandle("WHOOK.dll")) ||
 		(GetModuleHandle("whook756.dll")) ||
+		(GetModuleHandle("w1.dll")) ||
+		(GetModuleHandle("w2.dll")) ||
+		(GetModuleHandle("w3.dll")) ||
+		(GetModuleHandle("w4.dll")) ||
+		(GetModuleHandle("w5.dll")) ||
+		(GetModuleHandle("w6.dll")) ||
+		(GetModuleHandle("w7.dll")) ||
+		(GetModuleHandle("w8.dll")) ||
+		(GetModuleHandle("w9.dll")) ||
+		(GetModuleHandle("w10.dll")) ||
 		(GetModuleHandle("whook.dll"))
 		)
 	{
