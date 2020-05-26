@@ -53,6 +53,8 @@ namespace ConfigIni {
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
+		static int ReadFilterName(string path, string file);
+		static int WriteFilterName(string path, string file);
 	
 		//TM
 		static int ReadGameConfig(string path, string file);

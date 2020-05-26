@@ -23,6 +23,7 @@
 #include "AltarOfKing.h"
 #include "AutoEvent.h"
 #include "SombraNegra.h"
+#include "AutoBan.h"
 
 void ProcessSecTimer()
 {
@@ -784,11 +785,12 @@ lbl_PST1:
 	
 		}
 
-		//Guerra de Reinos
+		//Novas Funcoes
 		WarOfKingdom();
 		startKing();
 		fAutoNotice();
 		fAutoDouble();
+		ReadAutoBan();
 
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBoss, NULL, 0, 0);
 		NTask_StartEventTrade();

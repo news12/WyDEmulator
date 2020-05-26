@@ -125,10 +125,46 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 	/*if (strcmp(m->MobName, "rVemProEternal") == 0)
 	{
+		BOOL ativado = FALSE;
+		FILE* fs = nullptr;
+		memset(&NovatoEternal, 0, sizeof(novatoEternal));
+		fs = fopen(strFmt("Novato/%s.bin", pUser[a_iConn].AccountName), "rb");
+
+		if (fs)
+		{
+			fread(&NovatoEternal, 1, sizeof(novatoEternal), fs);
+			fclose(fs);
+			auto nNovato = &NovatoEternal;
+			ativado = nNovato->Ativo;
+		}
+		if (ativado)
+		{
+			sprintf(temp, "Esse evento já foi ativado na conta [%s]", pUser[a_iConn].AccountName);
+			SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
+			return;
+		}
 		sprintf(temp, "Evento liberado novamente para a Conta:  %s ", pUser[a_iConn].AccountName);
 		SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
-		nConfig::WriteEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal, FALSE);
-		pUser[a_iConn].VemProEternal = FALSE;
+		//nConfig::WriteEventsEternal(PATH_EVENT_VemProEternal, pUser[a_iConn].AccountName, VemProEternal, FALSE);
+		//pUser[a_iConn].VemProEternal = FALSE;
+
+		if (a_iConn < 0 || a_iConn > MAX_USER)
+			return;
+
+		std::ofstream outputFile(strFmt("Novato/%s.bin", pUser[a_iConn].AccountName),
+			std::ofstream::out | std::ofstream::binary);
+
+		if (outputFile.is_open())
+		{
+			novatoEternal temp;
+			std::memcpy(&temp, &NovatoEternal, sizeof(novatoEternal));
+			temp.Ativo = TRUE;
+			outputFile.write(reinterpret_cast<char*>(&temp), sizeof(novatoEternal));
+			outputFile.close();
+			return;
+		}
+
+	
 		return;
 	}*/
 	/*Evento VemProEternal*/

@@ -901,6 +901,26 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 			_strupr(check);
 
+			//Filtro de palavras
+			for (size_t i = 0; i < FilterName.TOTAL; i++)
+			{
+				if (!FilterName.ATIVO)
+					break;
+
+				std::string nFilter = check;
+				//for (auto& c : nFilter) c = toupper(c);
+				nConfig::findAndReplaceAll(nFilter, FilterName.NAME[i], "");
+				
+				if (strcmp(nFilter.c_str(), check))
+				{
+					Log("err,newchar - cmd name", pAccountList[Idx].File.Info.AccountName, 0);
+
+					SendDBSignal(conn, m->ID, _MSG_DBNewCharacterFail);
+
+					return FALSE;
+				}
+			}
+
 			if (strcmp(check, "KING") == 0 || strcmp(check, "KINGDOM") == 0 || strcmp(check, "GRITAR") == 0 || strcmp(check, "RELO") == 0)
 			{
 				Log("err,newchar - cmd name", pAccountList[Idx].File.Info.AccountName, 0);

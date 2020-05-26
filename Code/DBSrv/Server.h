@@ -14,10 +14,11 @@ int  SendAdminMessage(int svr, unsigned short id, char *message); // Last update
 int  SendAdminParm(int svr, unsigned short id, unsigned short signal, int parm); // Last update 15/01/2013
 int  SendAdminState(int svr, unsigned short id, unsigned short signal, char *pass); // Last updated 15/01/2013
 
-void ReadAdmin(); // Last updated 15/01/2013
+void ReadAdmin(); 
 int ReadBaseMob();
-int  ReadConfig(); // Last Updated 15/01/2013
-int  WriteConfig(); // Last updated 15/01/2013
+int  ReadConfig(); 
+int  WriteConfig(); 
+void ReadFilterName();
 
 int  ProcessAdminClientMessage(char *msg); // Last updated 15/01/2013 -
 void ProcessClientMessage(int conn, char *msg); // Last updated 15/01/2013

@@ -29,6 +29,7 @@ STRUCT_STATUS_BOSS statusSombraNegra;
 STRUCT_EVENT_TRADE EventTrade;
 STRUCT_COLISEU nColiseu[];
 STRUCT_AUTOBAN autoBan;
+STRUCT_FILTER FilterName;
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -107,6 +108,7 @@ const string PATH_NewBoss = "NewBoss/";
 const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
 const string PATH_BAN = "Ban/";
 const string PATH_AUTO_BAN = PATH_BAN + "AutoBan/";
+const string PATH_FILTER_NAME = "FilterName/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -2390,9 +2392,9 @@ int ConfigIni::nConfig::ReadAutoBan(string path, string file)
 		json nJson;
 		spath >> nJson;
 
-		memset(&autoBan, 0, sizeof(STRUCT_AUTOBAN));
-		nJson["BAN"]["BanTye"].get_to(autoBan.BanTye);
-		nJson["BAN"]["Status"] = autoBan.Status;
+		//memset(&autoBan, 0, sizeof(STRUCT_AUTOBAN));
+		nJson["BAN"]["BanType"].get_to(autoBan.BanType);
+		nJson["BAN"]["Status"].get_to(autoBan.Status);
 
 		return TRUE;
 	}
@@ -2410,7 +2412,7 @@ int ConfigIni::nConfig::WriteAutoBan(string path, string file)
 	try
 	{
 		
-		nJson["BAN"]["BanTye"] = autoBan.BanTye;
+		nJson["BAN"]["BanType"] = autoBan.BanType;
 		nJson["BAN"]["Status"] = autoBan.Status;
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
@@ -3300,7 +3302,7 @@ int nConfig::WriteConfigNews(std::string path, std::string file, int key)
 
 #pragma endregion
 
-#pragma region Config baseMob
+#pragma region DB
 int nConfig::ReadbaseMob(string path, string file, int key)
 {
 	char Class[4][2] = {
@@ -3452,6 +3454,93 @@ int nConfig::ReadbaseMob(string path, string file, int key)
 			g_MobBase[key].Resist[i] = skill[i];
 		}
 
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadFilterName(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteFilterName(PATH_FILTER_NAME, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		nJson["FILTER"]["ATIVO"].get_to(FilterName.ATIVO);
+		nJson["FILTER"]["TOTAL"].get_to(FilterName.TOTAL);
+		vector<string> nArray;
+		nJson["FILTER"]["NAME"].get_to(nArray);
+
+		for (size_t i = 0; i < FilterName.TOTAL; i++)
+		{
+			FilterName.NAME[i] = nArray[i];
+		}
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteFilterName(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New block.json
+	auto nJson = R"(
+{
+"FILTER": {
+		  "ATIVO": 0,
+		  "TOTAL": 20,
+		  "NAME":[
+					"ADM",
+					"GM",
+					"DEV",
+					"NEWSGAMES",
+					"ETERNAL",
+					"ADMIN",
+					"MOD",
+					"MODERADOR",
+					"GAMEMASTER",
+					"PROGRA",
+					"ANUS",
+					"ÂNUS",
+					"BUNDA",
+					"BUCETA",
+					"ANAL",
+					"PERERECA",
+					"PÊNIS",
+					"PENIS",
+					"PIRU",
+					"VAGINA"
+				 ]
+		  }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
 		return TRUE;
 	}
 	catch (const std::exception&)

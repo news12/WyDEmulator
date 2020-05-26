@@ -16,4 +16,3 @@
 #include "ProcessClientMessage.h"
 
 void ReadAutoBan();
-void WriteAutoBan();

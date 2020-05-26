@@ -458,7 +458,15 @@ int WriteConfig() {
 	return TRUE;
 
 }
+void ReadFilterName()
+{
+	if (!nConfig::ReadFilterName(PATH_FILTER_NAME, "block.json"))
+	{
 
+		MessageBox(hWndMain, "Erro ao ler Filters block.json", "FILE ERROR", NULL);
+		
+	};
+}
 
 int ReadBaseMob() {
 #pragma region Load Base Characters
@@ -589,6 +597,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	BASE_InitModuleDir();
     BASE_InitializeBaseDef();
 	ReadBaseMob();
+	ReadFilterName();
 	//ReadAdmin();
 
 
@@ -1288,7 +1297,8 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&File");
 
 			hSubMenu = CreatePopupMenu();
-			AppendMenu(hSubMenu, MF_STRING, IDC_SHUTDOWNNP, "&Reload MobBase");
+			AppendMenu(hSubMenu, MF_STRING, IDC_SHUTDOWNNP, "&Load MobBase");
+			AppendMenu(hSubMenu, MF_STRING, IDC_READ_FILTERNAME, "&Load Filter Name");
 			AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 			SetMenu(hWnd, hMenu);
@@ -1303,10 +1313,12 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			break;
 
 			case IDC_SHUTDOWNNP:
-			{
 				ReadBaseMob();
+			 break;
 
-			} break;
+			case IDC_READ_FILTERNAME:
+				ReadFilterName();
+				break;
 		}
 	} break;
 

@@ -1977,8 +1977,11 @@ int ReadBanMac(char* Mac, int size)
 
 	if (!arq)
 	{
-		MessageBoxA(0, "Arquivo não encontrado", "Maclist.txt", 0);
-		ExitProcess(1);
+		//MessageBoxA(0, "Arquivo não encontrado", "Maclist.txt", 0);
+		//ExitProcess(1);
+		sprintf(temp, "Erro a abrir MacList.txt");
+		MyLog(LogType::Banned, "Err, MacList.txt not found.", temp, 0, 0);
+		return FALSE;
 	}
 
 	Mac[size] = '\0';

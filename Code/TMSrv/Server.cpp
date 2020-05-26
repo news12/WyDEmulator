@@ -565,6 +565,7 @@ FILE *fLogFile = NULL;
 
 CPSock DBServerSocket;
 AccountBanned BannedUser[MAX_USER];
+novatoEternal NovatoEternal;
 
 unsigned int pAdminIP[MAX_ADMIN] = {0,};
 
@@ -7398,7 +7399,7 @@ void DecideWinner()
 void GuildProcess()
 {
 	time_t rawtime;
-	tm *timeinfo;
+	tm* timeinfo;
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
@@ -7406,9 +7407,9 @@ void GuildProcess()
 	if (timeinfo->tm_hour == 3 && GuildNameInitialized == 0)
 	{
 		BASE_InitializeGuildName();
-		
+
 		Log("sys,GuildName initialized", "-system", 0);
-		
+
 		GuildNameInitialized = 1;
 	}
 
@@ -7443,7 +7444,7 @@ void GuildProcess()
 			else
 			{
 				ClearAreaGuild(1036, 1672, 1144, 1764, g_pGuildZone[4].ChargeGuild);
-				
+
 				ClearAreaTeleport(1129, 1705, 1129, 1709, 1057, 1742);
 				ClearAreaTeleport(1116, 1705, 1116, 1709, 1057, 1742);
 				ClearAreaTeleport(1094, 1688, 1094, 1692, 1057, 1742);
@@ -7451,15 +7452,15 @@ void GuildProcess()
 				ClearAreaTeleport(1050, 1690, 1050, 1690, 1057, 1742);
 				ClearAreaTeleport(1046, 1690, 1047, 1691, 1057, 1742);
 				ClearAreaTeleport(1124, 1708, 1124, 1708, 1057, 1742);
-				
+
 				SetCastleDoor(3);
-				
+
 				for (int i = 0; i < 3; ++i)
 				{
 					GenerateMob(i + TORRE_NOATUM1, 0, 0);
 					LiveTower[i] = 1;
 				}
-				
+
 				sprintf(temp, g_pMessageStringTable[_DN_Castle_opened], timeinfo->tm_hour - 17);
 				SendNotice(temp);
 				CastleState = 2;
@@ -7470,7 +7471,7 @@ void GuildProcess()
 			sprintf(temp, g_pMessageStringTable[_DN_Castle_will_be_open], timeinfo->tm_hour - 17);
 			SendNotice(temp);
 			CastleState = 1;
-			
+
 			for (int j = 0; j < MAX_USER; j++)
 			{
 				if (pUser[j].Mode == USER_PLAY)
@@ -7503,7 +7504,7 @@ void GuildProcess()
 						BASE_ClearItem(&item);
 						item.sIndex = BRItem;
 
-						int create = CreateItem(2621, 1726, &item, rand()%4, 1);
+						int create = CreateItem(2621, 1726, &item, rand() % 4, 1);
 						sprintf(temp, "etc,britem created %d/%d", BRItem, create);
 						Log(temp, "-system", 0);
 					}
@@ -7557,7 +7558,7 @@ void GuildProcess()
 				}
 				else
 					SendNoticeArea(g_pMessageStringTable[_NN_BR_Ready3], 2580, 1708, 2665, 1765);
-				
+
 			}
 			else
 			{
@@ -7583,110 +7584,113 @@ void GuildProcess()
 		}
 	}
 
-//#ifdef Coliseu //indefinido
+	//#ifdef Coliseu //indefinido
 #pragma region Coliseu
-	if (timeinfo->tm_wday != 0 && timeinfo->tm_wday != 6 && timeinfo->tm_hour == 20)
+	if (nColiseu[0].Days[timeinfo->tm_wday])
 	{
-		if (ColoState == 0 && timeinfo->tm_hour == 20)
-		{
-			sprintf(temp, "Os portões do Coliseu será fechado em %d minutos.", 3);
-			SendNotice(temp);
-			ColoState = 1;
-		}
 
-		if (ColoState == 1 && timeinfo->tm_min >= 3)
-		{
-			SetColoseumDoor(3);
-			ColoState = 2;
 
-			if (timeinfo->tm_hour == 20)
+		if (timeinfo->tm_hour == nColiseu[0].Hour[0] || timeinfo->tm_hour == nColiseu[0].Hour[1])
+		{
+			if (ColoState == 0 && timeinfo->tm_min <= 5)
 			{
+				sprintf(temp, "Os portões do Coliseu será fechado em %d minutos.", timeinfo->tm_min);
+				SendNotice(temp);
+				ColoState = 1;
+			}
+
+			if (ColoState == 1 && timeinfo->tm_min > 5)
+			{
+				SetColoseumDoor(3);
+				ColoState = 2;
 				Colo150Limit = 1;
 				ClearAreaLevel(2604, 1708, 2648, 1744, 150, 400);
+			
 			}
-		}
 
-		if (ColoState == 2 && timeinfo->tm_min >= 4)
-		{
-			if (timeinfo->tm_hour == 20)
-				GenerateColoseum(0);
-			else
-				GenerateColoseum(5);
-			ColoState = 3;
-		}
-
-		if (ColoState == 3 && timeinfo->tm_min >= 5)
-		{
-			SetColoseumDoor2(1);
-			ColoState = 4;
-		}
-
-		if (ColoState == 4 && timeinfo->tm_min >= 7)
-		{
-			if (timeinfo->tm_hour == 20)
-				GenerateColoseum(1);
-
-			else
-				GenerateColoseum(6);
-
-			ColoState = 5;
-		}
-
-		if (ColoState == 5 && timeinfo->tm_min >= 9)
-		{
-			if (timeinfo->tm_hour == 20)
+			if (ColoState == 2 && timeinfo->tm_min >= 6)
 			{
-				GenerateColoseum(0);
-				GenerateColoseum(1);
-			}
-			else
-			{
-				GenerateColoseum(5);
-				GenerateColoseum(6);
-			}
-			ColoState = 6;
-		}
+				if (timeinfo->tm_hour == nColiseu[0].Hour[0])
+					GenerateColoseum(0);
+				else if (timeinfo->tm_hour == nColiseu[0].Hour[1])
+					GenerateColoseum(5);
 
-		if (ColoState == 6 && timeinfo->tm_min >= 11)
-		{
-			if (timeinfo->tm_hour == 20)
-			{
-				GenerateColoseum(1);
-				GenerateColoseum(2);
+				ColoState = 3;
 			}
-			else
-			{
-				GenerateColoseum(6);
-				GenerateColoseum(7);
-			}
-			ColoState = 7;
-		}
 
-		if (ColoState == 7 && timeinfo->tm_min >= 13)
-		{
-			if (timeinfo->tm_hour == 20)
+			if (ColoState == 3 && timeinfo->tm_min >= 7)
 			{
-				GenerateColoseum(1);
-				GenerateColoseum(2);
+				SetColoseumDoor2(1);
+				ColoState = 4;
 			}
-			else
+
+			if (ColoState == 4 && timeinfo->tm_min >= 8)
 			{
-				GenerateColoseum(6);
-				GenerateColoseum(7);
+				if (timeinfo->tm_hour == nColiseu[0].Hour[0])
+					GenerateColoseum(1);
+
+				else if (timeinfo->tm_hour == nColiseu[0].Hour[1])
+					GenerateColoseum(6);
+
+				ColoState = 5;
 			}
-			ColoState = 8;
-		}
 
-		if (ColoState == 8 && timeinfo->tm_min >= 15)
-		{
-			SetColoseumDoor(1);
-			SetColoseumDoor2(2);
-			DeleteColoseum();
-			ColoState = 9;
-			Colo150Limit = 0;
-			ClearArea(2604, 1708, 2648, 1744);
-		}
+			if (ColoState == 5 && timeinfo->tm_min >= 9)
+			{
+				if (timeinfo->tm_hour == nColiseu[0].Hour[0])
+				{
+					GenerateColoseum(0);
+					GenerateColoseum(1);
+				}
+				else if (timeinfo->tm_hour == nColiseu[0].Hour[1])
+				{
+					GenerateColoseum(5);
+					GenerateColoseum(6);
+				}
+				ColoState = 6;
+			}
 
+			if (ColoState == 6 && timeinfo->tm_min >= 11)
+			{
+				if (timeinfo->tm_hour == nColiseu[0].Hour[0])
+				{
+					GenerateColoseum(1);
+					GenerateColoseum(2);
+				}
+				else if (timeinfo->tm_hour == nColiseu[0].Hour[1])
+				{
+					GenerateColoseum(6);
+					GenerateColoseum(7);
+				}
+				ColoState = 7;
+			}
+
+			if (ColoState == 7 && timeinfo->tm_min >= 13)
+			{
+				if (timeinfo->tm_hour == nColiseu[0].Hour[0])
+				{
+					GenerateColoseum(1);
+					GenerateColoseum(2);
+				}
+				else if (timeinfo->tm_hour == nColiseu[0].Hour[1])
+				{
+					GenerateColoseum(6);
+					GenerateColoseum(7);
+				}
+				ColoState = 8;
+			}
+
+			if (ColoState == 8 && timeinfo->tm_min >= 15)
+			{
+				SetColoseumDoor(1);
+				SetColoseumDoor2(2);
+				DeleteColoseum();
+				ColoState = 9;
+				Colo150Limit = 0;
+				ClearArea(2604, 1708, 2648, 1744);
+			}
+
+		}
 	}
 
 #pragma endregion

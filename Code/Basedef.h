@@ -114,6 +114,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_SOMBRA_NEGRA 922
 #define IDC_READ_EVENT_TRADE 923
 #define IDC_READ_COLISEU 940
+#define IDC_READ_FILTERNAME 941
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -471,6 +472,14 @@ typedef struct
 	char Grade[102];
 
 }AccountBanned;
+
+typedef struct
+{
+	uint16_t Ativo;
+
+}novatoEternal;
+
+extern novatoEternal NovatoEternal;
 
 struct STRUCT_ITEM
 {
@@ -3193,9 +3202,18 @@ struct STRUCT_COLISEU
 };
 struct STRUCT_AUTOBAN
 {
-	std::string BanTye;
+	std::string BanType;
 	BOOL Status;
 };
+#define MAX_FILTER_NAME 100
+struct STRUCT_FILTER
+{
+	BOOL ATIVO;
+	int TOTAL;
+	std::string NAME[MAX_FILTER_NAME];
+
+};
+extern STRUCT_FILTER FilterName;
 extern STRUCT_COLISEU nColiseu[3];
 extern STRUCT_EVENT_TRADE EventTrade;
 extern STRUCT_STATUS_BOSS statusSombraNegra;
@@ -3263,6 +3281,7 @@ extern short RandTorreBlue[4][2];
 extern STRUCT_AUTOBAN autoBan;
 extern const std::string PATH_BAN;
 extern const std::string PATH_AUTO_BAN;
+extern const std::string PATH_FILTER_NAME;
 #pragma endregion
 
 #endif
