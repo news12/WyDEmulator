@@ -1026,6 +1026,12 @@ int GetTeleportPosition(int conn, int *x, int *y)
 		*y = 1981 + rand() % 3;
 	}
 
+	else if (xv == 1724 && yv == 1980)//RvR To Noatum
+	{
+		*x = 1058 + rand() % 3;
+		*y = 1728 + rand() % 3;
+	}
+
 	else if (xv == 1056 && yv == 1724) // Noatum to RvR - Deserto
 	{
 		if (!g_pRvrWar.Status)

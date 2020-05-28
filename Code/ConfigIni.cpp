@@ -12,6 +12,7 @@
 using namespace std;
 using ConfigIni::nConfig;
 using json = nlohmann::json;
+STRUCT_STAFF_ETERNAL StaffEternal;
 STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
 STRUCT_EVENTS eEvents;
@@ -109,6 +110,7 @@ const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
 const string PATH_BAN = "Ban/";
 const string PATH_AUTO_BAN = PATH_BAN + "AutoBan/";
 const string PATH_FILTER_NAME = "FilterName/";
+const string PATH_ADM = "Staff/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -2414,6 +2416,72 @@ int ConfigIni::nConfig::WriteAutoBan(string path, string file)
 		
 		nJson["BAN"]["BanType"] = autoBan.BanType;
 		nJson["BAN"]["Status"] = autoBan.Status;
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadStaff(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteStaff(PATH_ADM, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&StaffEternal, 0, sizeof(STRUCT_STAFF_ETERNAL));
+
+		nJson["STAFF"]["DEV"].get_to(StaffEternal.DEV);
+		nJson["STAFF"]["ADM"].get_to(StaffEternal.ADM);
+		nJson["STAFF"]["GM"].get_to(StaffEternal.GM);
+		
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteStaff(string path, string file)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New staffList.json
+	auto nJson = R"(
+{
+"STAFF": {
+		"DEV": ["DEV-NEWS","DEV-NUNES"],
+		"ADM": ["ADM-SKY","ADM-NUNES","ADM-NEWS"],
+		"GM": ["","",""]
+		}
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+
+		nJson["STAFF"]["DEV"] = StaffEternal.DEV;
+		nJson["STAFF"]["ADM"] = StaffEternal.ADM;
+		nJson["STAFF"]["GM"] = StaffEternal.GM;
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

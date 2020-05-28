@@ -77,12 +77,12 @@ ExitProcess(0);
 	
 //DETECTOR - Protect 5 hex from address start point
   //((*(unsigned short*)0xADDRESS != BUFFER)
-if ((*(unsigned short*)0x27871B8 != 53) ||
+if ((*(unsigned short*)0x27871B8 != 31313) ||
  // (*(unsigned short*)0x449081 != 29537) || 
  // (*(unsigned short*)0x449081 != 29537) || 
  //	(*(unsigned short*)0x449081 != 29537) || 
  //	(*(unsigned short*)0x449081 != 29537) || 
-    (*(unsigned short*)0x27871B8 != 53)){
+    (*(unsigned short*)0x27871B8 != 31313)){
 	
 		Attack_Value();  //ExitProcess(0);
 		return true;	

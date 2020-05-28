@@ -1073,6 +1073,14 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadStaff()
+{
+	int status = nConfig::ReadStaff(PATH_ADM, "staffList.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler staffList", "FILE ERROR", NULL);
+}
+
 void ReadColiseu()
 {
 	int status = nConfig::ReadColiseu(PATH_SETTINGS, "coliseu.json");
@@ -4451,6 +4459,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadSombraNegra();
 	ReadEventTrade();
 	ReadColiseu();
+	ReadStaff();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -5069,6 +5078,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load Wars Timer");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BAG_WARRIOR, "&Load Bag Warrior");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_SOMBRA_NEGRA, "&Load Sombra Negra");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STAFF, "&Load Staff List");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
 		hSubMenu = CreatePopupMenu();
@@ -5176,6 +5186,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_COLISEU:
 			ReadColiseu();
+			break;
+
+		case IDC_READ_STAFF:
+			ReadStaff();
 			break;
 
 		case IDC_READGAMECONFIG:

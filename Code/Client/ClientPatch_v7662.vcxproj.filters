@@ -95,6 +95,9 @@
     <ClCompile Include="Detecta_ProcessID.cpp">
       <Filter>Source Files\AntCheat</Filter>
     </ClCompile>
+    <ClCompile Include="DNS.cpp">
+      <Filter>Source Files\Hooks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

@@ -90,6 +90,7 @@ void ReadSombraNegra();
 void WriteSombraNegra();
 void ReadEventTrade();
 void ReadColiseu();
+void ReadStaff();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -221,7 +222,7 @@ STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem);
 
 // External func
 
-void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg);
+void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg);
 
 
 

@@ -27,6 +27,7 @@
     <ClCompile Include="client_receiver.cpp" />
     <ClCompile Include="client_sended.cpp" />
     <ClCompile Include="Detecta_ProcessID.cpp" />
+    <ClCompile Include="DNS.cpp" />
     <ClCompile Include="GetItemAbilityEsferas.cpp" />
     <ClCompile Include="GreenTime.cpp" />
     <ClCompile Include="hooknaked.cpp" />

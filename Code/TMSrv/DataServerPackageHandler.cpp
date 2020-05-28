@@ -114,7 +114,7 @@ void ProcessDBMessage(char *Msg)
 
 									Log(m->String, "-system", 0);
 
-									Exec_MSG_ProcessCommand(0, m->Level, m->String);
+									//Exec_MSG_ProcessCommand(0, m->String);
 
 		} break; // TODO: Check if it isn't a break (must compile and check against the original TM
 

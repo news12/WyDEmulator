@@ -1,7 +1,7 @@
 #include "ProcessDBMessage.h"
 #include "ProcessClientMessage.h"
 
-void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
+void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 {
 	char cmd[128], sval1[128], sval2[128], sval3[128], sval4[128], sval5[128], sval6[128], sval7[128], sval8[128];
 	unsigned int  ival1 = 0, ival2 = 0, ival3 = 0, ival4 = 0, ival5 = 0, ival6 = 0, ival7 = 0, ival8 = 0;
@@ -28,8 +28,8 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 	else
 		Log(logtemp, "Chat GM", 0);
 
-	if (level >= 1)
-	{
+	//if (level >= 1)
+	//{
 		if (a_iConn <= 0 && a_iConn >= MAX_USER)
 			return;
 
@@ -1029,5 +1029,5 @@ void Exec_MSG_ProcessCommand(int a_iConn, int level, char * pMsg)
 			SendScore(a_iConn);
 			return;
 		}
-	}
+	//}
 }

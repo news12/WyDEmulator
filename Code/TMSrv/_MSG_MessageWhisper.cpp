@@ -370,6 +370,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
+	//mudar de servidor
 	/*else if (strcmp(m->MobName, "srv") == 0)
 	{
 		int srv = 0;
@@ -1077,10 +1078,11 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
+	//comando GM
 	else if (strcmp(m->MobName, "gm") == 0)
 	{
-		if (pMob[a_iConn].MOB.CurrentScore.Level < 1000 && pMob[a_iConn].TargetX == 2128 && pMob[a_iConn].TargetY == 2072)
-			pMob[a_iConn].MOB.BaseScore.Level = 1010;
+		/*if (pMob[a_iConn].MOB.CurrentScore.Level < 1000 && pMob[a_iConn].TargetX == 2128 && pMob[a_iConn].TargetY == 2072)
+			//pMob[a_iConn].MOB.BaseScore.Level = 1010;
 		
 		if (pMob[a_iConn].MOB.BaseScore.Level > 1)
 		{
@@ -1091,7 +1093,29 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 			Exec_MSG_ProcessCommand(a_iConn, level, m->String);
 			return;
+		}*/
+
+		//LoopStaff
+		for (size_t i = 0; i < MAX_STAFF; i++)
+		{
+			if (!strcmp(pMob[a_iConn].MOB.MobName, StaffEternal.DEV[i].c_str()) || !strcmp(pMob[a_iConn].MOB.MobName, StaffEternal.ADM[i].c_str()))
+			{
+				STRUCT_ITEM key1;
+				memset(&key1, 0, sizeof(STRUCT_ITEM));
+				key1.sIndex = 3199;
+				key1.stEffect[0].cEffect = 2;
+				key1.stEffect[0].cValue = 100;
+				if (pMob[a_iConn].MOB.Equip[15].sIndex == key1.sIndex 
+					&& pMob[a_iConn].MOB.Equip[15].stEffect[0].cEffect == key1.stEffect[0].cEffect
+					&& pMob[a_iConn].MOB.Equip[15].stEffect[0].cValue == key1.stEffect[0].cValue)
+				{
+					Exec_MSG_ProcessCommand(a_iConn, m->String);
+					return;
+				}
+			}
 		}
+		return;
+		
 	}
 	else if (strcmp(m->MobName, "transgrupo") == 0)
 	{

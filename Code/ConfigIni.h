@@ -66,6 +66,8 @@ namespace ConfigIni {
 		static int WriteStatusSombraNegra(string path, string file);
 		static int ReadAutoBan(string path, string file);
 		static int WriteAutoBan(string path, string file);
+		static int ReadStaff(string path, string file);
+		static int WriteStaff(string path, string file);
 
 	static	struct GroupServer
 		{

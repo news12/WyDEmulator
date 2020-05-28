@@ -54,8 +54,8 @@ extern  "C"  __declspec(dllexport) void __cdecl GasMask_5()  // Função API (in
 	carrega.Check_File_Names 	        = 1; // On/Off - Check if main.exe, Launcher.exe, Codex.dll file name exist inside folder. Check if Main and dll names are not changed when sturtup. Check if Main window name are changed.
 	carrega.DVerifica_occours           = 543; // Occours every X miliseconds. [ ATENTION! If antikill by Scans active this value canot be more than 1000 ]
 //Main name and data:
-	carrega.Nome_do_Main				= "WYD.exe";          // Main name 
-	carrega.MainWindowName              = "WYD";              // Utiliitários Handler.exe >> Main WindowName 
+	carrega.Nome_do_Main				= "Eternal.exe";          // Main name 
+	carrega.MainWindowName              = "Eternal";              // Utiliitários Handler.exe >> Main WindowName 
 	carrega.MainClassName               = "ConsoleWindowClass";  // Utiliitários Handler.exe >> Main Classname
 //Anti-Hack dll Name:
 	carrega.Nome_da_Dll                 = "GameGuard.dll";           // Anti-hack dll name
@@ -63,8 +63,8 @@ extern  "C"  __declspec(dllexport) void __cdecl GasMask_5()  // Função API (in
 //Launcher alwais on:
 	carrega.Launcher_Ativo              = 0; // On/Off - Check if Launcher always On using Launcher Wintitle / Winclass 
 	carrega.DLauncher_Occours           = 539; //Occours every X miliseconds. [ ATENTION! If antikill by Scans active this value canot be more than 1000 ]
-	carrega.Nome_do_Launcher	      	= "WYDLauncher.exe";            // Launcher name
-	carrega.LauncherWindowName		    = "WYDLauncher";              // Utiliitários Handler.exe >> Launcher WindowName 
+	carrega.Nome_do_Launcher	      	= "Launcher_Eternal.exe";            // Launcher name
+	carrega.LauncherWindowName		    = "Launcher_Eternal";              // Utiliitários Handler.exe >> Launcher WindowName 
 	carrega.LauncherClassName           = "#32770";  // Utiliitários Handler.exe >> Main Classname  
 
 //GaMeGuard.exe protection 

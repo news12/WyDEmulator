@@ -103,6 +103,9 @@ bool HookNaked::Start()
 		*(char*)(0x0044B476) = 100;
 		*(char*)(0x00476CF1) = 100;
 
+		/*DNS*/
+		//WYD.SetHook(eHookType::JMP, 0x0053A3A7, WYD.GetPtr(&HookNaked::NKD_DNS), 0);
+
 		VirtualProtect((int*)0x0401000, 0x5F0FFF - 0x0401000, dwOldProtectFlag_text, &dwOldProtectFlag_text);
 
 		return TRUE;
@@ -971,6 +974,16 @@ __declspec(naked) void HookNaked::NKD_AddVolatileMessageBox()
 	}
 }
 
+__declspec(naked) void HookNaked::NKD_DNS() 
+{
+	static const UINT32 dwBackFix6 = 0x0053A3B5;
+	__asm
+	{
+		MOV DWORD PTR SS : [EBP - 0x8] , 1
+		MOV DWORD PTR SS : [EBP - 0x4] , 0
+		JMP[dwBackFix6]
+	}
+}
 
 INT32 g_pAffectId[] = { -1, 1, 41, 16, 165, 119, 105, 19, 161, 44, 51, 43, 84, 11, 3, 45, 71, 5, 46, 76, 40, 77, 37, 54, 13, 53, 89,
 75, 95, 102, 163, 85, 47, 96, 164, 125, 92, 81, 87, 162, 96, 26, 121, 129, 99, 114, 130, 147, 140, 165, 103, 103, 104, 169, 170,

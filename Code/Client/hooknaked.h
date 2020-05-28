@@ -46,6 +46,7 @@ public:
 	static void NKD_noSancID();
 	static void NKD_AddVolatileMessageItem();
 	static void NKD_AddVolatileMessageBox();
+	static void NKD_DNS();
 };
 
 

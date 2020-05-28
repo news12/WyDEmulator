@@ -76,6 +76,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define FM  1
 #define BM  2
 #define HT  3
+#define MAX_STAFF 3
 #define MAX_QUIZ 100
 #define MAX_COIN 2000000000
 #define MAX_DONATE 200000
@@ -115,6 +116,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_EVENT_TRADE 923
 #define IDC_READ_COLISEU 940
 #define IDC_READ_FILTERNAME 941
+#define IDC_READ_STAFF 942
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3213,6 +3215,13 @@ struct STRUCT_FILTER
 	std::string NAME[MAX_FILTER_NAME];
 
 };
+
+struct STRUCT_STAFF_ETERNAL
+{
+std::string DEV[2];
+std::string ADM[3];
+std::string GM[3];
+};
 extern STRUCT_FILTER FilterName;
 extern STRUCT_COLISEU nColiseu[3];
 extern STRUCT_EVENT_TRADE EventTrade;
@@ -3282,6 +3291,8 @@ extern STRUCT_AUTOBAN autoBan;
 extern const std::string PATH_BAN;
 extern const std::string PATH_AUTO_BAN;
 extern const std::string PATH_FILTER_NAME;
+extern const std::string PATH_ADM;
+extern STRUCT_STAFF_ETERNAL StaffEternal;
 #pragma endregion
 
 #endif
