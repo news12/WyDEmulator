@@ -240,14 +240,14 @@ void sombraNegraKilled(int a_iConn)
 
 	randDrop();
 
-	if (isDropKiller)
-	{
+	//if (isDropKiller)
+	//{
 		STRUCT_ITEM* drop = &bSombraNegra.Drop[DropKiller];
 
 		PutItem(a_iConn, drop);
 		sprintf(temp, "!Você recebeu [%s] como recompensa por Matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
 		SendClientMsg(a_iConn, temp);
-	}
+	//}
 
 	int partyleader = pMob[a_iConn].Leader;
 
@@ -269,13 +269,13 @@ void sombraNegraKilled(int a_iConn)
 		if (pMob[partymember].TargetX >= 3800 && (pMob[partymember].TargetX <= 3833)
 			&& (pMob[partymember].TargetY >= 2860 && pMob[partymember].TargetY <= 2899))
 		{
-			if (isDropParty)
-			{
+			//if (isDropParty)
+			//{
 				STRUCT_ITEM* drop = &bSombraNegra.DropParty[DropParty];
 				PutItem(partymember, drop);
 				sprintf(temp, "!Você recebeu [%s] como recompensa por ajudar a matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
 				SendClientMsg(partymember, temp);
-			}
+			//}
 
 		}
 
@@ -302,111 +302,55 @@ void sombraNegraKilled(int a_iConn)
 void randDrop()
 {
 	DWORD nRand;
-	DWORD hand1 = 100;
-	DWORD hand2 = 90;
-	DWORD hand3 = 30;
-	DWORD hand4 = 10;
-	DWORD hand5 = 10;
-	DWORD hand6 = 1;
-	DropKiller = rand() % 6; //item sorteado
-	DropParty = rand() % 6; //item sorteado
+	DWORD hand1 = 49;
+	DWORD hand2 = 70;
+	DWORD hand3 = 85;
+	DWORD hand4 = 94;
+	DWORD hand5 = 98;
+	DWORD hand6 = 99;
+	//DropKiller = rand() % 6; //item sorteado
+	//DropParty = rand() % 6; //item sorteado
 	
-	switch (DropKiller)
-	{
-	case 0:
+	//rand Drop Killer
 		nRand = rand() % 100;
 		if (nRand <= hand1)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	case 1:
-		nRand = rand() % 100;
-		if (nRand <= hand2)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	case 2:
-		nRand = rand() % 100;
-		if (nRand <= hand3)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	case 3:
-		nRand = rand() % 100;
-		if (nRand <= hand4)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	case 4:
-		nRand = rand() % 100;
-		if (nRand <= hand5)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	case 5:
-		nRand = rand() % 100;
-		if (nRand == hand6)
-			isDropKiller = TRUE;
-		else
-			isDropKiller = FALSE;
-		break;
-	default:
-		break;
-	}
+			DropKiller = 0;
+		
+		else if (nRand <= hand2)
+			DropKiller = 1;
+		
+		else if (nRand <= hand3)
+			DropKiller = 2;
+		
+		else if (nRand <= hand4)
+			DropKiller = 3;
+	
+		else if (nRand <= hand5)
+			DropKiller = 4;
 
+		else if (nRand == hand6)
+			DropKiller = 5;
+	
 
-	switch (DropParty)
-	{
-	case 0:
+		//Rand Drop Party
 		nRand = rand() % 100;
 		if (nRand <= hand1)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	case 1:
-		nRand = rand() % 100;
-		if (nRand <= hand2)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	case 2:
-		nRand = rand() % 100;
-		if (nRand <= hand3)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	case 3:
-		nRand = rand() % 100;
-		if (nRand <= hand4)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	case 4:
-		nRand = rand() % 100;
-		if (nRand <= hand5)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	case 5:
-		nRand = rand() % 100;
-		if (nRand == hand6)
-			isDropParty = TRUE;
-		else
-			isDropParty = FALSE;
-		break;
-	default:
-		break;
-	}
+			DropParty = 0;
+
+		else if (nRand <= hand2)
+			DropParty = 1;
+
+		else if (nRand <= hand3)
+			DropParty = 2;
+
+		else if (nRand <= hand4)
+			DropParty = 3;
+
+		else if (nRand <= hand5)
+			DropParty = 4;
+
+		else if (nRand == hand6)
+			DropParty = 5;
 }
 
 void noKiller()

@@ -80,7 +80,8 @@ void Exec_MSG_CombineItemAgatha(int conn, char *pMsg)
 		SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[1], &pMob[conn].MOB.Carry[m->InvenPos[1]]);
 		SendClientMsg(conn, g_pMessageStringTable[_NN_Processing_Complete]);
 		SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 1);
-
+		sprintf(temp, "Agatha: [%s] obteve sucesso ao passar adicional para o item [%s]", pMob[conn].MOB.MobName, g_pItemList[m->Item->sIndex].Name);
+		SendNotice(temp);
 		char tt[512];
 
 		sprintf(temp, "%s ", pUser[conn].AccountName);
@@ -96,6 +97,8 @@ void Exec_MSG_CombineItemAgatha(int conn, char *pMsg)
 		sprintf(temp, "%s", g_pMessageStringTable[_NN_CombineFailed]);
 		SendClientMsg(conn, temp);
 		SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);
+		sprintf(temp, "Agatha: [%s] falhou ao passar adicional para o item [%s]", pMob[conn].MOB.MobName, g_pItemList[m->Item->sIndex].Name);
+		SendNotice(temp);
 		MyLog(LogType::Combines, "*** combine agatha fail ***", pUser[conn].AccountName, 0, pUser[conn].IP);
 		return;
 	}

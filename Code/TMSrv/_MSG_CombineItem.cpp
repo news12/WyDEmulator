@@ -80,7 +80,7 @@ void Exec_MSG_CombineItem(int conn, char *pMsg)
 				char tt[256];
 				sprintf(tt, g_pMessageStringTable[_SS_CombineSucceed], pMob[conn].MOB.MobName, g_pItemList[Extra].Name);
 				sprintf(temp, "%s(%d/%d)", tt, _rand, combine);
-				SendClientMsg(conn, temp);
+				SendNotice(temp);
 
 				SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 1);
 										 
@@ -111,7 +111,7 @@ void Exec_MSG_CombineItem(int conn, char *pMsg)
 		sprintf(temp, "%s(%d/%d)", g_pMessageStringTable[_NN_CombineFailed], _rand, combine);
 		SendClientMsg(conn, temp);
 								 
-		sprintf(temp, "Personagem %s, falhou na composição anct do item %s.", pMob[conn].MOB.MobName, g_pItemList[pMob[conn].MOB.Carry[m->InvenPos[0]].sIndex].Name);
+		sprintf(temp, "Compositor: [%s], falhou na composição anct do item [%s].", pMob[conn].MOB.MobName, g_pItemList[pMob[conn].MOB.Carry[m->InvenPos[0]].sIndex].Name);
 		SendNotice(temp);
 
 		SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);

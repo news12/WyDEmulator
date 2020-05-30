@@ -135,7 +135,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 #pragma endregion
 #pragma region >> Poeira de Lactolerium / Oriharucon
-	if (item->sIndex == 412 || Vol == 5)
+	if (Vol == 4 || Vol == 5)
 	{
 		STRUCT_ITEM *dest = GetItemPointer(&pMob[a_iConn].MOB, pUser[a_iConn].Cargo, m->DestType, m->DestPos);
 
@@ -1026,12 +1026,27 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Refine_Success]);
 
-			if (sanc == 7)
+			/*if (sanc == 7)
 			{
 				sprintf(temp, "[%s] obteve sucesso ao refinar o item [%s] para +7. ", pMob[a_iConn].MOB.MobName, g_pItemList[dest->sIndex].Name);
 				SendNotice(temp);
 				pMob[a_iConn].GetCurrentScore(0);
 				SendScore(a_iConn);
+			}*/
+
+			switch (sanc)
+			{
+			case 7:
+			case 8:
+			case 9:
+			case 11:
+				sprintf(temp, "[%s] obteve sucesso ao refinar o item [%s] para [+%d]. ", pMob[a_iConn].MOB.MobName, g_pItemList[dest->sIndex].Name, sanc);
+				SendNotice(temp);
+				pMob[a_iConn].GetCurrentScore(0);
+				SendScore(a_iConn);
+				break;
+			default:
+				break;
 			}
 
 			if (dest->sIndex >= 2300 && dest->sIndex < 2330)

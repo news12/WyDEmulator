@@ -116,8 +116,8 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 			BASE_SetItemSanc(&pMob[conn].MOB.Carry[m->InvenPos[1]], 0, 0);
 
 			char tt[256];
-
-			SendNotice(g_pMessageStringTable[_SS_Combin_12Succ]);
+			sprintf(temp, "Odin: [%s] combinou com sucesso item celestial [%s]", pMob[conn].MOB.MobName,g_pItemList[m->Item->sIndex].Name);
+			SendNotice(temp);
 
 			SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 1);
 
@@ -135,8 +135,8 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 			memcpy(&pMob[conn].MOB.Carry[m->InvenPos[1]], &m->Item[1], sizeof(STRUCT_ITEM));
 			SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[1], &pMob[conn].MOB.Carry[m->InvenPos[1]]);
 
-			sprintf(temp, "%s", g_pMessageStringTable[_NN_CombineFailed]);
-			SendClientMsg(conn, temp);
+			sprintf(temp, "Odin: [%s] falhou na combinação do item celestial [%s]", pMob[conn].MOB.MobName, g_pItemList[m->Item->sIndex].Name);
+			SendNotice(temp);
 
 			SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);
 			MyLog(LogType::Combines, "*** Combine odin item celestial fail ***", pUser[conn].AccountName, 0, pUser[conn].IP);
@@ -248,7 +248,8 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 
 			SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[2], &pMob[conn].MOB.Carry[m->InvenPos[2]]);
 
-			SendNotice(g_pMessageStringTable[_SS_Combin_12Succ]);
+			sprintf(temp, "Odin: [%s] combinou [+%d] com sucesso o item [%s]", pMob[conn].MOB.MobName, NewSanc, g_pItemList[m->Item->sIndex].Name);
+			SendNotice(temp);
 
 			return;
 		}
@@ -313,7 +314,7 @@ Label_VoltaRef:
 
 				int sanc = BASE_GetItemSanc(&m->Item[2]);
 				int gem = BASE_GetItemGem(&m->Item[2]);
-
+				int NewSanc = sanc + 1;
 				if (sanc == REF_11)
 					BASE_SetItemSanc(&pMob[conn].MOB.Carry[m->InvenPos[2]], 10, gem);
 
@@ -328,8 +329,10 @@ Label_VoltaRef:
 
 				SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[2], &pMob[conn].MOB.Carry[m->InvenPos[2]]);
 			}
-			sprintf(temp, "%s", g_pMessageStringTable[_NN_CombineFailed]);
-			SendClientMsg(conn, temp);
+			int sanc = BASE_GetItemSanc(&m->Item[2]);
+			int NewSanc = sanc + 2;
+			sprintf(temp, "Odin: [%s] falhou [+%d] na composição do item [%s]", pMob[conn].MOB.MobName, NewSanc, g_pItemList[m->Item->sIndex].Name);
+			SendNotice(temp);
 
 			SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);
 			MyLog(LogType::Combines, "*** Combine odin item +12+ fail ***", pUser[conn].AccountName, 0, pUser[conn].IP);

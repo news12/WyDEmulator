@@ -208,6 +208,9 @@ void Exec_MSG_CombineItemAilyn(int conn, char *pMsg)
 
 		SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 1);
 
+		sprintf(temp, "Ailyn: [%s] combinou com sucesso para [+10] o item [%s]", pMob[conn].MOB.MobName, g_pItemList[m->Item->sIndex].Name);
+		SendNotice(temp);
+
 		char tt[512];
 
 		sprintf(temp, "%s ", pUser[conn].AccountName);
@@ -239,6 +242,9 @@ void Exec_MSG_CombineItemAilyn(int conn, char *pMsg)
 		SendEtc(conn);
 
 		SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);
+
+		sprintf(temp, "Ailyn: [%s] falhou na combinação para [+10] do item [%s]", pMob[conn].MOB.MobName, g_pItemList[m->Item->sIndex].Name);
+		SendNotice(temp);
 		MyLog(LogType::Combines, "*** Combine ailyn fail ***", pUser[conn].AccountName, 0, pUser[conn].IP);
 
 		return;
