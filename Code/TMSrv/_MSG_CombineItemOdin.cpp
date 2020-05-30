@@ -314,7 +314,7 @@ Label_VoltaRef:
 
 				int sanc = BASE_GetItemSanc(&m->Item[2]);
 				int gem = BASE_GetItemGem(&m->Item[2]);
-				int NewSanc = sanc + 1;
+				//int NewSanc = sanc + 1;
 				if (sanc == REF_11)
 					BASE_SetItemSanc(&pMob[conn].MOB.Carry[m->InvenPos[2]], 10, gem);
 
@@ -329,9 +329,28 @@ Label_VoltaRef:
 
 				SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[2], &pMob[conn].MOB.Carry[m->InvenPos[2]]);
 			}
+
 			int sanc = BASE_GetItemSanc(&m->Item[2]);
-			int NewSanc = sanc + 2;
-			sprintf(temp, "Odin: [%s] falhou [+%d] na composição do item [%s]", pMob[conn].MOB.MobName, NewSanc, g_pItemList[m->Item->sIndex].Name);
+			int new_sanc = 0;
+			switch (sanc)
+			{
+			case REF_11:
+				new_sanc = 12;
+				break;
+			case REF_12:
+				new_sanc = 13;
+				break;
+			case REF_14:
+				new_sanc = 14;
+				break;
+			case REF_15:
+				new_sanc = 14;
+				break;
+			default:
+				break;
+			}
+			
+			sprintf(temp, "Odin: [%s] falhou [+%d] na composição do item [%s]", pMob[conn].MOB.MobName, new_sanc, g_pItemList[m->Item[2].sIndex].Name);
 			SendNotice(temp);
 
 			SendClientSignalParm(conn, ESCENE_FIELD, _MSG_CombineComplete, 2);
