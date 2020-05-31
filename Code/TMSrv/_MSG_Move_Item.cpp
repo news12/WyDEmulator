@@ -295,7 +295,7 @@ void Exec_MSG_TradingItem(int conn, char *pMsg)
 			}
 			if (m->DestPlace == ITEM_PLACE_EQUIP)
 			{
-				//Fada Eternal(7dias)
+				//Macro Eternal(7dias)
 				if (save1.sIndex == 3789 && save1.stEffect[0].cEffect == 0 && save1.stEffect[1].cEffect == 0 && save1.stEffect[2].cEffect == 0)
 				{
 					BASE_SetDateFairy(&save1, 6);

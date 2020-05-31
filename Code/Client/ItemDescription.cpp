@@ -254,7 +254,7 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		}
 	}
 
-	//Fadas Eternal
+	//Macro Eternal
 	if (item->sIndex == 3789)
 	{
 		sprintf_s(line1, 128, "[Item Premium]");
@@ -267,7 +267,7 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*color6 = Orange;
 		sprintf_s(line7, 128, "Macro auto perga M e A");
 		*color7 = Yellow;
-		sprintf_s(line8, 128, "Bônus de 32%% Exp ");
+		sprintf_s(line8, 128, " ");
 		*color8 = Yellow;
 		return 10;
 	}

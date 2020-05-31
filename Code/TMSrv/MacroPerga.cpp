@@ -16,7 +16,7 @@
 #include "ProcessClientMessage.h"
 #include "ProcessDBMessage.h"
 #include "MacroPerga.h"
-//Fadas Eternal
+//Macro Eternal
 short fadasEternal[3]{ 3789,3795,3796 };
 int fadaOn;
 

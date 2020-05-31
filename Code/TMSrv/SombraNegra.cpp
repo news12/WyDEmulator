@@ -254,6 +254,18 @@ void sombraNegraKilled(int a_iConn)
 	if (partyleader <= 0)
 		partyleader = a_iConn;
 
+	if (partyleader != a_iConn)
+	{
+		randDrop();
+
+		STRUCT_ITEM* drop = &bSombraNegra.Drop[DropParty];
+
+		PutItem(partyleader, drop);
+		sprintf(temp, "!Você recebeu [%s] como recompensa por Ajudar Sombra Negra!", g_pItemList[drop->sIndex].Name);
+		SendClientMsg(partyleader, temp);
+		SendClientMsg(partyleader, temp);
+	}
+
 	
 	for (size_t i = 0; i < MAX_PARTY; i++)
 	{
