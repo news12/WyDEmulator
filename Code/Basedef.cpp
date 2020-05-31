@@ -7353,18 +7353,43 @@ void BASE_SetItemDate(STRUCT_ITEM *Item, int day)
 	when = *localtime(&now);
 
 	int daynext = when.tm_mday + day;
-	int month = day >= 30 ? when.tm_mon + 1 : when.tm_mon;
+	int month;
+
+	if (day >= 30 || daynext >= 30)
+		month = when.tm_mon + 1;
+	else
+		month = when.tm_mon;
+	//int month = day >= 30 ? when.tm_mon + 1 : when.tm_mon;
 	int year = month >= 12 ? when.tm_year+1 : when.tm_year;
 
 
 	if(month >= 12)
 		month = 0;
 
-	if(daynext >= 30)
-		daynext -= 29;
+	if (daynext >= 30)
+		daynext -= 30;
+	//else if (daynext >= 33)
+	//	daynext -= 30;
 
 	if(month == 1 && daynext >= 27)
 		daynext -= 26;
+
+	switch (month)
+	{
+	case 3:
+	case 5:
+	case 8:
+	case 10:
+		if (daynext > 30)
+		{
+			month += 1;
+			daynext = 1;
+
+		}
+		break;
+	default:
+		break;
+	}
 
 	Item->stEffect[0].cEffect = EF_WDAY;
 	Item->stEffect[0].cValue = daynext;
