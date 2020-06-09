@@ -23,6 +23,7 @@
 #include "AltarOfKing.h"
 #include "AutoEvent.h"
 #include "SombraNegra.h"
+#include "BossCamp.h"
 #include "AutoBan.h"
 
 void ProcessSecTimer()
@@ -256,6 +257,7 @@ lbl_PST1:
 			if (pMob[Pista[5].Party[x].LeaderID].Leader != -1 && pMob[Pista[5].Party[x].LeaderID].Leader)
 				continue;
 
+			srand(time(NULL));
 			int _rd = rand() % 3;
 
 			int tx = 2100;
@@ -793,6 +795,8 @@ lbl_PST1:
 		ReadAutoBan();
 
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBoss, NULL, 0, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBossCamp,(void*)Freak, 0, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBossCamp, (void*)Talos, 0, 0);
 		NTask_StartEventTrade();
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)
@@ -872,6 +876,7 @@ lbl_PST1:
 		
 					if (byResult != 0)
 					{
+						srand(time(NULL));
 						int nUser = ClientId[rand() % byResult];
 		
 						if (pUser[nUser].Mode == USER_PLAY)
@@ -1093,7 +1098,7 @@ lbl_PST1:
 
 				if (pMob[g_calabouco.Party[t].LeaderID].Leader != -1 && pMob[g_calabouco.Party[t].LeaderID].Leader)
 					continue;
-
+				srand(time(NULL));
 				DoTeleport(g_calabouco.Party[t].LeaderID, 1712 - rand() % 4, 2080 + rand() % 10);
 				SendClientMsg(g_calabouco.Party[t].LeaderID, "Você entrou no [ Calabouço Zumbi ].");
 
@@ -1104,6 +1109,7 @@ lbl_PST1:
 					if (partyconn < 6)
 						continue;
 
+					srand(time(NULL));
 					if (partyconn > 0 && partyconn < MAX_USER && partyconn != g_calabouco.Party[t].LeaderID && pUser[partyconn].Mode == USER_PLAY)
 						DoTeleport(partyconn, 1712 - rand() % 4, 2080 + rand() % 10);
 
@@ -1196,8 +1202,10 @@ lbl_PST1:
 					if(s == 2)
 						GenerateMob(RUNEQUEST_LV2_MOB_BOSS, 0, 0);
 
+					srand(time(NULL));
+
 					if(s == 4)
-						Pista[s].Party[t].MobCount = 8 + rand()%8;
+						Pista[s].Party[t].MobCount = 8 + rand() % 8;
 
 					if(s == 4 && t == 0)
 					{
@@ -1244,8 +1252,8 @@ lbl_PST1:
 					SendScore(x);
 				}
 
-			
-				DoTeleport(x, 3294, rand()%1 == 0 ? 1701 : 1686);
+				srand(time(NULL));
+				DoTeleport(x, 3294, rand() % 1 == 0 ? 1701 : 1686);
 			}
 
 			//Pista +1 - Torre
@@ -1257,6 +1265,8 @@ lbl_PST1:
 				{			
 						STRUCT_ITEM Runa;
 						memset(&Runa, 0, sizeof(STRUCT_ITEM));
+
+						srand(time(NULL));
 
 							Runa.sIndex = PistaRune[1][rand() % 5];
 
@@ -1271,6 +1281,7 @@ lbl_PST1:
 								if (pUser[partymember].Mode != USER_PLAY)
 									continue;
 
+								srand(time(NULL));
 								Runa.sIndex = PistaRune[1][rand() % 5];
 								PutItem(partymember, &Runa);
 							}
@@ -1297,6 +1308,7 @@ lbl_PST1:
 					STRUCT_ITEM Runa;
 					memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
+						srand(time(NULL));
 						Runa.sIndex = PistaRune[1][rand() % 5];
 
 						if (Pista[1].Party[1].LeaderID > 0 && Pista[1].Party[1].LeaderID < MAX_USER)
@@ -1309,6 +1321,7 @@ lbl_PST1:
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
+							srand(time(NULL));
 							Runa.sIndex = PistaRune[1][rand() % 5];
 							PutItem(partymember, &Runa);
 						}
@@ -1336,7 +1349,7 @@ lbl_PST1:
 					STRUCT_ITEM Runa;
 					memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
-					
+						srand(time(NULL));
 						Runa.sIndex = PistaRune[1][rand() % 5];
 
 						if (Pista[1].Party[2].LeaderID > 0 && Pista[1].Party[2].LeaderID < MAX_USER)
@@ -1351,6 +1364,7 @@ lbl_PST1:
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
+							srand(time(NULL));
 							Runa.sIndex = PistaRune[1][rand() % 5];
 							PutItem(partymember, &Runa);
 						}
@@ -1380,6 +1394,7 @@ lbl_PST1:
 					STRUCT_ITEM Runa;
 					memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
+						srand(time(NULL));
 						Runa.sIndex = PistaRune[3][rand() % 5];
 
 						if (Pista[3].Party[0].LeaderID > 0 && Pista[3].Party[0].LeaderID < MAX_USER)
@@ -1393,6 +1408,7 @@ lbl_PST1:
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
+							srand(time(NULL));
 							Runa.sIndex = PistaRune[3][rand() % 5];
 							PutItem(partymember, &Runa);
 						}
@@ -1420,6 +1436,7 @@ lbl_PST1:
 					STRUCT_ITEM Runa;
 					memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
+						srand(time(NULL));
 						Runa.sIndex = PistaRune[3][rand() % 5];
 
 						if (Pista[3].Party[1].LeaderID > 0 && Pista[3].Party[1].LeaderID < MAX_USER)
@@ -1431,6 +1448,7 @@ lbl_PST1:
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
+							srand(time(NULL));
 							Runa.sIndex = PistaRune[3][rand() % 5];
 							PutItem(partymember, &Runa);
 						}
@@ -1457,6 +1475,7 @@ lbl_PST1:
 					STRUCT_ITEM Runa;
 					memset(&Runa, 0, sizeof(STRUCT_ITEM));
 					
+						srand(time(NULL));
 						Runa.sIndex = PistaRune[3][rand() % 5];
 
 						if (Pista[3].Party[2].LeaderID > 0 && Pista[3].Party[2].LeaderID < MAX_USER)
@@ -1469,6 +1488,7 @@ lbl_PST1:
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
+							srand(time(NULL));
 							Runa.sIndex = PistaRune[3][rand() % 5];
 							PutItem(partymember, &Runa);
 						}
@@ -2182,6 +2202,7 @@ lbl_PST1:
 
 			if (Target < MAX_USER && sm.Dam[0].Damage > 0)
 			{
+				srand(time(NULL));
 				int Pop = rand() % 100 + 1;
 
 				if (pMob[index].MOB.Clan == 4)
@@ -2746,6 +2767,7 @@ void ProcessMinTimer()
 				
 				if (MinuteGenerate >= 500 && MinuteGenerate < 1000)
 				{
+					srand(time(NULL));
 					mNPCGen.pList[i].MinuteGenerate = rand() % 500 + 500;
 
 					continue;
@@ -2753,6 +2775,7 @@ void ProcessMinTimer()
 
 				if (MinuteGenerate >= 1000 && MinuteGenerate < 2000)
 				{
+					srand(time(NULL));
 					mNPCGen.pList[i].MinuteGenerate = rand() % 1000 + 1000;
 
 					continue;
@@ -2760,6 +2783,7 @@ void ProcessMinTimer()
 
 				if (MinuteGenerate >= 2000 && MinuteGenerate < 3800)
 				{
+					srand(time(NULL));
 					mNPCGen.pList[i].MinuteGenerate = rand() % 1800 + 2000;
 
 					continue;
@@ -2771,6 +2795,7 @@ void ProcessMinTimer()
 
 					if (DUNGEONEVENT)
 					{
+						srand(time(NULL));
 						int RndPos = rand() % 30;
 						int dpX = DungeonPos[RndPos][0];
 						int dpY = DungeonPos[RndPos][1];
@@ -2783,6 +2808,7 @@ void ProcessMinTimer()
 
 							memset(&PrizeItem, 0, sizeof(STRUCT_ITEM));
 
+							srand(time(NULL));
 							PrizeItem.sIndex = DungeonItem[rand() % 10];
 
 							SetItemBonus(&PrizeItem, 0, 0, 0);
@@ -2800,6 +2826,7 @@ void ProcessMinTimer()
 #pragma endregion
 	MinCounter++;
 
+	srand(time(NULL));
 	int rndWeather = rand() % 1200;
 
 	if (ForceWeather == -1)

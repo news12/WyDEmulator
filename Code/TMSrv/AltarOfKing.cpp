@@ -90,6 +90,7 @@ void Winner(int conn)
 	//int Guild = pMob[conn].MOB.Guild;
 	StartAltarKing = FALSE;
 	pUser[playerAltar].AltarStatus = 0;
+	srand(time(NULL));
 	int itemRand = rand() % 5;
 	clearKing();
 	for (int i = MAX_USER; i < MAX_MOB; i++)

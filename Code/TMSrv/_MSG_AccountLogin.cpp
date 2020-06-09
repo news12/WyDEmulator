@@ -23,7 +23,7 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 		
 	if (Size < sizeof(MSG_AccountLogin) || m->ClientVersion != ClientVersion)
 	{
-		sprintf(temp, g_pMessageStringTable[_NN_Version_Not_Match_Rerun], APP_VERSION);
+		sprintf(temp, g_pMessageStringTable[_NN_Version_Not_Match_Rerun]);
 		SendClientMsg(conn, temp);
 
 		pUser[conn].cSock.SendMessageA();

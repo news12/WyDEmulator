@@ -87,6 +87,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define CURA_BATEDOR 4040
 #define MANA_BATEDOR 4041
 #define EMBLEMA_GUARDA 4042
+#define MAX_BOSS_CAMP 4
 
 //#define PKDrop
 #define MAX_DROP_KEFRA 10
@@ -117,6 +118,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_COLISEU 940
 #define IDC_READ_FILTERNAME 941
 #define IDC_READ_STAFF 942
+#define IDC_READ_BOSS_CAMP 943
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -564,7 +566,7 @@ struct STRUCT_MOB
 
 	long LearnedSkill; // The skills the mob learned, divided into four categories (00 _ 00 _ 00 _ 00)
 
-	unsigned int Magic;
+	unsigned long Magic;
 
 	unsigned short ScoreBonus;   // The points the mob can use to increase score (Str, Int, Dex, Con)
 	unsigned short SpecialBonus; // The points the mob can use to increase special, to increase effect of learned skills (score->Special[4])
@@ -608,7 +610,7 @@ enum TNColor
 	Blue = None | 0x0174DF,
 	Orange = None | 0xCD6600,
 	Speak = 0xFF00CD00,
-	Red = 0x8B0000
+	Red = None | 0x8B0000
 };
 
 
@@ -3020,6 +3022,13 @@ extern const std::string PATH_NewNPC;
 extern const std::string PATH_NewBoss;
 extern const std::string PATH_SOMBRA_NEGRA;
 extern const std::string PATH_EVENT_Trade;
+extern const std::string PATH_DBSqlite;
+extern const std::string PATH_DBEternal;
+extern const std::string PATH_BAN;
+extern const std::string PATH_AUTO_BAN;
+extern const std::string PATH_FILTER_NAME;
+extern const std::string PATH_ADM;
+extern const std::string PATH_BOSS_CAMP;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3061,7 +3070,7 @@ struct STRUCT_WARS
 struct STRUCT_BOSS 
 {
 	int ID;
-	const char* NAME;
+	std::string NAME;
 	STRUCT_ITEM FACE;
 	STRUCT_ITEM HELM;
 	STRUCT_ITEM BODY;
@@ -3156,6 +3165,25 @@ struct STRUCT_SOMBRA_NEGRA
 
 };
 
+struct STRUCT_BOSS_CAMP
+{
+	STRUCT_BOSS Boss;
+	STRUCT_BOSS Guardian;
+	int Days[7];
+	DWORD StartHour[5];
+	DWORD EndHour;
+	int follow;
+	std::string NoticeStart;
+	std::string NoticeEnd;
+	STRUCT_ITEM Drop[6];
+	STRUCT_ITEM DropParty[6];
+	BOOL hp50;
+	BOOL hp10;
+	BOOL spawned;
+	DWORD numGuardian;
+
+};
+
 struct STRUCT_STATUS_BOSS
 {
 	BOOL aLive;
@@ -3226,7 +3254,13 @@ extern STRUCT_FILTER FilterName;
 extern STRUCT_COLISEU nColiseu[3];
 extern STRUCT_EVENT_TRADE EventTrade;
 extern STRUCT_STATUS_BOSS statusSombraNegra;
+extern STRUCT_STATUS_BOSS statusBossCamp[4];
+extern STRUCT_STATUS_BOSS statusTalos;
+extern STRUCT_STATUS_BOSS statusNoah;
+extern STRUCT_STATUS_BOSS statusKirei;
 extern STRUCT_SOMBRA_NEGRA bSombraNegra;
+extern STRUCT_BOSS_CAMP bossCamp[MAX_BOSS_CAMP];
+extern int locationBossCamp[MAX_BOSS_CAMP][4][2];
 extern STRUCT_aDOUBLE autoDouble;
 extern STRUCT_aNOTICE autoNotice;
 extern STRUCT_QUIZ eQuiz[MAX_QUIZ];
@@ -3260,6 +3294,13 @@ extern enum eNPCBlock {
 	Kibita,
 	Urnammu
 };
+
+extern enum eBossCamp {
+	Freak,
+	Talos,
+	Noah,
+	Kirei
+};
 extern enum eWeekDay {
 	Sunday,
 	Monday,
@@ -3288,10 +3329,6 @@ extern STRUCT_ITEM sbagWarrior[6];
 extern short RandTorreRed[4][2];
 extern short RandTorreBlue[4][2];
 extern STRUCT_AUTOBAN autoBan;
-extern const std::string PATH_BAN;
-extern const std::string PATH_AUTO_BAN;
-extern const std::string PATH_FILTER_NAME;
-extern const std::string PATH_ADM;
 extern STRUCT_STAFF_ETERNAL StaffEternal;
 #pragma endregion
 

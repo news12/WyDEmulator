@@ -38,8 +38,8 @@ void WINAPI initBoss()
 void startBoss()
 {
 	checkBoss();
-	sprintf(temp, bSombraNegra.NoticeStart.c_str());
-	SendNotice(temp);
+	sprintf(msgTemp, bSombraNegra.NoticeStart.c_str());
+	SendNotice(msgTemp);
 	GenerateMob(bSombraNegra.Boss.ID, 3810, 2882);
 	bSombraNegra.spawned = TRUE;
 	bSombraNegra.hp70 = FALSE;
@@ -245,8 +245,8 @@ void sombraNegraKilled(int a_iConn)
 		STRUCT_ITEM* drop = &bSombraNegra.Drop[DropKiller];
 
 		PutItem(a_iConn, drop);
-		sprintf(temp, "!Você recebeu [%s] como recompensa por Matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
-		SendClientMsg(a_iConn, temp);
+		sprintf(msgTemp, "!Você recebeu [%s] como recompensa por Matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
+		SendClientMsg(a_iConn, msgTemp);
 	//}
 
 	int partyleader = pMob[a_iConn].Leader;
@@ -261,9 +261,9 @@ void sombraNegraKilled(int a_iConn)
 		STRUCT_ITEM* drop = &bSombraNegra.Drop[DropParty];
 
 		PutItem(partyleader, drop);
-		sprintf(temp, "!Você recebeu [%s] como recompensa por Ajudar Sombra Negra!", g_pItemList[drop->sIndex].Name);
-		SendClientMsg(partyleader, temp);
-		SendClientMsg(partyleader, temp);
+		sprintf(msgTemp, "!Você recebeu [%s] como recompensa por Ajudar a matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
+		SendClientMsg(partyleader, msgTemp);
+		SendClientMsg(partyleader, msgTemp);
 	}
 
 	
@@ -285,8 +285,8 @@ void sombraNegraKilled(int a_iConn)
 			//{
 				STRUCT_ITEM* drop = &bSombraNegra.DropParty[DropParty];
 				PutItem(partymember, drop);
-				sprintf(temp, "!Você recebeu [%s] como recompensa por ajudar a matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
-				SendClientMsg(partymember, temp);
+				sprintf(msgTemp, "!Você recebeu [%s] como recompensa por ajudar a matar Sombra Negra!", g_pItemList[drop->sIndex].Name);
+				SendClientMsg(partymember, msgTemp);
 			//}
 
 		}
@@ -295,7 +295,6 @@ void sombraNegraKilled(int a_iConn)
 
 	time_t rawtime;
 	tm* timeinfo;
-	int minDefine = 5;
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 
@@ -307,8 +306,8 @@ void sombraNegraKilled(int a_iConn)
 	
 	WriteSombraNegra();
 
-	sprintf(temp, bSombraNegra.NoticeEnd1.c_str(), pMob[a_iConn].MOB.MobName);
-	SendNotice(temp);
+	sprintf(msgTemp, bSombraNegra.NoticeEnd1.c_str(), pMob[a_iConn].MOB.MobName);
+	SendNotice(msgTemp);
 }
 
 void randDrop()
@@ -324,6 +323,7 @@ void randDrop()
 	//DropParty = rand() % 6; //item sorteado
 	
 	//rand Drop Killer
+	srand(time(NULL));
 		nRand = rand() % 100;
 		if (nRand <= hand1)
 			DropKiller = 0;
@@ -345,6 +345,7 @@ void randDrop()
 	
 
 		//Rand Drop Party
+		srand(time(NULL));
 		nRand = rand() % 100;
 		if (nRand <= hand1)
 			DropParty = 0;
@@ -391,8 +392,8 @@ void noKiller()
 			DeleteMob(i, 1);
 		}
 	}
-	sprintf(temp, bSombraNegra.NoticeEnd2.c_str());
-	SendNotice(temp);
+	sprintf(msgTemp, bSombraNegra.NoticeEnd2.c_str());
+	SendNotice(msgTemp);
 }
 
 

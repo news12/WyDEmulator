@@ -91,6 +91,8 @@ void WriteSombraNegra();
 void ReadEventTrade();
 void ReadColiseu();
 void ReadStaff();
+void ReadBossCamp();
+void WriteBossCamp(unsigned char boss);
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
@@ -391,6 +393,7 @@ extern int kRanking2X;
 extern int kRanking2Y;
 
 extern char temp[4096];
+extern char msgTemp[10000];
 
 extern int TaxChanged[MAX_GUILDZONE];
 

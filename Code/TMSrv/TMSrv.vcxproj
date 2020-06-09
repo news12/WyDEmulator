@@ -98,6 +98,7 @@
     <ClCompile Include="AltarOfKing.cpp" />
     <ClCompile Include="AutoBan.cpp" />
     <ClCompile Include="AutoEvent.cpp" />
+    <ClCompile Include="BossCamp.cpp" />
     <ClCompile Include="BoxPremium.cpp" />
     <ClCompile Include="CCastleZakum.cpp" />
     <ClCompile Include="CItem.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="EventsEternal.h" />
     <ClInclude Include="FadaDourada.h" />
+    <ClInclude Include="BossCamp.h" />
     <ClInclude Include="ItensEntradaQuest.h" />
     <ClInclude Include="KefraDrop.h" />
     <ClInclude Include="PassGroup.h" />
@@ -256,7 +258,17 @@
   <ItemGroup>
     <Image Include="tm.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\sqlite3_c_plus_plus.1.0.3\build\native\sqlite3_c_plus_plus.targets" Condition="Exists('..\..\packages\sqlite3_c_plus_plus.1.0.3\build\native\sqlite3_c_plus_plus.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\sqlite3_c_plus_plus.1.0.3\build\native\sqlite3_c_plus_plus.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\sqlite3_c_plus_plus.1.0.3\build\native\sqlite3_c_plus_plus.targets'))" />
+  </Target>
 </Project>

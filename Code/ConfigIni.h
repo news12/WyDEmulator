@@ -68,6 +68,11 @@ namespace ConfigIni {
 		static int WriteAutoBan(string path, string file);
 		static int ReadStaff(string path, string file);
 		static int WriteStaff(string path, string file);
+		//Boss Armia/Erion
+		static int ReadBossCamp(string path, int boss);
+		static int WriteBossCamp(string path, int boss);
+		static int ReadStatusBossCamp(string path, int boss);
+		static int WriteStatusBossCamp(string path, int boss);
 
 	static	struct GroupServer
 		{
@@ -84,42 +89,5 @@ namespace ConfigIni {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif

@@ -260,7 +260,7 @@ int  CMob::BattleProcessor()
 	}
 	
 	int BaseInt = MOB.BaseScore.Int;
-	
+	srand(time(NULL));
 	if (BaseInt < rand() % 100)
 	{
 		return 0x010000;
@@ -290,6 +290,7 @@ int  CMob::BattleProcessor()
 	}
 	if (dis <= Range)
 	{
+		srand(time(NULL));
 		int Rand = rand() % 100;
 
 		if (Range >= 4 && dis <= 4 && Rand > BaseDex)
@@ -892,7 +893,7 @@ void CMob::GetTargetPosDistance(int tz)
 	LastY = TargetY;
 	NextX = LastX;
 	NextY = LastY;
-
+	srand(time(NULL));
 	if (pMob[tz].TargetX > LastX)
 		NextX = NextX - (1 + rand() % 2);
 
@@ -954,6 +955,7 @@ void CMob::GetRandomPos()
 
 	LastX = TargetX;
 	LastY = TargetY;
+	srand(time(NULL));
 	NextX = LastX + rand() % 5 - 3;
 	NextY = LastY + rand() % 5 - 3;
 
@@ -981,6 +983,7 @@ void CMob::GetRandomPos()
 
 	if (i == -1 || Route[0] == 0)
 	{
+		srand(time(NULL));
 		NextX = TargetX + rand() % 5 - 3;
 		NextY = TargetY + rand() % 5 - 3;
 
@@ -1210,6 +1213,7 @@ void CMob::GetNextPos(int battle)
 
 	LastX = TargetX;
 	LastY = TargetY;
+	srand(time(NULL));
 	NextX = SegmentX + rand() % 5 - 2;
 	NextY = SegmentY + rand() % 5 - 2;
 

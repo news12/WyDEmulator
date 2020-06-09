@@ -1368,14 +1368,14 @@ int BASE_GetSpeed(STRUCT_SCORE *score)
 
 int BASE_GetDamage(int dam, int ac, int combat)
 {
-	long long tdam = dam - ac / 2;
+	long long tdam = (__int64)dam - (__int64)ac / 2;
 	combat /= 2;
 
 	if(combat > 7)
 		combat = 7;
 
 	int delta = 12 - combat;
-
+	srand(time(NULL));
 	int rnd = rand() % delta + combat + 99;
 
 	tdam = (long long)rnd * tdam / 100;
@@ -1596,7 +1596,7 @@ int BASE_GetSkillDamage(int dam, int ac, int combat)
 	int Factory = 21 - combat;
 
 	if (Factory <= 0) Factory = 2;
-
+	srand(time(NULL));
 	int Randly = (rand() % Factory) + combat + 90;
 
 	Attack = (Attack * Randly) / 100;
@@ -2918,7 +2918,7 @@ void BASE_WriteSkillBin()
 	if(fp != NULL)
 	{	
 		fwrite(g_pSpell, sizeof(STRUCT_SPELL), MAX_SKILLINDEX , fp);
-
+		srand(time(NULL));
 		int sum = BASE_GetSum2((char*)g_pSpell, size);
 		int nRand = rand();
 
@@ -2967,7 +2967,7 @@ void BASE_WriteItemList(int nItemList)
 	}
 
 	int sum = BASE_GetSum2((char*)g_pItemList, size);
-
+	srand(time(NULL));
 	int nRand = rand();
 
 	if(nItemList == 0)
@@ -3184,10 +3184,6 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 {
 	MOB.Rsv = 0;
 
-	//if (!strcmp(MOB.MobName, "MyBM") || !strcmp(MOB.MobName, "NewsGames"))
-	//{
-	//	int eu = 1;
-	//}
 	int hp = MOB.CurrentScore.Hp;
 	int mp = MOB.CurrentScore.Mp;
 	MOB.CurrentScore = MOB.BaseScore;
@@ -5954,7 +5950,7 @@ int BASE_GetDoubleCritical(STRUCT_MOB *mob, unsigned short *sProgress, unsigned 
 			if(value < hitvalue[0])
 				bit = 1;
 		}
-
+		srand(time(NULL));
 		if(i == 1)
 		{
 			if (rand() % 255 < hitvalue[1])

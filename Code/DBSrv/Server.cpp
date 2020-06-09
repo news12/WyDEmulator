@@ -21,6 +21,7 @@
 #include "CRanking.h"
 #include "CReadFiles.h"
 #include "../ConfigIni.h"
+#include "Sqlite_Connect.h"
 
 /*revisado*/
 HWND		hWndMain;
@@ -598,6 +599,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     BASE_InitializeBaseDef();
 	ReadBaseMob();
 	ReadFilterName();
+	//SqlDB::nSqlDB::openDB();
 	//ReadAdmin();
 
 
@@ -1143,7 +1145,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			 char tmp[100];
 			 sprintf(tmp, "sys,wsa_acceptadmin %d.%d.%d.%d <%d>", cIP[0], cIP[1], cIP[2], cIP[3], User);
 			 Log(tmp, "-system", 0);
-
+			 srand(time(NULL));
 			 pAdmin[User].Encode1 = rand() % 10000;
 			 pAdmin[User].Encode2 = rand() % 10000;
 			 
@@ -2024,7 +2026,7 @@ int ProcessAdminMessage(int conn, char *msg)
 			time_t now;
 			time(&now);
 			when = *localtime(&now);
-
+			srand(time(NULL));
 			sprintf(name, "%02d%02d%04d%02d%02d%02d%02d", when.tm_mday, when.tm_mon, when.tm_year+1900, when.tm_hour, when.tm_min, when.tm_sec, rand()%255);
 			sprintf(filename, "../../Common/ImportDonate/%s", name);
 

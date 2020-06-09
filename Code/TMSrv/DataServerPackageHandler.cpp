@@ -156,7 +156,7 @@ void ProcessDBMessage(char *Msg)
 				}
 
 				pUser[i].OnlyTrade = 1;
-				RemoveParty(i);
+				//RemoveParty(i);
 
 				if (pMob[i].Mode == USER_PLAY)
 				{

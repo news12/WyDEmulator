@@ -27,6 +27,9 @@ STRUCT_aDOUBLE autoDouble;
 STRUCT_aNOTICE autoNotice;
 STRUCT_SOMBRA_NEGRA bSombraNegra;
 STRUCT_STATUS_BOSS statusSombraNegra;
+STRUCT_BOSS_CAMP bossCamp[];
+STRUCT_STATUS_BOSS statusBossCamp[4];
+int locationBossCamp[MAX_BOSS_CAMP][4][2];
 STRUCT_EVENT_TRADE EventTrade;
 STRUCT_COLISEU nColiseu[];
 STRUCT_AUTOBAN autoBan;
@@ -94,6 +97,8 @@ short gameConfig[maxGameConfig][MaxSubConfig];
 //PATH Folders, difinir extern no basedef.h
 const string PATH_COMMON = "../../Common/";
 const string PATH_DB = "../../DBSrv/";
+const string PATH_DBSqlite = "DB/";
+const string PATH_DBEternal = PATH_DBSqlite + "Eternal.db";
 const string PATH_TM = "../../TMSrv/";
 const string PATH_CONFIG = "Config/";
 const string PATH_SETTINGS = PATH_COMMON + "Settings/";
@@ -107,6 +112,7 @@ const string PATH_EVENT_Trade = PATH_EVENTS + "NPCTrade/";
 const string PATH_NewNPC = "NewNPC/";
 const string PATH_NewBoss = "NewBoss/";
 const string PATH_SOMBRA_NEGRA = PATH_NewBoss + "SombraNegra/";
+const string PATH_BOSS_CAMP = PATH_NewBoss + "Camp/";
 const string PATH_BAN = "Ban/";
 const string PATH_AUTO_BAN = PATH_BAN + "AutoBan/";
 const string PATH_FILTER_NAME = "FilterName/";
@@ -186,6 +192,7 @@ int nConfig::ReadEventsEternal(string path, string file, int key)
 	}
 
 }
+
 int nConfig::WriteEventsEternal(string path, string file, int key, int nValue)
 {
 
@@ -1191,9 +1198,9 @@ int ConfigIni::nConfig::ReadAltarOfKing(string path, string file)
 		};
 
 		nJson["INDEX"]["Boss"].find("ID").value().get_to(altarKing.BossStatus.ID);
-		string nName;
-		nJson["INDEX"]["Boss"].find("NAME").value().get_to(nName);
-		altarKing.BossStatus.NAME = nName.c_str();
+		//string nName;
+		nJson["INDEX"]["Boss"].find("NAME").value().get_to(altarKing.BossStatus.NAME);
+		//altarKing.BossStatus.NAME = nName.c_str();
 		vector<short> nface;
 		nJson["INDEX"]["Boss"].find("FACE").value().get_to(nface);
 		altarKing.BossStatus.FACE.sIndex = nface[0];
@@ -1906,6 +1913,7 @@ int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
 		nJson["STATUS"]["StartHour"].get_to(bSombraNegra.StartHour);
 		nJson["STATUS"]["EndHour"].get_to(bSombraNegra.EndHour);
 		nJson["STATUS"]["Follow"].get_to(bSombraNegra.follow);
+		nJson["STATUS"]["String"].get_to(bSombraNegra.NoticeStart);
 		nJson["STATUS"]["NoticeStart"].get_to(bSombraNegra.NoticeStart);
 		nJson["STATUS"]["NoticeEnd1"].get_to(bSombraNegra.NoticeEnd1);
 		nJson["STATUS"]["NoticeEnd2"].get_to(bSombraNegra.NoticeEnd2);
@@ -2036,9 +2044,9 @@ int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
 
 #pragma region Guardian
 		nJson["GUARDIAN"]["ID"].get_to(bSombraNegra.Guardian.ID);
-		string gName;
-		nJson["GUARDIAN"]["NAME"].get_to(gName);
-		bSombraNegra.Guardian.NAME = gName.c_str();
+		//string gName;
+		nJson["GUARDIAN"]["NAME"].get_to(bSombraNegra.Guardian.NAME);
+		//bSombraNegra.Guardian.NAME = gName.c_str();
 		memset(&nFace, 0, 8);
 		nJson["GUARDIAN"]["FACE"].get_to(nFace);
 		bSombraNegra.Guardian.FACE.sIndex = nFace[0];
@@ -2209,6 +2217,7 @@ int ConfigIni::nConfig::WriteSombraNegra(string path, string file)
 			"StartHour": 10,
 			"EndHour": 23,
 			"Follow": 4,
+			"String": "qwertyuiopasdfghjklçzxcvbnm",
 			"NoticeStart": "Sombra Negra acaba de aparecer no Castelo de Gelo!!!",
 			"NoticeEnd1": "O Grupo de [%s] dorrotou Sombra Negra!!!",
 			"NoticeEnd2": "Sombra Negra desapareceu do Castelo de Gelo!!"
@@ -2482,6 +2491,592 @@ int ConfigIni::nConfig::WriteStaff(string path, string file)
 		nJson["STAFF"]["DEV"] = StaffEternal.DEV;
 		nJson["STAFF"]["ADM"] = StaffEternal.ADM;
 		nJson["STAFF"]["GM"] = StaffEternal.GM;
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadBossCamp(string path, int boss)
+{
+	string file;
+	switch (boss)
+	{
+	case Freak:
+		file = "freak.json";
+		break;
+	case Talos:
+		file = "talos.json";
+		break;
+	case Noah:
+		file = "noah.json";
+		break;
+	case Kirei:
+		file = "kirei.json";
+		break;
+	default:
+		break;
+	}
+
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteBossCamp(PATH_BOSS_CAMP, boss);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&bossCamp[boss], 0, sizeof(STRUCT_BOSS_CAMP));
+		memset(&locationBossCamp[boss], 0, 4);
+		
+		nJson["STATUS"]["Days"].get_to(bossCamp[boss].Days);
+		nJson["STATUS"]["StartHour"].get_to(bossCamp[boss].StartHour);
+		nJson["STATUS"]["Follow"].get_to(bossCamp[boss].follow);
+		nJson["STATUS"]["NoticeStart"].get_to(bossCamp[boss].NoticeStart);
+		nJson["STATUS"]["NoticeEnd"].get_to(bossCamp[boss].NoticeEnd);
+		for (auto& x : nJson["LOCATION"].items())
+		{
+			vector<short> nLocation = x.value();
+			locationBossCamp[boss][stoi(x.key())][0] = nLocation[0];
+			locationBossCamp[boss][stoi(x.key())][1] = nLocation[1];
+		}
+		
+#pragma region  Boss	
+		nJson["BOSS"]["ID"].get_to(bossCamp[boss].Boss.ID);
+		//string nName;
+		nJson["BOSS"]["STRING"].get_to(bossCamp[boss].Boss.NAME);
+		nJson["BOSS"]["NAME"].get_to(bossCamp[boss].Boss.NAME);
+		//bossCamp[boss].Boss.NAME = nName.c_str();
+		vector<short> nFace;
+		nJson["BOSS"]["FACE"].get_to(nFace);
+		bossCamp[boss].Boss.FACE.sIndex = nFace[0];
+		bossCamp[boss].Boss.FACE.stEffect->sValue = nFace[1];
+		bossCamp[boss].Boss.FACE.stEffect[0].cEffect = nFace[2];
+		bossCamp[boss].Boss.FACE.stEffect[0].cValue = nFace[3];
+		bossCamp[boss].Boss.FACE.stEffect[1].cEffect = nFace[4];
+		bossCamp[boss].Boss.FACE.stEffect[1].cValue = nFace[5];
+		bossCamp[boss].Boss.FACE.stEffect[2].cEffect = nFace[6];
+		bossCamp[boss].Boss.FACE.stEffect[2].cValue = nFace[7];
+
+		vector<short> nHelm;
+		nJson["BOSS"]["HELM"].get_to(nHelm);
+		bossCamp[boss].Boss.HELM.sIndex = nHelm[0];
+		bossCamp[boss].Boss.HELM.stEffect->sValue = nHelm[1];
+		bossCamp[boss].Boss.HELM.stEffect[0].cEffect = nHelm[2];
+		bossCamp[boss].Boss.HELM.stEffect[0].cValue = nHelm[3];
+		bossCamp[boss].Boss.HELM.stEffect[1].cEffect = nHelm[4];
+		bossCamp[boss].Boss.HELM.stEffect[1].cValue = nHelm[5];
+		bossCamp[boss].Boss.HELM.stEffect[2].cEffect = nHelm[6];
+		bossCamp[boss].Boss.HELM.stEffect[2].cValue = nHelm[7];
+
+		vector<short> nBody;
+		nJson["BOSS"]["BODY"].get_to(nBody);
+		bossCamp[boss].Boss.BODY.sIndex = nBody[0];
+		bossCamp[boss].Boss.BODY.stEffect->sValue = nBody[1];
+		bossCamp[boss].Boss.BODY.stEffect[0].cEffect = nBody[2];
+		bossCamp[boss].Boss.BODY.stEffect[0].cValue = nBody[3];
+		bossCamp[boss].Boss.BODY.stEffect[1].cEffect = nBody[4];
+		bossCamp[boss].Boss.BODY.stEffect[1].cValue = nBody[5];
+		bossCamp[boss].Boss.BODY.stEffect[2].cEffect = nBody[6];
+		bossCamp[boss].Boss.BODY.stEffect[2].cValue = nBody[7];
+
+		vector<short> nLeg;
+		nJson["BOSS"]["LEG"].get_to(nLeg);
+		bossCamp[boss].Boss.LEG.sIndex = nLeg[0];
+		bossCamp[boss].Boss.LEG.stEffect->sValue = nLeg[1];
+		bossCamp[boss].Boss.LEG.stEffect[0].cEffect = nLeg[2];
+		bossCamp[boss].Boss.LEG.stEffect[0].cValue = nLeg[3];
+		bossCamp[boss].Boss.LEG.stEffect[1].cEffect = nLeg[4];
+		bossCamp[boss].Boss.LEG.stEffect[1].cValue = nLeg[5];
+		bossCamp[boss].Boss.LEG.stEffect[2].cEffect = nLeg[6];
+		bossCamp[boss].Boss.LEG.stEffect[2].cValue = nLeg[7];
+
+		vector<short> nGlove;
+		nJson["BOSS"]["GLOVE"].get_to(nGlove);
+		bossCamp[boss].Boss.GLOVE.sIndex = nGlove[0];
+		bossCamp[boss].Boss.GLOVE.stEffect->sValue = nGlove[1];
+		bossCamp[boss].Boss.GLOVE.stEffect[0].cEffect = nGlove[2];
+		bossCamp[boss].Boss.GLOVE.stEffect[0].cValue = nGlove[3];
+		bossCamp[boss].Boss.GLOVE.stEffect[1].cEffect = nGlove[4];
+		bossCamp[boss].Boss.GLOVE.stEffect[1].cValue = nGlove[5];
+		bossCamp[boss].Boss.GLOVE.stEffect[2].cEffect = nGlove[6];
+		bossCamp[boss].Boss.GLOVE.stEffect[2].cValue = nGlove[7];
+
+		vector<short> nBoot;
+		nJson["BOSS"]["BOOT"].get_to(nBoot);
+		bossCamp[boss].Boss.BOOT.sIndex = nBoot[0];
+		bossCamp[boss].Boss.BOOT.stEffect->sValue = nBoot[1];
+		bossCamp[boss].Boss.BOOT.stEffect[0].cEffect = nBoot[2];
+		bossCamp[boss].Boss.BOOT.stEffect[0].cValue = nBoot[3];
+		bossCamp[boss].Boss.BOOT.stEffect[1].cEffect = nBoot[4];
+		bossCamp[boss].Boss.BOOT.stEffect[1].cValue = nBoot[5];
+		bossCamp[boss].Boss.BOOT.stEffect[2].cEffect = nBoot[6];
+		bossCamp[boss].Boss.BOOT.stEffect[2].cValue = nBoot[7];
+
+		vector<short> nWeapon;
+		nJson["BOSS"]["WEAPON"].get_to(nWeapon);
+		bossCamp[boss].Boss.WEAPON.sIndex = nWeapon[0];
+		bossCamp[boss].Boss.WEAPON.stEffect->sValue = nWeapon[1];
+		bossCamp[boss].Boss.WEAPON.stEffect[0].cEffect = nWeapon[2];
+		bossCamp[boss].Boss.WEAPON.stEffect[0].cValue = nWeapon[3];
+		bossCamp[boss].Boss.WEAPON.stEffect[1].cEffect = nWeapon[4];
+		bossCamp[boss].Boss.WEAPON.stEffect[1].cValue = nWeapon[5];
+		bossCamp[boss].Boss.WEAPON.stEffect[2].cEffect = nWeapon[6];
+		bossCamp[boss].Boss.WEAPON.stEffect[2].cValue = nWeapon[7];
+
+		vector<short> nShield;
+		nJson["BOSS"]["SHIELD"].get_to(nShield);
+		bossCamp[boss].Boss.SHIELD.sIndex = nShield[0];
+		bossCamp[boss].Boss.SHIELD.stEffect->sValue = nShield[1];
+		bossCamp[boss].Boss.SHIELD.stEffect[0].cEffect = nShield[2];
+		bossCamp[boss].Boss.SHIELD.stEffect[0].cValue = nShield[3];
+		bossCamp[boss].Boss.SHIELD.stEffect[1].cEffect = nShield[4];
+		bossCamp[boss].Boss.SHIELD.stEffect[1].cValue = nShield[5];
+		bossCamp[boss].Boss.SHIELD.stEffect[2].cEffect = nShield[6];
+		bossCamp[boss].Boss.SHIELD.stEffect[2].cValue = nShield[7];
+
+		vector<short> nPixie;
+		nJson["BOSS"]["PIXIE"].get_to(nPixie);
+		bossCamp[boss].Boss.PIXIE.sIndex = nPixie[0];
+		bossCamp[boss].Boss.PIXIE.stEffect->sValue = nPixie[1];
+		bossCamp[boss].Boss.PIXIE.stEffect[0].cEffect = nPixie[2];
+		bossCamp[boss].Boss.PIXIE.stEffect[0].cValue = nPixie[3];
+		bossCamp[boss].Boss.PIXIE.stEffect[1].cEffect = nPixie[4];
+		bossCamp[boss].Boss.PIXIE.stEffect[1].cValue = nPixie[5];
+		bossCamp[boss].Boss.PIXIE.stEffect[2].cEffect = nPixie[6];
+		bossCamp[boss].Boss.PIXIE.stEffect[2].cValue = nPixie[7];
+
+		nJson["BOSS"]["StartX"].get_to(bossCamp[boss].Boss.StartX);
+		nJson["BOSS"]["StartY"].get_to(bossCamp[boss].Boss.StartY);
+		nJson["BOSS"]["DestX"].get_to(bossCamp[boss].Boss.DestX);
+		nJson["BOSS"]["DestY"].get_to(bossCamp[boss].Boss.DestY);
+		nJson["BOSS"]["REGEN"].get_to(bossCamp[boss].Boss.REGEN);
+		nJson["BOSS"]["LEVEL"].get_to(bossCamp[boss].Boss.LEVEL);
+		nJson["BOSS"]["HP"].get_to(bossCamp[boss].Boss.HP);
+		nJson["BOSS"]["MP"].get_to(bossCamp[boss].Boss.MP);
+		nJson["BOSS"]["AC"].get_to(bossCamp[boss].Boss.AC);
+		nJson["BOSS"]["DAN"].get_to(bossCamp[boss].Boss.DAN);
+		nJson["BOSS"]["MAGIC"].get_to(bossCamp[boss].Boss.MAGI);
+		nJson["BOSS"]["STR"].get_to(bossCamp[boss].Boss.STR);
+		nJson["BOSS"]["INT"].get_to(bossCamp[boss].Boss.INT);
+		nJson["BOSS"]["DEX"].get_to(bossCamp[boss].Boss.DEX);
+		nJson["BOSS"]["CON"].get_to(bossCamp[boss].Boss.CON);
+		nJson["BOSS"]["MSG1"].get_to(bossCamp[boss].Boss.MSG1);
+		nJson["BOSS"]["MSG2"].get_to(bossCamp[boss].Boss.MSG2);
+		nJson["BOSS"]["MSG3"].get_to(bossCamp[boss].Boss.MSG3);
+
+#pragma endregion
+
+#pragma region Guardian
+		nJson["GUARDIAN"]["ID"].get_to(bossCamp[boss].Guardian.ID);
+		//string gName;
+		nJson["GUARDIAN"]["NAME"].get_to(bossCamp[boss].Guardian.NAME);
+		//bossCamp[boss].Guardian.NAME = gName.c_str();
+		memset(&nFace, 0, 8);
+		nJson["GUARDIAN"]["FACE"].get_to(nFace);
+		bossCamp[boss].Guardian.FACE.sIndex = nFace[0];
+		bossCamp[boss].Guardian.FACE.stEffect->sValue = nFace[1];
+		bossCamp[boss].Guardian.FACE.stEffect[0].cEffect = nFace[2];
+		bossCamp[boss].Guardian.FACE.stEffect[0].cValue = nFace[3];
+		bossCamp[boss].Guardian.FACE.stEffect[1].cEffect = nFace[4];
+		bossCamp[boss].Guardian.FACE.stEffect[1].cValue = nFace[5];
+		bossCamp[boss].Guardian.FACE.stEffect[2].cEffect = nFace[6];
+		bossCamp[boss].Guardian.FACE.stEffect[2].cValue = nFace[7];
+
+		memset(&nHelm, 0, 8);
+		nJson["GUARDIAN"]["HELM"].get_to(nHelm);
+		bossCamp[boss].Guardian.HELM.sIndex = nHelm[0];
+		bossCamp[boss].Guardian.HELM.stEffect->sValue = nHelm[1];
+		bossCamp[boss].Guardian.HELM.stEffect[0].cEffect = nHelm[2];
+		bossCamp[boss].Guardian.HELM.stEffect[0].cValue = nHelm[3];
+		bossCamp[boss].Guardian.HELM.stEffect[1].cEffect = nHelm[4];
+		bossCamp[boss].Guardian.HELM.stEffect[1].cValue = nHelm[5];
+		bossCamp[boss].Guardian.HELM.stEffect[2].cEffect = nHelm[6];
+		bossCamp[boss].Guardian.HELM.stEffect[2].cValue = nHelm[7];
+
+		memset(&nBody, 0, 8);
+		nJson["GUARDIAN"]["BODY"].get_to(nBody);
+		bossCamp[boss].Guardian.BODY.sIndex = nBody[0];
+		bossCamp[boss].Guardian.BODY.stEffect->sValue = nBody[1];
+		bossCamp[boss].Guardian.BODY.stEffect[0].cEffect = nBody[2];
+		bossCamp[boss].Guardian.BODY.stEffect[0].cValue = nBody[3];
+		bossCamp[boss].Guardian.BODY.stEffect[1].cEffect = nBody[4];
+		bossCamp[boss].Guardian.BODY.stEffect[1].cValue = nBody[5];
+		bossCamp[boss].Guardian.BODY.stEffect[2].cEffect = nBody[6];
+		bossCamp[boss].Guardian.BODY.stEffect[2].cValue = nBody[7];
+
+		memset(&nLeg, 0, 8);
+		nJson["GUARDIAN"]["LEG"].get_to(nLeg);
+		bossCamp[boss].Guardian.LEG.sIndex = nLeg[0];
+		bossCamp[boss].Guardian.LEG.stEffect->sValue = nLeg[1];
+		bossCamp[boss].Guardian.LEG.stEffect[0].cEffect = nLeg[2];
+		bossCamp[boss].Guardian.LEG.stEffect[0].cValue = nLeg[3];
+		bossCamp[boss].Guardian.LEG.stEffect[1].cEffect = nLeg[4];
+		bossCamp[boss].Guardian.LEG.stEffect[1].cValue = nLeg[5];
+		bossCamp[boss].Guardian.LEG.stEffect[2].cEffect = nLeg[6];
+		bossCamp[boss].Guardian.LEG.stEffect[2].cValue = nLeg[7];
+
+		memset(&nGlove, 0, 8);
+		nJson["GUARDIAN"]["GLOVE"].get_to(nGlove);
+		bossCamp[boss].Guardian.GLOVE.sIndex = nGlove[0];
+		bossCamp[boss].Guardian.GLOVE.stEffect->sValue = nGlove[1];
+		bossCamp[boss].Guardian.GLOVE.stEffect[0].cEffect = nGlove[2];
+		bossCamp[boss].Guardian.GLOVE.stEffect[0].cValue = nGlove[3];
+		bossCamp[boss].Guardian.GLOVE.stEffect[1].cEffect = nGlove[4];
+		bossCamp[boss].Guardian.GLOVE.stEffect[1].cValue = nGlove[5];
+		bossCamp[boss].Guardian.GLOVE.stEffect[2].cEffect = nGlove[6];
+		bossCamp[boss].Guardian.GLOVE.stEffect[2].cValue = nGlove[7];
+
+		memset(&nBoot, 0, 8);
+		nJson["GUARDIAN"]["BOOT"].get_to(nBoot);
+		bossCamp[boss].Guardian.BOOT.sIndex = nBoot[0];
+		bossCamp[boss].Guardian.BOOT.stEffect->sValue = nBoot[1];
+		bossCamp[boss].Guardian.BOOT.stEffect[0].cEffect = nBoot[2];
+		bossCamp[boss].Guardian.BOOT.stEffect[0].cValue = nBoot[3];
+		bossCamp[boss].Guardian.BOOT.stEffect[1].cEffect = nBoot[4];
+		bossCamp[boss].Guardian.BOOT.stEffect[1].cValue = nBoot[5];
+		bossCamp[boss].Guardian.BOOT.stEffect[2].cEffect = nBoot[6];
+		bossCamp[boss].Guardian.BOOT.stEffect[2].cValue = nBoot[7];
+
+		memset(&nWeapon, 0, 8);
+		nJson["GUARDIAN"]["WEAPON"].get_to(nWeapon);
+		bossCamp[boss].Guardian.WEAPON.sIndex = nWeapon[0];
+		bossCamp[boss].Guardian.WEAPON.stEffect->sValue = nWeapon[1];
+		bossCamp[boss].Guardian.WEAPON.stEffect[0].cEffect = nWeapon[2];
+		bossCamp[boss].Guardian.WEAPON.stEffect[0].cValue = nWeapon[3];
+		bossCamp[boss].Guardian.WEAPON.stEffect[1].cEffect = nWeapon[4];
+		bossCamp[boss].Guardian.WEAPON.stEffect[1].cValue = nWeapon[5];
+		bossCamp[boss].Guardian.WEAPON.stEffect[2].cEffect = nWeapon[6];
+		bossCamp[boss].Guardian.WEAPON.stEffect[2].cValue = nWeapon[7];
+
+		memset(&nShield, 0, 8);
+		nJson["GUARDIAN"]["SHIELD"].get_to(nShield);
+		bossCamp[boss].Guardian.SHIELD.sIndex = nShield[0];
+		bossCamp[boss].Guardian.SHIELD.stEffect->sValue = nShield[1];
+		bossCamp[boss].Guardian.SHIELD.stEffect[0].cEffect = nShield[2];
+		bossCamp[boss].Guardian.SHIELD.stEffect[0].cValue = nShield[3];
+		bossCamp[boss].Guardian.SHIELD.stEffect[1].cEffect = nShield[4];
+		bossCamp[boss].Guardian.SHIELD.stEffect[1].cValue = nShield[5];
+		bossCamp[boss].Guardian.SHIELD.stEffect[2].cEffect = nShield[6];
+		bossCamp[boss].Guardian.SHIELD.stEffect[2].cValue = nShield[7];
+
+		memset(&nPixie, 0, 8);
+		nJson["BOSS"]["PIXIE"].get_to(nPixie);
+		bossCamp[boss].Guardian.PIXIE.sIndex = nPixie[0];
+		bossCamp[boss].Guardian.PIXIE.stEffect->sValue = nPixie[1];
+		bossCamp[boss].Guardian.PIXIE.stEffect[0].cEffect = nPixie[2];
+		bossCamp[boss].Guardian.PIXIE.stEffect[0].cValue = nPixie[3];
+		bossCamp[boss].Guardian.PIXIE.stEffect[1].cEffect = nPixie[4];
+		bossCamp[boss].Guardian.PIXIE.stEffect[1].cValue = nPixie[5];
+		bossCamp[boss].Guardian.PIXIE.stEffect[2].cEffect = nPixie[6];
+		bossCamp[boss].Guardian.PIXIE.stEffect[2].cValue = nPixie[7];
+
+		nJson["GUARDIAN"]["StartX"].get_to(bossCamp[boss].Guardian.StartX);
+		nJson["GUARDIAN"]["StartY"].get_to(bossCamp[boss].Guardian.StartY);
+		nJson["GUARDIAN"]["DestX"].get_to(bossCamp[boss].Guardian.DestX);
+		nJson["GUARDIAN"]["DestY"].get_to(bossCamp[boss].Guardian.DestY);
+		nJson["GUARDIAN"]["REGEN"].get_to(bossCamp[boss].Guardian.REGEN);
+		nJson["GUARDIAN"]["LEVEL"].get_to(bossCamp[boss].Guardian.LEVEL);
+		nJson["GUARDIAN"]["HP"].get_to(bossCamp[boss].Guardian.HP);
+		nJson["GUARDIAN"]["MP"].get_to(bossCamp[boss].Guardian.MP);
+		nJson["GUARDIAN"]["AC"].get_to(bossCamp[boss].Guardian.AC);
+		nJson["GUARDIAN"]["DAN"].get_to(bossCamp[boss].Guardian.DAN);
+		nJson["GUARDIAN"]["MAGIC"].get_to(bossCamp[boss].Guardian.MAGI);
+		nJson["GUARDIAN"]["STR"].get_to(bossCamp[boss].Guardian.STR);
+		nJson["GUARDIAN"]["INT"].get_to(bossCamp[boss].Guardian.INT);
+		nJson["GUARDIAN"]["DEX"].get_to(bossCamp[boss].Guardian.DEX);
+		nJson["GUARDIAN"]["CON"].get_to(bossCamp[boss].Guardian.CON);
+		nJson["GUARDIAN"]["MSG1"].get_to(bossCamp[boss].Guardian.MSG1);
+		nJson["GUARDIAN"]["MSG2"].get_to(bossCamp[boss].Guardian.MSG2);
+		nJson["GUARDIAN"]["MSG3"].get_to(bossCamp[boss].Guardian.MSG3);
+#pragma endregion
+
+		for (auto& x : nJson["DROP"].items())
+		{
+
+			vector<short> nDrop = x.value();
+			bossCamp[boss].Drop[stoi(x.key())].sIndex = nDrop[0];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect->sValue = nDrop[1];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[0].cEffect = nDrop[2];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[0].cValue = nDrop[3];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[1].cEffect = nDrop[4];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[1].cValue = nDrop[5];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[2].cEffect = nDrop[6];
+			bossCamp[boss].Drop[stoi(x.key())].stEffect[2].cValue = nDrop[7];
+
+		};
+
+		for (auto& x : nJson["DROPPARTY"].items())
+		{
+
+			vector<short> nDropParty = x.value();
+			bossCamp[boss].DropParty[stoi(x.key())].sIndex = nDropParty[0];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect->sValue = nDropParty[1];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[0].cEffect = nDropParty[2];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[0].cValue = nDropParty[3];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[1].cEffect = nDropParty[4];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[1].cValue = nDropParty[5];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[2].cEffect = nDropParty[6];
+			bossCamp[boss].DropParty[stoi(x.key())].stEffect[2].cValue = nDropParty[7];
+
+		};
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteBossCamp(string path, int boss)
+{
+	string file;
+	switch (boss)
+	{
+		case Freak:
+			file = "freak.json";
+			break;
+		case Talos:
+			file = "talos.json";
+			break;
+		case Noah:
+			file = "noah.json";
+			break;
+		case Kirei:
+			file = "kirei.json";
+			break;
+		default:
+			break;
+	}
+	string fullpath = path + file;
+
+#pragma region Txt New BossCamp
+	auto nJson = R"(
+{
+"STATUS": {
+
+			"Days": [1,1,1,1,1,1,1],
+			"StartHour": [0,5,10,15,20],
+			"Follow": 4,
+			"NoticeStart": "BossCamp apareceu.",
+			"NoticeEnd": "O Grupo de [%s] dorrotou BossCamp!!!"
+		  },
+"LOCATION": {
+			"0": [2503,1937],
+			"1": [2609,2035],
+			"2": [2453,2118],
+			"3": [2277,2088]
+		},
+"BOSS": {
+				"ID": 4638,
+				"STRING": "qwertyuiopasdfghjklçzxcvbnm",
+				"NAME": "BossCamp",
+				"FACE": [346,0,43,9,0,0,0,0],
+				"HELM": [0,0,0,0,0,0,0,0],
+				"BODY": [0,0,0,0,0,0,0,0],
+				"LEG": [0,0,0,0,0,0,0,0],
+				"GLOVE": [0,0,0,0,0,0,0,0],
+				"BOOT": [0,0,0,0,0,0,0,0],
+				"WEAPON": [0,0,0,0,0,0,0,0],
+				"SHIELD": [0,0,0,0,0,0,0,0],
+				"PIXIE": [1936,0,5,0,0,0,0,0],
+				"StartX": 0,
+				"StartY": 0,
+				"DestX": 0,
+				"DestY": 0,
+				"REGEN": 209,
+				"LEVEL": 200,
+				"HP": 5000,
+				"MP": 200,
+				"AC": 3000,
+				"DAN": 3000,
+				"MAGIC": 500,
+				"STR": 1000,
+				"INT": 1000,
+				"DEX": 2000,
+				"CON": 8000,
+				"MSG1": "Haa.haaa.Sinto cheiro de virgemmmmm....",
+				"MSG2": "Haa.haaa.Ser abominavel saia daqui....",
+				"MSG3": "graaaa.Insetos malditos...."
+
+		},
+		
+"GUARDIAN": {
+				"ID": 4638,
+				"NAME": "BossCamp_",
+				"FACE": [346,0,0,0,0,0,0,0],
+				"HELM": [0,0,0,0,0,0,0,0],
+				"BODY": [0,0,0,0,0,0,0,0],
+				"LEG": [0,0,0,0,0,0,0,0],
+				"GLOVE": [0,0,0,0,0,0,0,0],
+				"BOOT": [0,0,0,0,0,0,0,0],
+				"WEAPON": [0,0,0,0,0,0,0,0],
+				"SHIELD": [0,0,0,0,0,0,0,0],
+				"PIXIE": [1936,43,1,0,0,0,0,0],
+				"StartX": 0,
+				"StartY": 0,
+				"DestX": 0,
+				"DestY": 0,
+				"REGEN": 209,
+				"LEVEL": 150,
+				"HP": 2000,
+				"MP": 100,
+				"AC": 500,
+				"DAN": 500,
+				"MAGIC": 20,
+				"STR": 50,
+				"INT": 60,
+				"DEX": 800,
+				"CON": 3000,
+				"MSG1": "Haa.haaa.Terao que nos derrotar antes de chegar em nosso Mestre....",
+				"MSG2": "Haa.haaa.Saiam daqui....",
+				"MSG3": "graaaa.Nao permitiremos que incomodem o Mestre...."
+			},
+		
+"DROP": {
+			"0": [412,0,61,5,0,0,0,0],
+			"1": [413,0,61,5,0,0,0,0],
+			"2": [4029,0,0,0,0,0,0,0],
+			"3": [670,0,61,5,0,0,0,0],
+			"4": [671,0,61,5,0,0,0,0],
+			"5": [1741,0,61,5,0,0,0,0]
+		},	
+
+"DROPPARTY": {
+				"0": [412,0,61,5,0,0,0,0],
+				"1": [413,0,61,5,0,0,0,0],
+				"2": [4029,0,0,0,0,0,0,0],
+				"3": [670,0,61,5,0,0,0,0],
+				"4": [671,0,61,5,0,0,0,0],
+				"5": [412,0,61,10,0,0,0,0]
+		     }			
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadStatusBossCamp(string path, int boss)
+{
+	string file;
+	switch (boss)
+	{
+	case Freak:
+		file = "statusFreak.json";
+		break;
+	case Talos:
+		file = "statusTalos.json";
+		break;
+	case Noah:
+		file = "statusNoah.json";
+		break;
+	case Kirei:
+		file = "statusKirei.json";
+		break;
+	default:
+		break;
+	}
+
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteStatusBossCamp(PATH_BOSS_CAMP, boss);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&statusBossCamp[boss], 0, sizeof(STRUCT_STATUS_BOSS));
+		string pName;
+		nJson["STATUS"]["aLive"].get_to(statusBossCamp[boss].aLive);
+		nJson["STATUS"]["PlayerKiled"].get_to(pName);
+		int tLength = pName.size();
+		char* nName = new char[tLength + 1];
+		copy(pName.begin(), pName.end(), nName);
+		nName[tLength] = '\0';
+		statusBossCamp[boss].PlayerKiled = nName;
+		nJson["STATUS"]["DayKiled"].get_to(statusBossCamp[boss].DayKiled);
+		nJson["STATUS"]["HourKiled"].get_to(statusBossCamp[boss].HourKiled);
+		nJson["STATUS"]["MinKiled"].get_to(statusBossCamp[boss].MinKiled);
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteStatusBossCamp(string path, int boss)
+{
+	string file;
+	switch (boss)
+	{
+	case Freak:
+		file = "statusFreak.json";
+		break;
+	case Talos:
+		file = "statusTalos.json";
+		break;
+	case Noah:
+		file = "statusNoah.json";
+		break;
+	case Kirei:
+		file = "statusKirei.json";
+		break;
+	default:
+		break;
+	}
+
+	std::string fullpath = path + file;
+
+	json nJson;
+	try
+	{
+		const char* pName = statusBossCamp[boss].PlayerKiled ? statusBossCamp[boss].PlayerKiled : "NINGUEM";
+
+		nJson["STATUS"]["aLive"] = statusBossCamp[boss].aLive;
+		nJson["STATUS"]["PlayerKiled"] = pName;
+		nJson["STATUS"]["DayKiled"] = statusBossCamp[boss].DayKiled;
+		nJson["STATUS"]["HourKiled"] = statusBossCamp[boss].HourKiled;
+		nJson["STATUS"]["MinKiled"] = statusBossCamp[boss].MinKiled;
+
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

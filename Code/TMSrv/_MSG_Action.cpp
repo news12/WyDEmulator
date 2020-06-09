@@ -177,6 +177,7 @@ void Exec_MSG_Action(int a_iConn, char *pMsg)
 		if (partyleader <= 0)
 			partyleader = a_iConn;
 
+		srand(time(NULL));
 		if(partyleader != a_iConn || a_iConn != Pista[2].Party[0].LeaderID && a_iConn != Pista[2].Party[1].LeaderID && a_iConn != Pista[2].Party[2].LeaderID)
 		{
 			int rd = rand()%3;

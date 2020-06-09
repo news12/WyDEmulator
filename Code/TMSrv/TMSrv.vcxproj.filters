@@ -501,6 +501,9 @@
     <ClCompile Include="AutoBan.cpp">
       <Filter>Source Files\Functions</Filter>
     </ClCompile>
+    <ClCompile Include="BossCamp.cpp">
+      <Filter>Source Files\Packages\State Playing\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -611,6 +614,9 @@
     <ClInclude Include="AutoBan.h">
       <Filter>Header Files\AutoBan</Filter>
     </ClInclude>
+    <ClInclude Include="BossCamp.h">
+      <Filter>Header Files\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TMSrv.rc">
@@ -621,5 +627,8 @@
     <Image Include="tm.ico">
       <Filter>Header Files\Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

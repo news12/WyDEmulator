@@ -25,6 +25,7 @@
 #include "CNPCGene.h"
 #include "SombraNegra.h"
 #include "WarOfKingdom.h"
+#include "BossCamp.h"
 
 
 #pragma region Defines
@@ -580,6 +581,7 @@ STRUCT_TREASURE g_pTreasure[8];
 STRUCT_ITEM LevelItem[4][4][400];
 
 char temp[4096];
+char msgTemp[10000];
 
 CItem pItem[MAX_ITEM];
 
@@ -1071,6 +1073,35 @@ void GuildZoneReport(void)
 HFONT__ *GetAFont()
 {
 	return 0;
+}
+
+void ReadBossCamp()
+{
+	int status = nConfig::ReadBossCamp(PATH_BOSS_CAMP, Freak);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Boss Freak", "FILE ERROR", NULL);
+
+
+	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Freak);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Status Boss Freak", "FILE ERROR", NULL);
+
+	status = nConfig::ReadBossCamp(PATH_BOSS_CAMP, Talos);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Boss Talos", "FILE ERROR", NULL);
+
+
+	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Talos);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Status Boss Talos", "FILE ERROR", NULL);
+}
+
+void WriteBossCamp(unsigned char boss)
+{
+	int status = nConfig::WriteStatusBossCamp(PATH_BOSS_CAMP, boss);
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao gravar status.json Boss Camp", "FILE ERROR", NULL);
 }
 
 void ReadStaff()
@@ -2331,6 +2362,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
 	int v38 = 59;
     int v37 = 0;
     int v36 = 0;
+	srand(time(NULL));
     int v35 = rand() % 101;
     int v34 = 100;
 
@@ -2448,6 +2480,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
         }
         break;
     }
+	srand(time(NULL));
     int v33 = rand() % 100;
     if ( a3 )
       v33 = 2 * v33 / 3;
@@ -2649,6 +2682,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
         break;
     }
     int v28 = 0;
+	srand(time(NULL));
     v35 = rand() % 100;
     if ( lvdif )
     {
@@ -2793,6 +2827,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
         if ( !LOBYTE(Dest->stEffect[1].sValue) )
         {
 			Dest->stEffect[1].cEffect = 59;
+			srand(time(NULL));
           int v4 = rand() & 0x8000007F;
           if ( v4 < 0 )
             v4 = ((unsigned __int8)(v4 - 1) | 0x80) + 1;
@@ -2812,6 +2847,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
     }
     g_dLevel1 = v28;
     int v27 = 0;
+	srand(time(NULL));
     v33 = rand() % 100;
     if ( lvdif )
     {
@@ -2958,6 +2994,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
       if ( !LOBYTE(Dest->stEffect[2].sValue) )
       {
         Dest->stEffect[2].cEffect = 59;
+		srand(time(NULL));
         int v5 = rand() & 0x8000007F;
         if ( v5 < 0 )
           v5 = ((unsigned __int8)(v5 - 1) | 0x80) + 1;
@@ -2973,6 +3010,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
 
     if ( !LOBYTE(Dest->stEffect[0].sValue) )
     {
+		srand(time(NULL));
       int v26 = rand() % 100;
       if ( a3 )
         v26 /= 2;
@@ -3017,6 +3055,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
             if ( v26 >= v22 )
             {
 				Dest->stEffect[0].cEffect = 59;
+				srand(time(NULL));
               int v6 = rand() & 0x8000007F;
               if ( v6 < 0 )
                 v6 = ((unsigned __int8)(v6 - 1) | 0x80) + 1;
@@ -3024,6 +3063,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
             }
             else
             {
+				srand(time(NULL));
               int v20 = rand() % 10;
               int v19 = g_pBonusType[v20];
               int v18 = lvdif;
@@ -3053,6 +3093,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
         Dest->stEffect[0].cValue = 2;
         if ( add2 > 2 )
         {
+			srand(time(NULL));
           int v21 = rand() % 100;
           switch ( add2 )
           {
@@ -3167,6 +3208,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
         break;
       case 0x4E:
         Dest->stEffect[0].cEffect = 78;
+		srand(time(NULL));
         int v11 = rand() % 4 + g_pItemList[ItemId].stEffect[i].sValue;
         if ( v11 > 9 )
           v11 = 9;
@@ -3176,9 +3218,11 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
   }
   if ( Dest->sIndex == 412 || Dest->sIndex == 413 || Dest->sIndex == 419 || Dest->sIndex == 420 || Dest->sIndex == 753 )
   {
+	  srand(time(NULL));
     if ( !Dest->stEffect[0].cEffect )
     {
       Dest->stEffect[0].cEffect = 59;
+	  
       Dest->stEffect[0].cValue = rand();
     }
     if ( !Dest->stEffect[1].cEffect)
@@ -3215,6 +3259,7 @@ void SetItemBonus(STRUCT_ITEM *Dest, int Level, int a3, int DropBonus)
 
 void SetItemBonus2(STRUCT_ITEM *Dest)
 {
+	srand(time(NULL));
 	int nPos = g_pItemList[Dest->sIndex].nPos;
 
 	if(nPos == 2)//Elmo
@@ -3768,6 +3813,7 @@ int CreateMob(char *MobName, int PosX, int PosY, char *folder, int Type)
 
 	for (int i = 0; i < MAX_SEGMENT; i++)
 	{
+		srand(time(NULL));
 		if(pMob[tmob].MOB.Equip[0].sIndex != 220 && pMob[tmob].MOB.Equip[0].sIndex != 219 && pMob[tmob].MOB.Equip[0].sIndex != 358)
 		{
 			pMob[tmob].SegmentListX[i] = PosX + rand()%5 - 2;
@@ -3938,6 +3984,22 @@ void GenerateMob(int index, int PosX, int PosY)
 	if (index == bSombraNegra.Guardian.ID)
 		genGuardianSombraNegra(index);
 
+		//generator dos boss/guardians de camp
+		for (size_t i = 0; i < MAX_BOSS_CAMP; i++)
+		{
+			if (index == bossCamp[i].Boss.ID)
+			{
+				genBossCamp(index, i);
+				break;
+			}
+
+			else if (index == bossCamp[i].Guardian.ID)
+			{
+				genGuardianBossCamp(index, i);
+				break;
+			}
+		}
+
 	if (index == TORRE_RVR_RED || index == TORRE_RVR_BLUE)
 		WarRandTower(index);
 
@@ -3983,6 +4045,7 @@ void GenerateMob(int index, int PosX, int PosY)
 			return;
 		}
 
+		srand(time(NULL));
 		int reloc = rand() % segx + segy;
 		if (reloc < 0 || reloc >= mNPCGen.NumList)
 			Log("err,wrong index relocation", "-system", 0);
@@ -4002,6 +4065,7 @@ void GenerateMob(int index, int PosX, int PosY)
 		qmob = 1;
 	}
 
+	srand(time(NULL));
 	MinGroup += rand() % qmob;
 
 	if (mNPCGen.pList[nindex].CurrentNumMob >= mNPCGen.pList[nindex].MaxNumMob)
@@ -4056,6 +4120,7 @@ void GenerateMob(int index, int PosX, int PosY)
 		{
 			if (mNPCGen.pList[index].SegmentRange[i])
 			{
+				srand(time(NULL));
 				pMob[tmob].SegmentListX[i] = mNPCGen.pList[index].SegmentListX[i]
 					- mNPCGen.pList[index].SegmentRange[i] + (rand() % (mNPCGen.pList[index].SegmentRange[i] + 1));
 
@@ -4133,6 +4198,7 @@ void GenerateMob(int index, int PosX, int PosY)
 
 	memset(pMob[tmob].EnemyList, 0, sizeof(pMob[tmob].EnemyList));
 
+	srand(time(NULL));
 	if (pMob[tmob].MOB.Clan == 1 && rand() % 10 == 1)
 		pMob[tmob].MOB.Clan = 2;
 
@@ -4243,6 +4309,7 @@ void GenerateMob(int index, int PosX, int PosY)
 		{
 			for (int k = 0; k < MAX_SEGMENT; k++)
 			{
+				srand(time(NULL));
 				pMob[tempmob].SegmentListX[k] = PosX + rand() % 5 - 2;
 				pMob[tempmob].SegmentListY[k] = PosY + rand() % 5 - 2;
 			}
@@ -4271,6 +4338,7 @@ void GenerateMob(int index, int PosX, int PosY)
 
 		memset(pMob[tempmob].EnemyList, 0, sizeof(pMob[tempmob].EnemyList));
 
+		srand(time(NULL));
 		if (pMob[tempmob].MOB.Clan == 1 && rand() % 10 == 1)
 			pMob[tempmob].MOB.Clan = 2;
 
@@ -4460,6 +4528,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadEventTrade();
 	ReadColiseu();
 	ReadStaff();
+	ReadBossCamp();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -5078,6 +5147,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_WARS_TIMER, "&Load Wars Timer");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BAG_WARRIOR, "&Load Bag Warrior");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_SOMBRA_NEGRA, "&Load Sombra Negra");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOSS_CAMP, "&Load Boss Camp");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STAFF, "&Load Staff List");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
@@ -5190,6 +5260,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_STAFF:
 			ReadStaff();
+			break;
+
+		case IDC_READ_BOSS_CAMP:
+			ReadBossCamp();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -6140,6 +6214,7 @@ int  ProcessAffect(int idx)
 						sm.AttackerID = idx;
 						sm.SkillIndex = 33;
 
+						srand(time(NULL));
 						int calc = 500 + rand() % 100 + (pMob[idx].Extra.ClassMaster == MORTAL || pMob[idx].Extra.ClassMaster == MORTAL ? Level : Level + MAX_CLEVEL) + AffectLevel;
 
 						sm.Dam[0].TargetID = alvo1;
@@ -6449,6 +6524,7 @@ int  ProcessAffect(int idx)
 						sm.AttackerID = idx;
 						sm.SkillIndex = 52;
 
+						srand(time(NULL));
 						int calc = 5000 + rand() % 100 + (pMob[idx].Extra.ClassMaster == MORTAL || pMob[idx].Extra.ClassMaster == MORTAL ? Level : Level + MAX_CLEVEL) + AffectLevel;
 
 						sm.Dam[0].TargetID = alvo1;
@@ -7190,6 +7266,7 @@ void SetColoseumDoor2(int state)
 
 void GenerateColoseum(int InitID)
 {
+	srand(time(NULL));
 	int MaxSpawn = 4 + rand() % 4;
 
 	for (int i = 0; i < MaxSpawn; i++)
@@ -7518,6 +7595,7 @@ void GuildProcess()
 						BASE_ClearItem(&item);
 						item.sIndex = BRItem;
 
+						srand(time(NULL));
 						int create = CreateItem(2621, 1726, &item, rand() % 4, 1);
 						sprintf(temp, "etc,britem created %d/%d", BRItem, create);
 						Log(temp, "-system", 0);
@@ -8693,6 +8771,7 @@ void SetBattle(int mob, int target)
 			
 
 			int generateindex = pMob[mob].GenerateIndex;
+			srand(time(NULL));
 			int say = rand() % 4;
 
 			if (generateindex < 0 || generateindex >= MAX_NPCGENERATOR)
@@ -9182,6 +9261,7 @@ void DoRecall(int conn)
 	int y = pMob[conn].MOB.SPY;
 	int CityID = (pMob[conn].MOB.Merchant & 0xC0) >> 6;
 
+	srand(time(NULL));
 	x = rand() % 15 + g_pGuildZone[CityID].CitySpawnX;
 	y = rand() % 15 + g_pGuildZone[CityID].CitySpawnY;
 
@@ -9202,11 +9282,11 @@ void DoRecall(int conn)
 	}
 
 	// RVR
+	srand(time(NULL));
 	if (pMob[conn].TargetX >= 1710 && pMob[conn].TargetX <= 1755 &&
 		pMob[conn].TargetY >= 1968 && pMob[conn].TargetY <= 1995 && g_pRvrWar.Status == 1)
 	{
 		int cape = pMob[conn].MOB.Clan;
-
 		if (cape == 7)
 		{
 			x = 1754 + rand() % 4;
@@ -10213,13 +10293,13 @@ void Combine(int conn, int item, int PrizeItem)
 	STRUCT_ITEM Prize;
 
 	Prize.sIndex = PrizeItem;
-
+	srand(time(NULL));
 	Prize.stEffect[0].cEffect = 59;
 	Prize.stEffect[0].cValue = rand() % 100;
-
+	srand(time(NULL));
 	Prize.stEffect[1].cEffect = 59;
 	Prize.stEffect[1].cValue = rand() % 100;
-
+	srand(time(NULL));
 	Prize.stEffect[2].cEffect = 59;
 	Prize.stEffect[2].cValue = rand() % 50 + 50;
 
@@ -10235,7 +10315,7 @@ void Combine(int conn, int item, int PrizeItem)
 		if (pMob[conn].MOB.Carry[i].sIndex == 0)
 			break;
 	}
-
+	srand(time(NULL));
 	if (i >= 0 && i < MAX_CARRY)
 	{
 		*(int*)&pMob[conn].MOB.Carry[i] = *(int*)&Prize;
@@ -10593,7 +10673,8 @@ void SummonPlayer(int x, int y, int conn)
 
 void MobAttack(int attacker, MSG_Attack sm)
 {
-	int _rd = rand()%100;
+	srand(time(NULL));
+	int _rd = rand() % 100;
 
 	if(sm.SkillIndex == 109)
 	{
@@ -10619,6 +10700,7 @@ void MobAttack(int attacker, MSG_Attack sm)
 
 		Target = sm.Dam[i].TargetID;
 
+		srand(time(NULL));
 		if(skillbase != 109)
 			sm.Dam[i].Damage = 500 + rand()%200;
 
@@ -10665,6 +10747,7 @@ void MobAttack(int attacker, MSG_Attack sm)
 			if (sm.SkillIndex == 79 || sm.SkillIndex == 22)
 				parryretn = 30 * parryretn / 100;
 
+			srand(time(NULL));
 			int rd = rand() % 1000 + 1;
 
 			if (rd < parryretn)
