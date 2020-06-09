@@ -1094,6 +1094,24 @@ void ReadBossCamp()
 	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Talos);
 	if (!status)
 		MessageBox(hWndMain, "Erro ao ler Status Boss Talos", "FILE ERROR", NULL);
+
+	status = nConfig::ReadBossCamp(PATH_BOSS_CAMP, Noah);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Boss Noah", "FILE ERROR", NULL);
+
+
+	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Noah);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Status Boss Noah", "FILE ERROR", NULL);
+
+	status = nConfig::ReadBossCamp(PATH_BOSS_CAMP, Kirei);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Boss Kirei", "FILE ERROR", NULL);
+
+
+	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Talos);
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler Status Boss Kirei", "FILE ERROR", NULL);
 }
 
 void WriteBossCamp(unsigned char boss)
