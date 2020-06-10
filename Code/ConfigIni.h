@@ -50,6 +50,8 @@ namespace ConfigIni {
 		static int WriteEventTrade(string path, string file);
 		static int ReadColiseu(string path, string file);
 		static int WriteColiseu(string path, string file);
+		static int ReadStatusServer(string path, string file);
+		static int WriteStatusServer(string path, string file);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

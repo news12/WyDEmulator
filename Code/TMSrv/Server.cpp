@@ -1075,6 +1075,13 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void ReadStatusServer()
+{
+	int status = nConfig::ReadStatusServer(PATH_SETTINGS, "StatusServer.json");
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler StatusServer", "FILE ERROR", NULL);
+}
+
 void ReadBossCamp()
 {
 	int status = nConfig::ReadBossCamp(PATH_BOSS_CAMP, Freak);
@@ -1109,7 +1116,7 @@ void ReadBossCamp()
 		MessageBox(hWndMain, "Erro ao ler Boss Kirei", "FILE ERROR", NULL);
 
 
-	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Talos);
+	status = nConfig::ReadStatusBossCamp(PATH_BOSS_CAMP, Kirei);
 	if (!status)
 		MessageBox(hWndMain, "Erro ao ler Status Boss Kirei", "FILE ERROR", NULL);
 }
@@ -4547,6 +4554,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadColiseu();
 	ReadStaff();
 	ReadBossCamp();
+	ReadStatusServer();
 	ReadLevelItemConfig();
 	ConfigReady = 1;
 
@@ -5167,6 +5175,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_SOMBRA_NEGRA, "&Load Sombra Negra");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOSS_CAMP, "&Load Boss Camp");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STAFF, "&Load Staff List");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STATUS_SERVER, "&Load Status Server");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
 		hSubMenu = CreatePopupMenu();
@@ -5282,6 +5291,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_BOSS_CAMP:
 			ReadBossCamp();
+			break;
+
+		case IDC_READ_STATUS_SERVER:
+			ReadStatusServer();
 			break;
 
 		case IDC_READGAMECONFIG:

@@ -119,6 +119,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_FILTERNAME 941
 #define IDC_READ_STAFF 942
 #define IDC_READ_BOSS_CAMP 943
+#define IDC_READ_STATUS_SERVER 944
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3316,6 +3317,22 @@ extern enum eWars {
 	eCity,
 	eRvR,
 };
+#define MAX_STATUS_SERVER 5
+extern enum eStatusServer {
+	sOff,
+	sFree,
+	sMaintenance,
+	sStaff,
+	sPremium
+
+};
+
+struct StatusServer
+{
+	unsigned char Status;
+	std::string MSG;
+};
+extern StatusServer EternalServer[MAX_STATUS_SERVER];
 #define MAX_WARS 4
 extern int NPCBlock[20];
 extern STRUCT_WARS warsTimer[MAX_WARS];

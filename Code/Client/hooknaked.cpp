@@ -28,6 +28,10 @@ bool HookNaked::Start()
 		/* ExtraItem - CheckSum*/
 		WYD.SetValue<BYTE>(0x0053ADA6, 0xEB);
 
+		/* Ataque magico/Ataque Fisico - CheckSum*/
+		WYD.SetValue<BYTE>(0x5000, 0x3FF);
+		WYD.SetValue<BYTE>(0x5001, 0x5A);
+
 		/* Chat Colorido */
 		SpeakChatColor = TNColor::Default;
 		

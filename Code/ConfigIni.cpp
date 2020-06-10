@@ -34,6 +34,7 @@ STRUCT_EVENT_TRADE EventTrade;
 STRUCT_COLISEU nColiseu[];
 STRUCT_AUTOBAN autoBan;
 STRUCT_FILTER FilterName;
+StatusServer EternalServer[];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -1869,6 +1870,90 @@ int ConfigIni::nConfig::WriteColiseu(string path, string file)
 		"Min": [0,0],
 		"Item": 0
 	 }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadStatusServer(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteStatusServer(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(EternalServer, 0, MAX_STATUS_SERVER);
+
+		nJson["STATUS"]["String"].get_to(EternalServer[sOff].MSG);
+
+		nJson["STATUS"]["Off"].get_to(EternalServer[sOff].Status);
+		nJson["STATUS"]["MSGOff"].get_to(EternalServer[sOff].MSG);
+
+		nJson["STATUS"]["Free"].get_to(EternalServer[sFree].Status);
+		nJson["STATUS"]["MSGFree"].get_to(EternalServer[sFree].MSG);
+
+		nJson["STATUS"]["Maintenance"].get_to(EternalServer[sMaintenance].Status);
+		nJson["STATUS"]["MSGMaintenance"].get_to(EternalServer[sMaintenance].MSG);
+
+		nJson["STATUS"]["Staff"].get_to(EternalServer[sStaff].Status);
+		nJson["STATUS"]["MSGStaff"].get_to(EternalServer[sStaff].MSG);
+
+		nJson["STATUS"]["Premium"].get_to(EternalServer[sPremium].Status);
+		nJson["STATUS"]["MSGPremium"].get_to(EternalServer[sPremium].MSG);
+		
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteStatusServer(string path, string file)
+{
+	string fullpath = path + file;
+
+#pragma region Txt New StatusServer.json
+	auto nJson = R"(
+{
+"STATUS": {
+			"Off": 0,
+			"MSGOff": "Servidor no momento se encontra offiline",
+			"Free": 0,
+			"MSGFree": "Servidor Disponivel para todos, bom jogo!!",
+			"Maintenance": 1,
+			"MSGMaintenance": "Servidor em manutenção, volte mais tarde.",
+			"Staff": 0,
+			"MSGStaff": "Servidor disponivel apenas para Staff Eternal.",
+			"Premium": 0,
+			"MSGPremium": "Servidor disponivel apenas para jogadores premium."
+			
+		 }
 })"_json;
 
 #pragma endregion

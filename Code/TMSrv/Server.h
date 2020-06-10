@@ -92,6 +92,7 @@ void ReadEventTrade();
 void ReadColiseu();
 void ReadStaff();
 void ReadBossCamp();
+void ReadStatusServer();
 void WriteBossCamp(unsigned char boss);
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);

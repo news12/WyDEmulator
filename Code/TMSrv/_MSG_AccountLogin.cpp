@@ -1,5 +1,6 @@
 
 #include "ProcessClientMessage.h"
+#include "StatusServer.h"
 
 void Exec_MSG_AccountLogin(int conn, char *pMsg)
 {
@@ -31,6 +32,22 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 		CloseUser(conn);
 		return;
 	}
+
+	unsigned char sServer = GetStatusServer(conn, m->AccountName);
+	switch (sServer)
+	{
+	case sOff:
+	case sMaintenance:
+	case sStaff:
+		pUser[conn].cSock.SendMessageA();
+		CloseUser(conn);
+		return;
+	case sFree:
+		break;
+	default:
+		break;
+	}
+
 			
 	if(pUser[conn].Mode != USER_ACCEPT)
 	{

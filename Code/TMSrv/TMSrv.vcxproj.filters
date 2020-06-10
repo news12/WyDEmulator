@@ -504,6 +504,9 @@
     <ClCompile Include="BossCamp.cpp">
       <Filter>Source Files\Packages\State Playing\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="StatusServer.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -616,6 +619,9 @@
     </ClInclude>
     <ClInclude Include="BossCamp.h">
       <Filter>Header Files\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusServer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

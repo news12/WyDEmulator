@@ -1098,9 +1098,10 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		//LoopStaff
 		for (size_t i = 0; i < MAX_STAFF; i++)
 		{
-			if (!strcmp(pMob[a_iConn].MOB.MobName, StaffEternal.DEV[i].c_str()) || !strcmp(pMob[a_iConn].MOB.MobName, StaffEternal.ADM[i].c_str()))
+			if (!strcmp(pUser[a_iConn].AccountName, StaffEternal.DEV[i].c_str()) || 
+				!strcmp(pUser[a_iConn].AccountName, StaffEternal.ADM[i].c_str()))
 			{
-				STRUCT_ITEM key1;
+				/*STRUCT_ITEM key1;
 				memset(&key1, 0, sizeof(STRUCT_ITEM));
 				key1.sIndex = 3199;
 				key1.stEffect[0].cEffect = 2;
@@ -1108,10 +1109,10 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 				if (pMob[a_iConn].MOB.Equip[15].sIndex == key1.sIndex 
 					&& pMob[a_iConn].MOB.Equip[15].stEffect[0].cEffect == key1.stEffect[0].cEffect
 					&& pMob[a_iConn].MOB.Equip[15].stEffect[0].cValue == key1.stEffect[0].cValue)
-				{
+				{*/
 					Exec_MSG_ProcessCommand(a_iConn, m->String);
 					return;
-				}
+				//}
 			}
 		}
 		return;
