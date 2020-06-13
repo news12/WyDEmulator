@@ -43,19 +43,19 @@ bool TitleWindow(LPCSTR WindowTitle){
 	ExitProcess(0);	
 }
     if (carrega.Message_Warning_En == 2){
-	CreateThread(NULL,NULL,LPTHREAD_START_ROUTINE(Msg_W_Br),NULL,0,0);
 	Sleep(3000); 
 	ExitProcess(0);	
+	CreateThread(NULL, NULL, LPTHREAD_START_ROUTINE(Msg_W_Br), NULL, 0, 0);
 }
     if (carrega.Message_Warning_En == 3){
-	CreateThread(NULL,NULL,LPTHREAD_START_ROUTINE(Msg_W_Page),NULL,0,0);
 	Sleep(3000); 
 	ExitProcess(0);	
+	CreateThread(NULL, NULL, LPTHREAD_START_ROUTINE(Msg_W_Page), NULL, 0, 0);
 }
 	if (carrega.Message_Warning_En == 4){
-    CreateThread(NULL,NULL,LPTHREAD_START_ROUTINE(Kill_From_Message_Warning),NULL,0,0); 
-    MessageBoxA(NULL, WindowTitle, "WN-Scan", MB_SERVICE_NOTIFICATION | MB_ICONSTOP); 
     ExitProcess(0);
+	CreateThread(NULL, NULL, LPTHREAD_START_ROUTINE(Kill_From_Message_Warning), NULL, 0, 0);
+	MessageBoxA(NULL, WindowTitle, "WN-Scan", MB_SERVICE_NOTIFICATION | MB_ICONSTOP);
 }
 	if (carrega.Message_Warning_En == 0){
 	ExitProcess(0);

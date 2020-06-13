@@ -196,9 +196,9 @@ bool TitleWindow(LPCSTR WindowTitle)
 		}
 		if (Config.SendClientMsg == 2)
 		{
-			CreateThread(NULL, NULL, LPTHREAD_START_ROUTINE(Msg_W_Br), NULL, 0, 0);
 			Sleep(5000);
 			ExitProcess(0);
+			CreateThread(NULL, NULL, LPTHREAD_START_ROUTINE(Msg_W_Br), NULL, 0, 0);
 		}
 		if (Config.SendClientMsg == 0)
 		{

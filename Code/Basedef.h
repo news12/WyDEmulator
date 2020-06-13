@@ -462,6 +462,10 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define AREA_RVR_MINY 1940
 #define AREA_RVR_MAXX 1774
 #define AREA_RVR_MAXY 2023
+#define SAUDE_TYPE 35
+#define SEPHIRA_TYPE 4
+#define BOXEXP_TYPE 39
+#define PVM_TYPE 30
 
 ////////////////////////////////////////////////////////////
 
@@ -3011,6 +3015,7 @@ extern const std::string PATH_DB;
 extern const std::string PATH_TM;
 extern const std::string PATH_CONFIG;
 extern const std::string ConfigJson;
+extern const std::string Serv00;
 extern const std::string GameConfig;
 extern const std::string PATH_SETTINGS;
 extern const std::string PATH_EVENTS;
@@ -3030,6 +3035,8 @@ extern const std::string PATH_AUTO_BAN;
 extern const std::string PATH_FILTER_NAME;
 extern const std::string PATH_ADM;
 extern const std::string PATH_BOSS_CAMP;
+extern const std::string PATH_SITE;
+extern const std::string PATH_SAVEBUFF;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3334,6 +3341,7 @@ struct StatusServer
 };
 extern StatusServer EternalServer[MAX_STATUS_SERVER];
 #define MAX_WARS 4
+#define MAX_SAVE_BUFF 4
 extern int NPCBlock[20];
 extern STRUCT_WARS warsTimer[MAX_WARS];
 extern STRUCT_ALTAR_KING altarKing;
@@ -3347,6 +3355,7 @@ extern short RandTorreRed[4][2];
 extern short RandTorreBlue[4][2];
 extern STRUCT_AUTOBAN autoBan;
 extern STRUCT_STAFF_ETERNAL StaffEternal;
+extern unsigned int AccountSaveBuff[MAX_SAVE_BUFF];
 #pragma endregion
 
 #endif

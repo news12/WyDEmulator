@@ -2053,7 +2053,8 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			return;
 		}
 
-		if (pMob[a_iConn].Extra.NT < 1)
+		if ((pMob[a_iConn].Extra.ClassMaster == CELESTIAL || pMob[a_iConn].Extra.ClassMaster == CELESTIALCS || 
+			pMob[a_iConn].Extra.ClassMaster == SCELESTIAL) && pMob[a_iConn].Extra.NT < 1)
 		{
 			SendClientMsg(a_iConn, "Você não possui NT suficiente para realizar essa quest!!");
 			SendItem(a_iConn, m->SourType, m->SourPos, item);

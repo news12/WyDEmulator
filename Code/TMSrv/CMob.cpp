@@ -1283,7 +1283,7 @@ void CMob::DetectFairyBuffer()
 		g_pFairyAmounts[12] = 4118;
 		g_pFairyAmounts[13] = 4119;
 		g_pFairyAmounts[14] = 4120;
-		g_pFairyAmounts[15] = 4121;
+		//g_pFairyAmounts[15] = 4121;
 
 	}
 	else

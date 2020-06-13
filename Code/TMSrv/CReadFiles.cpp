@@ -916,3 +916,32 @@ void CReadFiles::WriteGuild()
 
 	fclose(fp);
 }
+
+void CReadFiles::WriteCountPlayer()
+{
+	FILE* fp = NULL;
+	int pOnline = 0;
+	for (size_t i = 0; i < MAX_USER; i++)
+	{
+		if (pUser[i].Mode != USER_PLAY)
+			continue;
+
+		pOnline++;
+	}
+
+	pOnline *= 10;
+	fp = fopen(Serv00.c_str(), "wt");
+
+	if (fp == NULL)
+		return;
+
+	for (size_t i = 0; i < 10; i++)
+	{
+		if (i < 5)
+		fprintf(fp, "%d \n", pOnline);
+		else
+		fprintf(fp, "%d \n", 0);
+	}
+
+	fclose(fp);
+}

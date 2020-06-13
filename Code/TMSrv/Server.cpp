@@ -26,6 +26,7 @@
 #include "SombraNegra.h"
 #include "WarOfKingdom.h"
 #include "BossCamp.h"
+#include "AccountBuff.h"
 
 
 #pragma region Defines
@@ -1073,6 +1074,44 @@ void GuildZoneReport(void)
 HFONT__ *GetAFont()
 {
 	return 0;
+}
+
+void ReadAccountBuff(unsigned int conn)
+{
+	std::string accountName = pUser[conn].AccountName;
+
+	int status = nConfig::ReadAccoutSaveBuff(PATH_SAVEBUFF, accountName +".json");
+	if (!status)
+	{
+		sprintf(temp, "error ao carregar buffs salvos em: [%s] ", pUser[conn].AccountName);
+		MyLog(LogType::Itens, pUser[conn].AccountName, temp, 0, pUser[conn].IP);
+	}
+	else
+	{
+		LoadBuff(conn);
+		sprintf(temp, "carregou com sucesso buffs salvos em: [%s] ", pUser[conn].AccountName);
+		MyLog(LogType::Itens, pUser[conn].AccountName, temp, 0, pUser[conn].IP);
+	}
+	
+}
+
+void WriteAccountBuff(unsigned int conn)
+{
+	std::string accountName = pUser[conn].AccountName;
+
+	SaveBuff(conn);
+	int status = nConfig::WriteAccountSaveBuff(PATH_SAVEBUFF, accountName + ".json");
+	if (!status)
+	{
+		sprintf(temp, "error ao gravar buffs em: [%s] ", pUser[conn].AccountName);
+		MyLog(LogType::Itens, pUser[conn].AccountName, temp, 0, pUser[conn].IP);
+	}
+	else
+	{
+		sprintf(temp, "gravou com sucesso buffs em: [%s] ", pUser[conn].AccountName);
+		MyLog(LogType::Itens, pUser[conn].AccountName, temp, 0, pUser[conn].IP);
+	}
+
 }
 
 void ReadStatusServer()
@@ -8325,7 +8364,6 @@ void CloseUser(int conn)
 
 	pUser[conn].cSock.CloseSocket();
 
-
 	int Mode = pUser[conn].Mode;
 
 	if (Mode && Mode != USER_ACCEPT)
@@ -8410,7 +8448,7 @@ void CloseUser(int conn)
 
 			sm.ID = conn;
 
-
+			WriteAccountBuff(conn);
 			DBServerSocket.SendOneMessage((char*)&sm, sizeof(MSG_SavingQuit));
 
 			pUser[conn].Mode = USER_SAVING4QUIT;
@@ -8679,6 +8717,8 @@ void CharLogOut(int conn)
 	pUser[conn].Mode = USER_SELCHAR;
 
 	pMob[conn].Mode = 0;
+
+	WriteAccountBuff(conn);
 
 	SendClientSignal(conn, conn, _MSG_CNFCharacterLogout);
 

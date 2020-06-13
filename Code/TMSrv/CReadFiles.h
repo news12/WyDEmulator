@@ -20,6 +20,7 @@ public:
 	static void WriteChallanger();
 	static void ReadGuild();
 	static void WriteGuild();
+	static void WriteCountPlayer();
 
 public:
 	static int QuestExp[5][2];

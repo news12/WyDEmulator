@@ -3,6 +3,7 @@
 
 #include "CUser.h"
 #include "Server.h"
+#include "CReadFiles.h"
 
 
 CUser::CUser()
@@ -71,5 +72,6 @@ int CUser::CloseUser()
 
 	 AccountName[0] = 0;
 
+	 CReadFiles::WriteCountPlayer();
 	 return TRUE;
 }

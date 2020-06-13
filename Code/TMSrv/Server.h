@@ -93,6 +93,8 @@ void ReadColiseu();
 void ReadStaff();
 void ReadBossCamp();
 void ReadStatusServer();
+void ReadAccountBuff(unsigned int conn);
+void WriteAccountBuff(unsigned int conn);
 void WriteBossCamp(unsigned char boss);
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);

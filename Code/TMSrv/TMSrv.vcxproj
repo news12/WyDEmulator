@@ -95,6 +95,7 @@
     <ClCompile Include="..\Basedef.cpp" />
     <ClCompile Include="..\ConfigIni.cpp" />
     <ClCompile Include="..\CPSock.cpp" />
+    <ClCompile Include="AccountBuff.cpp" />
     <ClCompile Include="AltarOfKing.cpp" />
     <ClCompile Include="AutoBan.cpp" />
     <ClCompile Include="AutoEvent.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="..\ConfigIni.h" />
     <ClInclude Include="..\CPSock.h" />
     <ClInclude Include="..\ItemEffect.h" />
+    <ClInclude Include="AccountBuff.h" />
     <ClInclude Include="AltarOfKing.h" />
     <ClInclude Include="AutoBan.h" />
     <ClInclude Include="AutoEvent.h" />

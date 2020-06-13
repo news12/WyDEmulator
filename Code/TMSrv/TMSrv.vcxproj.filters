@@ -142,6 +142,12 @@
     <Filter Include="Header Files\AutoBan">
       <UniqueIdentifier>{9428c0d1-7322-4bf7-bf2b-a0533e042512}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\Buff">
+      <UniqueIdentifier>{e42e3b6f-8210-489d-bd16-050dab84aef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Buff">
+      <UniqueIdentifier>{7c760313-65b5-4ca1-aca4-961f7615b90f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -507,6 +513,9 @@
     <ClCompile Include="StatusServer.cpp">
       <Filter>Source Files\Functions</Filter>
     </ClCompile>
+    <ClCompile Include="AccountBuff.cpp">
+      <Filter>Source Files\Packages\Buff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -622,6 +631,9 @@
     </ClInclude>
     <ClInclude Include="StatusServer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountBuff.h">
+      <Filter>Header Files\Buff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,7 @@ STRUCT_COLISEU nColiseu[];
 STRUCT_AUTOBAN autoBan;
 STRUCT_FILTER FilterName;
 StatusServer EternalServer[];
+unsigned int AccountSaveBuff[];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
 /*{ 412, 413, 4027 }*/
 int g_pRewardBonus[];
@@ -118,9 +119,12 @@ const string PATH_BAN = "Ban/";
 const string PATH_AUTO_BAN = PATH_BAN + "AutoBan/";
 const string PATH_FILTER_NAME = "FilterName/";
 const string PATH_ADM = "Staff/";
+const string PATH_SITE = "C:/xampp/htdocs/wyd/Eternal_Site/";
+const string PATH_SAVEBUFF = "SaveBuff/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
+const string Serv00 = PATH_SITE + "serv00.htm";
 
 enum  keyName : char
 {
@@ -3162,6 +3166,73 @@ int ConfigIni::nConfig::WriteStatusBossCamp(string path, int boss)
 		nJson["STATUS"]["HourKiled"] = statusBossCamp[boss].HourKiled;
 		nJson["STATUS"]["MinKiled"] = statusBossCamp[boss].MinKiled;
 
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadAccoutSaveBuff(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteAccountSaveBuff(PATH_SAVEBUFF, file);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&AccountSaveBuff, 0, MAX_SAVE_BUFF);
+
+		nJson["BUFF"]["SAUDE"].get_to(AccountSaveBuff[0]);
+		nJson["BUFF"]["SEPHIRA"].get_to(AccountSaveBuff[1]);
+		nJson["BUFF"]["BOXEXP"].get_to(AccountSaveBuff[2]);
+		nJson["BUFF"]["PVM"].get_to(AccountSaveBuff[3]);
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteAccountSaveBuff(string path, string file)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New AccountBuff.json
+	auto nJson = R"(
+{
+"BUFF": {
+		"SAUDE": 0,
+		"SEPHIRA": 0,
+		"BOXEXP": 0,
+		"PVM": 0
+		}
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		nJson["BUFF"]["SAUDE"] = AccountSaveBuff[0];
+		nJson["BUFF"]["SEPHIRA"] = AccountSaveBuff[1];
+		nJson["BUFF"]["BOXEXP"] = AccountSaveBuff[2];
+		nJson["BUFF"]["PVM"] = AccountSaveBuff[3];
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

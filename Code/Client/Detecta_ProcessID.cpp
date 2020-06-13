@@ -21,9 +21,10 @@ void Kill_From_Message_Warning() {
 			HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);  // Close detected process
 			TerminateProcess(hProcess,NULL);                                               // Close detected process
 
+	ExitProcess(0);
 	Msg_W_Br();
 		
-	ExitProcess(0);	
+	
 
             }
         }while( Process32Next( hSnapshot, &pe32 ) );

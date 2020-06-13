@@ -786,6 +786,125 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			return;
 		}
 
+		else if (!strcmp(cmd, "Statistica")) 
+		{
+			unsigned int cCelestial = 0;
+			unsigned int csCelestial = 0;
+			unsigned int cArch = 0;
+			unsigned int cMortal = 0;
+			unsigned int cStaff = 0;
+			unsigned int cTotal = 0;
+			unsigned int cTK = 0;
+			unsigned int cFM = 0;
+			unsigned int cBM = 0;
+			unsigned int cHT = 0;
+
+			for (size_t i = 0; i < MAX_USER; i++)
+			{
+				if (pUser[i].Mode != USER_PLAY)
+					continue;
+
+				switch (pMob[i].Extra.ClassMaster)
+				{
+				case MORTAL:
+					cMortal++;
+					break;
+				case ARCH:
+					cArch++;
+					break;
+				case CELESTIAL:
+					cCelestial++;
+					break;
+				case SCELESTIAL:
+					cCelestial++;
+					break;
+				default:
+					break;
+				}
+
+				switch (pMob[i].MOB.Class)
+				{
+				case TK:
+					cTK++;
+					break;
+				case FM:
+					cFM++;
+					break;
+				case BM:
+					cBM++;
+					break;
+				case HT:
+					cHT++;
+					break;
+				default:
+					break;
+				}
+
+		
+			}
+			cTotal = cMortal + cArch + cCelestial + csCelestial;
+
+			SendClientMsg(a_iConn, "Estatistica de players online:");
+
+			sprintf(temp, " Mortal: %d ", cMortal);
+			SendClientMsg(a_iConn, temp);
+
+			sprintf(temp, " Arch: %d ", cArch);
+			SendClientMsg(a_iConn, temp);
+
+			sprintf(temp, " Celestial: %d ", cCelestial);
+			SendClientMsg(a_iConn, temp);
+
+			sprintf(temp, " Sub Celestial: %d ", csCelestial);
+			SendClientMsg(a_iConn, temp);
+			
+			SendClientMsg(a_iConn, "----------------------------");
+			
+			SendClientMsg(a_iConn, "Estatistica de Classes online:");
+
+			sprintf(temp, " TK: %d ", cTK);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " FM: %d ", cFM);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " BM: %d ", cBM);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " HT: %d ", cHT);
+			SendClientMsg(a_iConn, temp);
+
+			SendClientMsg(a_iConn, "----------------------------");
+
+			sprintf(temp, "TOTAL DE PLAYERS ONLINE: %d ", cTotal);
+			SendClientMsg(a_iConn, temp);
+
+		}
+
+		else if (!strcmp(cmd, "Cidade"))
+		{
+			if (!strcmp(sval1, "Armia"))
+				DoTeleport(a_iConn, 2101, 2101);
+
+			else if (!strcmp(sval1, "Gelo"))
+				DoTeleport(a_iConn, 3653, 3130);
+
+			else if (!strcmp(sval1, "Noatum"))
+				DoTeleport(a_iConn, 1061, 1731);
+			 
+			else if	(!strcmp(sval1, "Erion"))
+				DoTeleport(a_iConn, 2460, 2010);
+				
+			else if (!strcmp(sval1, "Arzam"))
+				DoTeleport(a_iConn, 2479, 1691);
+
+			else
+			{
+				sprintf(temp, "Digite o nome de uma cidade válida [Armia,Gelo,Noatum,Erion,Arzam]");
+				SendClientMsg(a_iConn, temp);
+			}
+
+			return;
+			
+		}
+
 		else if (!strcmp(cmd, "kill"))
 		{
 			for (int i = 0; i < NAME_LENGTH; i++)

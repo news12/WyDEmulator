@@ -75,6 +75,8 @@ namespace ConfigIni {
 		static int WriteBossCamp(string path, int boss);
 		static int ReadStatusBossCamp(string path, int boss);
 		static int WriteStatusBossCamp(string path, int boss);
+		static int ReadAccoutSaveBuff(string path, string file);
+		static int WriteAccountSaveBuff(string path, string file);
 
 	static	struct GroupServer
 		{
