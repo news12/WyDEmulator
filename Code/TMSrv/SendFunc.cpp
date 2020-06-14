@@ -1965,7 +1965,7 @@ char* strFmt(const char* str, ...)
 	static char buffer[512] = { 0, };
 	va_list va;
 	va_start(va, str);
-	vsprintf_s(buffer, str, va);
+	vsprintf(buffer, str, va);
 	va_end(va);
 	return buffer;
 }

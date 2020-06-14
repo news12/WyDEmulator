@@ -9,6 +9,9 @@
 #include "Contratos.h"
 #include "Events.h"
 #include "BoxPremium.h"
+#include "../ConfigIni.h"
+
+using namespace ConfigIni;
 
 void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 {
@@ -841,6 +844,9 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			int RateSucess = 15;
 			int _rand = rand() % 100;
 
+			if (item->sIndex == 4141)
+				RateSucess = 100;
+
 			int ref = sanc;
 
 			if (ref == 9)
@@ -864,7 +870,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			else if (ref == REF_15)
 				ref = 15;
 
-			int _chance = 15;
+			int _chance = RateSucess;
 
 			if (_rand <= _chance)
 			{
@@ -1036,10 +1042,10 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 			switch (sanc)
 			{
-			case 7:
-			case 8:
+			//case 7:
+			//case 8:
 			case 9:
-			case 11:
+			case REF_11:
 				sprintf(temp, "[%s] obteve sucesso ao refinar o item [%s] para [+%d]. ", pMob[a_iConn].MOB.MobName, g_pItemList[dest->sIndex].Name, sanc);
 				SendNotice(temp);
 				pMob[a_iConn].GetCurrentScore(0);
@@ -5325,9 +5331,11 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 
 #pragma region Celestial
+		
 		if (pMob[a_iConn].Extra.ClassMaster == ARCH)
 		{
 			int ptlevel = 0;
+			int retconfig = nConfig::ReadExtra(PATH_SETTINGS, "extra.json", CELESTIAL);
 
 			if (pMob[a_iConn].MOB.CurrentScore.Level < 370)
 				ptlevel = 1;
@@ -5397,7 +5405,8 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			pMob[a_iConn].MOB.Equip[0].stEffect[1].cValue = 3;
 			pMob[a_iConn].MOB.Equip[0].stEffect[2].cEffect = 106;
 			pMob[a_iConn].MOB.Equip[0].stEffect[2].cValue = (unsigned char)pMob[a_iConn].MOB.Equip[0].sIndex;
-
+			sprintf(temp, "Parabens!!![  %s  ] por ser o [ %dº ] jogador a criar Celestial no EternalWYD", pMob[a_iConn].MOB.MobName, CharaCreate[CELESTIAL]);
+			SendNotice(temp);
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_My_King_Bless1]);
 		}
 #pragma endregion

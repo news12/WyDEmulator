@@ -151,7 +151,7 @@ void NTask_King(int a_iConn, int a_iTarget, int confirm)
 		using namespace ConfigIni;
 		if (pMob[a_iConn].Extra.ClassMaster == MORTAL && pMob[a_iConn].MOB.CurrentScore.Level >= 299 && pMob[a_iConn].Mode != MOB_WAITDB)
 		{
-			int retconfig = nConfig::ReadExtra("../../Common/Settings/", "extra.json", ARCH);
+			int retconfig = nConfig::ReadExtra(PATH_SETTINGS, "extra.json", ARCH);
 			int cls = pMob[a_iConn].MOB.Equip[11].sIndex - 1760;
 
 			MSG_DBCreateArchCharacter sm_ca;
@@ -193,7 +193,7 @@ void NTask_King(int a_iConn, int a_iTarget, int confirm)
 
 			if (retconfig)
 			{
-				retconfig = nConfig::WriteExtra("../../Common/Settings/", "extra.json", ARCH);
+				retconfig = nConfig::WriteExtra(PATH_SETTINGS, "extra.json", ARCH);
 			}
 			return;
 		}

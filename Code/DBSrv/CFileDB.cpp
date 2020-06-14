@@ -1033,7 +1033,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 				return TRUE;
 			}
 
-			nConfig::ReadExtra("../../Common/Settings/", "extra.json", MORTAL);
+			nConfig::ReadExtra(PATH_SETTINGS, "extra.json", MORTAL);
 
 			char temp[256];
 
@@ -1051,7 +1051,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 
 			pUser[conn].cSock.SendOneMessage((char*)&sm, sizeof(MSG_CNFNewCharacter));
 
-			nConfig::WriteExtra("../../Common/Settings/", "extra.json", MORTAL);
+			nConfig::WriteExtra(PATH_SETTINGS, "extra.json", MORTAL);
 
 		}	break;
 
