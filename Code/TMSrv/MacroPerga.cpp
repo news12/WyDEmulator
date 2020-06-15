@@ -66,7 +66,7 @@ void WINAPI InitMacro()
 		}
 
 		
-		if (fadaOn || pMob[i].MOB.CurrentScore.Hp > 0)
+		if (fadaOn && pMob[i].MOB.CurrentScore.Hp > 0)
 		{
 			if ((!pMob[i].MOB.MacroInside && EntradaAgua) || (pMob[i].MOB.SalaClear))
 			{
@@ -98,7 +98,7 @@ void MacroOnline(int ClientID)
 	}
 	else
 	{
-		Sleep(1000);
+		Sleep(3000);
 		AtiveMacroPerga((int)ClientID);
 	}
 	

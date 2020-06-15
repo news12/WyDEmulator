@@ -5,6 +5,8 @@ void Exec_MSG_CombineItemLindy(int conn, char *pMsg)
 {
 	MSG_CombineItem *m = (MSG_CombineItem*)pMsg;
 
+	unsigned famaReset370 = 1;
+
 	for (int i = 0; i < MAX_COMBINE; i++)
 	{
 		if (m->Item[i].sIndex == 0)
@@ -27,19 +29,39 @@ void Exec_MSG_CombineItemLindy(int conn, char *pMsg)
 	}
 
 	if (pMob[conn].Extra.ClassMaster != ARCH)
+	{
+		sprintf(temp, "Você não é Arch, não tenho quest para você, saia daqui...");
+		SendClientMsg(conn, temp);
 		return;
+	}
 
-	if(pMob[conn].MOB.CurrentScore.Level != 369 && pMob[conn].MOB.CurrentScore.Level != 354)
+	if (pMob[conn].MOB.CurrentScore.Level != 369 && pMob[conn].MOB.CurrentScore.Level != 354)
+	{
+		sprintf(temp, "Volte quando estiver no Lv. 355 ou Lv. 370...");
+		SendClientMsg(conn, temp);
 		return;
+	}
 
-	if (pMob[conn].Extra.QuestInfo.Arch.Level355 == 1 && pMob[conn].MOB.CurrentScore.Level == 354)
+	if ((pMob[conn].Extra.QuestInfo.Arch.Level355 == 1) && (pMob[conn].MOB.CurrentScore.Level >= 354 && pMob[conn].MOB.CurrentScore.Level <= 369))
+	{
+		sprintf(temp, "Você já concluiu a quest do Lvl 355, volte no level 370");
+		SendClientMsg(conn, temp);
 		return;
+	}
 
 	if (pMob[conn].Extra.QuestInfo.Arch.Level370 == 0 && pMob[conn].MOB.CurrentScore.Level == 369 && pMob[conn].Extra.Fame <= 0)
+	{
+		sprintf(temp, "Necessário pelo menos [%d] de fama", famaReset370);
+		SendClientMsg(conn, temp);
 		return;
+	}
 
 	if (pMob[conn].Extra.QuestInfo.Arch.Level370 == 1 && pMob[conn].MOB.CurrentScore.Level == 369)
+	{
+		sprintf(temp, "Você já concluiu a quest do Lvl 370, suma daqui!!!");
+		SendClientMsg(conn, temp);
 		return;
+	}
 
 
 	for (int i = 0; i < MAX_COMBINE; i++)

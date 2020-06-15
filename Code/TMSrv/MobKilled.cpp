@@ -1486,6 +1486,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
 
+												if (partymember >= MAX_USER)
+													continue;
+
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
 
@@ -1521,6 +1524,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											for (int i = 0; i < MAX_PARTY; i++)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
+
+												if (partymember >= MAX_USER)
+													continue;
 
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
@@ -1566,6 +1572,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
 
+												if (partymember >= MAX_USER)
+													continue;
+
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
 
@@ -1597,6 +1606,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											for (int i = 0; i < MAX_PARTY; i++)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
+
+												if (partymember >= MAX_USER)
+													continue;
 
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
@@ -1641,6 +1653,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
 
+												if (partymember >= MAX_USER)
+													continue;
+
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
 
@@ -1672,6 +1687,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											for (int i = 0; i < MAX_PARTY; i++)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
+
+												if (partymember >= MAX_USER)
+													continue;
 
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
@@ -2027,6 +2045,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											{
 												int partymember = pMob[partyleader].PartyList[i];
 
+												if (partymember >= MAX_USER)
+													continue;
 
 												if (pUser[partymember].Mode != USER_PLAY)
 													continue;
@@ -2115,6 +2135,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										for (int i = 0; i < MAX_PARTY; i++)
 										{
 											int partymember = pMob[partyleader].PartyList[i];
+
+											if (partymember >= MAX_USER)
+												continue;
 
 											if (pUser[partymember].Mode != USER_PLAY)
 												continue;
@@ -2234,6 +2257,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										{
 											int partymember = pMob[partyleader].PartyList[i];
 
+											if (partymember >= MAX_USER)
+												continue;
+
 											if (pUser[partymember].Mode != USER_PLAY)
 												continue;
 
@@ -2276,6 +2302,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										for (int i = 0; i < MAX_PARTY; i++)
 										{
 											int partymember = pMob[partyleader].PartyList[i];
+
+											if (partymember >= MAX_USER)
+												continue;
 
 											if (pUser[partymember].Mode != USER_PLAY)
 												continue;
@@ -2329,6 +2358,9 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										for (int i = 0; i < MAX_PARTY; i++)
 										{
 											int partymember = pMob[partyleader].PartyList[i];
+
+											if (partymember >= MAX_USER)
+												continue;
 
 											if (pUser[partymember].Mode != USER_PLAY)
 												continue;

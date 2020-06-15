@@ -1279,7 +1279,9 @@ lbl_PST1:
 						{
 							int partymember = pMob[Pista[1].Party[0].LeaderID].PartyList[i];
 
-						
+							if (partymember >= MAX_USER)
+								continue;
+
 								if (pUser[partymember].Mode != USER_PLAY)
 									continue;
 
@@ -1319,6 +1321,9 @@ lbl_PST1:
 						for (int i = 0; i < MAX_PARTY; i++)
 						{
 							int partymember = pMob[Pista[1].Party[1].LeaderID].PartyList[i];
+
+							if (partymember >= MAX_USER)
+								continue;
 
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
@@ -1361,6 +1366,9 @@ lbl_PST1:
 					for (int i = 0; i < MAX_PARTY; i++)
 					{
 						int partymember = pMob[Pista[1].Party[2].LeaderID].PartyList[i];
+
+						if (partymember >= MAX_USER)
+							continue;
 
 						
 							if (pUser[partymember].Mode != USER_PLAY)
@@ -1407,6 +1415,9 @@ lbl_PST1:
 					{
 						int partymember = pMob[Pista[3].Party[0].LeaderID].PartyList[i];
 
+						if (partymember >= MAX_USER)
+							continue;
+
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
@@ -1447,6 +1458,9 @@ lbl_PST1:
 					{
 						int partymember = pMob[Pista[3].Party[1].LeaderID].PartyList[i];
 
+						if (partymember >= MAX_USER)
+							continue;
+
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
 
@@ -1486,6 +1500,9 @@ lbl_PST1:
 					for (int i = 0; i < MAX_PARTY; i++)
 					{
 						int partymember = pMob[Pista[3].Party[2].LeaderID].PartyList[i];
+
+						if (partymember >= MAX_USER)
+							continue;
 
 							if (pUser[partymember].Mode != USER_PLAY)
 								continue;
