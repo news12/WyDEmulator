@@ -5408,6 +5408,9 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			sprintf(temp, "Parabens!!![  %s  ] por ser o [ %dº ] jogador a criar Celestial no EternalWYD", pMob[a_iConn].MOB.MobName, CharaCreate[CELESTIAL]);
 			SendNotice(temp);
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_My_King_Bless1]);
+
+			if (retconfig)
+				retconfig = nConfig::WriteExtra(PATH_SETTINGS, "extra.json", CELESTIAL);
 		}
 #pragma endregion
 

@@ -905,6 +905,106 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			
 		}
 
+		else if (!strcmp(cmd, "ver"))
+		{
+			
+			if (sval1[0] == 0)
+				return;
+
+			sval1[NAME_LENGTH - 1] = 0;
+			sval1[NAME_LENGTH - 2] = 0;
+
+			int user = GetUserByName(sval1);
+			int x = pMob[user].TargetX;
+			int y = pMob[user].TargetY;
+			const char* Account = pUser[user].AccountName;
+			const char* nReino = "";
+			int reino = pMob[user].MOB.Clan;
+			int classMaster = pMob[user].Extra.ClassMaster;
+			std::string nClassMaster = "";
+			int idClass = pMob[user].MOB.Class;
+			std::string nClass = "";
+			int Guild = pMob[user].MOB.Guild;
+			int Groups = ServerGroup;
+			char nGuild[256] = "";
+			int nLevel = pMob[user].MOB.CurrentScore.Level + 1;
+
+			switch (classMaster)
+			{
+			case MORTAL:
+				nClassMaster = "MORTAL";
+				break;
+			case ARCH:
+				nClassMaster = "ARCH";
+				break;
+			case CELESTIAL:
+				nClassMaster = "CELESTIAL";
+				break;
+			case SCELESTIAL:
+				nClassMaster = "SUB-CELESTIAL";
+				break;
+			default:
+				break;
+			}
+
+			switch (idClass)
+			{
+			case TK:
+				nClass = "TK";
+				break;
+			case FM:
+				nClass = "FM";
+				break;
+			case BM:
+				nClass = "BM";
+				break;
+			case HT:
+				nClass = "HT";
+				break;
+			default:
+				break;
+			}
+
+			BASE_GetGuildName(Groups, Guild, nGuild);
+			if (reino == 7)
+				nReino = "Blue";
+			else if (reino == 8)
+				nReino = "Red";
+			else if (reino == 9)
+				nReino = "White";
+			else
+				nReino = "Sem Reino";
+
+			if (user == 0)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			if (pUser[user].Mode != USER_PLAY)
+			{
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
+				return;
+			}
+
+			sprintf(temp, " Account: %s ", Account);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " Guild: %s ", nGuild);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " Reino: %s ", nReino);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " Coordenada: x=%d y=%d ", x, y);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " Level: %d",nLevel);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " ClasseMaster: %s", nClassMaster.c_str());
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, " Classe: %s", nClass.c_str());
+			SendClientMsg(a_iConn, temp);
+
+			return;
+		}
+
 		else if (!strcmp(cmd, "kill"))
 		{
 			for (int i = 0; i < NAME_LENGTH; i++)

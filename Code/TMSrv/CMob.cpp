@@ -812,17 +812,63 @@ void CMob::GetCurrentScore(int idx)
 		if (ItemId <= 0 || ItemId > MAX_ITEMLIST)
 			continue;
 
-		if (g_pItemList[ItemId].Grade == 5)
+		//bonus drop
+		if (g_pItemList[ItemId].Grade == GRADE_DROP)
 			DropBonus += 8;
 
-		if (g_pItemList[ItemId].Grade == 6)
-			ForceDamage += i == 20;
+		// bonus perfuração 10 base
+		if (g_pItemList[ItemId].Grade == GRADE_PERFU_E)
+			ForceDamage += 20 + itemSanc *2;
 
-		if (g_pItemList[ItemId].Grade == 7)
+		// bonus perfuração 20 base
+		if (g_pItemList[ItemId].Grade == GRADE_PERFU_F)
+			ForceDamage += 30 + itemSanc * 2;
+
+		// bonus exp
+		if (g_pItemList[ItemId].Grade == GRADE_EXP)
 			ExpBonus += 2;
 
-		if (g_pItemList[ItemId].Grade == 8)
+		// bonus abs 10 base
+		if (g_pItemList[ItemId].Grade == GRADE_ABS_E)
+			ReflectDamage += 20 + itemSanc *2;
+
+		// bonus abs 20 base
+		if (g_pItemList[ItemId].Grade == GRADE_ABS_F)
+			ReflectDamage += 30 + itemSanc * 2;
+
+		// bonus abs/perfu 15 base
+		if (g_pItemList[ItemId].Grade == GRADE_ABS_PERFU)
+		{
+			ForceDamage += 30 + itemSanc * 2;
+			ReflectDamage += 30 + itemSanc * 2;
+		}
+
+		// bonus perfu 30 base
+		if (g_pItemList[ItemId].Grade == GRADE_PRATEADA)
+			ForceDamage += 60 + itemSanc * 2;
+
+		// bonus abs/perfu 30 base
+		if (g_pItemList[ItemId].Grade == GRADE_DOURADA)
+		{
+			ForceDamage += 60 + itemSanc * 2;
+			ReflectDamage += 60 + itemSanc * 2;
+		}
+
+		// bonus abs/perfu 40 base
+		if (g_pItemList[ItemId].Grade == GRADE_MISTICA)
+		{
+			ForceDamage += 80 + itemSanc * 2;
+			ReflectDamage += 80 + itemSanc * 2;
+		}
+
+		// bonus perfuração 40 base anct
+		if (g_pItemList[ItemId].Grade == GRADE_ANCT_PERFU)
+			ForceDamage += i == 20;
+
+		// bonus abs 40 base anct
+		if (g_pItemList[ItemId].Grade == GRADE_ANCT_ABS)
 			ReflectDamage += 20;
+			
 
 		int isanc = 0;
 

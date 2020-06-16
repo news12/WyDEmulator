@@ -192,9 +192,8 @@ void NTask_King(int a_iConn, int a_iTarget, int confirm)
 			MyLog(LogType::Quests, pUser[a_iConn].AccountName, temp, 0, pUser[a_iConn].IP);
 
 			if (retconfig)
-			{
 				retconfig = nConfig::WriteExtra(PATH_SETTINGS, "extra.json", ARCH);
-			}
+			
 			return;
 		}
 	}

@@ -42,7 +42,7 @@ void Exec_MSG_CombineItemLindy(int conn, char *pMsg)
 		return;
 	}
 
-	if ((pMob[conn].Extra.QuestInfo.Arch.Level355 == 1) && (pMob[conn].MOB.CurrentScore.Level >= 354 && pMob[conn].MOB.CurrentScore.Level <= 369))
+	if ((pMob[conn].Extra.QuestInfo.Arch.Level355 == 1) && (pMob[conn].MOB.CurrentScore.Level >= 354 && pMob[conn].MOB.CurrentScore.Level < 369))
 	{
 		sprintf(temp, "Você já concluiu a quest do Lvl 355, volte no level 370");
 		SendClientMsg(conn, temp);

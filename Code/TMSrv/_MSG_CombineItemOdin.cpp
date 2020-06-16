@@ -248,7 +248,7 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 
 			SendItem(conn, ITEM_PLACE_CARRY, m->InvenPos[2], &pMob[conn].MOB.Carry[m->InvenPos[2]]);
 
-			sprintf(temp, "Odin: [%s] combinou [+%d] com sucesso o item [%s]", pMob[conn].MOB.MobName, NewSanc, g_pItemList[m->Item->sIndex].Name);
+			sprintf(temp, "Odin: [%s] combinou [+%d] com sucesso o item [%s]", pMob[conn].MOB.MobName, NewSanc, g_pItemList[m->Item[2].sIndex].Name);
 			SendNotice(temp);
 
 			return;
@@ -340,11 +340,11 @@ Label_VoltaRef:
 			case REF_12:
 				new_sanc = 13;
 				break;
-			case REF_14:
+			case REF_13:
 				new_sanc = 14;
 				break;
-			case REF_15:
-				new_sanc = 14;
+			case REF_14:
+				new_sanc = 15;
 				break;
 			default:
 				break;

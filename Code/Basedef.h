@@ -89,6 +89,20 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define EMBLEMA_GUARDA 4042
 #define MAX_BOSS_CAMP 4
 
+//Grades atributos
+#define GRADE_DROP 5 //base 8%
+#define GRADE_ANCT_PERFU 6 //base 40
+#define GRADE_EXP 7 //base 2%
+#define GRADE_ANCT_ABS 8 //base 40
+#define GRADE_PERFU_E 9 //Base 10
+#define GRADE_ABS_E 10 //Base 10
+#define GRADE_PERFU_F 20 // base 15
+#define GRADE_ABS_F 21 // base 15
+#define GRADE_ABS_PERFU 22 // base 15/15
+#define GRADE_PRATEADA 24 // base 30 perfu
+#define GRADE_DOURADA 25 // Base 30/30
+#define GRADE_MISTICA 26 // Base 40/40
+
 //#define PKDrop
 #define MAX_DROP_KEFRA 10
 #define IDC_EXIT 9000
