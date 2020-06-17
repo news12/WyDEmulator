@@ -273,7 +273,27 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 							pMob[conn].MOB.Carry[m->InvenPos[2]].sIndex = 3021;
 
 							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[0].cEffect = EF_ITEMLEVEL;
-							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[0].cValue = 10;
+							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[0].cValue = 5;
+
+							//se tiver add de critico 42 converte para 71 para se adequar ao visual da extração
+							int effect = 0;
+							int value = 0;
+							for (int i = 0; i < 3; i++)
+							{
+								if (m->Item[2].stEffect[i].cEffect == EF_CRITICAL)
+								{
+									effect = EF_CRITICAL2;
+									value = m->Item[2].stEffect[i].cValue + 45;
+									
+									break;
+								}
+							}
+
+							//pega adds do item que irá virar extração
+							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[1].cEffect = m->Item[2].stEffect[0].cEffect == EF_CRITICAL ? effect : m->Item[2].stEffect[0].cEffect;
+							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[1].cValue = m->Item[2].stEffect[0].cEffect == EF_CRITICAL ? value : m->Item[2].stEffect[0].cValue;
+							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[2].cEffect = m->Item[2].stEffect[1].cEffect == EF_CRITICAL ? effect : m->Item[2].stEffect[1].cEffect;
+							pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[2].cValue = m->Item[2].stEffect[1].cEffect == EF_CRITICAL ? value : m->Item[2].stEffect[1].cValue;
 														 
 							if(g_pItemList[m->Item[2].sIndex].nPos == 4)
 							pMob[conn].MOB.Carry[m->InvenPos[2]].sIndex++;
@@ -290,7 +310,7 @@ void Exec_MSG_CombineItemOdin(int conn, char *pMsg)
 							else
 							{
 								pMob[conn].MOB.Carry[m->InvenPos[2]].sIndex = 3026;
-								pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[0].cValue = 11;
+								pMob[conn].MOB.Carry[m->InvenPos[2]].stEffect[0].cValue = 6;
 							}
 
 			

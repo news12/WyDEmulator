@@ -1076,6 +1076,90 @@ HFONT__ *GetAFont()
 	return 0;
 }
 
+void WriteStatistic()
+{
+	unsigned int cCelestial = 0;
+	unsigned int csCelestial = 0;
+	unsigned int cArch = 0;
+	unsigned int cMortal = 0;
+	unsigned int cStaff = 0;
+	unsigned int cTotal = 0;
+	unsigned int cTK = 0;
+	unsigned int cFM = 0;
+	unsigned int cBM = 0;
+	unsigned int cHT = 0;
+	unsigned int cRed = 0;
+	unsigned int cBlue = 0;
+	unsigned int cNoReino = 0;
+
+	for (size_t i = 0; i < MAX_USER; i++)
+	{
+		if (pUser[i].Mode != USER_PLAY)
+			continue;
+
+		switch (pMob[i].Extra.ClassMaster)
+		{
+			case MORTAL:
+				cMortal++;
+				break;
+			case ARCH:
+				cArch++;
+				break;
+			case CELESTIAL:
+				cCelestial++;
+				break;
+			case SCELESTIAL:
+				csCelestial++;
+				break;
+			case CELESTIALCS:
+				cCelestial++;
+				break;
+			default:
+				break;
+		}
+
+		switch (pMob[i].MOB.Class)
+		{
+			case TK:
+				cTK++;
+				break;
+			case FM:
+				cFM++;
+				break;
+			case BM:
+				cBM++;
+				break;
+			case HT:
+				cHT++;
+				break;
+			default:
+				break;
+		}
+
+		switch (pMob[i].MOB.Clan)
+		{
+		case REINO_BLUE:
+			cBlue++;
+			break;
+		case REINO_RED:
+			cRed++;
+			break;
+		default:
+			cNoReino++;
+			break;
+		}
+
+	}
+
+	int status = nConfig::WriteStatistic(PATH_SETTINGS, "statistic.json", cMortal, cArch,
+		cCelestial, csCelestial, cTK, cFM, cBM, cHT,cRed,cBlue,cNoReino);
+	if (!status)
+	{
+		sprintf(temp, "error ao carregar statistic ");
+		MyLog(LogType::System, "statistic.json", temp, 0, 0);
+	}
+}
+
 void ReadAccountBuff(unsigned int conn)
 {
 	std::string accountName = pUser[conn].AccountName;
@@ -5187,6 +5271,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGUILDNAME, "&Load Guild Name");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READGAMECONFIG, "&Load Game Config");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READSKILLDATA, "&Load Skill Data");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_START_LOG, "&Load Start Log");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Sistema");
 
 		hSubMenu = CreatePopupMenu();
@@ -5334,6 +5419,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_STATUS_SERVER:
 			ReadStatusServer();
+			break;
+
+		case IDC_READ_START_LOG:
+			StartLog();
 			break;
 
 		case IDC_READGAMECONFIG:
@@ -8454,6 +8543,8 @@ void CloseUser(int conn)
 			pUser[conn].Mode = USER_SAVING4QUIT;
 
 			DeleteMob(conn, 2);
+
+			WriteStatistic();
 		}
 
 	}
@@ -8719,6 +8810,7 @@ void CharLogOut(int conn)
 	pMob[conn].Mode = 0;
 
 	WriteAccountBuff(conn);
+	WriteStatistic();
 
 	SendClientSignal(conn, conn, _MSG_CNFCharacterLogout);
 

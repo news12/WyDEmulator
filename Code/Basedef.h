@@ -134,6 +134,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_STAFF 942
 #define IDC_READ_BOSS_CAMP 943
 #define IDC_READ_STATUS_SERVER 944
+#define IDC_READ_START_LOG 945
 
 #define IDC_SHUTDOWNNP 9050
 

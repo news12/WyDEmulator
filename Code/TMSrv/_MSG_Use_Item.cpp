@@ -4212,6 +4212,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (pMob[a_iConn].MOB.Equip[1].sIndex == 0)
 		{
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe um Elmo e tente novamente");
 			return;
 		}
 
@@ -4222,20 +4223,28 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			return;
 		}
 
-		if (Extra <= 4)
+		if (Extra <= 5)
 		{
-			int elmoExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[1], EF_ITEMLEVEL);
-			int elmomobtype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[1], EF_MOBTYPE);
+			int destExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[1], EF_ITEMLEVEL);
+			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[1], EF_MOBTYPE);
 
-			if (elmoExtra != 0 && elmoExtra != 4 || elmoExtra != Extra || elmomobtype != 2 && elmomobtype != 0)
+			if (/*destExtra != 0 || */ destExtra != Extra || (desttype != 2 && desttype != 0 && desttype != 1))
 			{
 				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
 				return;
 			}
 
 			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[1]);
 
-			if (sanc > 9)
+			if (Extra == 5 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+			else if (Extra <= 4 && sanc > 9)
 			{
 				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
 				SendClientMsg(a_iConn, temp);
@@ -4274,23 +4283,33 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (pMob[a_iConn].MOB.Equip[2].sIndex == 0)
 		{
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe um Peitoral e tente novamente");
 			return;
 		}
 
-		if (Extra <= 4)
+		if (Extra <= 5)
 		{
 			int destExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[2], EF_ITEMLEVEL);
 			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[2], EF_MOBTYPE);
 
-			if (destExtra != 0 && destExtra != 4 || destExtra != Extra || desttype != 2 && desttype != 0)
+			if (/*destExtra != 0 ||*/ destExtra != Extra || (desttype != 2 && desttype != 0 && desttype != 1))
 			{
 				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
 				return;
 			}
 
 			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[2]);
 
-			if (sanc > 9)
+			if (Extra == 5 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			else if (Extra <= 4 && sanc > 9)
 			{
 				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
 				SendClientMsg(a_iConn, temp);
@@ -4328,23 +4347,32 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (pMob[a_iConn].MOB.Equip[3].sIndex == 0)
 		{
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe uma Calça e tente novamente");
 			return;
 		}
-
-		if (Extra <= 4)
+		if (Extra <= 5)
 		{
 			int destExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[3], EF_ITEMLEVEL);
 			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[3], EF_MOBTYPE);
 
-			if (destExtra != 0 && destExtra != 4 || destExtra != Extra || desttype != 2 && desttype != 0)
+			if (/*destExtra != 0 || */ destExtra != Extra || (desttype != 2 && desttype != 0 && desttype != 1))
 			{
 				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
 				return;
 			}
 
 			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[3]);
 
-			if (sanc > 9)
+			if (Extra == 5 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			else if (Extra <= 4 && sanc > 9)
 			{
 				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
 				SendClientMsg(a_iConn, temp);
@@ -4382,23 +4410,33 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (pMob[a_iConn].MOB.Equip[4].sIndex == 0)
 		{
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe uma Luva e tente novamente");
 			return;
 		}
 
-		if (Extra <= 4)
+		if (Extra <= 5)
 		{
 			int destExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[4], EF_ITEMLEVEL);
 			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[4], EF_MOBTYPE);
 
-			if (destExtra != 0 && destExtra != 4 || destExtra != Extra || desttype != 2 && desttype != 0)
+			if (/*destExtra != 0 || */ destExtra != Extra || (desttype != 2 && desttype != 0 && desttype != 1))
 			{
 				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
 				return;
 			}
 
 			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[4]);
 
-			if (sanc > 9)
+			if (Extra == 5 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			else if (Extra <= 4 && sanc > 9)
 			{
 				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
 				SendClientMsg(a_iConn, temp);
@@ -4436,23 +4474,33 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (pMob[a_iConn].MOB.Equip[5].sIndex == 0)
 		{
 			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe uma Bota e tente novamente");
 			return;
 		}
 
-		if (Extra <= 4)
+		if (Extra <= 5)
 		{
 			int destExtra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[5], EF_ITEMLEVEL);
 			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[5], EF_MOBTYPE);
 
-			if (destExtra != 0 && destExtra != 4 || destExtra != Extra || desttype != 2 && desttype != 0)
+			if (/*destExtra != 0 || */ destExtra != Extra || (desttype != 2 && desttype != 0 && desttype != 1))
 			{
 				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
 				return;
 			}
 
 			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[5]);
 
-			if (sanc > 9)
+			if (Extra == 5 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			else if (Extra <= 4 && sanc > 9)
 			{
 				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
 				SendClientMsg(a_iConn, temp);
@@ -4488,6 +4536,72 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 	}
 #pragma endregion
+
+#pragma region Extração Arma
+	if (item->sIndex == 3026)
+	{
+		int Extra = BASE_GetItemAbility(item, EF_ITEMLEVEL);
+
+		if (pMob[a_iConn].MOB.Equip[6].sIndex == 0)
+		{
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			SendClientMsg(a_iConn, "Equipe uma arma e tente novamente");
+			return;
+		}
+
+		if (Extra <= 6)
+		{
+			int destextra = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[6], EF_ITEMLEVEL);
+			int desttype = BASE_GetItemAbility(&pMob[a_iConn].MOB.Equip[6], EF_MOBTYPE);
+
+			if (destextra == 0 || destextra != Extra || (desttype != 0 && desttype != 1))
+			{
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				SendClientMsg(a_iConn, "Item equipado incompativel com a extração!!");
+				return;
+			}
+
+			int sanc = BASE_GetItemSanc(&pMob[a_iConn].MOB.Equip[6]);
+
+			if (Extra == 6 && sanc != REF_11)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 11);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			else if (Extra <= 4 && sanc > 9)
+			{
+				sprintf(temp, g_pMessageStringTable[_DN_SANCREQ], 9);
+				SendClientMsg(a_iConn, temp);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+
+			pMob[a_iConn].MOB.Equip[6].stEffect[1].cEffect = item->stEffect[1].cEffect;
+			pMob[a_iConn].MOB.Equip[6].stEffect[1].cValue = item->stEffect[1].cValue;
+
+			pMob[a_iConn].MOB.Equip[6].stEffect[2].cEffect = item->stEffect[2].cEffect;
+			pMob[a_iConn].MOB.Equip[6].stEffect[2].cValue = item->stEffect[2].cValue;
+
+			SendItem(a_iConn, ITEM_PLACE_EQUIP, 6, &pMob[a_iConn].MOB.Equip[6]);
+
+			sprintf(temp, "useitem,Extracao arma: %d-%d:%d:%d:%d:%d:%d", item->sIndex, item->stEffect[0].cEffect, item->stEffect[0].cValue, item->stEffect[1].cEffect, item->stEffect[1].cValue, item->stEffect[2].cEffect, item->stEffect[2].cValue);
+			MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+
+			if (amount > 1)
+				BASE_SetItemAmount(item, amount - 1);
+
+			else
+				memset(item, 0, sizeof(STRUCT_ITEM));
+
+			SendEmotion(a_iConn, 14, 3);
+			return;
+		}
+		
+		return;
+	}
 #pragma region >> Barra Mytril (Dano)
 	if (Vol == 235)
 	{
@@ -4943,8 +5057,16 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		{
 			if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
 			{
-				dam = dest->stEffect[i].cValue;
 				effect = dest->stEffect[i].cEffect;
+
+				if (effect == EF_CRITICAL2)
+				{
+					dest->stEffect[i].cEffect = EF_CRITICAL;
+					dest->stEffect[i].cValue -= 45;
+				}
+
+				dam = dest->stEffect[i].cValue;
+				
 
 				break;
 			}
@@ -4952,6 +5074,12 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 		int max_add = m->DestPos != 6 && m->DestPos != 7 ? 50 : 0;
 		int min_add = m->DestPos != 6 && m->DestPos != 7 ? 5 : 0;
+		
+		if (m->DestPos == 6)
+		{
+			 max_add = 50;
+			 min_add = 3;
+		}
 
 		if (dam < min_add)
 		{
@@ -4981,10 +5109,14 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
 				{
 					dest->stEffect[i].cEffect = EF_CRITICAL;
-					dest->stEffect[i].cValue += m->DestPos != 6 && m->DestPos != 7 ? 10 : 1;
+					//dest->stEffect[i].cValue += m->DestPos != 6 && m->DestPos != 7 ? 10 : 1;
+					dest->stEffect[i].cValue += 10;
 
-					if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0))
-						dest->stEffect[i].cValue = (m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0);
+					//if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0))
+						//dest->stEffect[i].cValue = (m->DestPos != 6 && m->DestPos != 7 && m->DestPos != 4 ? 50 : 0);
+
+					if (dest->stEffect[i].cValue > 50)
+						dest->stEffect[i].cValue = 50;
 
 					break;
 				}
@@ -5016,8 +5148,12 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 					if (dest->stEffect[i].cEffect == EF_CRITICAL || dest->stEffect[i].cEffect == EF_CRITICAL2)
 					{
 						dest->stEffect[i].cEffect = EF_CRITICAL;
-						if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 ? 10 : 10))
-							dest->stEffect[i].cValue -= m->DestPos != 6 && m->DestPos != 7 ? 10 : 10;
+						//if (dest->stEffect[i].cValue >(m->DestPos != 6 && m->DestPos != 7 ? 10 : 10))
+							//dest->stEffect[i].cValue -= m->DestPos != 6 && m->DestPos != 7 ? 10 : 10;
+
+						if (dest->stEffect[i].cValue > 10)
+							dest->stEffect[i].cValue -= 10;
+
 						break;
 					}
 				}

@@ -52,6 +52,9 @@ namespace ConfigIni {
 		static int WriteColiseu(string path, string file);
 		static int ReadStatusServer(string path, string file);
 		static int WriteStatusServer(string path, string file);
+		static int WriteStatistic(string path, string file,
+			int tMortal, int tArch, int tCelestial, int tSubCelestial,
+			int tTK, int tFM, int tBM, int tHT, int tRed, int tBlue, int tNoReino);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

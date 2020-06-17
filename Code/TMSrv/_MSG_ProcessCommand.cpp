@@ -786,7 +786,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			return;
 		}
 
-		else if (!strcmp(cmd, "Statistica")) 
+		else if (!strcmp(cmd, "Statistic")) 
 		{
 			unsigned int cCelestial = 0;
 			unsigned int csCelestial = 0;
@@ -798,6 +798,9 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			unsigned int cFM = 0;
 			unsigned int cBM = 0;
 			unsigned int cHT = 0;
+			unsigned int cBlue = 0;
+			unsigned int cRed = 0;
+			unsigned int cNoReino = 0;
 
 			for (size_t i = 0; i < MAX_USER; i++)
 			{
@@ -806,37 +809,53 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 
 				switch (pMob[i].Extra.ClassMaster)
 				{
-				case MORTAL:
-					cMortal++;
-					break;
-				case ARCH:
-					cArch++;
-					break;
-				case CELESTIAL:
-					cCelestial++;
-					break;
-				case SCELESTIAL:
-					cCelestial++;
-					break;
-				default:
-					break;
+					case MORTAL:
+						cMortal++;
+						break;
+					case ARCH:
+						cArch++;
+						break;
+					case CELESTIAL:
+						cCelestial++;
+						break;
+					case SCELESTIAL:
+						csCelestial++;
+						break;
+					case CELESTIALCS:
+						cCelestial++;
+						break;
+					default:
+						break;
 				}
 
 				switch (pMob[i].MOB.Class)
 				{
-				case TK:
-					cTK++;
+					case TK:
+						cTK++;
+						break;
+					case FM:
+						cFM++;
+						break;
+					case BM:
+						cBM++;
+						break;
+					case HT:
+						cHT++;
+						break;
+					default:
+						break;
+				}
+
+				switch (pMob[i].MOB.Clan)
+				{
+				case REINO_BLUE:
+					cBlue++;
 					break;
-				case FM:
-					cFM++;
-					break;
-				case BM:
-					cBM++;
-					break;
-				case HT:
-					cHT++;
+				case REINO_RED:
+					cRed++;
 					break;
 				default:
+					cNoReino++;
 					break;
 				}
 
@@ -869,6 +888,16 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			sprintf(temp, " BM: %d ", cBM);
 			SendClientMsg(a_iConn, temp);
 			sprintf(temp, " HT: %d ", cHT);
+			SendClientMsg(a_iConn, temp);
+
+			SendClientMsg(a_iConn, "----------------------------");
+
+			SendClientMsg(a_iConn, "Estatistica de Reinos:");
+			sprintf(temp, "RED: %d ", cRed);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, "BLUE: %d ", cBlue);
+			SendClientMsg(a_iConn, temp);
+			sprintf(temp, "SEM-REINO: %d ", cNoReino);
 			SendClientMsg(a_iConn, temp);
 
 			SendClientMsg(a_iConn, "----------------------------");
@@ -942,6 +971,9 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 				break;
 			case SCELESTIAL:
 				nClassMaster = "SUB-CELESTIAL";
+				break;
+			case CELESTIALCS:
+				nClassMaster = "CELESTIAL/SUB";
 				break;
 			default:
 				break;

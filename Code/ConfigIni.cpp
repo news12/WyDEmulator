@@ -1974,6 +1974,66 @@ int ConfigIni::nConfig::WriteStatusServer(string path, string file)
 	}
 }
 
+int ConfigIni::nConfig::WriteStatistic(string path, string file, 
+	int tMortal, int tArch, int tCelestial, int tSubCelestial,
+	int tTK, int tFM, int tBM, int tHT, int tRed, int tBlue, int tNoReino)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New AccountBuff.json
+	auto nJson = R"(
+{
+"PLAYER": {
+			"Mortal": 0,
+			"Arch": 0,
+			"Celestial": 0,
+			"SubCelestial": 0,
+			"ReinoRed": 0,
+			"ReinoBlue": 0,
+			"SemReino": 0	
+		  },
+"CLASS": {
+			"TK": 0,
+			"FM": 0,
+			"BM": 0,
+			"HT": 0	
+		  },
+"GERAL": {
+			"TOTAL": 0
+		 }
+
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		int cTotal = 0;
+		cTotal = tMortal + tArch + tCelestial + tSubCelestial;
+		nJson["PLAYER"]["Mortal"] = tMortal;
+		nJson["PLAYER"]["Arch"] = tArch;
+		nJson["PLAYER"]["Celestial"] = tCelestial;
+		nJson["PLAYER"]["SubCelestial"] = tSubCelestial;
+		nJson["PLAYER"]["ReinoRed"] = tRed;
+		nJson["PLAYER"]["ReinoBlue"] = tBlue;
+		nJson["PLAYER"]["SemReino"] = tNoReino;
+
+		nJson["CLASS"]["TK"] = tTK;
+		nJson["CLASS"]["FM"] = tFM;
+		nJson["CLASS"]["BM"] = tBM;
+		nJson["CLASS"]["HT"] = tHT;
+
+		nJson["GERAL"]["TOTAL"] = cTotal;
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
 {
 	string fullpath = path + file;

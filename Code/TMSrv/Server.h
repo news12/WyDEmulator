@@ -96,6 +96,7 @@ void ReadStatusServer();
 void ReadAccountBuff(unsigned int conn);
 void WriteAccountBuff(unsigned int conn);
 void WriteBossCamp(unsigned char boss);
+void WriteStatistic();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);
 int   CheckFailAccount(char *Account);
