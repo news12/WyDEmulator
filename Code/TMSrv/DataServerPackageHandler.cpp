@@ -1179,8 +1179,8 @@ void ProcessDBMessage(char *Msg)
 											 }
 										 }
 		
-										sprintf(tt, g_pMessageStringTable[_DN_TOWNSPEOPLE], Citizen);
-										SendClientMsg(conn, tt);
+										//sprintf(tt, g_pMessageStringTable[_DN_TOWNSPEOPLE], Citizen);
+										//SendClientMsg(conn, tt);
 										 
 										SendEtc(conn);
 										SendScore(conn);

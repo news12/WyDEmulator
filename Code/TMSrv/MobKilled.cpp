@@ -478,7 +478,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									}
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									exp = 6 * exp / 10;
 
@@ -610,7 +610,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									}
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									exp = 6 * exp / 10;
 
@@ -722,7 +722,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 2;
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -857,7 +857,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 2;
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -989,7 +989,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 2;
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -1121,7 +1121,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 2;
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -1282,7 +1282,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										exp /= 2;
 
 									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 2;
+										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;

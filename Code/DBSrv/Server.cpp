@@ -2047,7 +2047,7 @@ int ProcessAdminMessage(int conn, char *msg)
 
 void ProcessSecTimer()
 {
-	//CReadFiles::ImportUser();
+	CReadFiles::ImportUser();
 	CReadFiles::UpdateUser();
 
 	SecCounter++;

@@ -613,7 +613,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		}
 	}
 
-	else if (strcmp(m->MobName, "Kingdom") == 0 || strcmp(m->MobName, "kingdom") == 0)
+	else if (strcmp(m->MobName, "Kingdom") == 0 || strcmp(m->MobName, "kingdom") == 0 || strcmp(m->MobName, "Reino") == 0)
 	{
 		int i = 0;
 		for (i = 0; i < pMob[a_iConn].MaxCarry; i++)
@@ -650,7 +650,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	else if (strcmp(m->MobName, "King") == 0 || strcmp(m->MobName, "king") == 0)
+	else if (strcmp(m->MobName, "King") == 0 || strcmp(m->MobName, "king") == 0 || strcmp(m->MobName, "Rei") == 0)
 	{
 		int i = 0;
 		for (i = 0; i < pMob[a_iConn].MaxCarry; i++)

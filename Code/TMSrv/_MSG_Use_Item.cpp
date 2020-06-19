@@ -849,6 +849,27 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 			int ref = sanc;
 
+			switch (ref)
+			{
+			case 9:
+				ref = 9;
+				break;
+			case REF_10:
+				ref = 10;
+				break;
+			case REF_11:
+			case REF_12:
+			case REF_13:
+			case REF_14:
+			case REF_15:
+				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Cant_Refine_More]);
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			default:
+				break;
+			}
+
+			/*
 			if (ref == 9)
 				ref = 9;
 
@@ -868,7 +889,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				ref = 14;
 
 			else if (ref == REF_15)
-				ref = 15;
+				ref = 15;*/
 
 			int _chance = RateSucess;
 
@@ -2651,7 +2672,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 
 		int mount = (dest->sIndex - 2330) % 30;
 
-		if (mount >= 6 && mount <= 15 || mount == 27)
+		if (mount >= 6 && mount <= 15)
 			mount = 6;
 
 		if (mount == 19)
@@ -2660,11 +2681,17 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		if (mount == 20)
 			mount = 8;
 
-		if (mount == 21 || mount == 22 || mount == 23 || mount == 28)
+		if (mount == 21 || mount == 22 || mount == 23)
 			mount = 9;
 
 		if (mount == 24 || mount == 25 || mount == 26)
 			mount = 10;
+
+		if (mount == 27)
+			mount = 11;
+
+		if (mount == 28)
+			mount = 12;
 
 		if (mount == 29)
 			mount = 19;
@@ -2745,11 +2772,11 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		int mountIndex = (dest->sIndex - 2330) % 30;
 		int amgIndex = (item->sIndex - 2390) % 30;
 
-		if (mountIndex == 28)//Sleipnir
-			mountIndex = 21;
+		//if (mountIndex == 28)//Sleipnir
+		//	mountIndex = 21;
 
-		if (mountIndex == 27)//Svadilfire
-			mountIndex = 10;
+		//if (mountIndex == 27)//Svadilfire
+		//	mountIndex = 10;
 
 		if (mountIndex != amgIndex)
 		{
@@ -5448,8 +5475,11 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			pMob[a_iConn].Extra.SaveCelestial[1].Exp = 0;
 
 			pMob[a_iConn].Extra.SaveCelestial[1].Soul = pMob[a_iConn].Extra.Soul;
-
+		
 			memset(&pMob[a_iConn].MOB.Equip[11], 0, sizeof(STRUCT_ITEM));
+
+			//limpa barra de skill
+			memset(&pMob[a_iConn].MOB.SkillBar, 0, 4);
 
 			SendItem(a_iConn, ITEM_PLACE_EQUIP, 11, &pMob[a_iConn].MOB.Equip[11]);
 
@@ -5541,6 +5571,10 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			pMob[a_iConn].MOB.Equip[0].stEffect[1].cValue = 3;
 			pMob[a_iConn].MOB.Equip[0].stEffect[2].cEffect = 106;
 			pMob[a_iConn].MOB.Equip[0].stEffect[2].cValue = (unsigned char)pMob[a_iConn].MOB.Equip[0].sIndex;
+			
+			//limpa barra de skill
+			memset(&pMob[a_iConn].MOB.SkillBar, 0, 4);
+
 			sprintf(temp, "Parabens!!![  %s  ] por ser o [ %dº ] jogador a criar Celestial no EternalWYD", pMob[a_iConn].MOB.MobName, CharaCreate[CELESTIAL]);
 			SendNotice(temp);
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_My_King_Bless1]);
