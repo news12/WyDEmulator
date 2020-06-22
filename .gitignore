@@ -345,3 +345,5 @@ ASALocalRun/
 healthchecksdb
 /Code/boost_1_73_0
 /Install
+/Code/TMSrv/Nyerds.cpp
+/Code/TMSrv/Nyerds.h

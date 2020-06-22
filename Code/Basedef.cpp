@@ -239,7 +239,8 @@ int	g_pDistanceTable[7][7] =
 int g_pMountBonus[30][5] = 
 {
 	// AttackAdd, MagicAdd, Evasion, Resistence, Speed
-
+	///se modificar o dano vai causar bug visual
+	// a cada 5 de magia = 1%
 	{10, 1, 0, 0, 4},//Porco
 	{10, 1, 0, 0, 4},//Javali
 	{50, 1, 0, 0, 5},//Lobo
@@ -260,16 +261,16 @@ int g_pMountBonus[30][5] =
 	{600, 90, 0, 0, 6},//Dragao
 	{550, 90, 0, 20, 6},//Fenrir das sombras
 	{650, 100, 60, 28, 6},//Tigre de fogo
-	{750, 110, 80, 32, 6},//Dragão vermelho
-	{570, 90, 20, 16, 6},//Unicórnio
-	{570, 90, 30, 8, 6},//Pegasus
-	{570, 90, 40, 12, 6},//Unisus
-	{590, 80, 30, 20, 6},//Grifo
-	{615, 90, 40, 16, 6},//HipoGrifo
-	{615, 90, 50, 16, 6},//Sangrento
-	{620, 35, 30, 28, 6},//Svaldfire
-	{250, 95, 0, 28, 6},//Sleipnir
-	{150, 10, 20, 0, 6}//Pantera negra
+	{700, 110, 80, 32, 6},//Dragão vermelho
+	{568, 90, 20, 16, 6},//Unicórnio 
+	{568, 90, 30, 8, 6},//Pegasus
+	{568, 90, 40, 12, 6},//Unisus
+	{588, 80, 30, 20, 6},//Grifo
+	{600, 90, 40, 16, 6},//HipoGrifo
+	{600, 90, 50, 16, 6},//Sangrento
+	{600, 35, 30, 28, 6},//Svaldfire
+	{300, 94, 0, 28, 6},//Sleipnir
+	{150, 25, 20, 0, 6}//Pantera negra
 };
 
 int g_pMountTempBonus[20][5] =

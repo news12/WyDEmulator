@@ -115,6 +115,7 @@
     <ClCompile Include="ItensEntradaQuest.cpp" />
     <ClCompile Include="KefraDrop.cpp" />
     <ClCompile Include="NTask_EventTrade.cpp" />
+    <ClCompile Include="Nyerds.cpp" />
     <ClCompile Include="PassGroup.cpp" />
     <ClCompile Include="GetFunc.cpp" />
     <ClCompile Include="MacroPerga.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Quiz.cpp" />
     <ClCompile Include="SombraNegra.cpp" />
     <ClCompile Include="StatusServer.cpp" />
+    <ClCompile Include="TitleSystem.cpp" />
     <ClCompile Include="WarOfCity.cpp" />
     <ClCompile Include="WarOfKingdom.cpp" />
     <ClCompile Include="WarOfNoatum.cpp" />
@@ -239,6 +241,7 @@
     <ClInclude Include="BossCamp.h" />
     <ClInclude Include="ItensEntradaQuest.h" />
     <ClInclude Include="KefraDrop.h" />
+    <ClInclude Include="Nyerds.h" />
     <ClInclude Include="PassGroup.h" />
     <ClInclude Include="GetFunc.h" />
     <ClInclude Include="Language.h" />
@@ -251,6 +254,7 @@
     <ClInclude Include="Server.h" />
     <ClInclude Include="SombraNegra.h" />
     <ClInclude Include="StatusServer.h" />
+    <ClInclude Include="TitleSystem.h" />
     <ClInclude Include="WarOfCity.h" />
     <ClInclude Include="WarOfKingdom.h" />
     <ClInclude Include="WarOfNoatum.h" />

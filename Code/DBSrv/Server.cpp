@@ -349,7 +349,7 @@ void ReadAdmin() {
 	int a, b, c, d;
 	a = b = c = d = 0;
 
-	int status = nConfig::ReadConfigNews("Config/", "config.json", 2);
+	int status = nConfig::ReadConfigNews(PATH_SETTINGS, ConfigJson, 2);
 
 	if (!status)
 		MessageBox(hWndMain, "Erro ao ler Admin config", "FILE ERROR", NULL);
@@ -2047,8 +2047,8 @@ int ProcessAdminMessage(int conn, char *msg)
 
 void ProcessSecTimer()
 {
-	CReadFiles::ImportUser();
-	CReadFiles::UpdateUser();
+	//CReadFiles::ImportUser();
+	//CReadFiles::UpdateUser();
 
 	SecCounter++;
 

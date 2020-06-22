@@ -75,143 +75,143 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 
 	if (item->sIndex == 5548)
 	{
-		sprintf(line6, 128, "Elixir que torna sua montaria imortal.");
+		sprintf_s(line6, 128, "Elixir que torna sua montaria imortal.");
 		*color6 = White;
-		sprintf(line8, 128, "- Não é necessario uso de ração.");
+		sprintf_s(line8, 128, "- Não é necessario uso de ração.");
 		*color8 = Yellow;
-		sprintf(line9, 128, "- Ativo somente no personagem.");
+		sprintf_s(line9, 128, "- Ativo somente no personagem.");
 		*color9 = Yellow;
-		sprintf(line10, 128, "- Duração: 24 horas.");
+		sprintf_s(line10, 128, "- Duração: 24 horas.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5549)
 	{
-		sprintf(line2, 128, "[Item Premium]");
+		sprintf_s(line2, 128, "[Item Premium]");
 		*color2 = Yellow;
-		sprintf(line4, 128, "Item utilizado para registrar um grupo para");
+		sprintf_s(line4, 128, "Item utilizado para registrar um grupo para");
 		*color4 = Orange;
-		sprintf(line5, 128, "participar do Calabouço Zumbi.");
+		sprintf_s(line5, 128, "participar do Calabouço Zumbi.");
 		*color5 = Orange;
-		sprintf(line7, 128, "Registros disponível nos minutos 56 á 59.");
+		sprintf_s(line7, 128, "Registros disponível nos minutos 56 á 59.");
 		*color7 = Yellow;
-		sprintf(line8, 128, "Minimo 06 participantes no grupo para acessar a área.");
+		sprintf_s(line8, 128, "Minimo 06 participantes no grupo para acessar a área.");
 		*color8 = Yellow;
-		sprintf(line9, 128, "Recomendável a utilização de bloods devido a quantidade de monstros.");
+		sprintf_s(line9, 128, "Recomendável a utilização de bloods devido a quantidade de monstros.");
 		*color9 = Yellow;
-		sprintf(line10, 128, "Acesse nosso site para obter informações sobre o Calabouço.");
+		sprintf_s(line10, 128, "Acesse nosso site para obter informações sobre o Calabouço.");
 		*color10 = White;
 		return 10;
 	}
 	if (item->sIndex == 5565)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Level 0 para Level 1.");
+		sprintf_s(line6, 128, "Level 0 para Level 1.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5566)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Level 1 para Level 2.");
+		sprintf_s(line6, 128, "Level 1 para Level 2.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5567)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Level 2 para Level 3.");
+		sprintf_s(line6, 128, "Level 2 para Level 3.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5568)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Level 3 para Level 4.");
+		sprintf_s(line6, 128, "Level 3 para Level 4.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5569)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Level 4 para Level 5.");
+		sprintf_s(line6, 128, "Level 4 para Level 5.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5570)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para purificar o");
+		sprintf_s(line3, 128, "Item utilizado para purificar o");
 		*color3 = White;
-		sprintf(line4, 128, "Amuleto Lendário aumentando o seu level.");
+		sprintf_s(line4, 128, "Amuleto Lendário aumentando o seu level.");
 		*color4 = White;
-		sprintf(line6, 128, "Aumento nas atribuições do Lendário.");
+		sprintf_s(line6, 128, "Aumento nas atribuições do Lendário.");
 		*color6 = Orange;
-		sprintf(line8, 128, "Somente em itens acima de +9.");
+		sprintf_s(line8, 128, "Somente em itens acima de +9.");
 		*color8 = Yellow;
-		sprintf(line10, 128, "Chance de sucesso: 80 porcento.");
+		sprintf_s(line10, 128, "Chance de sucesso: 80 porcento.");
 		*color10 = Yellow;
 		return 10;
 	}
 	if (item->sIndex == 5573)
 	{
-		sprintf(line1, 128, "[Item de Quest]");
+		sprintf_s(line1, 128, "[Item de Quest]");
 		*color1 = Yellow;
-		sprintf(line4, 128, "Elixir valioso que permite");
+		sprintf_s(line4, 128, "Elixir valioso que permite");
 		*color4 = White;
-		sprintf(line5, 128, "permanecer em locais de caça por mais tempo");
+		sprintf_s(line5, 128, "permanecer em locais de caça por mais tempo");
 		*color5 = White;
-		sprintf(line8, 128, "- Perde o efeito, se deslogar ou morrer.");
+		sprintf_s(line8, 128, "- Perde o efeito, se deslogar ou morrer.");
 		*color8 = Yellow;
-		sprintf(line9, 128, "- Aumenta a permanência em quests.");
+		sprintf_s(line9, 128, "- Aumenta a permanência em quests.");
 		*color9 = Yellow;
-		sprintf(line10, 128, "- Efeito acumulativo em até (20) minutos.");
+		sprintf_s(line10, 128, "- Efeito acumulativo em até (20) minutos.");
 		*color10 = Yellow;
 		return 10;
 	}
@@ -224,17 +224,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		*(short*)&buffer[6] = GetClientID();
 		SendPacket(&buffer[0], 12);
 
-		sprintf(line1, 128, "[Item Refinamento]");
+		sprintf_s(line1, 128, "[Item Refinamento]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Item utilizado para refinar");
+		sprintf_s(line3, 128, "Item utilizado para refinar");
 		*color3 = White;
-		sprintf(line4, 128, "sets, armas,acessorios etc...");
+		sprintf_s(line4, 128, "sets, armas,acessorios etc...");
 		*color4 = White;
-		sprintf(line6, 128, "Aumenta o lvl do item em +1");
+		sprintf_s(line6, 128, "Aumenta o lvl do item em +1");
 		*color6 = Orange;
-		sprintf(line8, 128, "em caso de sucesso");
+		sprintf_s(line8, 128, "em caso de sucesso");
 		*color8 = Orange;
-		sprintf(line10, 128, "itens Até +9 e +10");
+		sprintf_s(line10, 128, "itens Até +9 e +10");
 		*color10 = Yellow;
 		return 10;
 
@@ -246,7 +246,7 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		{
 			if (item->stEffect[a].cValue <= 0)
 			{
-				sprintf(line1, 128, "Aguardando incubação.");
+				sprintf_s(line1, 128, "Aguardando incubação.");
 				*color1 = CornBlueName;
 
 				return 10;
@@ -257,17 +257,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Macro Eternal
 	if (item->sIndex == 3789)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "efetivo apenas quando equipado.");
+		sprintf_s(line3, 128, "efetivo apenas quando equipado.");
 		*color3 = White;
-		sprintf(line4, 128, "comsumível apenas quando equipado.");
+		sprintf_s(line4, 128, "comsumível apenas quando equipado.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Macro auto perga M e A");
+		sprintf_s(line7, 128, "Macro auto perga M e A");
 		*color7 = Yellow;
-		sprintf(line8, 128, " ");
+		sprintf_s(line8, 128, " ");
 		*color8 = Yellow;
 		return 10;
 	}
@@ -275,17 +275,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Contrato Montaria
 	if (item->sIndex >= 3790 && item->sIndex <= 3791)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Contrato para receber beneficios.");
+		sprintf_s(line3, 128, "Contrato para receber beneficios.");
 		*color3 = White;
-		sprintf(line4, 128, "Clique direito para usar.");
+		sprintf_s(line4, 128, "Clique direito para usar.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Receba uma Montaria ");
+		sprintf_s(line7, 128, "Receba uma Montaria ");
 		*color7 = Yellow;
-		sprintf(line8, 128, "de acordo com o tipo de contrato ");
+		sprintf_s(line8, 128, "de acordo com o tipo de contrato ");
 		*color8 = Yellow;
 		return 10;
 	}
@@ -293,17 +293,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Contrato Macro
 	if (item->sIndex == 3792)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Contrato para receber beneficios.");
+		sprintf_s(line3, 128, "Contrato para receber beneficios.");
 		*color3 = White;
-		sprintf(line4, 128, "Clique direito para usar.");
+		sprintf_s(line4, 128, "Clique direito para usar.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Receba uma Macro para agua ");
+		sprintf_s(line7, 128, "Receba uma Macro para agua ");
 		*color7 = Yellow;
-		sprintf(line8, 128, "Macro(7d) consumivel ao equipar ");
+		sprintf_s(line8, 128, "Macro(7d) consumivel ao equipar ");
 		*color8 = Yellow;
 		return 10;
 	}
@@ -311,17 +311,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Kit +1
 	if (item->sIndex == 3793)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Kit de joias.");
+		sprintf_s(line3, 128, "Kit de joias.");
 		*color3 = White;
-		sprintf(line4, 128, "Clique direito para usar.");
+		sprintf_s(line4, 128, "Clique direito para usar.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Recebe uma joia aleatoria (4x)");
+		sprintf_s(line7, 128, "Recebe uma joia aleatoria (4x)");
 		*color7 = Yellow;
-		sprintf(line8, 128, "Recebe uma pedra do Sabio ");
+		sprintf_s(line8, 128, "Recebe uma pedra do Sabio ");
 		*color8 = Yellow;
 		return 10;
 	}
@@ -329,53 +329,53 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Kit +1
 	if (item->sIndex == 3794)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Bau de joias.");
+		sprintf_s(line3, 128, "Bau de joias.");
 		*color3 = White;
-		sprintf(line4, 128, "Clique direito para usar.");
+		sprintf_s(line4, 128, "Clique direito para usar.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Recebe uma joia aleatoria");
+		sprintf_s(line7, 128, "Recebe uma joia aleatoria");
 		*color7 = Yellow;
 		return 10;
 	}
 
 	if (item->sIndex >= 3210 && item->sIndex <= 3212)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Box de Eventos.");
+		sprintf_s(line3, 128, "Box de Eventos.");
 		*color3 = White;
-		sprintf(line4, 128, "Clique direito para usar.");
+		sprintf_s(line4, 128, "Clique direito para usar.");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Receba um item aleatorio do evento");
+		sprintf_s(line7, 128, "Receba um item aleatorio do evento");
 		*color7 = Yellow;
 		return 10;
 	}
 	//Bau do Guerreiro
 	if (item->sIndex == 3213)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line2, 128, "Bau Premium.");
+		sprintf_s(line2, 128, "Bau Premium.");
 		*color2 = White;
-		sprintf(line3, 128, "Clique direito para usar.");
+		sprintf_s(line3, 128, "Clique direito para usar.");
 		*color3 = White;
-		sprintf(line4, 128, "[ATRIBUTOS:]");
+		sprintf_s(line4, 128, "[ATRIBUTOS:]");
 		*color4 = Orange;
-		sprintf(line5, 128, "1x Poção Divina(30d)");
+		sprintf_s(line5, 128, "1x Poção Divina(30d)");
 		*color5 = Yellow;
-		sprintf(line6, 128, "1x Poção Saude(30d)");
+		sprintf_s(line6, 128, "1x Poção Saude(30d)");
 		*color6 = Yellow;
-		sprintf(line7, 128, "2x Bolsa do Andarilho");
+		sprintf_s(line7, 128, "2x Bolsa do Andarilho");
 		*color7 = Yellow;
-		sprintf(line8, 128, "1x Elixir da Coragem(30d)");
+		sprintf_s(line8, 128, "1x Elixir da Coragem(30d)");
 		*color8 = Yellow;
-		sprintf(line9, 128, "1x Sephira (30d)");
+		sprintf_s(line9, 128, "1x Sephira (30d)");
 		*color9 = Yellow;
 		return 10;
 	}
@@ -383,17 +383,17 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 	//Moedas Epoints.
 	if (item->sIndex > 3015 && item->sIndex < 3020)
 	{
-		sprintf(line1, 128, "[Item Premium]");
+		sprintf_s(line1, 128, "[Item Premium]");
 		*color1 = Yellow;
-		sprintf(line3, 128, "Moeda de Epoints");
+		sprintf_s(line3, 128, "Moeda de Epoints");
 		*color3 = White;
-		sprintf(line4, 128, "comsumível ao clique direito");
+		sprintf_s(line4, 128, "comsumível ao clique direito");
 		*color4 = White;
-		sprintf(line6, 128, "[ATRIBUTOS:]");
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
 		*color6 = Orange;
-		sprintf(line7, 128, "Pontos de Epoints");
+		sprintf_s(line7, 128, "Pontos de Epoints");
 		*color7 = Yellow;
-		sprintf(line8, 128, "de acordo com sua raridade. ");
+		sprintf_s(line8, 128, "de acordo com sua raridade. ");
 		*color8 = Yellow;
 		return 10;
 	}

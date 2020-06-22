@@ -148,6 +148,15 @@
     <Filter Include="Header Files\Buff">
       <UniqueIdentifier>{7c760313-65b5-4ca1-aca4-961f7615b90f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\Nyerds">
+      <UniqueIdentifier>{1711796a-cd5e-4541-88ec-76b6c915bd71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Packages\State Playing\TitleSystem">
+      <UniqueIdentifier>{da920ff3-1761-46f4-b345-4deda6e19b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TitleSystem">
+      <UniqueIdentifier>{c97e3fb4-1d02-498c-9529-72f11fd869f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -516,6 +525,12 @@
     <ClCompile Include="AccountBuff.cpp">
       <Filter>Source Files\Packages\Buff</Filter>
     </ClCompile>
+    <ClCompile Include="Nyerds.cpp">
+      <Filter>Source Files\Packages\Nyerds</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -634,6 +649,12 @@
     </ClInclude>
     <ClInclude Include="AccountBuff.h">
       <Filter>Header Files\Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="Nyerds.h">
+      <Filter>Source Files\Packages\Nyerds</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleSystem.h">
+      <Filter>Header Files\TitleSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
