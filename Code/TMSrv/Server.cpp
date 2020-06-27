@@ -11546,3 +11546,14 @@ STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem)
 
 	return nullptr;
 }
+
+int GetMountProtect(int conn)
+{
+	int sAffect = GetEmptyAffect(conn, MOUNT_PROTECT_TYPE);
+
+	if (pMob[conn].Affect[sAffect].Type == MOUNT_PROTECT_TYPE)
+		return TRUE;
+	
+	return FALSE;
+
+}

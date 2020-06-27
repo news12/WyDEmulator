@@ -2378,7 +2378,7 @@ lbl_PST1:
 				if (Target > MAX_USER && pMob[Target].MOB.Clan == 4)
 					LinkMountHp(Target);
 
-				if (damage > 0)
+				if (damage > 0 && !GetMountProtect(Target))//dano na montaria
 					ProcessAdultMount(Target, damage);
 			}
 

@@ -3358,6 +3358,69 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
 	}
 #pragma endregion
+
+#pragma region >> Marmita 24h 3d 7d
+	if (Vol == 60)
+	{
+		int sAffect = GetEmptyAffect(a_iConn, MOUNT_PROTECT_TYPE);
+		unsigned int newTime = 0;
+
+		if (sAffect == -1)
+		{
+			SendClientMsg(a_iConn, "Limite máximo de buffs atingido..");
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+		switch (item->sIndex)
+		{
+			case 3214:
+				newTime = AFFECT_1D;
+				break;
+			case 3215:
+				newTime = AFFECT_1D * 3;
+				break;
+			case 3216:
+				newTime = AFFECT_1D * 7;
+				break;
+			default:
+				break;
+		}
+
+		if (pMob[a_iConn].Affect[sAffect].Type == MOUNT_PROTECT_TYPE)
+		{
+			unsigned int sumTime = pMob[a_iConn].Affect[sAffect].Time + newTime;
+			if (sumTime > MAX_TIME_MARMITA)
+			{
+				SendClientMsg(a_iConn, "Limite de acumulo de tempo do buff é de 15 dias..");
+				SendItem(a_iConn, m->SourType, m->SourPos, item);
+				return;
+			}
+			newTime = sumTime;
+		}
+		
+			pMob[a_iConn].Affect[sAffect].Type = MOUNT_PROTECT_TYPE;
+			pMob[a_iConn].Affect[sAffect].Level = 1;
+			pMob[a_iConn].Affect[sAffect].Value = 0;
+			pMob[a_iConn].Affect[sAffect].Time = newTime;
+
+		
+			pMob[a_iConn].GetCurrentScore(a_iConn);
+			SendScore(a_iConn);
+
+			if (amount > 1)
+				BASE_SetItemAmount(item, amount - 1);
+
+			else
+				memset(item, 0, sizeof(STRUCT_ITEM));
+
+			return;
+		
+		
+		sprintf(temp, "useitem,item marmita type: %d", item->sIndex);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+	}
+#pragma endregion
+
 #pragma region >> Poção Kappa
 	if (Vol == 10 || Vol == 55 || Vol == 200 || Vol == 201 || Vol == 56 || Vol == 52 || Vol == 53 || Vol == 57 || Vol == 202)
 	{
@@ -3811,6 +3874,46 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 		}
 		
 	}
+#pragma endregion
+#pragma region Contratos do reino
+	if (Vol >= 41 && Vol < 50)
+	{
+		int Evock = Vol - 41;
+
+		if (pMob[a_iConn].MOB.Clan != 7 && pMob[a_iConn].MOB.Clan != 8)
+		{
+			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Only_same_kingdom]);
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+
+		if (Evock < 5 && pMob[a_iConn].MOB.Clan == 8)
+		{
+			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Only_same_kingdom]);
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+
+		if (Evock >= 5 && pMob[a_iConn].MOB.Clan == 7)
+		{
+			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Only_same_kingdom]);
+			SendItem(a_iConn, m->SourType, m->SourPos, item);
+			return;
+		}
+
+			GenerateSummon(a_iConn, Evock + 40, 0, 1);
+
+		if (amount > 1)
+			BASE_SetItemAmount(item, amount - 1);
+
+		else
+			memset(item, 0, sizeof(STRUCT_ITEM));
+
+		sprintf(temp, "useitem,contrato_de_reino evock:%d", Evock + 28);
+		MyLog(LogType::Itens, pMob[a_iConn].MOB.MobName, temp, 0, pUser[a_iConn].IP);
+		return;
+	}
+
 #pragma endregion
 
 #pragma region >> Itens Entrada Quests

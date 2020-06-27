@@ -943,6 +943,27 @@ void CNPCSummon::Initialize()
 
 	if (!MobFound)
 		MessageBoxA(hWndMain, Mob[39].MobName, "Can't read NPC 39", MB_OK);
+
+	strcpy((char*)Mob[40].MobName, "Cav._Arcano");
+
+	MobFound = ReadMob(&Mob[40], "BaseSummon");
+
+	if (!MobFound)
+		MessageBoxA(hWndMain, Mob[40].MobName, "Can't read NPC 40", MB_OK);
+
+	strcpy((char*)Mob[41].MobName, "Arq._Arcano");
+
+	MobFound = ReadMob(&Mob[41], "BaseSummon");
+
+	if (!MobFound)
+		MessageBoxA(hWndMain, Mob[41].MobName, "Can't read NPC 41", MB_OK);
+
+	strcpy((char*)Mob[42].MobName, "Mag._Arcano");
+
+	MobFound = ReadMob(&Mob[42], "BaseSummon");
+
+	if (!MobFound)
+		MessageBoxA(hWndMain, Mob[42].MobName, "Can't read NPC 42", MB_OK);
 }
 
 void SetAct(char *dest, char *act)

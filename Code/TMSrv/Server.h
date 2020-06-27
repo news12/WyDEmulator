@@ -225,6 +225,7 @@ void SetBigCuboDoor(int state);
 int GetFirstSlotBag(int Conn);
 int GetSlotsVagoBag(int Conn);
 STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem);
+int GetMountProtect(int conn);
 
 // External func
 

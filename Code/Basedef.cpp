@@ -3504,7 +3504,25 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 	int AttackSpeedBonus = 0;
 	int RunSpeedBonus = 0;
 	int DAMAGEMULTI = 100;
+#pragma region >> ImuItens
+	for (size_t i = 0; i < MAX_EQUIP; i++)
+	{
+		unsigned nImu = 0;
+		for (int j = 0; j < 3; j++)
+		{
+			if (MOB.Equip[i].stEffect[j].cEffect == EF_RESISTALL)
+				nImu += MOB.Equip[i].stEffect[j].cValue;
 
+		}
+
+		Sagrado += nImu;
+		Fogo += nImu;
+		Trovao += nImu;
+		Gelo += nImu;
+
+	}
+	
+#pragma endregion
 #pragma region >> Buffs
 	for (int i = 0; i < MAX_AFFECT; i++)
 	{
@@ -3703,9 +3721,9 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 
 			if (MOB.Equip[0].sIndex == 22 && IsWolf != 0)
 			{
-				DamAdd = 20;
+				DamAdd = 25;
 				RegAdd = 5;
-				Critical += 5;
+				Critical = 5;
 			}
 			else if (MOB.Equip[0].sIndex == 23 && IsBear != 0)
 			{
@@ -3732,12 +3750,12 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 			//Eden
 			else if (MOB.Equip[0].sIndex == 32)
 			{
-				DamAdd = 15;
-				AcAdd = 5;
+				DamAdd = 20;
+				AcAdd = 10;
 				HpAdd = 10;
-				RegAdd = 10;
+				RegAdd = 20;
 				AttAdd = 25;
-				Critical += 5;
+				Critical = 10;
 			}
 
 			int sanc = (special3 + (Extra->ClassMaster != ARCH && Extra->ClassMaster != MORTAL ? MOB.CurrentScore.Level + MAX_LEVEL : MOB.CurrentScore.Level) * 2) / 3;

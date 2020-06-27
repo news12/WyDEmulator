@@ -177,6 +177,23 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define		MAX_CARRY				64
 #define		MAX_CARGO				128
 
+#define EQUIP_FACE					0 
+#define EQUIP_HELMET				1 
+#define EQUIP_ARMOR					2 
+#define EQUIP_PANT					3  
+#define EQUIP_GLOVE					4 
+#define EQUIP_BOOT					5 
+#define EQUIP_WEAPON				6  
+#define EQUIP_SHIELD				7  
+#define EQUIP_RING					8 
+#define EQUIP_AMULET				9  
+#define EQUIP_ORB					10 
+#define EQUIP_STONE					11 
+#define EQUIP_GUILD					12  
+#define EQUIP_PIXIE					13  
+#define EQUIP_MOUNT					14  
+#define EQUIP_MANTLE				15 
+
 #define		MAX_TRADE				15
 #define		MAX_AUTOTRADE			12
 #define		MAX_AUTOTRADETITLE		24
@@ -203,7 +220,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 
 #define		MAX_ITEM				5000
 
-#define		MAX_SUMMONLIST			39
+#define		MAX_SUMMONLIST			43
 
 #define		MAX_MOB					25000
 
@@ -307,6 +324,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define		MAX_DAMAGE_MG			190000000
 #define		AFFECT_1H				450
 #define		AFFECT_1D				10800
+#define		MAX_TIME_MARMITA		(AFFECT_1D * 15)
 
 #define		SOUL_NULL				0
 #define		SOUL_KIBITA				1
@@ -481,6 +499,7 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define SEPHIRA_TYPE 4
 #define BOXEXP_TYPE 39
 #define PVM_TYPE 30
+#define MOUNT_PROTECT_TYPE 50
 
 ////////////////////////////////////////////////////////////
 
