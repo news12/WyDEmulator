@@ -693,9 +693,16 @@ void CMob::GetCurrentScore(int idx)
 
 	BASE_GetCurrentScore(MOB, Affect, &Extra, &ExpBonus, &ForceMobDamage, idx >= MAX_USER ? 1 : 0, &Accuracy, &HpAbs, &ForceDamage);
 
-	//Fada Eternal
-	//if (MOB.Equip[13].sIndex > 3788 && MOB.Equip[13].sIndex < 3792)
-	//	ExpBonus += 32;
+	//bonus tab Title Level
+	for (size_t i = 0; i < tMaxTitle; i++)
+	{
+		if (!strcmp(TitleLevel[i].Name.c_str(), pMob[idx].Tab))
+		{
+			ExpBonus += TitleLevel[i].ExpBase;
+			DropBonus += TitleLevel[i].DropBase;
+			break;
+		}
+	}
 
 	//Fada Verde 3D
 	if(MOB.Equip[13].sIndex == 3900)

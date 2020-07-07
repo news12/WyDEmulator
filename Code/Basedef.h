@@ -135,6 +135,9 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_BOSS_CAMP 943
 #define IDC_READ_STATUS_SERVER 944
 #define IDC_READ_START_LOG 945
+#define IDC_READ_TITLE_SYSTEM 946
+#define IDC_READ_GUILD_LEVEL 947
+#define IDC_CONFIG_EXTRA 948
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3071,6 +3074,8 @@ extern const std::string PATH_ADM;
 extern const std::string PATH_BOSS_CAMP;
 extern const std::string PATH_SITE;
 extern const std::string PATH_SAVEBUFF;
+extern const std::string PATH_TITLE_SYSTEM;
+extern const std::string PATH_GUILD_HALL;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3292,6 +3297,51 @@ std::string DEV[2];
 std::string ADM[3];
 std::string GM[3];
 };
+
+struct STRUCT_TITLE_SYSTEM
+{
+	std::string Name;
+	unsigned int ExpBase;
+	unsigned int DropBase;
+	unsigned int TotalTitle;
+	unsigned int Level;
+	unsigned int ClassMaster;
+	unsigned int Classe;
+	unsigned int Str;
+	unsigned int Int;
+	unsigned int Dex;
+	unsigned int Con;
+	unsigned int LevelMontaria;
+	unsigned int ConjutoRefino;
+	unsigned int Coin;
+	unsigned int Defesa;
+};
+
+extern enum eTitleLevel {
+	tNOVATO,
+	tEXPLORADOR,
+	tPERITO,
+	tVETERANO,
+	tMORTAL,
+	tMISTICO,
+	tARCANO,
+	tPESADELO,
+	tARCH,
+	tSUPREMO,
+	tMaxTitle
+};
+
+extern STRUCT_TITLE_SYSTEM TitleLevel[tMaxTitle];
+extern STRUCT_TITLE_SYSTEM TitleStatus[tMaxTitle];
+extern STRUCT_TITLE_SYSTEM TitleUnic[tMaxTitle];
+
+struct STRUCT_TITLE_PLAYER
+{
+	unsigned int Ativo;
+	std::string Titles[tMaxTitle];
+};
+extern STRUCT_TITLE_PLAYER TitlePlayer;
+extern int AtivaTitleSystem;
 extern STRUCT_FILTER FilterName;
 extern STRUCT_COLISEU nColiseu[3];
 extern STRUCT_EVENT_TRADE EventTrade;
@@ -3373,9 +3423,19 @@ struct StatusServer
 	unsigned char Status;
 	std::string MSG;
 };
+
+struct STRUCT_GUILD_HALL
+{
+	unsigned int FamePoint;
+	unsigned int Level;
+	std::string Lider;
+	unsigned int TotalMember;
+	unsigned int Territory;
+};
 extern StatusServer EternalServer[MAX_STATUS_SERVER];
 #define MAX_WARS 4
 #define MAX_SAVE_BUFF 4
+#define MAX_GUILD_LEVEL 10
 extern int NPCBlock[20];
 extern STRUCT_WARS warsTimer[MAX_WARS];
 extern STRUCT_ALTAR_KING altarKing;
@@ -3390,6 +3450,8 @@ extern short RandTorreBlue[4][2];
 extern STRUCT_AUTOBAN autoBan;
 extern STRUCT_STAFF_ETERNAL StaffEternal;
 extern unsigned int AccountSaveBuff[MAX_SAVE_BUFF];
+extern unsigned int GuildLevel[MAX_GUILD_LEVEL];
+extern STRUCT_GUILD_HALL GuildHall[MAX_GUILD];
 #pragma endregion
 
 #endif

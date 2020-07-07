@@ -55,6 +55,12 @@ namespace ConfigIni {
 		static int WriteStatistic(string path, string file,
 			int tMortal, int tArch, int tCelestial, int tSubCelestial,
 			int tTK, int tFM, int tBM, int tHT, int tRed, int tBlue, int tNoReino);
+		static int ReadTitleLevel(string path, string file);
+		static int WriteTitleLevel(string path, string file);
+		static int ReadGuildLevel(string path, string file);
+		static int WriteGuildLevel(string path, string file);
+		static int ReadGuildHall(string path, string file);
+		static int WriteGuildHall(string path, string file, unsigned guildIndex);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);
@@ -80,6 +86,9 @@ namespace ConfigIni {
 		static int WriteStatusBossCamp(string path, int boss);
 		static int ReadAccoutSaveBuff(string path, string file);
 		static int WriteAccountSaveBuff(string path, string file);
+
+		static int ReadTitleSystem(string path, string file);
+		static int WriteTitSystem(string path, string file, string Name, unsigned int ativa);
 
 	static	struct GroupServer
 		{

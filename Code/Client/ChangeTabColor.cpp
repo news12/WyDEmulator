@@ -2,35 +2,49 @@
 
 int HKD_ChangeTabColor(char* msg)
 {
-	char keyColor[3];
+	char keyColor[2];
 	int color = 0xFFCCCCCC;
 
-	memcpy(keyColor, &msg[0], 2);
-	//keyColor[3] = '\0';
-	if (!strcmp(keyColor, "o."))
-	{
-		color = TNColor::Orange;
-	}
-	if (!strcmp(keyColor, "b."))
-	{
-		color = TNColor::Blue;
-	}
-	if (!strcmp(keyColor, "y."))
-	{
-		color = TNColor::Yellow;
-	}
-	if (!strcmp(keyColor, "g."))
-	{
+	memcpy(keyColor, &msg[0], 1);
+	keyColor[1] = '\0';
+
+	if (!strcmp(msg, "NOVATO"))
+		color = TNColor::White;
+
+	else if (!strcmp(msg, "EXPLORADOR"))
 		color = TNColor::GreenYellow;
-	}
-	if (!strcmp(keyColor, "p."))
-	{
-		color = TNColor::DeepPink;
-	}
-	if (!strcmp(msg, "Ajudante para iniciantes"))
+	
+	else if (!strcmp(msg, "PERITO"))
+		color = TNColor::GreenYellow;
+	
+	else if (!strcmp(msg, "VETERANO"))
+		color = TNColor::GreenYellow;
+
+	else if (!strcmp(msg, "MORTAL"))
+		color = TNColor::Blue;
+	
+	else if (!strcmp(msg, "MISTICO"))
 		color = TNColor::Blue;
 
-	if (!strcmp(msg, "EternalWYD"))
+	else if (!strcmp(msg, "ARCANO"))
+		color = TNColor::Blue;
+
+	else if (!strcmp(msg, "PESADELO"))
+		color = TNColor::Yellow;
+
+	else if (!strcmp(msg, "ARCH"))
+		color = TNColor::Yellow;
+
+	else if (!strcmp(msg, "SUPREMO"))
+		color = TNColor::GoldenClaro;
+
+	else if (!strcmp(msg, "Ajudante|Iniciantes"))
+		color = TNColor::Blue;
+
+	else if (!strcmp(keyColor, " "))
+		color = TNColor::Blue;
+
+	else if (!strcmp(msg, "EternalWYD"))
 		color = TNColor::Orange;
 
 	return color;

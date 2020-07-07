@@ -108,7 +108,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ClientPatch</TargetName>
-    <OutDir>..\..\..\ClientAlpha</OutDir>
+    <OutDir>..\..\..\ClientLocal</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.dll</TargetExt>

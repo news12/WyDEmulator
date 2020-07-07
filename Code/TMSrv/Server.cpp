@@ -1,3 +1,4 @@
+#include "DialogConfigExtra.h"
 #include <Windows.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -27,6 +28,9 @@
 #include "WarOfKingdom.h"
 #include "BossCamp.h"
 #include "AccountBuff.h"
+#include "../../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/um/timeapi.h"
+#include "resource.h"
+
 
 
 #pragma region Defines
@@ -1074,6 +1078,49 @@ void GuildZoneReport(void)
 HFONT__ *GetAFont()
 {
 	return 0;
+}
+
+void OpenConfigExtra()
+{
+	//AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	//DialogConfigExtra * nConfigExtra = new DialogConfigExtra();
+	//nConfigExtra.Create(IDD_DIALOG_CONFIG_EXTRA, this);
+	//nConfigExtra->DoModal();
+}
+
+void ReadGuildHall(unsigned int conn)
+{
+
+	int Guild = pMob[conn].MOB.Guild;
+	int Groups = ServerGroup;
+	char name[256];
+
+	BASE_GetGuildName(Groups, Guild, name);
+
+	std::string guildName = name;
+
+	int status = nConfig::ReadGuildHall(PATH_GUILD_HALL, guildName + ".json");
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler guildHall", "FILE ERROR", NULL);
+
+}
+
+void ReadGuildLevel()
+{
+
+	int status = nConfig::ReadGuildLevel(PATH_SETTINGS, "guildLevel.json");
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler guildLevel", "FILE ERROR", NULL);
+
+}
+
+void ReadTitleSystem()
+{
+
+	int status = nConfig::ReadTitleLevel(PATH_SETTINGS, "titleLevel.json");
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler StatusServer", "FILE ERROR", NULL);
+
 }
 
 void WriteStatistic()
@@ -4679,6 +4726,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ReadBossCamp();
 	ReadStatusServer();
 	ReadLevelItemConfig();
+	ReadTitleSystem();
+	ReadGuildLevel();
 	ConfigReady = 1;
 
 	DrawConfig(0);
@@ -5300,6 +5349,8 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_BOSS_CAMP, "&Load Boss Camp");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STAFF, "&Load Staff List");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_STATUS_SERVER, "&Load Status Server");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_TITLE_SYSTEM, "&Load Title System");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_GUILD_LEVEL, "&Load Guild Level");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Config Extra");
 
 		hSubMenu = CreatePopupMenu();
@@ -5378,9 +5429,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 			break;
 
 		case IDC_CONVERT_NPC:
-			ConvertNPC();
+			//ConvertNPC();
+			OpenConfigExtra();
 			break;
-
+			
 		case IDC_READ_BOX_EVENT:
 			ReadBoxEvent();
 			break;
@@ -5423,6 +5475,14 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_START_LOG:
 			StartLog();
+			break;
+
+		case IDC_READ_TITLE_SYSTEM:
+			ReadTitleSystem();
+			break;
+
+		case IDC_READ_GUILD_LEVEL:
+			ReadGuildLevel();
 			break;
 
 		case IDC_READGAMECONFIG:

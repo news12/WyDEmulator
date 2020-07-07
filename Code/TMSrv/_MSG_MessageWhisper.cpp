@@ -3,6 +3,7 @@
 #include "..\ConfigIni.h"
 #include "EventsEternal.h"
 #include "Quiz.h"
+#include "TitleSystem.h"
 
 using ConfigIni::nConfig;
 
@@ -405,16 +406,69 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
+	else if (!strcmp(m->MobName, "Titles"))
+	{
+		sprintf(temp, "Titulos por Level:");
+		SendClientMsg(a_iConn, temp);
+
+		for (size_t i = 0; i < tMaxTitle; i++)
+		{
+			std::string className = "";
+			switch (TitleLevel[i].ClassMaster)
+			{
+			case MORTAL:
+				className = "MORTAL";
+				break;
+			case ARCH:
+				className = "ARCH";
+				break;
+			case CELESTIAL:
+				className = "CELESTIAL";
+				break;
+			default:
+				break;
+			}
+				unsigned int level = pMob[a_iConn].MOB.CurrentScore.Level + 1;
+				unsigned int classMaster = pMob[a_iConn].Extra.ClassMaster;
+
+				sprintf(temp, "Titulo: [%s]", TitleLevel[i].Name.c_str());
+				SendClientMsg(a_iConn, temp);
+
+				sprintf(temp, "Req: [%s] Level: [%d] ou superior", className.c_str(), TitleLevel[i].Level);
+				SendClientMsg(a_iConn, temp);
+
+				sprintf(temp, "Bonus ao Equipar: Exp: [%d%%] Drop [%d%%]", (int)TitleLevel[i].ExpBase, (int)TitleLevel[i].DropBase);
+				SendClientMsg(a_iConn, temp);
+
+				sprintf(temp, "------------------------------------------------------");
+				SendClientMsg(a_iConn, temp);
+				
+	
+		}
+		return;
+	}
 
 	else if (strcmp(m->MobName, "tab") == 0)
 	{
-		if (pMob[a_iConn].MOB.CurrentScore.Level < 69 && pMob[a_iConn].Extra.ClassMaster == MORTAL)
+		if (AtivaTitleSystem)
+		{
+			unsigned int active = loadTitle(a_iConn, m->String);
+			if (!active)
+			{
+				sprintf(temp, "Você não pode equipar esse titulo.");
+				SendClientMsg(a_iConn, temp);
+				return;
+			}
+			
+		}
+		/*if (pMob[a_iConn].MOB.CurrentScore.Level < 69 && pMob[a_iConn].Extra.ClassMaster == MORTAL)
 		{
 			sprintf(temp, g_pMessageStringTable[_DN_Level_Limit], 70);
 			SendClientMsg(a_iConn, temp);
 			return;
-		}
+		}*/
 
+		
 		strncpy(pMob[a_iConn].Tab, m->String, 26);
 
 		if (pUser[a_iConn].TradeMode == 0)

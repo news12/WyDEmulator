@@ -12,5 +12,4 @@
 #include "SendFunc.h"
 #include "ProcessClientMessage.h"
 
-void loadTitle();
-void setTitle();
+int loadTitle(int conn, std::string tab);

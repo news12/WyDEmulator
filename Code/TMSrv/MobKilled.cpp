@@ -420,8 +420,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+								//	myLevel += MAX_LEVEL + 1;
 
 								int exp = (UNK_1 + myLevel) * isExp / (UNK_1 + myLevel);
 								if (exp > 0 && exp <= 10000000)
@@ -477,8 +477,29 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 25;
 									}
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+										//exp /= 50;
 
 									exp = 6 * exp / 10;
 
@@ -551,8 +572,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									//myLevel += MAX_LEVEL + 1;
 
 								int exp = (UNK_1 + myLevel) * isExp / (UNK_1 + myLevel);
 								if (exp > 0 && exp <= 10000000)
@@ -609,8 +630,29 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 25;
 									}
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+										//exp /= 50;
 
 									exp = 6 * exp / 10;
 
@@ -680,8 +722,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+								//	myLevel += MAX_LEVEL + 1;
 
 								int exp = (UNK_1 + myLevel) * isExp / (UNK_1 + myLevel);
 								if (exp > 0 && exp <= 10000000)
@@ -707,6 +749,27 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 320;
 									}
 
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
 									exp = 6 * exp / 10;
 
 									if (pMob[a_iConn].ExpBonus > 0 && pMob[a_iConn].ExpBonus < 500)
@@ -721,8 +784,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (KefraLive == 0)
 										exp /= 2;
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+										//exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -777,8 +840,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									//myLevel += MAX_LEVEL + 1;
 
 								int exp = 450 * isExp / (UNK_1 + myLevel);
 
@@ -839,6 +902,27 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 22;
 									}
 
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
 									exp = 6 * exp / 10;
 
 									if (exp > eMob)
@@ -856,8 +940,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (KefraLive == 0)
 										exp /= 2;
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+										//exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -913,8 +997,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+								//	myLevel += MAX_LEVEL + 1;
 
 								int exp = 450 * isExp / (UNK_1 + myLevel);
 
@@ -971,6 +1055,28 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										else if (myLevel <= 400) // Exp Média 1k
 											exp /= 25;
 									}
+
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
 									exp = 6 * exp / 10;
 
 									if (exp > eMob)
@@ -988,8 +1094,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (KefraLive == 0)
 										exp /= 2;
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									//	exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -1045,8 +1151,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+								//	myLevel += MAX_LEVEL + 1;
 
 								int exp = 450 * isExp / (UNK_1 + myLevel);
 
@@ -1103,6 +1209,27 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 25;
 									}
 
+									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+									{
+										if (myLevel < 20)
+											exp /= 10;
+
+										else if (myLevel < 50)
+											exp /= 20;
+
+										else if (myLevel < 70)
+											exp /= 40;
+
+										else if (myLevel < 120)
+											exp /= 50;
+
+										else if (myLevel < 195)
+											exp /= 70;
+
+										else
+											exp /= 100;
+									}
+
 									exp = 6 * exp / 10;
 
 									if (exp > eMob)
@@ -1120,8 +1247,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (KefraLive == 0)
 										exp /= 2;
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+									//	exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;
@@ -1178,8 +1305,8 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 								int myLevel = pMob[party].MOB.CurrentScore.Level;
 
-								if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
-									myLevel += MAX_LEVEL + 1;
+								//if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
+								//	myLevel += MAX_LEVEL + 1;
 
 								int exp = 450 * isExp / (UNK_1 + myLevel);
 
@@ -1237,25 +1364,28 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											exp /= 25;
 									}
 
+									//if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
+										//exp /= 50;
+
 									if (pMob[party].Extra.ClassMaster != MORTAL && pMob[party].Extra.ClassMaster != ARCH)
 									{
-										if (myLevel < 120)
+										if (myLevel < 20)
 											exp /= 10;
 
-										else if (myLevel < 150)
+										else if (myLevel < 50)
 											exp /= 20;
 
-										else if (myLevel < 170)
+										else if (myLevel < 70)
 											exp /= 40;
 
-										else if (myLevel < 180)
-											exp /= 80;
+										else if (myLevel < 120)
+											exp /= 50;
 
-										else if (myLevel < 190)
-											exp /= 160;
+										else if (myLevel < 195)
+											exp /= 70;
 
 										else
-											exp /= 320;
+											exp /= 100;
 									}
 
 									exp = 6 * exp / 10;
@@ -1281,8 +1411,6 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (KefraLive == 0)
 										exp /= 2;
 
-									if (pMob[party].Extra.ClassMaster != ARCH && pMob[party].Extra.ClassMaster != MORTAL)
-										exp /= 50;
 
 									if (NewbieEventServer)
 										exp += (exp * 15) / 100;

@@ -26,6 +26,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -48,6 +49,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\Server\TMSrv\run</OutDir>
     <IncludePath>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\jsonlib;$(IncludePath)</IncludePath>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -63,14 +65,18 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\pthread\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Nafxcwd.lib;Libcmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <GenerateMapFile>true</GenerateMapFile>
       <AdditionalLibraryDirectories>C:\Users\Uerley\Desktop\WYD_SERVER\Source\Code\pthread\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>Nafxcwd.lib;Libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,6 +115,7 @@
     <ClCompile Include="DataServerPackageHandler.cpp" />
     <ClCompile Include="CReadFiles.cpp" />
     <ClCompile Include="CUser.cpp" />
+    <ClCompile Include="DialogConfigExtra.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="EventsEternal.cpp" />
     <ClCompile Include="FadaDourada.cpp" />
@@ -235,6 +242,7 @@
     <ClInclude Include="CQuest.h" />
     <ClInclude Include="CReadFiles.h" />
     <ClInclude Include="CUser.h" />
+    <ClInclude Include="DialogConfigExtra.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="EventsEternal.h" />
     <ClInclude Include="FadaDourada.h" />

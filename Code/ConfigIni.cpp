@@ -12,6 +12,7 @@
 using namespace std;
 using ConfigIni::nConfig;
 using json = nlohmann::json;
+int AtivaTitleSystem = FALSE;
 STRUCT_STAFF_ETERNAL StaffEternal;
 STRUCT_MOB g_MobBase[];
 STRUCT_TREASURE ng_pTreasure[];
@@ -34,6 +35,10 @@ STRUCT_EVENT_TRADE EventTrade;
 STRUCT_COLISEU nColiseu[];
 STRUCT_AUTOBAN autoBan;
 STRUCT_FILTER FilterName;
+STRUCT_TITLE_SYSTEM TitleLevel[tMaxTitle];
+STRUCT_TITLE_SYSTEM TitleStatus[tMaxTitle];
+STRUCT_TITLE_SYSTEM TitleUnic[tMaxTitle];
+STRUCT_TITLE_PLAYER TitlePlayer;
 StatusServer EternalServer[];
 unsigned int AccountSaveBuff[];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
@@ -96,6 +101,8 @@ unsigned int CharaCreate[];
  DWORD MAX_BOX_A = 0;
 //Maximo de config 100 maximo de subconfig 50
 short gameConfig[maxGameConfig][MaxSubConfig];
+unsigned int GuildLevel[MAX_GUILD_LEVEL];
+STRUCT_GUILD_HALL GuildHall[MAX_GUILD];
 //PATH Folders, difinir extern no basedef.h
 const string PATH_COMMON = "../../Common/";
 const string PATH_DB = "../../DBSrv/";
@@ -121,6 +128,8 @@ const string PATH_FILTER_NAME = "FilterName/";
 const string PATH_ADM = "Staff/";
 const string PATH_SITE = "C:/xampp/htdocs/wyd/Eternal_Site/";
 const string PATH_SAVEBUFF = "SaveBuff/";
+const string PATH_TITLE_SYSTEM = "TitleSystem/";
+const string PATH_GUILD_HALL = PATH_COMMON + "GuildHall/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -2034,6 +2043,390 @@ int ConfigIni::nConfig::WriteStatistic(string path, string file,
 	}
 }
 
+int ConfigIni::nConfig::ReadTitleLevel(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteTitleLevel(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&TitleLevel, 0, sizeof(STRUCT_TITLE_SYSTEM));
+		for (size_t i = 0; i < tMaxTitle; i++)
+		{
+			string titleName = "";
+			switch (i)
+			{
+			case tNOVATO:
+				titleName = "NOVATO";
+				break;
+			case tEXPLORADOR:
+				titleName = "EXPLORADOR";
+				break;
+			case tPERITO:
+				titleName = "PERITO";
+				break;
+			case tVETERANO:
+				titleName = "VETERANO";
+				break;
+			case tMORTAL:
+				titleName = "MORTAL";
+				break;
+			case tMISTICO:
+				titleName = "MISTICO";
+				break;
+			case tARCANO:
+				titleName = "ARCANO";
+				break;
+			case tPESADELO:
+				titleName = "PESADELO";
+				break;
+			case tARCH:
+				titleName = "ARCH";
+				break;
+			case tSUPREMO:
+				titleName = "SUPREMO";
+				break;
+			default:
+				break;
+			}
+			TitleLevel[i].Name = "qwertyuiopasdfghjklzxcvbnm";
+			TitleLevel[i].Name = titleName;
+			TitleLevel[i].ExpBase = (i + 2) /2;
+			TitleLevel[i].DropBase = (i + 1) / 2;
+			nJson["CONQUISTA"][titleName].find("Level").value().get_to(TitleLevel[i].Level);
+			nJson["CONQUISTA"][titleName].find("ClassMaster").value().get_to(TitleLevel[i].ClassMaster);
+			nJson["CONQUISTA"][titleName].find("Classe").value().get_to(TitleLevel[i].Classe);
+			nJson["CONQUISTA"][titleName].find("Str").value().get_to(TitleLevel[i].Str);
+			nJson["CONQUISTA"][titleName].find("Int").value().get_to(TitleLevel[i].Int);
+			nJson["CONQUISTA"][titleName].find("Dex").value().get_to(TitleLevel[i].Dex);
+			nJson["CONQUISTA"][titleName].find("Con").value().get_to(TitleLevel[i].Con);
+			nJson["CONQUISTA"][titleName].find("LevelMontaria").value().get_to(TitleLevel[i].LevelMontaria);
+			nJson["CONQUISTA"][titleName].find("ConjutoRefino").value().get_to(TitleLevel[i].ConjutoRefino);
+			nJson["CONQUISTA"][titleName].find("Coin").value().get_to(TitleLevel[i].Coin);
+			nJson["CONQUISTA"][titleName].find("Defesa").value().get_to(TitleLevel[i].Defesa);
+
+		}
+
+		
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteTitleLevel(string path, string file)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New titleLevel.json
+	auto nJson = R"(
+{
+"CONQUISTA": {
+
+				"NOVATO":{
+							"Level": 10,
+							"ClassMaster": 2,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"EXPLORADOR":{
+							"Level": 100,
+							"ClassMaster": 2,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+						 
+				"PERITO":{
+							"Level": 256,
+							"ClassMaster": 2,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				 "VETERANO":{
+							"Level": 356,
+							"ClassMaster": 2,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"MORTAL":{
+							"Level": 400,
+							"ClassMaster": 2,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+						 
+				"MISTICO":{
+							"Level": 1,
+							"ClassMaster": 1,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"ARCANO":{
+							"Level": 256,
+							"ClassMaster": 1,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"PESADELO":{
+							"Level": 356,
+							"ClassMaster": 1,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"ARCH":{
+							"Level": 400,
+							"ClassMaster": 1,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 },
+				"SUPREMO":{
+							"Level": 1,
+							"ClassMaster": 3,
+							"Classe": 0,
+							"Str":0,
+							"Int":0,
+							"Dex":0,
+							"Con":0,
+							"LevelMontaria":0,
+							"ConjutoRefino":0,
+							"Coin": 0,
+							"Defesa":0
+							
+						 }
+	}
+
+})"_json;
+
+#pragma endregion
+
+	
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadGuildLevel(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteGuildLevel(PATH_SETTINGS, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&GuildLevel, 0, MAX_GUILD_LEVEL);
+
+		for (auto& x : nJson["LEVEL"].items())
+			GuildLevel[stoi(x.key())] = x.value();
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteGuildLevel(string path, string file)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New GuildLevel.json
+	auto nJson = R"(
+{
+"LEVEL": {
+		 "0": 0,
+		 "1": 1200,
+		 "2": 3400,
+		 "3": 7100,
+		 "4": 12000,
+		 "5": 22000,
+		 "6": 34000,
+		 "7": 48000,
+		 "8": 75000,
+		 "9": 100000
+		  }
+
+})"_json;
+
+#pragma endregion
+
+
+	try
+	{
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadGuildHall(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) 
+			return FALSE;
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(GuildHall, 0, sizeof(STRUCT_GUILD_HALL));
+		int nGuildIndex = -1;
+
+		nJson["SYSTEM"]["GuildIndex"].get_to(nGuildIndex);
+		nJson["SYSTEM"]["FamePoint"].get_to(GuildHall[nGuildIndex].FamePoint);
+		nJson["SYSTEM"]["Level"].get_to(GuildHall[nGuildIndex].Level);
+		nJson["SYSTEM"]["Lider"].get_to(GuildHall[nGuildIndex].Lider);
+		nJson["SYSTEM"]["TotalMember"].get_to(GuildHall[nGuildIndex].TotalMember);
+		nJson["SYSTEM"]["Territory"].get_to(GuildHall[nGuildIndex].Territory);
+	
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteGuildHall(string path, string file, unsigned guildIndex)
+{
+	std::string fullpath = path + file;
+	json nJson;
+
+	try
+	{
+		memset(GuildHall, 0, sizeof(STRUCT_GUILD_HALL));
+
+		nJson["SYSTEM"]["GuildIndex"] = guildIndex;
+		nJson["SYSTEM"]["FamePoint"] = GuildHall[guildIndex].FamePoint;
+		nJson["SYSTEM"]["Level"] = GuildHall[guildIndex].Level;
+		nJson["SYSTEM"]["Lider"] = GuildHall[guildIndex].Lider;
+		nJson["SYSTEM"]["TotalMember"] = GuildHall[guildIndex].TotalMember;
+		nJson["SYSTEM"]["Territory"] = GuildHall[guildIndex].Territory;
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
 {
 	string fullpath = path + file;
@@ -3303,6 +3696,152 @@ int ConfigIni::nConfig::WriteAccountSaveBuff(string path, string file)
 	}
 }
 
+int ConfigIni::nConfig::ReadTitleSystem(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteTitSystem(PATH_TITLE_SYSTEM, file,"NONE",FALSE);
+
+		if (!creat)
+			return creat;
+	}
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		memset(&TitlePlayer, 0, sizeof(STRUCT_TITLE_PLAYER));
+
+	
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteTitSystem(string path, string file, string Name, unsigned int ativa)
+{
+	std::string fullpath = path + file;
+
+#pragma region Txt New TitleSystem.json
+	auto nJson = R"(
+{
+		"LEVEL": {
+				 "NOVATO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"EXPLORADOR": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"PERITO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"VETERANO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"MORTAL": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+
+				 "MISTICO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"ARCANO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"PESADELO": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"ARCH": {
+							"Status": 0,
+							"Conquest": 0
+						   },
+				"SUPREMO": {
+							"Status": 0,
+							"Conquest": 0
+						   }
+				
+				}
+		
+})"_json;
+
+#pragma endregion
+
+	try
+	{
+		for (size_t i = 0; i < tMaxTitle; i++)
+		{
+			string titleName = "";
+			switch (i)
+			{
+			case tNOVATO:
+				titleName = "NOVATO";
+				break;
+			case tEXPLORADOR:
+				titleName = "EXPLORADOR";
+				break;
+			case tPERITO:
+				titleName = "PERITO";
+				break;
+			case tVETERANO:
+				titleName = "VETERANO";
+				break;
+			case tMORTAL:
+				titleName = "MORTAL";
+				break;
+			case tMISTICO:
+				titleName = "MISTICO";
+				break;
+			case tARCANO:
+				titleName = "ARCANO";
+				break;
+			case tPESADELO:
+				titleName = "PESADELO";
+				break;
+			case tARCH:
+				titleName = "ARCH";
+				break;
+			case tSUPREMO:
+				titleName = "SUPREMO";
+				break;
+			default:
+				break;
+			}
+			
+			if (!strcmp(titleName.c_str(), Name.c_str()))
+			{
+				nJson["LEVEL"][titleName].find("Status").value() = ativa;
+			}
+			
+			
+
+		}
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int nConfig::ReadGameConfig(string path, string file)
 {
 	string fullpath = path + file;
@@ -4063,11 +4602,13 @@ int nConfig::ReadConfigNews(string path, string file, int key)
 		case CONFIG:
 			nJson["CONFIG"]["Sapphire"].get_to(Sapphire);
 			nJson["CONFIG"]["LastCapsule"].get_to(LastCapsule);
+			nJson["CONFIG"]["TitleSystem"].get_to(AtivaTitleSystem);
 			break;
 		case SERVERLIST:
 			nJson["SERVERLIST"]["MaxServer"].get_to(MaxServer);
 			nJson["SERVERLIST"]["MaxServerGroup"].get_to(MaxServerGroup);
 			nJson["SERVERLIST"]["MaxServerNumber"].get_to(MaxServerNumber);
+			nJson["CONFIG"]["TitleSystem"].get_to(AtivaTitleSystem);//não remover devido a releitura do arquivo na TM
 
 			for (auto& x : nJson["SERVERLIST"]["IPLIST"].items())
 			{
@@ -4119,20 +4660,14 @@ int nConfig::ReadConfigNews(string path, string file, int key)
 
 int nConfig::WriteConfigNews(std::string path, std::string file, int key)
 {
-	std::string fullpath = path + file;
-	FILE* fp = fopen(fullpath.c_str(), "wt");
-
-	if (fp == NULL)
-		return FALSE;
-
-	ifstream spath(fullpath);
-	json nJson;
-
+	string fullpath = path + file;
+	
 #pragma region Txt New config
-	auto text = R"({
+	auto nJson = R"({
 	"CONFIG": {
 		"Sapphire": 8,
-		"LastCapsule": 0
+		"LastCapsule": 0,
+		"TitleSystem": 1
 	},
 	"SERVERLIST": {
 		"MaxServer": 10,
@@ -4164,18 +4699,17 @@ int nConfig::WriteConfigNews(std::string path, std::string file, int key)
 		}
     )";
 #pragma endregion
-	switch (key)
+	try
 	{
-	case CONFIG:
-		fprintf(fp, text, 0);
-		fclose(fp);
-
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
 		return TRUE;
-		break;
-	default:
-		break;
 	}
-	
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+
 	
 }
 

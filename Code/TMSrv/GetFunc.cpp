@@ -1254,8 +1254,22 @@ int GetCreateMob(int mob, MSG_CreateMob *sm)
 		}
 	}
 
-	 if (strcmp((char*)sm->MobName, "Carbuncle Wind") == 0) sprintf(sm->Tab, "Ajudante para iniciantes");
-	 else if (strcmp((char*)sm->MobName, "Argus") == 0) sprintf(sm->Tab, "Loja Fame Guild");
+	 if (!strcmp((char*)sm->MobName, "Carbuncle Wind")) sprintf(sm->Tab, "_Ajudante para iniciantes");
+	 else if (!strcmp((char*)sm->MobName, "Argus")) sprintf(sm->Tab, "_Loja Fame Guild");
+	 else if (!strcmp((char*)sm->MobName, "Cap.Cavaleiros")) sprintf(sm->Tab, "_Mestre TK");
+	 else if (!strcmp((char*)sm->MobName, "ForeLearner")) sprintf(sm->Tab, "_Mestre HT");
+	 else if (!strcmp((char*)sm->MobName, "Foema Ancian")) sprintf(sm->Tab, "_Mestre FM");
+	 else if (!strcmp((char*)sm->MobName, "Mestre Archi")) sprintf(sm->Tab, "_Mestre BM");
+	 else if (!strcmp((char*)sm->MobName, "Premium Neil")) sprintf(sm->Tab, "_Shop Donate");
+	 else if (!strcmp((char*)sm->MobName, "Eternal Points")) sprintf(sm->Tab, "_Eternal Points");
+	 else if (!strcmp((char*)sm->MobName, "Kibita")) sprintf(sm->Tab, "_Cidadania");
+	 else if (!strcmp((char*)sm->MobName, "Aki")) sprintf(sm->Tab, "_Loja Consumiveis");
+	 else if (!strcmp((char*)sm->MobName, "Ruti")) sprintf(sm->Tab, "_Loja Consumiveis");
+	 else if (!strcmp((char*)sm->MobName, "GodGovernment")) sprintf(sm->Tab, "_Pontos PK");
+	 else if (!strcmp((char*)sm->MobName, "Ehre")) sprintf(sm->Tab, "_Compositor");
+	 else if (!strcmp((char*)sm->MobName, "Aylin")) sprintf(sm->Tab, "_Compositor +10");
+	 else if (!strcmp((char*)sm->MobName, "Compositor")) sprintf(sm->Tab, "_Compositor Anct");
+	 else if (!strcmp((char*)sm->MobName, "Agatha")) sprintf(sm->Tab, "_Compositor Arch");
 
 	GetAffect(sm->Affect, pMob[mob].Affect);
 

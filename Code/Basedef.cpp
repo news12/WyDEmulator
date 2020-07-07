@@ -4039,7 +4039,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 					Magic += Magia;
 
 			}
-
+			
 
 			if (master & (1 << 6))//Precisão
 			{
@@ -4056,7 +4056,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 				if (HP >= MAX_HP)
 					MOB.CurrentScore.MaxHp = MAX_HP;
 				else
-					MOB.CurrentScore.MaxHp += HP;
+					MOB.CurrentScore.MaxHp += MP;
 
 				if (MP >= MAX_MP)
 					MOB.CurrentScore.MaxMp = MAX_MP;
