@@ -398,11 +398,53 @@ int CreateObjectText(STRUCT_ITEM* item, char* line1, char* line2, char* line3, c
 		return 10;
 	}
 
+
+	if (item->sIndex >= 794 && item->sIndex <= 799)
+	{
+		std::string nTerritory = "";
+		switch (item->sIndex)
+		{
+		case 794:
+			nTerritory = "Arima";
+			break;
+		case 795:
+			nTerritory = "Barnel";
+			break;
+		case 796:
+			nTerritory = "Campus";
+			break;
+		case 797:
+			nTerritory = "Gobi";
+			break;
+		case 798:
+			nTerritory = "IceCrow";
+			break;
+		case 799:
+			nTerritory = "NONE";
+			break;
+		default:
+			break;
+		}
+		sprintf_s(line1, 128, "[Item Guild]");
+		*color1 = Yellow;
+		sprintf_s(line3, 128, "Chave para Abrir Território");
+		*color3 = White;
+		sprintf_s(line4, 128, "comsumível ao clique direito");
+		*color4 = White;
+		sprintf_s(line6, 128, "[ATRIBUTOS:]");
+		*color6 = Orange;
+		sprintf_s(line7, 128, "Libera acesso ao território:");
+		*color7 = Yellow;
+		sprintf_s(line8, 128, "[%s].",nTerritory.c_str());
+		*color8 = Yellow;
+		return 10;
+	}
+
 	if (item->sIndex >= 2330 && item->sIndex <= 2389) return 0;
 
-	switch (item->sIndex)
-	{
+	//switch (item->sIndex)
+	//{
 
-	}
+	//}
 	return 0;
 }

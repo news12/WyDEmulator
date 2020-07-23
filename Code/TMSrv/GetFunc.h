@@ -45,6 +45,7 @@ int	 GetGuilty				(int conn);
 void SetGuilty				(int conn, int value);
 void SetPKPoint				(int conn, int value);
 BOOL GetEmptyMobGridGreat	(int mob, int *tx, int *ty);
+std::string GetFormatDecimal(int value);
 
 
 int GetAttackMiss(int a_iConn, int a_iTarget);

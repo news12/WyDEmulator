@@ -5,6 +5,8 @@ void Exec_MSG_InviteGuild(int conn, char *pMsg)
 {
 	MSG_STANDARDPARM2 *m = (MSG_STANDARDPARM2*)pMsg;
 
+	
+
 	int TargetID = m->Parm1;
 	int InviteType = m->Parm2;
 
@@ -40,6 +42,17 @@ void Exec_MSG_InviteGuild(int conn, char *pMsg)
 		return;
 	}
 
+	//controle de população nas guilds
+	unsigned int GuildIndex = pMob[conn].MOB.Guild;
+	unsigned int ExpandGuild = MAX_GUILD_MEMBER + (MAX_GUILD_MEMBER * ((GuildHall[GuildIndex].Level + 1) / 4));
+	unsigned int MaxGuildMember = ExpandGuild;
+
+	if (GuildHall[GuildIndex].TotalMember >= MaxGuildMember)
+	{
+		sprintf(temp, "Sua guild esta cheia, aumente o level da guild para aumentar o limite maximo de membros");
+		SendClientMsg(conn, temp);
+		return;
+	}
 
 	if (InviteType != 0 && pMob[conn].MOB.GuildLevel != 9)
 		return;
@@ -101,6 +114,15 @@ void Exec_MSG_InviteGuild(int conn, char *pMsg)
 	char guildname[256];
 
 	BASE_GetGuildName(Group, usGuild, guildname);
+
+	//----------Sistema de GuildHall
+	ReadGuildHall(conn);
+
+	GuildHall[GuildIndex].TotalMember++;
+	
+	WriteGuildHall(conn);
+
+	//-----------------------------------
 
 	sprintf(temp, g_pMessageStringTable[_SN_JOINGUILD], guildname);
 	SendClientMsg(TargetID, temp);

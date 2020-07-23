@@ -5,6 +5,9 @@ void Exec_MSG_ReqTeleport(int a_iConn, char *pMsg)
 	int posx = pMob[a_iConn].TargetX;
 	int posy = pMob[a_iConn].TargetY;
 
+	int Village = BASE_GetVillage(pMob[a_iConn].TargetX, pMob[a_iConn].TargetY);
+	int CityTax = g_pGuildZone[Village].CityTax;
+
 	if ((posx / 4) == 491 && (posy / 4) == 443)
 	{
 		SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Only_By_Water_Scroll]);
@@ -12,6 +15,8 @@ void Exec_MSG_ReqTeleport(int a_iConn, char *pMsg)
 	}
 
 	int reqcoin = GetTeleportPosition(a_iConn, &posx, &posy);
+
+	reqcoin += (reqcoin * CityTax) / 100;
 
 	int clan = pMob[a_iConn].MOB.Clan;
 

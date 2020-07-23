@@ -10,6 +10,8 @@
 #include "Events.h"
 #include "BoxPremium.h"
 #include "../ConfigIni.h"
+#include "GuildHall.h"
+#include "TitleSystem.h"
 
 using namespace ConfigIni;
 
@@ -1247,6 +1249,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			SetCircletSubGod(a_iConn);
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Level_Up]);
 			SendScore(a_iConn);
+			TitleNotification(a_iConn, pMob[a_iConn].MOB.CurrentScore.Level);
 
 			if (pMob[a_iConn].Extra.ClassMaster == MORTAL)
 				DoItemLevel(a_iConn);
@@ -1557,7 +1560,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			}
 			
 				pUser[a_iConn].Donate += TotalEp;
-				sprintf(temp, "Você recebeu [%d] de [%s]", TotalEp, WydPoints);
+				sprintf(temp, "Você recebeu [%d] de [%s]", TotalEp, "EPoints");
 				SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
 
 				memset(item, 0, sizeof(STRUCT_ITEM));
@@ -3852,6 +3855,14 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 	{
 		switch (item->sIndex)
 		{
+		case KEY_ARIMA:
+		case KEY_BARNEL:
+		case KEY_CAMPUS:
+		case KEY_GOBI:
+		case KEY_ICECROW:
+		case KEY_ICELAND:
+			KeyTerritory(m, item, a_iConn);
+			break;
 		case 3210:
 		case 3211:
 		case 3212:
@@ -3980,6 +3991,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 			SetCircletSubGod(a_iConn);
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Level_Up]);
 			SendScore(a_iConn);
+			TitleNotification(a_iConn, pMob[a_iConn].MOB.CurrentScore.Level);
 
 			if (pMob[a_iConn].Extra.ClassMaster == MORTAL)
 				DoItemLevel(a_iConn);
@@ -4023,6 +4035,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				SetCircletSubGod(partyleader);
 				SendClientMsg(partyleader, g_pMessageStringTable[_NN_Level_Up]);
 				SendScore(partyleader);
+				TitleNotification(partyleader, pMob[partyleader].MOB.CurrentScore.Level);
 
 				if (pMob[partyleader].Extra.ClassMaster == MORTAL)
 					DoItemLevel(partyleader);
@@ -4068,6 +4081,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 					SetCircletSubGod(partymember);
 					SendClientMsg(partymember, g_pMessageStringTable[_NN_Level_Up]);
 					SendScore(partymember);
+					TitleNotification(partymember, pMob[partymember].MOB.CurrentScore.Level);
 
 					if (pMob[partymember].Extra.ClassMaster == MORTAL)
 						DoItemLevel(partymember);
@@ -6867,6 +6881,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 				SendScore(a_iConn);
 				SendEtc(a_iConn);
 				SetCircletSubGod(a_iConn);
+				TitleNotification(a_iConn, pMob[a_iConn].MOB.CurrentScore.Level);
 
 				if (pMob[a_iConn].Extra.ClassMaster == MORTAL)
 					DoItemLevel(a_iConn);

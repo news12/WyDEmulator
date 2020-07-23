@@ -102,6 +102,7 @@ public:
 	int QuizError;
 	int QuizTerritory;
 	int ItemQuiz;
+	unsigned int CountMobKilled;
 public:
 
 	CMob();

@@ -20,6 +20,7 @@
 #include "KefraDrop.h"
 #include "SombraNegra.h"
 #include "BossCamp.h"
+#include "GuildHall.h"
 
 void MobKilled(int target, int a_iConn, int PosX, int PosY)
 {
@@ -2537,9 +2538,14 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									else if (GenerateIndex >= KEFRA_MOB_INITIAL && GenerateIndex <= KEFRA_MOB_END && KefraLive == 0)
 										GenerateMob(GenerateIndex, 0, 0);
 #pragma endregion
+
+#pragma region FamPoint Count
+										FamePointBoss(a_iConn, GenerateIndex);
+										FamePointMob(a_iConn, GenerateIndex);
+#pragma endregion
 #pragma endregion
 #pragma region Coliseu (N)
-									else if (GenerateID >= 4623 && GenerateID <= 4634)
+									if (GenerateID >= 4623 && GenerateID <= 4634)
 									{
 										STRUCT_ITEM item;
 										memset(&item, 0, sizeof(STRUCT_ITEM));

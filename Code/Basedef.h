@@ -67,44 +67,65 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 
 #pragma region Defines
 
-#define MECANICA_OFFLINE_TEMPO	1200 //3600	= 30min					
-#define SORTEIO_TEMPO 600 // 600 = 5 minutos
-#define MAX_ITEM_TRADE_OFF		2
-#define MAX_ITEM_REWARD_PER_HOUR 10
+#define MECANICA_OFFLINE_TEMPO		1200 //3600	= 30min					
+#define SORTEIO_TEMPO				600 // 600 = 5 minutos
+#define MAX_ITEM_TRADE_OFF			2
+#define MAX_ITEM_REWARD_PER_HOUR	10
 
-#define TK  0
-#define FM  1
-#define BM  2
-#define HT  3
-#define MAX_STAFF 3
-#define MAX_QUIZ 100
-#define MAX_COIN 2000000000
-#define MAX_DONATE 200000
-#define MAX_EXP 4100000000
-#define MAX_QUIZ_ERROR 3
-#define VELA 4038
-#define COLHEITA 4039
-#define CURA_BATEDOR 4040
-#define MANA_BATEDOR 4041
-#define EMBLEMA_GUARDA 4042
-#define MAX_BOSS_CAMP 4
+#define TK							0
+#define FM							1
+#define BM							2
+#define HT							3
+#define MAX_STAFF					3
+#define MAX_QUIZ					100
+#define MAX_COIN					2000000000
+#define MAX_DONATE					200000
+#define MAX_EXP						4100000000
+#define MAX_QUIZ_ERROR				3
+
+#define VELA						4038
+#define COLHEITA					4039
+#define CURA_BATEDOR				4040
+#define MANA_BATEDOR				4041
+#define EMBLEMA_GUARDA				4042
+#define KEY_ARIMA					794
+#define KEY_BARNEL					795
+#define KEY_CAMPUS					796
+#define KEY_GOBI					797
+#define KEY_ICECROW					798
+#define KEY_ICELAND					799
+
+#define GUARDIAN_ARIMA				4638
+
+#define MAX_MOB_TERRITORY			10000
+#define MAX_BOSS_CAMP				4
+#define GUILD_MEMBER				0
+#define GUILD_SUB1					6
+#define GUILD_SUB2					7
+#define GUILD_SUB3					8
+#define GUILD_LEADER				9
+#define MAX_GUILD_MEMBER			20
+#define EF_DONATE					91
+#define EF_FAME_POINT				92
+#define EF_GUILD_LEVEL				93
 
 //Grades atributos
-#define GRADE_DROP 5 //base 8%
-#define GRADE_ANCT_PERFU 6 //base 40
-#define GRADE_EXP 7 //base 2%
-#define GRADE_ANCT_ABS 8 //base 40
-#define GRADE_PERFU_E 9 //Base 10
-#define GRADE_ABS_E 10 //Base 10
-#define GRADE_PERFU_F 20 // base 15
-#define GRADE_ABS_F 21 // base 15
-#define GRADE_ABS_PERFU 22 // base 15/15
-#define GRADE_PRATEADA 24 // base 30 perfu
-#define GRADE_DOURADA 25 // Base 30/30
-#define GRADE_MISTICA 26 // Base 40/40
+#define GRADE_DROP					5 //base 8%
+#define GRADE_ANCT_PERFU			6 //base 40
+#define GRADE_EXP					7 //base 2%
+#define GRADE_ANCT_ABS				8 //base 40
+#define GRADE_PERFU_E				9 //Base 10
+#define GRADE_ABS_E					10 //Base 10
+#define GRADE_PERFU_F				20 // base 15
+#define GRADE_ABS_F					21 // base 15
+#define GRADE_ABS_PERFU				22 // base 15/15
+#define GRADE_PRATEADA				24 // base 30 perfu
+#define GRADE_DOURADA				25 // Base 30/30
+#define GRADE_MISTICA				26 // Base 40/40
 
 //#define PKDrop
 #define MAX_DROP_KEFRA 10
+
 #define IDC_EXIT 9000
 #define IDC_MOBRELOAD 9001
 #define IDC_REBOOT 9002
@@ -486,6 +507,9 @@ enum { TNQuest_PistRune_Tower_0_ = 4215, TNQuest_PistRune_Tower_1_ = 4216, TNQue
 #define KEFRA_MOB_INITIAL					395
 #define KEFRA_MOB_END						398
 
+#define SOMBRA_NEGRA_BOSS					4103
+
+
 #define CASTELO_GELO_INITIAL                4051
 #define CASTELO_GELO_END                    4077
 #define DARK_SHADOW                         4048
@@ -652,7 +676,61 @@ enum TNColor
 	Blue = None | 0x0174DF,
 	Orange = None | 0xCD6600,
 	Speak = 0xFF00CD00,
-	Red = None | 0x8B0000
+	Snow = None | 0xFFFFFAFA,
+	GhostWhite = None | 0xFFF8F8FF,
+	WhiteSmoke = None | 0xFFF5F5F5,
+	Gainsboro = None | 0xFFDCDCDC,
+	FloralWhite = None | 0xFFFFFAF0,
+	OldLace = None | 0xFFFDF5E6,
+	Linen = None | 0xFFFAF0E6,
+	AntiqueWhite = None | 0xFFFAEBD7,
+	PapayaWhip = None | 0xFFFFEFD5,
+	BlanchedAlmond = None | 0xFFFFEBCD,
+	Bisque = None | 0xFFFFE4C4,
+	PeachPuff = None | 0xFFFFDAB9,
+	NavajoWhite = None | 0xFFFFDEAD,
+	Moccasin = None | 0xFFFFE4B5,
+	Cornsilk = None | 0xFFFFF8DC,
+	Ivory = None | 0xFFFFFFF0,
+	LemonChiffon = None | 0xFFFFFACD,
+	Seashell = None | 0xFFFFF5EE,
+	Honeydew = None | 0xFFF0FFF0,
+	MintCream = None | 0xFFF5FFFA,
+	Azure = None | 0xFFF0FFFF,
+	AliceBlue = None | 0xFFF0F8FF,
+	lavender = None | 0xFFE6E6FA,
+	LavenderBlush = None | 0xFFFFF0F5,
+	MistyRose = None | 0xFFFFE4E1,
+	Black = None | 0xFF000000,
+	DarkSlateGray = None | 0xFF2F4F4F,
+	DimGrey = None | 0xFF696969,
+	SlateGrey = None | 0xFF708090,
+	LightSlateGray = None | 0xFF778899,
+	Grey = None | 0xFFBEBEBE,
+	LightGray = None | 0xFFD3D3D3,
+	MidnightBlue = None | 0xFF191970,
+	NavyBlue = None | 0xFF000080,
+	CornflowerBlue2 = None | 0xFF6495ED,
+	DarkSlateBlue = None | 0xFF483D8B,
+	SlateBlue = None | 0xFF6A5ACD,
+	MediumSlateBlue = None | 0xFF7B68EE,
+	LightSlateBlue = None | 0xFF8470FF,
+	MediumBlue = None | 0xFF0000CD,
+	RoyalBlue = None | 0xFF4169E1,
+	BlueNew = None | 0xFF0000FF,
+	DodgerBlue = None | 0xFF1E90FF,
+	DeepSkyBlue = None | 0xFF00BFFF,
+	SkyBlue = None | 0xFF87CEEB,
+	LightSkyBlue = None | 0xFF87CEFA,
+	SeaGreen = None | 0xFF2E8B57,
+	MediumSeaGreen = None | 0xFF3CB371,
+	LightSeaGreen = None | 0xFF20B2AA,
+	PaleGreen = None | 0xFF98FB98,
+	SpringGreen = None | 0xFF00FF7F,
+	LawnGreen = None | 0xFF7CFC00,
+	Green = None | 0xFF00FF00,
+	Red = None | 0xFF0000,
+	DarkRed = None | 0x8B0000
 };
 
 
@@ -3076,6 +3154,7 @@ extern const std::string PATH_SITE;
 extern const std::string PATH_SAVEBUFF;
 extern const std::string PATH_TITLE_SYSTEM;
 extern const std::string PATH_GUILD_HALL;
+extern const std::string PATH_TERRITORY;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3373,7 +3452,7 @@ extern STRUCT_ITEM BoxEvent[3][5];
 extern DWORD MAX_BOX_N;
 extern DWORD MAX_BOX_M;
 extern DWORD MAX_BOX_A;
-extern const char* WydPoints;
+extern std::string TypeCoin;
 extern enum eNPCBlock {
 	Uxmall,
 	Odin,
@@ -3432,7 +3511,28 @@ struct STRUCT_GUILD_HALL
 	unsigned int TotalMember;
 	unsigned int Territory;
 };
+#define MAX_TERRITORY 6
+struct STRUCT_TERRITORY
+{
+	std::string Name;
+	unsigned int GuildIndex;
+	unsigned int Level;
+	unsigned int MaxMob;
+	unsigned int Mob;
+	unsigned int Challenger;
+	unsigned int DayWar;
+};
+extern enum eTerritory {
+	Arima,
+	Barnel,
+	Campus,
+	Gobi,
+	IceCrow
+
+};
+extern std::string TerritoryName[MAX_TERRITORY];
 extern StatusServer EternalServer[MAX_STATUS_SERVER];
+extern STRUCT_TERRITORY Territory[MAX_TERRITORY];
 #define MAX_WARS 4
 #define MAX_SAVE_BUFF 4
 #define MAX_GUILD_LEVEL 10

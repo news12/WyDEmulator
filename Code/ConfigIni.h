@@ -60,7 +60,9 @@ namespace ConfigIni {
 		static int ReadGuildLevel(string path, string file);
 		static int WriteGuildLevel(string path, string file);
 		static int ReadGuildHall(string path, string file);
-		static int WriteGuildHall(string path, string file, unsigned guildIndex);
+		static int WriteGuildHall(string path, string file, unsigned int guildIndex);
+		static int ReadTerritory(string path, string file, unsigned int nTerritory);
+		static int WriteTerritory(string path, string file, unsigned int nTerritory);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

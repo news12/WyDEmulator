@@ -42,6 +42,7 @@ int playerAltar;
 int countAltarDec = 0;
 int GuildTower = 0;
 int GuildScore[MAX_GUILD];
+int LoadTerritory = FALSE;
 short RandTorreRed[4][2]{ 
 						  {1684, 2014},
 						  {1712, 2014},
@@ -66,6 +67,15 @@ int ServerGroup = -1;
 int GuildCounter = 1;
 
 STRUCT_GUARD g_pGuard[MAX_NPC_GUARD_COUT];
+
+std::string TerritoryName[MAX_TERRITORY]
+{
+	"Arima",
+	"Barnel",
+	"Campus",
+	"Gobi",
+	"IceCrow"
+};
 
 STRUCT_QUEST QuestDiaria[36];
 int BigCubo = 1;
@@ -1088,20 +1098,80 @@ void OpenConfigExtra()
 	//nConfigExtra->DoModal();
 }
 
-void ReadGuildHall(unsigned int conn)
+void ReadTerritory()
+{
+	for (size_t i = 0; i < MAX_TERRITORY; i++)
+	{
+		nConfig::ReadTerritory(PATH_TERRITORY, TerritoryName[i] + ".json", i);
+	}
+
+	for (int i = MAX_USER; i < MAX_MOB; i++)
+	{
+		if (!strcmp(pMob[i].MOB.MobName, "Jenny"))
+		{
+			pMob[i].MOB.Guild = Territory[Arima].GuildIndex;
+			LoadTerritory = TRUE;
+		}
+	}
+	
+}
+
+void WriteTerritory(unsigned int Territory)
+{
+	nConfig::WriteTerritory(PATH_TERRITORY, TerritoryName[Territory] + ".json", Territory);
+}
+
+void WriteGuildHall(unsigned int conn)
+{
+	int Guild = pMob[conn].MOB.Guild;
+	int Groups = ServerGroup;
+	
+	char name[256];
+
+	if (Guild)
+	{
+		for (size_t i = 0; i < MAX_USER; i++)
+		{
+			if (pUser[i].Mode != USER_PLAY)
+				continue;
+			if (pMob[i].MOB.Guild != Guild)
+				continue;
+
+			if (pMob[i].MOB.GuildLevel == GUILD_LEADER)
+			{
+				GuildHall[Guild].Lider = pMob[i].MOB.MobName;
+				break;
+			}
+		}
+
+		BASE_GetGuildName(Groups, Guild, name);
+
+		std::string guildName = name;
+
+		int status = nConfig::WriteGuildHall(PATH_GUILD_HALL, guildName + ".json", Guild);
+
+	}
+}
+
+int ReadGuildHall(unsigned int conn)
 {
 
 	int Guild = pMob[conn].MOB.Guild;
 	int Groups = ServerGroup;
 	char name[256];
 
-	BASE_GetGuildName(Groups, Guild, name);
+	if (Guild)
+	{
+		BASE_GetGuildName(Groups, Guild, name);
 
-	std::string guildName = name;
+		std::string guildName = name;
 
-	int status = nConfig::ReadGuildHall(PATH_GUILD_HALL, guildName + ".json");
-	if (!status)
-		MessageBox(hWndMain, "Erro ao ler guildHall", "FILE ERROR", NULL);
+		int status = nConfig::ReadGuildHall(PATH_GUILD_HALL, guildName + ".json");
+		
+		return status;
+	}
+
+	return FALSE;
 
 }
 
@@ -4732,6 +4802,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	DrawConfig(0);
 
+	memset(GuildHall, 0, sizeof(GuildHall));
+	memset(Territory, 0, MAX_TERRITORY);
 	memset(g_pGuildWar, 0, sizeof(g_pGuildWar));
 	memset(g_pGuildAlly, 0, sizeof(g_pGuildAlly));
 	memset(GuildInfo, 0, sizeof(GuildInfo));
@@ -4749,7 +4821,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	}
 
 	Reboot();
-
+	ReadTerritory();
 	SetCastleDoor(1);
 
 	char name[255];
@@ -7393,19 +7465,19 @@ void SetColoseumDoor(int state)
 
 	int height = 0;
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 1; i < 3; i++)
 	{
 		gate = i + 12;
 
 		if (pItem[i + 12].ITEM.sIndex <= 0 || pItem[gate].ITEM.sIndex >= MAX_ITEMLIST)
 			continue;
 
-		if (pItem[gate].State == state)
-			continue;
+		//if (pItem[gate].State == state)
+		//	continue;
 
 		UpdateItem(gate, state, &height);
 
-		if (state == STATE_OPEN)
+		/*if (state == STATE_OPEN)
 		{
 			MSG_UpdateItem sm;
 			memset(&sm, 0, sizeof(MSG_UpdateItem));
@@ -7423,14 +7495,14 @@ void SetColoseumDoor(int state)
 			GridMulticast(pItem[gate].PosX, pItem[gate].PosY, (MSG_STANDARD*)&sm, 0);
 		}
 		else
-		{
+		{*/
 			MSG_CreateItem sm;
 			memset(&sm, 0, sizeof(MSG_CreateItem));
 
 			GetCreateItem(gate, &sm);
 
 			GridMulticast(pItem[gate].PosX, pItem[gate].PosY, (MSG_STANDARD*)&sm, 0);
-		}
+		//}
 		pItem[gate].Delay = 0;
 	}
 }
@@ -7448,12 +7520,12 @@ void SetColoseumDoor2(int state)
 		if (pItem[i + 15].ITEM.sIndex <= 0 || pItem[gate].ITEM.sIndex >= MAX_ITEMLIST)
 			continue;
 
-		if (pItem[gate].State == state)
-			continue;
+		//if (pItem[gate].State == state)
+		//	continue;
 
 		UpdateItem(gate, state, &height);
 
-		if (state == STATE_OPEN)
+		/*if (state == STATE_OPEN)
 		{
 			MSG_UpdateItem sm;
 			memset(&sm, 0, sizeof(MSG_UpdateItem));
@@ -7471,14 +7543,14 @@ void SetColoseumDoor2(int state)
 			GridMulticast(pItem[gate].PosX, pItem[gate].PosY, (MSG_STANDARD*)&sm, 0);
 		}
 		else
-		{
+		{*/
 			MSG_CreateItem sm;
 			memset(&sm, 0, sizeof(MSG_CreateItem));
 
 			GetCreateItem(gate, &sm);
 
 			GridMulticast(pItem[gate].PosX, pItem[gate].PosY, (MSG_STANDARD*)&sm, 0);
-		}
+		//}
 		pItem[gate].Delay = 0;
 	}
 }
@@ -9762,6 +9834,17 @@ void DoDeprivate(int conn, int target)
 		time_t mtime;
 		time(&mtime);
 
+		//----------Sistema de GuildHall
+		unsigned int GuildIndex = pMob[conn].MOB.Guild;
+
+		ReadGuildHall(conn);
+
+		GuildHall[GuildIndex].TotalMember--;
+
+		WriteGuildHall(conn);
+
+		//-----------------------------------
+
 		pMob[target].Extra.LastPenalty = mtime;
 
 		pMob[target].MOB.Guild = 0;
@@ -11578,14 +11661,14 @@ int GetFirstSlotBag(int Conn)
 int GetSlotsVagoBag(int Conn)
 {
 
-	int SlotId = 0;
+	int SlotCount = 0;
 
 	for (int i = 0; i < pMob[Conn].MaxCarry; i++)
 	{
 		if (pMob[Conn].MOB.Carry[i].sIndex == 0)
-			SlotId++;
+			SlotCount++;
 	}
-		return SlotId;
+		return SlotCount;
 }
 
 STRUCT_ITEM *GetFirstItemBag(int Conn, int idItem)

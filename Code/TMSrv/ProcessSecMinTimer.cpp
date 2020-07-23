@@ -530,6 +530,7 @@ lbl_PST1:
 
 		//Pista de runas +6 - Coelho
 		SendShortSignalParm2Area(3330, 1475, 3448, 1525, ESCENE_FIELD, _MSG_MobCount, Pista[6].MobsLeft, 100);
+		
 
 	}
 #pragma endregion
@@ -784,6 +785,11 @@ lbl_PST1:
 			if (StartAltarKing && (pMob[i].TargetX >= altarKing.spotMSG.StartX && pMob[i].TargetX <= altarKing.spotMSG.DestX)
 				&& (pMob[i].TargetY >= altarKing.spotMSG.StartY && pMob[i].TargetY <= altarKing.spotMSG.DestY))
 				dominatorKing(i);
+
+			//if (pMob[i].TargetX /128 == 20 && pMob[i].TargetY /128 == 15)
+			//{
+			//	SendClientSignalParm(i, ESCENE_FIELD, _MSG_StartTime, pUser[i].AltarStatus++);
+			//}
 	
 		}
 
@@ -2784,6 +2790,9 @@ void ProcessMinTimer()
 			{
 				GenerateMob(i, 0, 0);
 				
+				if(!LoadTerritory)
+					ReadTerritory();
+				
 				if (MinuteGenerate >= 500 && MinuteGenerate < 1000)
 				{
 					srand(time(NULL));
@@ -2841,6 +2850,7 @@ void ProcessMinTimer()
 				
 			}
 		}
+		
 	}
 #pragma endregion
 	MinCounter++;

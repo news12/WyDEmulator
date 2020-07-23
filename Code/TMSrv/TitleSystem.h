@@ -13,3 +13,4 @@
 #include "ProcessClientMessage.h"
 
 int loadTitle(int conn, std::string tab);
+void TitleNotification(unsigned int conn, unsigned int level);

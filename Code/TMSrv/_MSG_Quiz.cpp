@@ -53,7 +53,7 @@ void Exec_MSG_ResponseQuiz(int a_iConn, char *pMsg)
 		else
 		{
 			sprintf(temp, g_pMessageStringTable[_DD_NOT_QUIZ]);
-			SendMsgExp(a_iConn, temp, TNColor::Red, false);
+			SendMsgExp(a_iConn, temp, TNColor::Azure, false);
 
 			pMob[a_iConn].QuizError += 1;
 

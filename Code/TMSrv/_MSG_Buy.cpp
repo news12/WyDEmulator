@@ -127,13 +127,13 @@ void Exec_MSG_Buy(int conn, char *pMsg)
 		}
 	}
 #pragma region NPC Bragi
-	int Donate = BASE_GetItemAbility(ItemMob, 91);
+	int Donate = BASE_GetItemAbility(ItemMob, EF_DONATE);
 
 	if (Donate)
 	{
 		if (Donate > pUser[conn].Donate)
 		{
-			sprintf(temp, "[%s]> Você precisa de [%d] %s.", pMob[TargetID].MOB.MobName, Donate,WydPoints);
+			sprintf(temp, "[%s]> Você precisa de [%d] %s.", pMob[TargetID].MOB.MobName, Donate,"Epoints");
 			SendMsgExp(conn, temp, TNColor::White, false);
 			return;
 		}
@@ -151,6 +151,62 @@ void Exec_MSG_Buy(int conn, char *pMsg)
 		}
 
 		pUser[conn].Donate -= Donate;
+
+		goto DonateBuy;
+	}
+#pragma endregion
+
+#pragma region NPC Territory
+	int FamePoint = BASE_GetItemAbility(ItemMob, EF_FAME_POINT);
+	int GuildLevel = BASE_GetItemAbility(ItemMob, EF_GUILD_LEVEL);
+	int GuildIndex = pMob[conn].MOB.Guild;
+
+	FamePoint *= (500 * GuildLevel);
+
+	ReadGuildHall(conn);
+	if (FamePoint)
+	{
+		if (!GuildIndex)
+		{
+			SendSay(TargetID, "Item disponivel somente para guilds");
+			return;
+		}
+
+		if (pMob[conn].MOB.GuildLevel != GUILD_LEADER)
+		{
+			SendSay(TargetID, "Somente o Lider da guild pode comprar");
+			return;
+		}
+
+		if (GuildLevel > GuildHall[GuildIndex].Level)
+		{
+			sprintf(temp, "[%s]> Sua Guild precisa de level [%d]", pMob[conn].MOB.MobName, GuildLevel);
+			SendSay(TargetID, temp);
+			return;
+		}
+
+		if (FamePoint > GuildHall[GuildIndex].FamePoint)
+		{
+			sprintf(temp, "[%s]> Sua Guild precisa de [%d] %s.", pMob[conn].MOB.MobName, FamePoint, "FamePoint");
+			SendSay(TargetID, temp);
+			return;
+		}
+
+		if (itemIndex == 0)
+		{
+			Log("err,buy request null item from shop donate - MSG_BUY", pUser[conn].AccountName, pUser[conn].IP);
+			return;
+		}
+
+		if (pMob[conn].MOB.Carry[m->MyInvenPos].sIndex != 0)
+		{
+			SendItem(conn, ITEM_PLACE_CARRY, m->MyInvenPos, &pMob[conn].MOB.Carry[m->MyInvenPos]);
+			return;
+		}
+
+		GuildHall[GuildIndex].FamePoint -= FamePoint;
+		//GuildHall[GuildIndex].Territory++;
+		WriteGuildHall(conn);
 
 		goto DonateBuy;
 	}
@@ -363,9 +419,30 @@ LABEL_BUY1:
 		char tempName[256];
 		BASE_GetItemCode(ItemMob, tmplog);
 		BASE_GetItemName(ItemMob, tempName);
+		int nValor = 0;
 
-		sprintf(temp, "buy_npc,npc:%s price:%d item:%s", pMob[TargetID].MOB.MobName, Donate, tmplog);
-		sprintf(temp, "Comprou de: %s item: %s price: %d %s", pMob[TargetID].MOB.MobName, tempName, Donate, WydPoints);
+		if (Donate)
+		{
+			nValor = Donate;
+			TypeCoin = "EPoints";
+		}
+		else if (FamePoint)
+		{
+			nValor = FamePoint;
+			TypeCoin = "FamePoint";
+		}
+		else
+		{
+			nValor = Price;
+			TypeCoin = "Gold";
+		}
+		std::string strValor = GetFormatDecimal(nValor);
+		sprintf(temp, "buy_npc,npc:%s price:%s item:%s", pMob[TargetID].MOB.MobName, strValor.c_str(), tmplog);
+
+		sprintf(temp, "Comprou de: %s", pMob[TargetID].MOB.MobName);
+		SendMsgExp(conn, temp, TNColor::DeepPink, false);
+
+		sprintf(temp, "Item: %s price: %s %s", tempName, strValor.c_str(), TypeCoin.c_str());
 		SendMsgExp(conn, temp, TNColor::DeepPink, false);
 		MyLog(LogType::Itens, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 

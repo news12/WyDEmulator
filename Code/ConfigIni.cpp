@@ -103,6 +103,7 @@ unsigned int CharaCreate[];
 short gameConfig[maxGameConfig][MaxSubConfig];
 unsigned int GuildLevel[MAX_GUILD_LEVEL];
 STRUCT_GUILD_HALL GuildHall[MAX_GUILD];
+STRUCT_TERRITORY Territory[MAX_TERRITORY];
 //PATH Folders, difinir extern no basedef.h
 const string PATH_COMMON = "../../Common/";
 const string PATH_DB = "../../DBSrv/";
@@ -130,6 +131,7 @@ const string PATH_SITE = "C:/xampp/htdocs/wyd/Eternal_Site/";
 const string PATH_SAVEBUFF = "SaveBuff/";
 const string PATH_TITLE_SYSTEM = "TitleSystem/";
 const string PATH_GUILD_HALL = PATH_COMMON + "GuildHall/";
+const string PATH_TERRITORY = PATH_GUILD_HALL + "Territory/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -2384,7 +2386,7 @@ int ConfigIni::nConfig::ReadGuildHall(string path, string file)
 		json nJson;
 		spath >> nJson;
 
-		memset(GuildHall, 0, sizeof(STRUCT_GUILD_HALL));
+	
 		int nGuildIndex = -1;
 
 		nJson["SYSTEM"]["GuildIndex"].get_to(nGuildIndex);
@@ -2402,21 +2404,76 @@ int ConfigIni::nConfig::ReadGuildHall(string path, string file)
 	}
 }
 
-int ConfigIni::nConfig::WriteGuildHall(string path, string file, unsigned guildIndex)
+int ConfigIni::nConfig::WriteGuildHall(string path, string file, unsigned int guildIndex)
 {
 	std::string fullpath = path + file;
 	json nJson;
 
 	try
 	{
-		memset(GuildHall, 0, sizeof(STRUCT_GUILD_HALL));
-
 		nJson["SYSTEM"]["GuildIndex"] = guildIndex;
 		nJson["SYSTEM"]["FamePoint"] = GuildHall[guildIndex].FamePoint;
 		nJson["SYSTEM"]["Level"] = GuildHall[guildIndex].Level;
 		nJson["SYSTEM"]["Lider"] = GuildHall[guildIndex].Lider;
 		nJson["SYSTEM"]["TotalMember"] = GuildHall[guildIndex].TotalMember;
 		nJson["SYSTEM"]["Territory"] = GuildHall[guildIndex].Territory;
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadTerritory(string path, string file, unsigned int nTerritory)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL)
+		return FALSE;
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		nJson["CONFIG"]["Key"].get_to(Territory[nTerritory].Name);
+		nJson["CONFIG"]["Name"].get_to(Territory[nTerritory].Name);
+		nJson["CONFIG"]["GuildIndex"].get_to(Territory[nTerritory].GuildIndex);
+		nJson["CONFIG"]["Level"].get_to(Territory[nTerritory].Level);
+		nJson["CONFIG"]["MaxMob"].get_to(Territory[nTerritory].MaxMob);
+		nJson["CONFIG"]["Mob"].get_to(Territory[nTerritory].Mob);
+		nJson["CONFIG"]["Challenger"].get_to(Territory[nTerritory].Challenger);
+		nJson["CONFIG"]["DayWar"].get_to(Territory[nTerritory].DayWar);
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteTerritory(string path, string file, unsigned int nTerritory)
+{
+	std::string fullpath = path + file;
+	json nJson;
+
+	try
+	{
+		nJson["CONFIG"]["Key"] = "qwertyuiopasdfghjklzxcvbnm";
+		nJson["CONFIG"]["Name"] = Territory[nTerritory].Name;
+		nJson["CONFIG"]["GuildIndex"] = Territory[nTerritory].GuildIndex;
+		nJson["CONFIG"]["Level"] = Territory[nTerritory].Level;
+		nJson["CONFIG"]["MaxMob"] = Territory[nTerritory].MaxMob;
+		nJson["CONFIG"]["Mob"] = Territory[nTerritory].Mob;
+		nJson["CONFIG"]["Challenger"] = Territory[nTerritory].Challenger;
+		nJson["CONFIG"]["DayWar"] = Territory[nTerritory].DayWar;
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

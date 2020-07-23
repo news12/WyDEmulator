@@ -19,7 +19,7 @@
 
 
 bool ReceivedItem;
-const char* WydPoints = "Epoints";
+std::string TypeCoin = "Gold";
 int Sapphire = 8;
 unsigned short LastCapsule = 0;
 int MaxServerGroup = 0;

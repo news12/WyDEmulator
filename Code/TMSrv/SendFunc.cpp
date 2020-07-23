@@ -4,6 +4,7 @@
 #include "GetFunc.h"
 #include "Server.h"
 #include "Language.h"
+#include "TitleSystem.h"
 
 void SendClientMsg(int conn, char *Message)
 {
@@ -1025,6 +1026,7 @@ void GridMulticast(int tx, int ty, MSG_STANDARD *msg, int skip)
 						{
 							SetCircletSubGod(tmob);
 							SendClientMsg(tmob, g_pMessageStringTable[_NN_Level_Up]);
+							TitleNotification(tmob, pMob[tmob].MOB.CurrentScore.Level);
 
 							if (pMob[tmob].Extra.ClassMaster == MORTAL)
 								DoItemLevel(tmob);

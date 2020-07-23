@@ -51,6 +51,7 @@ void NTask_MestreHaby(int a_iConn, int a_iTarget, int confirm);
 void NTask_Kibita(int a_iConn, int a_iTarget);
 void NTask_Skills(int a_iConn, int a_iTarget, int confirm);
 void NTask_Perzens(int a_iConn, int a_iTarget);
+void NTask_Juli(int a_iConn, int a_iTarget);
 
 void NTask_DragãoArmia(int a_iConn, int a_iTarget);
 void NTask_DragãoArzan(int a_iConn, int a_iTarget);

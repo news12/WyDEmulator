@@ -40,5 +40,9 @@ INT32 HKD_GreenTime_NewArea(INT32 posX, INT32 posY)
 	if (posX == 10 && posY == 31)
 		return TRUE;
 
+	//new coordenada
+	if (posX == 20 && posY == 15)
+		return TRUE;
+
 	return FALSE;
 }

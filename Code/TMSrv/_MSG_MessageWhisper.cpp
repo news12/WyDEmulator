@@ -34,7 +34,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	if (strcmp(m->MobName, "ep") == 0)
 	{
 		//sprintf(temp, "%d",pUser[a_iConn].Donate);
-		sprintf(temp, "Você possui [%d] de [%s]", pUser[a_iConn].Donate, WydPoints);
+		sprintf(temp, "Você possui [%d] de [%s]", pUser[a_iConn].Donate, "EPoints");
 		SendMsgExp(a_iConn, temp, TNColor::Orange, false);
 		//SendClientMsg(a_iConn, temp);
 		return;
@@ -89,7 +89,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	{
 		pMob[a_iConn].QuizError = 0;
 		sprintf(temp, "contador de erros do quiz resetado!!");
-		SendMsgExp(a_iConn, temp, TNColor::Red, false);
+		SendMsgExp(a_iConn, temp, TNColor::Azure, false);
 		sprintf(temp, "Erros [%d] de [%d] tentativas", pMob[a_iConn].QuizError, MAX_QUIZ_ERROR);
 		SendMsgExp(a_iConn, temp, TNColor::CornBlueName, false);
 		return;
@@ -113,7 +113,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		if (pUser[a_iConn].VemProEternal)
 		{
 			sprintf(temp, "O Evento já foi Ativado na Conta:  %s ", pUser[a_iConn].AccountName);
-			SendMsgExp(a_iConn, temp, TNColor::Red, false);
+			SendMsgExp(a_iConn, temp, TNColor::Azure, false);
 			return;
 		}
 		sprintf(temp, "Bônus para novo jogador ativado na Conta:  %s ", pUser[a_iConn].AccountName);
@@ -406,7 +406,37 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
-	else if (!strcmp(m->MobName, "Titles"))
+	else if (!strcmp(m->MobName, "GuildHall"))
+	{
+		int guildIndex = pMob[a_iConn].MOB.Guild;
+
+		if (guildIndex < 1)
+		{
+			sprintf(temp, "Você não pertence a nenhuma guild.");
+			SendClientMsg(a_iConn, temp);
+			return;
+		}
+
+		int nHall = ReadGuildHall(a_iConn);
+
+		if (!nHall)
+			WriteGuildHall(a_iConn);
+		
+		sprintf(temp, "Status Guild Hall:");
+		SendClientMsg(a_iConn, temp);
+		std::string famePoint = GetFormatDecimal(GuildHall[guildIndex].FamePoint);
+		sprintf(temp, "FamePoint: [%s]", famePoint.c_str());
+		SendClientMsg(a_iConn, temp);
+		sprintf(temp, "Level: [%d]", GuildHall[guildIndex].Level);
+		SendClientMsg(a_iConn, temp);
+		sprintf(temp, "TotalMembros: [%d]", GuildHall[guildIndex].TotalMember);
+		SendClientMsg(a_iConn, temp);
+		sprintf(temp, "Territorios: [%d]", GuildHall[guildIndex].Territory);
+		SendClientMsg(a_iConn, temp);
+
+		return;
+	}
+	else if (!strcmp(m->MobName, "Titles") || !strcmp(m->MobName, "Titulos"))
 	{
 		sprintf(temp, "Titulos por Level:");
 		SendClientMsg(a_iConn, temp);
@@ -586,13 +616,13 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		return;
 	}
 
-	if (pMob[a_iConn].MOB.GuildLevel == 0)
+	if (pMob[a_iConn].MOB.GuildLevel == GUILD_MEMBER)
 	{
 		SendClientMsg(a_iConn, "Membro comum não pode transferir medalha.");
 		return;
 	}
 
-	if (pMob[target].MOB.GuildLevel == 9)
+	if (pMob[target].MOB.GuildLevel == GUILD_LEADER)
 	{
 		SendClientMsg(a_iConn, "Não pode transferir medalha para o lider da guild");
 		return;
@@ -642,7 +672,7 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 	{
 		if (pMob[a_iConn].MOB.Guild != 0)
 		{
-			if (pMob[a_iConn].MOB.GuildLevel == 9)
+			if (pMob[a_iConn].MOB.GuildLevel == GUILD_LEADER)
 			{
 				if (m->String[0] == NULL)
 				{
@@ -804,7 +834,10 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		}
 
 		if (pMob[a_iConn].MOB.Guild != 0)
+		{
+			SendClientMsg(a_iConn, "Você já faz parte de uma guild");
 			return;
+		}
 
 		if (pMob[a_iConn].MOB.Clan != 7 && pMob[a_iConn].MOB.Clan != 8)
 		{
@@ -813,7 +846,10 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		}
 
 		if (GuildCounter >= 4096)
+		{
+			SendClientMsg(a_iConn, "Limite Máximo de guilds criadas");
 			return;
+		}
 
 		if (pMob[a_iConn].Extra.Citizen == 0)
 		{
@@ -876,6 +912,19 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		GuildCounter++;
 		CReadFiles::WriteGuild();
 		BASE_InitializeGuildName();
+
+		//----------Sistema de GuildHall
+		unsigned int GuildIndex = pMob[a_iConn].MOB.Guild;
+
+		ReadGuildHall(a_iConn);
+
+		GuildHall[GuildIndex].TotalMember++;
+		GuildHall[GuildIndex].Lider = pMob[a_iConn].MOB.MobName;
+
+		WriteGuildHall(a_iConn);
+
+		//-----------------------------------
+
 		sprintf(temp, g_pMessageStringTable[_SN_CREATEGUILD], szName);
 		SendClientMsg(a_iConn, temp);
 
@@ -1029,6 +1078,17 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 
 			DBServerSocket.SendOneMessage((char*)&sm_gi, sizeof(MSG_GuildInfo));
 		}
+
+		//----------Sistema de GuildHall
+		unsigned int GuildIndex = pMob[a_iConn].MOB.Guild;
+
+		ReadGuildHall(a_iConn);
+
+		GuildHall[GuildIndex].TotalMember--;
+		
+		WriteGuildHall(a_iConn);
+
+		//-----------------------------------
 
 		time_t mtime;
 		time(&mtime);

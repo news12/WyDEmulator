@@ -119,9 +119,11 @@
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="EventsEternal.cpp" />
     <ClCompile Include="FadaDourada.cpp" />
+    <ClCompile Include="GuildHall.cpp" />
     <ClCompile Include="ItensEntradaQuest.cpp" />
     <ClCompile Include="KefraDrop.cpp" />
     <ClCompile Include="NTask_EventTrade.cpp" />
+    <ClCompile Include="NTask_Juli.cpp" />
     <ClCompile Include="Nyerds.cpp" />
     <ClCompile Include="PassGroup.cpp" />
     <ClCompile Include="GetFunc.cpp" />
@@ -247,6 +249,7 @@
     <ClInclude Include="EventsEternal.h" />
     <ClInclude Include="FadaDourada.h" />
     <ClInclude Include="BossCamp.h" />
+    <ClInclude Include="GuildHall.h" />
     <ClInclude Include="ItensEntradaQuest.h" />
     <ClInclude Include="KefraDrop.h" />
     <ClInclude Include="Nyerds.h" />

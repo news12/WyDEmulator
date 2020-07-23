@@ -83,23 +83,27 @@ void Exec_MSG_Quest(int a_iConn, char *pMsg)
 			NTask_TrainingII(a_iConn, npcIndex); break;
 		case 3:
 			NTask_TrainingIII(a_iConn, npcIndex); break;
+		case 11:
+			NTask_QuestCapaVerde(a_iConn, npcIndex); break;
+		case 13:
+			NTask_LiderAprendiz(a_iConn, npcIndex); break;
+		case 14:
+			NTask_QuestGuardaReal(a_iConn, npcIndex); break;
 		case 16:
 		case 17:
 		case 18:
 		case 19:
 			NTask_Perzens(a_iConn, npcIndex); break;
-		case 11:
-			NTask_QuestCapaVerde(a_iConn, npcIndex); break;
-		case 14:
-			NTask_QuestGuardaReal(a_iConn, npcIndex); break;
+		case 21:
+		case 22:
+			NTask_Juli(a_iConn, npcIndex); break;
 		case 33:
 			NTask_QuestGuardaEventos(a_iConn, npcIndex); break;
 		case 35:
 			NTask_SacerdoteKruno(a_iConn, npcIndex); break;
 		case 36:
 			NTask_SacerdoteAmelia(a_iConn, npcIndex); break;
-		case 13:
-			NTask_LiderAprendiz(a_iConn, npcIndex); break;
+		
 		}
 
 	}

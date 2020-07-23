@@ -1,5 +1,6 @@
 #include "ProcessDBMessage.h"
 #include "ProcessClientMessage.h"
+#include "TitleSystem.h"
 
 void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 {
@@ -137,6 +138,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 				SendClientMsg(a_iConn, "[Eternal exp] <SUCESS>");
 				SendEtc(a_iConn);
 				pMob[a_iConn].CheckGetLevel();
+				TitleNotification(a_iConn, pMob[a_iConn].MOB.CurrentScore.Level);
 			}
 
 			else if (!strcmp(sval1, "str"))
@@ -1258,6 +1260,26 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 
 			if (ival1 >= 0 && ival1 < MAX_GRIDX &&ival2 >= 0 && ival2 < MAX_GRIDY)
 				DoTeleport(a_iConn, ival1, ival2);
+		}
+
+		else if (!strcmp(cmd, "GoNPC"))
+		{
+		int goX = 0;
+		int goY = 0;
+		for (int i = MAX_USER; i < MAX_MOB; i++)
+		{
+			if (!strncmp(pMob[i].MOB.MobName, sval1, NAME_LENGTH))
+			{
+				goX = pMob[i].LastX;
+				goY = pMob[i].LastY;
+				DoTeleport(a_iConn, goX, goY);
+				sprintf(temp, "Você se teleportou até [%s]", pMob[i].MOB.MobName);
+				SendClientMsg(a_iConn, temp);
+				break;
+			}
+		}
+
+		return;
 		}
 
 		else if (!strcmp(cmd, "snoop"))

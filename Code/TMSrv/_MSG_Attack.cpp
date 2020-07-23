@@ -1,6 +1,7 @@
 #include "ProcessClientMessage.h"
 #include "SombraNegra.h"
 #include "BossCamp.h"
+#include "TitleSystem.h"
 
 void Exec_MSG_Attack(int a_iConn, char* pMsg)
 {
@@ -2365,6 +2366,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		{
 			SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Level_Up]);
 			SetCircletSubGod(a_iConn);
+			TitleNotification(a_iConn, pMob[a_iConn].MOB.CurrentScore.Level);
 
 			if (pMob[a_iConn].Extra.ClassMaster == MORTAL)
 				DoItemLevel(a_iConn);

@@ -29,3 +29,20 @@ int loadTitle(int conn, std::string tab)
 	return TRUE;
 	
 }
+
+void TitleNotification(unsigned int conn, unsigned int level)
+{
+	level++;//incremento para pegar o level real
+
+	for (size_t i = 0; i < tMaxTitle; i++)
+	{
+		if (TitleLevel[i].Level == level)
+		{
+			sprintf(temp, "!Você acaba de adiquirir o Título [%s], digite /tab %s para equipar.", TitleLevel[i].Name.c_str(), TitleLevel[i].Name.c_str());
+			SendClientMsg(conn, temp);
+			break;
+		}
+	}
+
+	
+}

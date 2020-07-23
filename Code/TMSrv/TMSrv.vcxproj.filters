@@ -157,6 +157,9 @@
     <Filter Include="Header Files\TitleSystem">
       <UniqueIdentifier>{c97e3fb4-1d02-498c-9529-72f11fd869f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Packages\State Playing\GuildHall">
+      <UniqueIdentifier>{83d5395e-53f1-4476-a8f9-69db5a54e560}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -534,6 +537,12 @@
     <ClCompile Include="DialogConfigExtra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NTask_Juli.cpp">
+      <Filter>Source Files\Packages\State Playing\Quest Subjects\Arzan</Filter>
+    </ClCompile>
+    <ClCompile Include="GuildHall.cpp">
+      <Filter>Source Files\Packages\State Playing\GuildHall</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -661,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="DialogConfigExtra.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GuildHall.h">
+      <Filter>Source Files\Packages\State Playing\GuildHall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

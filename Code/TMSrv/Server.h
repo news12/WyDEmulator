@@ -59,6 +59,7 @@ extern int TowerCount;
 extern int TowerStage;
 extern int GuildTower;
 extern int GuildScore[MAX_GUILD];
+extern int LoadTerritory;
 
 // Funcs
 
@@ -99,7 +100,10 @@ void WriteBossCamp(unsigned char boss);
 void WriteStatistic();
 void ReadTitleSystem();
 void ReadGuildLevel();
-void ReadGuildHall(unsigned int conn);
+int ReadGuildHall(unsigned int conn);
+void WriteGuildHall(unsigned int conn);
+void ReadTerritory();
+void WriteTerritory(unsigned int nTerritory);
 void OpenConfigExtra();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);

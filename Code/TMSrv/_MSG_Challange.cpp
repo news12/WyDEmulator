@@ -1,5 +1,6 @@
 
 #include "ProcessClientMessage.h"
+#include "GuildHall.h"
 
 void Exec_MSG_Challange(int a_iConn, char *pMsg)
 {
@@ -11,7 +12,13 @@ void Exec_MSG_Challange(int a_iConn, char *pMsg)
 		return;
 
 	int zone = pMob[target].MOB.BaseScore.Level;
+	int npcStatus = pMob[target].MOB.BaseScore.Str;
 
+	if (npcStatus >= 2000)
+	{
+		GuardianTerritory(a_iConn, zone, target);
+		return;
+	}
 	if (zone < 0 || zone >= ValidGuild)
 		return;
 

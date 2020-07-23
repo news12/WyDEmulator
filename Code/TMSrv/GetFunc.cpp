@@ -824,14 +824,14 @@ int GetTeleportPosition(int conn, int *x, int *y)
 {
 	int xv = (*x) & 0xFFFC;
 	int yv = (*y) & 0xFFFC;
-	int Charge = 0;
+	int Charge = 500;
 	srand(time(NULL));
 	if (xv == 2116 && yv == 2100) //Armia para Noatum
 	{
 		*x = 1044 + rand() % 3;
 		*y = 1724 + rand() % 3;
 
-		Charge = 700;
+		//Charge = 700;
 	}
 	else if (xv == 2140 && yv == 2068) //Armia para Campo Armia
 	{
@@ -843,14 +843,14 @@ int GetTeleportPosition(int conn, int *x, int *y)
 		*x = 1044 + rand() % 3;
 		*y = 1716 + rand() % 3;
 
-		Charge = 700;
+		//Charge = 700;
 	}
 	else if (xv == 2456 && yv == 2016) //Erion para Notaum
 	{
 		*x = 1044 + rand() % 3;
 		*y = 1708 + rand() % 3;
 
-		Charge = 700;
+		//Charge = 700;
 	}
 	else if (xv == 1044 && yv == 1724) //Noatum para Armia
 	{
@@ -1031,6 +1031,35 @@ int GetTeleportPosition(int conn, int *x, int *y)
 	{
 		*x = 1058 + rand() % 3;
 		*y = 1728 + rand() % 3;
+	}
+
+	else if (xv >= 2463 && xv <= 2466 && yv >= 1647 && yv <= 1650)//Arzam to Territory Hall
+	{
+		if (!pMob[conn].MOB.Guild)
+		{
+			SendClientMsg(conn, "Somente para guilds.");
+			return FALSE;
+		}
+		
+		unsigned int guild = pMob[conn].MOB.Guild;
+
+		ReadGuildHall(conn);
+
+		unsigned int guildLevel = GuildHall[guild].Level;
+
+		if (guildLevel < 2)
+		{
+			SendClientMsg(conn, "Sua guild deve ser Lv2 ou superior.");
+			return FALSE;
+		}
+			*x = 174 + rand() % 2;
+			*y = 1318 + rand() % 2;
+	}
+
+	else if (xv >= 172 && xv <= 175 && yv >= 1316 && yv <= 1319)//Territory Hall to Arzam
+	{
+	*x = 2465 + rand() % 2;
+	*y = 1649 + rand() % 2;
 	}
 
 	else if (xv == 1056 && yv == 1724) // Noatum to RvR - Deserto
@@ -1270,6 +1299,8 @@ int GetCreateMob(int mob, MSG_CreateMob *sm)
 	 else if (!strcmp((char*)sm->MobName, "Aylin")) sprintf(sm->Tab, "_Compositor +10");
 	 else if (!strcmp((char*)sm->MobName, "Compositor")) sprintf(sm->Tab, "_Compositor Anct");
 	 else if (!strcmp((char*)sm->MobName, "Agatha")) sprintf(sm->Tab, "_Compositor Arch");
+	 else if (!strcmp((char*)sm->MobName, "Rayzen")) sprintf(sm->Tab, "_Loja Territorio");
+	 else if (!strcmp((char*)sm->MobName, "Jenny")) sprintf(sm->Tab, "_Guardian Arima");
 
 	GetAffect(sm->Affect, pMob[mob].Affect);
 
@@ -2235,6 +2266,41 @@ BOOL GetEmptyMobGridGreat(int mob, int *tx, int *ty)
 		}
 	}
 	return FALSE;
+}
+
+std::string GetFormatDecimal(int value)
+{
+	char st[32];
+	char result[32];
+	char Gold[32];
+	memset(result, 0, sizeof result);
+	memset(Gold, 0, sizeof Gold);
+	if (value >= 0)
+	{
+		_itoa(value, st, 10);
+
+		int len = strlen(st);
+		int sum = ((len - 1) / 3);
+
+		for (int i = (len - 1), count = 0, index = (len - 1) + sum; i >= 0; i--, count++)
+		{
+			if (!(count % 3) && count != 0)
+			{
+				result[index] = ',';
+				index--;
+			}
+
+			result[index] = st[i];
+
+			count++;
+			index--;
+		}
+		sprintf(Gold, "%s ", result);
+
+		return Gold;
+	}
+
+	return 0;
 }
 
 int GetCurKill(int conn)

@@ -12,10 +12,10 @@ int HKD_ChangeTabColor(char* msg)
 		color = TNColor::White;
 
 	else if (!strcmp(msg, "EXPLORADOR"))
-		color = TNColor::GreenYellow;
+		color = TNColor::Green;
 	
 	else if (!strcmp(msg, "PERITO"))
-		color = TNColor::GreenYellow;
+		color = TNColor::Green;
 	
 	else if (!strcmp(msg, "VETERANO"))
 		color = TNColor::GreenYellow;
@@ -27,16 +27,16 @@ int HKD_ChangeTabColor(char* msg)
 		color = TNColor::Blue;
 
 	else if (!strcmp(msg, "ARCANO"))
-		color = TNColor::Blue;
+		color = TNColor::BlueNew;
 
 	else if (!strcmp(msg, "PESADELO"))
-		color = TNColor::Yellow;
+		color = TNColor::Linen;
 
 	else if (!strcmp(msg, "ARCH"))
 		color = TNColor::Yellow;
 
 	else if (!strcmp(msg, "SUPREMO"))
-		color = TNColor::GoldenClaro;
+		color = TNColor::DarkRed;
 
 	else if (!strcmp(msg, "Ajudante|Iniciantes"))
 		color = TNColor::Blue;
