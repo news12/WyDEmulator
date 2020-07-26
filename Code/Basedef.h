@@ -3361,7 +3361,7 @@ struct STRUCT_AUTOBAN
 	std::string BanType;
 	BOOL Status;
 };
-#define MAX_FILTER_NAME 100
+#define MAX_FILTER_NAME 321
 struct STRUCT_FILTER
 {
 	BOOL ATIVO;
