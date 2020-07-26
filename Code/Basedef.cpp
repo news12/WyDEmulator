@@ -3505,6 +3505,15 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 	int RunSpeedBonus = 0;
 	int DAMAGEMULTI = 100;
 #pragma region >> ImuItens
+	/*if (!strcmp(MOB.MobName, "TkZudo"))
+	{
+		unsigned nImu = 0;
+		int cn = 0;//cheguei aqui
+		Sagrado += nImu;
+		Fogo += nImu;
+		Trovao += nImu;
+		Gelo += nImu;
+	}
 	for (size_t i = 0; i < MAX_EQUIP; i++)
 	{
 		unsigned nImu = 0;
@@ -3520,7 +3529,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 		Trovao += nImu;
 		Gelo += nImu;
 
-	}
+	}*/
 	
 #pragma endregion
 #pragma region >> Buffs
