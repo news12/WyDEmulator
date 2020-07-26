@@ -3723,7 +3723,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 			{
 				DamAdd = 25;
 				RegAdd = 5;
-				Critical = 5;
+				Critical += 5;
 			}
 			else if (MOB.Equip[0].sIndex == 23 && IsBear != 0)
 			{
@@ -3755,7 +3755,7 @@ void BASE_GetCurrentScore(STRUCT_MOB & MOB, STRUCT_AFFECT *Affect, STRUCT_MOBExt
 				HpAdd = 10;
 				RegAdd = 20;
 				AttAdd = 25;
-				Critical = 10;
+				Critical += 10;
 			}
 
 			int sanc = (special3 + (Extra->ClassMaster != ARCH && Extra->ClassMaster != MORTAL ? MOB.CurrentScore.Level + MAX_LEVEL : MOB.CurrentScore.Level) * 2) / 3;
