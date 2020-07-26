@@ -1,4 +1,4 @@
-#include "DialogConfigExtra.h"
+//#include "DialogConfigExtra.h"
 #include <Windows.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -28,7 +28,7 @@
 #include "WarOfKingdom.h"
 #include "BossCamp.h"
 #include "AccountBuff.h"
-#include "../../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/um/timeapi.h"
+//#include "../../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/um/timeapi.h"
 #include "resource.h"
 
 
