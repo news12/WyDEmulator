@@ -15,3 +15,6 @@ void KeyTerritory(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn);
 void FamePointMob(unsigned int conn, unsigned int target);
 void FamePointBoss(unsigned int conn, unsigned int boss);
 void GuardianTerritory(int conn, int nTerritory, int NPC);
+void TerritoryMob(int conn, int nTerritory, int nMob);
+void WINAPI TerritoryStart();
+void CheckPlayTerritory(int nTerritory, unsigned int conn);

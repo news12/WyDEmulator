@@ -1102,18 +1102,11 @@ void ReadTerritory()
 {
 	for (size_t i = 0; i < MAX_TERRITORY; i++)
 	{
-		nConfig::ReadTerritory(PATH_TERRITORY, TerritoryName[i] + ".json", i);
-	}
-
-	for (int i = MAX_USER; i < MAX_MOB; i++)
-	{
-		if (!strcmp(pMob[i].MOB.MobName, "Jenny"))
-		{
-			pMob[i].MOB.Guild = Territory[Arima].GuildIndex;
-			LoadTerritory = TRUE;
-		}
-	}
-	
+		int status = nConfig::ReadTerritory(PATH_TERRITORY, TerritoryName[i] + ".json", i);
+		
+		if (!status)
+			continue;
+	}	
 }
 
 void WriteTerritory(unsigned int Territory)

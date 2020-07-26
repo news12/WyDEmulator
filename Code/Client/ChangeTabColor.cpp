@@ -36,7 +36,7 @@ int HKD_ChangeTabColor(char* msg)
 		color = TNColor::Yellow;
 
 	else if (!strcmp(msg, "SUPREMO"))
-		color = TNColor::DarkRed;
+		color = TNColor::Orange;
 
 	else if (!strcmp(msg, "Ajudante|Iniciantes"))
 		color = TNColor::Blue;

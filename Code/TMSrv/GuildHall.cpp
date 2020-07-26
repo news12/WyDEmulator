@@ -7,23 +7,29 @@ void KeyTerritory(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn)
 	int Groups = ServerGroup;
 	int TerritoryID = -1;
 	char Name[256];
+	std::string NPC;
 	std::string nTerritoryName = "";
 	switch (Item->sIndex)
 	{
 	case KEY_ARIMA:
 		TerritoryID = Arima;
+		NPC = "Jenny";
 		break;
 	case KEY_BARNEL:
 		TerritoryID = Barnel;
+		NPC = "Karly";
 		break;
 	case KEY_CAMPUS:
 		TerritoryID = Campus;
+		NPC = "Josy";
 		break;
 	case KEY_GOBI:
 		TerritoryID = Gobi;
+		NPC = "Fanny";
 		break;
 	case KEY_ICECROW:
 		TerritoryID = IceCrow;
+		NPC = "Tynna";
 		break;
 	case KEY_ICELAND:
 		break;
@@ -65,6 +71,17 @@ void KeyTerritory(MSG_UseItem* m, STRUCT_ITEM* Item, int a_iConn)
 	Territory[TerritoryID].DayWar= 6;
 	WriteTerritory(TerritoryID);
 	ReadTerritory();
+
+
+	for (int i = MAX_USER; i < MAX_MOB; i++)
+	{
+		if (!strcmp(pMob[i].MOB.MobName, NPC.c_str()))
+		{
+			pMob[i].MOB.Guild = GuildIndex;
+			DeleteMob(i, 1);
+			break;
+		}
+	}
 
 	ReadGuildHall(a_iConn);
 
@@ -245,11 +262,87 @@ void GuardianTerritory(int conn, int nTerritory, int NPC)
 	}
 	else
 	{
-		//x363 y1330 Arima
-		DoTeleport(conn, 363, 1330);
+		DoTeleport(conn, Territory[nTerritory].InputX, Territory[nTerritory].InputY);
 		sprintf(temp, "Bem vindo ao Territorio: [%s]", nTerritoryName.c_str());
 		SendClientMsg(conn, temp);
 		return;
 	}
 	
+}
+
+void TerritoryMob(int conn, int nTerritory, int nMob)
+{
+}
+
+void WINAPI TerritoryStart()
+{
+	time_t rawtime;
+	tm* timeinfo;
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	ReadTerritory();
+
+	for (size_t i = 0; i < MAX_TERRITORY; i++)
+	{
+		if (Territory[i].Day >= 365 && Territory[i].Year < timeinfo->tm_year)
+		{
+			Territory[i].Day = 0;
+			Territory[i].Year = timeinfo->tm_year;
+			Territory[i].Mob = 0;
+			Territory[i].Start = FALSE;
+
+			WriteTerritory(i);
+		}
+		if (Territory[i].Day < timeinfo->tm_yday)
+		{
+			Territory[i].Day = timeinfo->tm_yday;
+			Territory[i].Year = timeinfo->tm_year;
+			Territory[i].Mob = 0;
+			Territory[i].Start = FALSE;
+
+			WriteTerritory(i);
+		}
+
+		if (!Territory[i].Start)
+		{
+			Territory[i].Start = TRUE;
+
+			WriteTerritory(i);
+
+			std::string nTerritoryName = TerritoryName[i];
+			sprintf(temp, "Os Recursos do Territorio [%s] foram resetados.", nTerritoryName.c_str());
+			SendGuildNotice(Territory[i].GuildIndex, temp);
+		}
+
+		/*if (Territory[i].Mob >= Territory[i].MaxMob)
+		{
+			std::string nTerritoryName = TerritoryName[i];
+			sprintf(temp, "Os Recursos do Territorio [%s] foram resetados.", nTerritoryName.c_str());
+			
+		}*/
+	}
+
+
+}
+
+void CheckPlayTerritory(int nTerritory, unsigned int conn)
+{
+	//Arima Coordenada Key = X menor
+	//Campus Coordenada Key = Y maior
+	if (nTerritory == Arima)
+	{
+		if (pMob[conn].LastX <= Territory[Arima].CooReset)
+		{
+			//função para remover jogadores da area
+		}
+	}
+
+	if (nTerritory == Campus)
+	{
+		if (pMob[conn].LastX >= Territory[Campus].CooReset)
+		{
+			//função para remover jogadores da area
+		}
+	}
 }

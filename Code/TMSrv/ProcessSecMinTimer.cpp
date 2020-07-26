@@ -2790,8 +2790,8 @@ void ProcessMinTimer()
 			{
 				GenerateMob(i, 0, 0);
 				
-				if(!LoadTerritory)
-					ReadTerritory();
+				//if(!LoadTerritory)
+					//ReadTerritory(); // essa leitura esta bugando os arquivos json
 				
 				if (MinuteGenerate >= 500 && MinuteGenerate < 1000)
 				{

@@ -1058,8 +1058,26 @@ int GetTeleportPosition(int conn, int *x, int *y)
 
 	else if (xv >= 172 && xv <= 175 && yv >= 1316 && yv <= 1319)//Territory Hall to Arzam
 	{
-	*x = 2465 + rand() % 2;
-	*y = 1649 + rand() % 2;
+		*x = 2465 + rand() % 2;
+		*y = 1649 + rand() % 2;
+	}
+
+	else if (xv >= 364 && xv <= 367 && yv >= 1328 && yv <= 1332)// Arima to Territory Hall
+	{
+		*x = 175 + rand() % 2;
+		*y = 1307 + rand() % 2;
+	}
+
+	else if (xv >= 320 && xv <= 323 && yv >= 308 && yv <= 311)// Barnel to Territory Hall
+	{
+		*x = 175 + rand() % 2;
+		*y = 1307 + rand() % 2;
+	}
+
+	else if (xv >= 148 && xv <= 151&& yv >= 784 && yv <= 787)// Campus to Territory Hall
+	{
+		*x = 175 + rand() % 2;
+		*y = 1307 + rand() % 2;
 	}
 
 	else if (xv == 1056 && yv == 1724) // Noatum to RvR - Deserto
@@ -1300,7 +1318,36 @@ int GetCreateMob(int mob, MSG_CreateMob *sm)
 	 else if (!strcmp((char*)sm->MobName, "Compositor")) sprintf(sm->Tab, "_Compositor Anct");
 	 else if (!strcmp((char*)sm->MobName, "Agatha")) sprintf(sm->Tab, "_Compositor Arch");
 	 else if (!strcmp((char*)sm->MobName, "Rayzen")) sprintf(sm->Tab, "_Loja Territorio");
-	 else if (!strcmp((char*)sm->MobName, "Jenny")) sprintf(sm->Tab, "_Guardian Arima");
+	
+	 else if (!strcmp((char*)sm->MobName, "Jenny"))
+	 {
+		 sm->Guild = Territory[Arima].GuildIndex;
+		 sprintf(sm->Tab, "_Territorio Arima");
+	 }
+
+	 else if (!strcmp((char*)sm->MobName, "Karly"))
+	 {
+		 sm->Guild = Territory[Barnel].GuildIndex;
+		 sprintf(sm->Tab, "_Territorio Barnel");
+	 }
+
+	 else if (!strcmp((char*)sm->MobName, "Josy"))
+	 {
+		 sm->Guild = Territory[Campus].GuildIndex;
+		 sprintf(sm->Tab, "_Territorio Campus");
+	 }
+
+	 else if (!strcmp((char*)sm->MobName, "Fanny"))
+	 {
+		 sm->Guild = Territory[Gobi].GuildIndex;
+		 sprintf(sm->Tab, "_Territorio Gobi");
+	 }
+
+	 else if (!strcmp((char*)sm->MobName, "Tynna"))
+	 {
+		 sm->Guild = Territory[IceCrow].GuildIndex;
+		 sprintf(sm->Tab, "_Territorio IceCrow");
+	 }
 
 	GetAffect(sm->Affect, pMob[mob].Affect);
 

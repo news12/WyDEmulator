@@ -2450,6 +2450,16 @@ int ConfigIni::nConfig::ReadTerritory(string path, string file, unsigned int nTe
 		nJson["CONFIG"]["Mob"].get_to(Territory[nTerritory].Mob);
 		nJson["CONFIG"]["Challenger"].get_to(Territory[nTerritory].Challenger);
 		nJson["CONFIG"]["DayWar"].get_to(Territory[nTerritory].DayWar);
+		nJson["CONFIG"]["X1"].get_to(Territory[nTerritory].X1);
+		nJson["CONFIG"]["X2"].get_to(Territory[nTerritory].X2);
+		nJson["CONFIG"]["Y1"].get_to(Territory[nTerritory].Y1);
+		nJson["CONFIG"]["Y2"].get_to(Territory[nTerritory].Y2);
+		nJson["CONFIG"]["InputX"].get_to(Territory[nTerritory].InputX);
+		nJson["CONFIG"]["InputY"].get_to(Territory[nTerritory].InputY);
+		nJson["CONFIG"]["Day"].get_to(Territory[nTerritory].Day);
+		nJson["CONFIG"]["Year"].get_to(Territory[nTerritory].Year);
+		nJson["CONFIG"]["Start"].get_to(Territory[nTerritory].Start);
+		nJson["CONFIG"]["CooReset"].get_to(Territory[nTerritory].CooReset);
 
 		return TRUE;
 	}
@@ -2474,6 +2484,17 @@ int ConfigIni::nConfig::WriteTerritory(string path, string file, unsigned int nT
 		nJson["CONFIG"]["Mob"] = Territory[nTerritory].Mob;
 		nJson["CONFIG"]["Challenger"] = Territory[nTerritory].Challenger;
 		nJson["CONFIG"]["DayWar"] = Territory[nTerritory].DayWar;
+		nJson["CONFIG"]["X1"] = Territory[nTerritory].X1;
+		nJson["CONFIG"]["X2"] = Territory[nTerritory].X2;
+		nJson["CONFIG"]["Y1"] = Territory[nTerritory].Y1;
+		nJson["CONFIG"]["Y2"] = Territory[nTerritory].Y2;
+		nJson["CONFIG"]["InputX"] = Territory[nTerritory].InputX;
+		nJson["CONFIG"]["InputY"] = Territory[nTerritory].InputY;
+		nJson["CONFIG"]["Day"] = Territory[nTerritory].Day;
+		nJson["CONFIG"]["Year"] = Territory[nTerritory].Year;
+		nJson["CONFIG"]["Start"] = Territory[nTerritory].Start;
+		nJson["CONFIG"]["CooReset"] = Territory[nTerritory].CooReset;
+	
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

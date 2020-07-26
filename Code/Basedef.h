@@ -3521,6 +3521,16 @@ struct STRUCT_TERRITORY
 	unsigned int Mob;
 	unsigned int Challenger;
 	unsigned int DayWar;
+	int X1;
+	int X2;
+	int Y1;
+	int Y2;
+	int InputX;
+	int InputY;
+	int Day;
+	int Year;
+	BOOL Start;
+	int CooReset;
 };
 extern enum eTerritory {
 	Arima,
