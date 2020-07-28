@@ -346,3 +346,17 @@ void CheckPlayTerritory(int nTerritory, unsigned int conn)
 		}
 	}
 }
+
+void CheckPlayGuildHall(unsigned int conn)
+{
+
+	if (!pMob[conn].MOB.Guild)
+	{
+		if (pMob[conn].LastX / 128 == GuildHallX && pMob[conn].LastY / 128 == GuildHallY)
+		{
+			sprintf(temp, "Área restrito a guilds..");
+			SendClientMsg(conn, temp);
+			DoRecall(conn);
+		}
+	}
+}

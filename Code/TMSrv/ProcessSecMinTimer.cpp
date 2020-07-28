@@ -25,6 +25,7 @@
 #include "SombraNegra.h"
 #include "BossCamp.h"
 #include "AutoBan.h"
+#include "GuildHall.h"
 
 void ProcessSecTimer()
 {
@@ -785,6 +786,8 @@ lbl_PST1:
 			if (StartAltarKing && (pMob[i].TargetX >= altarKing.spotMSG.StartX && pMob[i].TargetX <= altarKing.spotMSG.DestX)
 				&& (pMob[i].TargetY >= altarKing.spotMSG.StartY && pMob[i].TargetY <= altarKing.spotMSG.DestY))
 				dominatorKing(i);
+
+			CheckPlayGuildHall(i);
 
 			//if (pMob[i].TargetX /128 == 20 && pMob[i].TargetY /128 == 15)
 			//{

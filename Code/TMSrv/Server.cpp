@@ -5888,6 +5888,7 @@ void RegenMob(int conn)
 
 		pUser[conn].Unk_2736++;
 
+		//if (!(pUser[conn].Unk_2736 % 10))pra test
 		if (!(pUser[conn].Unk_2736 % 450))
 		{
 			int PKP = GetPKPoint(conn);
@@ -5911,7 +5912,7 @@ void RegenMob(int conn)
 					SendClientMsg(conn, g_pMessageStringTable[_NN_Incu_Proceed]);
 				}
 			}
-			if (Mount->sIndex >= 2330 && Mount->sIndex < 2390 && Mount->stEffect[0].sValue > 0)
+			if (Mount->sIndex >= 2330 && Mount->sIndex < 2390 && Mount->stEffect[0].sValue > 0 && !GetMountProtect(conn))
 			{
 				int Feed = Mount->stEffect[2].cEffect;
 				int MountDiv = Mount->sIndex - 2330 % 30;

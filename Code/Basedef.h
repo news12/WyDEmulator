@@ -108,6 +108,8 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define EF_DONATE					91
 #define EF_FAME_POINT				92
 #define EF_GUILD_LEVEL				93
+#define GuildHallX					1
+#define GuildHallY					10
 
 //Grades atributos
 #define GRADE_DROP					5 //base 8%

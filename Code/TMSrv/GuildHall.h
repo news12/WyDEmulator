@@ -18,3 +18,4 @@ void GuardianTerritory(int conn, int nTerritory, int NPC);
 void TerritoryMob(int conn, int nTerritory, int nMob);
 void WINAPI TerritoryStart();
 void CheckPlayTerritory(int nTerritory, unsigned int conn);
+void CheckPlayGuildHall(unsigned int conn);
