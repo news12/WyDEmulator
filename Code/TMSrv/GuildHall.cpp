@@ -167,7 +167,7 @@ void FamePointBoss(unsigned int conn, unsigned int boss)
 
 	for (size_t i = 0; i < MAX_BOSS_CAMP; i++)
 	{
-		if (boss = bossCamp[i].Boss.ID)
+		if (boss == bossCamp[i].Boss.ID)
 		{
 			newFame *= 2;
 			isBoss = TRUE;
