@@ -18,9 +18,9 @@ void WarOfKingdom()
 		int hourNotice = warsTimer[eRvR].Hour;
 		int minNotice;
 
-		if (!warsTimer[eRvR].Minute)
-			minNotice = 60 - minDefine;
-		else if (warsTimer[eRvR].Minute < 5)
+		//if (!warsTimer[eRvR].Minute)
+			//minNotice = 60 - minDefine;
+		if (warsTimer[eRvR].Minute < 5)
 		{
 			hourNotice = warsTimer[eRvR].Hour - 1;
 			minNotice = (60 - minDefine) + warsTimer[eRvR].Minute;
@@ -47,17 +47,17 @@ void WarOfKingdom()
 			
 		}
 
-		int minFinish = warsTimer[eTower].Minute + 30;
-		int hourFinish = warsTimer[eTower].Hour;
+		int minFinish = warsTimer[eRvR].Minute + 30;
+		int hourFinish = warsTimer[eRvR].Hour;
 		if (minFinish > 30)
 		{
-			minFinish = 60 - warsTimer[eTower].Minute;
+			minFinish = 60 - warsTimer[eRvR].Minute;
 			hourFinish += 1;
 		}
 		if (hourFinish >= 24)
 			hourFinish = 00;
 		// Enviará uma mensagem para o servidor a cada 5 minutos a respeito dos pontos atuais
-		else if (now->tm_hour == hourFinish && now->tm_min < minFinish && !(now->tm_min % 5) && !g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
+		else if (!(now->tm_min % 5) && g_pRvrWar.Status == 1 && !g_pRvrWar.Annoucement_Point/* && now->tm_hour == hourFinish && now->tm_min < minFinish */)
 		{
 			MSG_ChatColor sm_mt;
 			memset(&sm_mt, 0, sizeof(MSG_STANDARDPARM));
@@ -68,18 +68,18 @@ void WarOfKingdom()
 
 			sm_mt.Color = TNColor::CornflowerBlue;
 
-			sprintf(sm_mt.Message, "Guerra entre Reinos");
-			DBServerSocket.SendOneMessage((char*)&sm_mt, sizeof(MSG_ChatColor));
+			//sprintf(sm_mt.Message, "Guerra entre Reinos");
+			//DBServerSocket.SendOneMessage((char*)&sm_mt, sizeof(MSG_ChatColor));
 
-			sprintf(sm_mt.Message, "Red: %d - Blue: %d", g_pRvrWar.Points[1], g_pRvrWar.Points[0]);
+			sprintf(sm_mt.Message, "Rvr Notice-> Red: %d - Blue: %d", g_pRvrWar.Points[1], g_pRvrWar.Points[0]);
 			DBServerSocket.SendOneMessage((char*)&sm_mt, sizeof(MSG_ChatColor));
 
 			g_pRvrWar.Annoucement_Point = 1;
 		}
-		else if (now->tm_hour == hourFinish && now->tm_min < minFinish && (now->tm_min % 5) && g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
+		else if (/*now->tm_hour == hourFinish && now->tm_min < minFinish && */(now->tm_min % 5) && g_pRvrWar.Annoucement_Point && g_pRvrWar.Status == 1)
 			g_pRvrWar.Annoucement_Point = 0;
 
-		else if (now->tm_hour == hourFinish && now->tm_min == minFinish && g_pRvrWar.Status == 1)
+		else if (now->tm_hour >= hourFinish && now->tm_min >= minFinish && g_pRvrWar.Status == 1)
 		{
 			for (INT32 i = 1000; i < 30000; i++)
 			{
@@ -131,6 +131,8 @@ void WarOfKingdom()
 
 			DBServerSocket.SendOneMessage((char*)&sm, sizeof(MSG_STANDARDPARM));
 
+			WriteRvrWinner();
+
 			if (winner != 0)
 			{
 				for (int i = 1; i < MAX_USER; i++)
@@ -139,7 +141,10 @@ void WarOfKingdom()
 						continue;
 
 					if (pMob[i].MOB.Clan == winner)
+					{
+						pMob[i].Extra.Fame += 100;
 						pMob[i].GetCurrentScore(i);
+					}
 				}
 			}
 		}

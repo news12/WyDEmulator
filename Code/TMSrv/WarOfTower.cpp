@@ -174,9 +174,9 @@ void WarOfTower::StandByProcess()
 		int hourNotice = warsTimer[eTower].Hour;
 		int minNotice;
 
-		if (!warsTimer[eTower].Minute)
-			minNotice = 60 - minDefine;
-		else if (warsTimer[eTower].Minute < 5)
+		/*if (!warsTimer[eTower].Minute)
+			minNotice = 60 - minDefine;*/
+		if (warsTimer[eTower].Minute < 5)
 		{
 			hourNotice = warsTimer[eTower].Hour - 1;
 			minNotice = (60 - minDefine) + warsTimer[eTower].Minute;

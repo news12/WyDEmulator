@@ -135,6 +135,7 @@ void ProcessDBMessage(char *Msg)
 			MSG_STANDARDPARM *p = (MSG_STANDARDPARM*)(Msg);
 
 			g_pRvrWar.Bonus = p->Parm;
+
 		}
 		break;
 		case _MSG_DBCheckPrimaryAccount:

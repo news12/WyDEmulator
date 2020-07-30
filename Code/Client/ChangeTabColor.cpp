@@ -30,7 +30,7 @@ int HKD_ChangeTabColor(char* msg)
 		color = TNColor::BlueNew;
 
 	else if (!strcmp(msg, "PESADELO"))
-		color = TNColor::Linen;
+		color = TNColor::Yellow;
 
 	else if (!strcmp(msg, "ARCH"))
 		color = TNColor::Yellow;

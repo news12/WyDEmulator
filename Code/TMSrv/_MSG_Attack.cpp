@@ -470,7 +470,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 			if ((DoubleCritical & 2) != 0)
 			{
-				srand(time(NULL));
+				//srand(time(NULL));
 				if (idx < MAX_USER)
 					dam = (((rand() % 2) + 13) * dam) / 10;
 				else
@@ -490,7 +490,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 						if (Type6 == 192 && Type7 == 192)
 						{
-							srand(time(NULL));
+							//srand(time(NULL));
 							int sSpecial = pMob[a_iConn].MOB.CurrentScore.Special[2];
 							int Calculo = (sSpecial * 10) / 2 + (rand() % 15);
 							int Damage = 0;
@@ -529,7 +529,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				Ac *= 3;
 
 			dam = BASE_GetDamage((int)dam, Ac, master);
-			srand(time(NULL));
+			//srand(time(NULL));
 			if (i == 0 && m->Size >= sizeof(MSG_AttackTwo) && pMob[a_iConn].MOB.Class == 3 && (pMob[a_iConn].MOB.LearnedSkill & 0x200000) && (rand() % 4) == 0)
 			{
 				int skilldam = (pMob[a_iConn].MOB.CurrentScore.Special[3] + pMob[a_iConn].MOB.CurrentScore.Str);
@@ -1199,7 +1199,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					}
 
 					//00432E8F
-					srand(time(NULL));
+					//srand(time(NULL));
 					int Rand = rand() % 100; //388
 					if (Rand > calcLevel || idx < MAX_USER || pMob[idx].MOB.CurrentScore.Hp < pMob[idx].MOB.CurrentScore.MaxHp || pMob[idx].MOB.Clan == 6)
 						continue;
@@ -1295,7 +1295,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				// Personagem
 				else if (idx < MAX_USER)
 				{
-					srand(time(NULL));
+					//srand(time(NULL));
 					int chance = (pMob[a_iConn].MOB.BaseScore.Special[1] + 1) / 7;
 					int Rand = rand() % 100;
 
@@ -1393,7 +1393,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 				if (_chance > 50)
 					_chance = 50;
 
-				srand(time(NULL));
+				//srand(time(NULL));
 				if (rand() % 100 < _chance)
 				{
 					MSG_Action sm_act;
@@ -1466,7 +1466,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 #pragma region Renascimento 
 			else if (skillnum == 31)
 			{
-			srand(time(NULL));
+			//srand(time(NULL));
 				int hp = (rand() % 10 + 10) * ((pMob[a_iConn].MOB.CurrentScore.MaxHp + 1) / 100);
 
 				pMob[a_iConn].MOB.CurrentScore.Mp = 0;
@@ -1476,7 +1476,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 				SendSetHpMp(a_iConn);
 
-				srand(time(NULL));
+				//srand(time(NULL));
 				if ((rand() % 100) < 70)
 				{
 					pMob[idx].MOB.CurrentScore.Hp = hp;
@@ -1609,7 +1609,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 #pragma region Book Ressureição
 			if (pMob[a_iConn].MOB.CurrentScore.Hp == 0 && skillnum == 99)
 			{
-				srand(time(NULL));
+				//srand(time(NULL));
 				int rev = rand() % 115;
 
 				if (rev > 100)
@@ -1625,7 +1625,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					SendEtc(a_iConn);
 				}
 
-				srand(time(NULL));
+				//srand(time(NULL));
 				int hp = (rand() % 50 + 1) * ((pMob[a_iConn].MOB.CurrentScore.MaxHp + 1) / 100);
 
 				pMob[a_iConn].MOB.CurrentScore.Hp = hp;
@@ -1660,7 +1660,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 				if (affectresist >= 1 && affectresist <= 4)
 				{
-					srand(time(NULL));
+					//srand(time(NULL));
 					int random = rand() % 100;
 
 					if (random > pMob[idx].MOB.RegenMP + affectresist + difLevel)
@@ -1836,7 +1836,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 #pragma region Miss
 			if (idx != a_iConn)
 			{
-				srand(time(NULL));
+				//srand(time(NULL));
 				int Pop = rand() % 100;
 				int parryretn = GetAttackMiss(a_iConn, idx);
 
@@ -1917,7 +1917,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 		if ((pMob[a_iConn].MOB.Rsv & RSV_FROST) != 0)
 		{
-			srand(time(NULL));
+			//srand(time(NULL));
 			if (rand() % 2 == 0)
 			{
 				int skind2 = pMob[a_iConn].MOB.CurrentScore.Special[1];
@@ -1932,7 +1932,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 		if ((pMob[a_iConn].MOB.Rsv & RSV_DRAIN) != 0)
 		{
-			srand(time(NULL));
+			//srand(time(NULL));
 			if (rand() % 2 == 0)
 			{
 				int skind2 = pMob[a_iConn].MOB.CurrentScore.Special[1];

@@ -104,6 +104,8 @@ int ReadGuildHall(unsigned int conn);
 void WriteGuildHall(unsigned int conn);
 void ReadTerritory();
 void WriteTerritory(unsigned int nTerritory);
+void ReadRvrWinner();
+void WriteRvrWinner();
 void OpenConfigExtra();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);

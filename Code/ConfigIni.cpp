@@ -2505,6 +2505,59 @@ int ConfigIni::nConfig::WriteTerritory(string path, string file, unsigned int nT
 	}
 }
 
+int ConfigIni::nConfig::ReadRvrWinner(string path, string file)
+{
+	time_t rawnow = time(NULL);
+	struct tm* now = localtime(&rawnow);
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL)
+		return FALSE;
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+
+		nJson["CONFIG"]["Winner"].get_to(g_pRvrWar.Bonus);
+		nJson["CONFIG"]["Day"].get_to(now->tm_yday);
+		nJson["CONFIG"]["Year"].get_to(now->tm_year);
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteRvrWinner(string path, string file)
+{
+	time_t rawnow = time(NULL);
+	struct tm* now = localtime(&rawnow);
+	std::string fullpath = path + file;
+	json nJson;
+
+	try
+	{
+
+		nJson["CONFIG"]["Winner"] = g_pRvrWar.Bonus;
+		nJson["CONFIG"]["Day"] = now->tm_yday;
+		nJson["CONFIG"]["Year"] = now->tm_year;
+		
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
 int ConfigIni::nConfig::ReadSombraNegra(string path, string file)
 {
 	string fullpath = path + file;

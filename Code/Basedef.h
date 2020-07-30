@@ -104,7 +104,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define GUILD_SUB2					7
 #define GUILD_SUB3					8
 #define GUILD_LEADER				9
-#define MAX_GUILD_MEMBER			20
+#define MAX_GUILD_MEMBER			40
 #define EF_DONATE					91
 #define EF_FAME_POINT				92
 #define EF_GUILD_LEVEL				93
@@ -161,11 +161,12 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_TITLE_SYSTEM 946
 #define IDC_READ_GUILD_LEVEL 947
 #define IDC_CONFIG_EXTRA 948
+#define IDC_READ_RVR_WINNER 949
 
 #define IDC_SHUTDOWNNP 9050
 
 
-#define		APP_VERSION				1025
+#define		APP_VERSION				1044
 
 #define		GAME_PORT				8281	  // Game server listening port, client connects to it
 #define		DB_PORT					7514      // DB server listening port, Game server connects to it

@@ -140,6 +140,7 @@ void FamePointBoss(unsigned int conn, unsigned int boss)
 {
 	unsigned int newFame = FameBase;
 	unsigned int Guild = pMob[conn].MOB.Guild;
+	BOOL isBoss = FALSE;
 
 	if (pUser[conn].Mode != USER_PLAY)
 		return;
@@ -154,9 +155,11 @@ void FamePointBoss(unsigned int conn, unsigned int boss)
 	{
 	case KEFRA_BOSS:
 		newFame *= 20;
+		isBoss = TRUE;
 		break;
 	case SOMBRA_NEGRA_BOSS:
 		newFame *= 5;
+		isBoss = TRUE;
 		break;
 	default:
 		break;
@@ -167,9 +170,13 @@ void FamePointBoss(unsigned int conn, unsigned int boss)
 		if (boss = bossCamp[i].Boss.ID)
 		{
 			newFame *= 2;
+			isBoss = TRUE;
 			break;
 		}
 	}
+
+	if (!isBoss)
+		return;
 
 	if (newFame == FameBase)
 		return;

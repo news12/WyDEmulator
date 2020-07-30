@@ -1098,6 +1098,17 @@ void OpenConfigExtra()
 	//nConfigExtra->DoModal();
 }
 
+void ReadRvrWinner()
+{
+	nConfig::ReadRvrWinner(PATH_SETTINGS, "rvrWinner.json");
+}
+
+void WriteRvrWinner()
+{
+	nConfig::WriteRvrWinner(PATH_SETTINGS, "rvrWinner.json");
+
+}
+
 void ReadTerritory()
 {
 	for (size_t i = 0; i < MAX_TERRITORY; i++)
@@ -4815,6 +4826,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	Reboot();
 	ReadTerritory();
+	ReadRvrWinner();
 	SetCastleDoor(1);
 
 	char name[255];
@@ -5397,6 +5409,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_AUTO_EVENT, "&Load Auto Event");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_EVENT_TRADE, "&Load Event Trade");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_COLISEU, "&Load Event Coliseu");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_RVR_WINNER, "&Load Rvr Winner");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -5548,6 +5561,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_GUILD_LEVEL:
 			ReadGuildLevel();
+			break;
+
+		case IDC_READ_RVR_WINNER:
+			ReadRvrWinner();
 			break;
 
 		case IDC_READGAMECONFIG:
