@@ -2523,6 +2523,31 @@ KefraAttackLabel:
 			}
 		}
 	}
+
+	if (SecCounter % 120 == 0)//2 minutos
+	{
+		if (!StartImpost)//necessário para contabilizar o impost das cidades sem dono
+		{
+			StartImpost = TRUE;
+
+			for (int i = MAX_USER; i < MAX_MOB; i++)
+			{
+				if (pMob[i].Mode == MOB_EMPTY)
+					continue;
+
+				if (pMob[i].MOB.Equip[0].sIndex == 219 ||
+					strncmp(pMob[i].MOB.MobName, "Balmus", NAME_LENGTH) == 0 ||
+					strncmp(pMob[i].MOB.MobName, "Bruce", NAME_LENGTH) == 0 ||
+					strncmp(pMob[i].MOB.MobName, "Empis", NAME_LENGTH) == 0 ||
+					strncmp(pMob[i].MOB.MobName, "Kara", NAME_LENGTH) == 0)
+				{
+					pMob[i].MOB.CurrentScore.Hp = 0;
+					MobKilled(i, i, 0, 0);
+				}
+			}
+
+		}
+	}
 #pragma endregion
 }
 
@@ -2583,27 +2608,6 @@ void ProcessMinTimer()
 
 		}
 
-		if (!StartImpost)
-		{
-			StartImpost = TRUE;
-
-			for (int i = MAX_USER; i < MAX_MOB; i++)
-			{
-				if (pMob[i].Mode == MOB_EMPTY)
-					continue;
-
-				if (pMob[i].MOB.Equip[0].sIndex == 219 ||
-					strncmp(pMob[i].MOB.MobName, "Balmus", NAME_LENGTH) == 0 ||
-					strncmp(pMob[i].MOB.MobName, "Bruce", NAME_LENGTH) == 0 ||
-					strncmp(pMob[i].MOB.MobName, "Empis", NAME_LENGTH) == 0 ||
-					strncmp(pMob[i].MOB.MobName, "Kara", NAME_LENGTH) == 0)
-				{
-					pMob[i].MOB.CurrentScore.Hp = 0;
-					MobKilled(i, i, 0, 0);
-				}
-			}
-
-		}
 	}
 
 	

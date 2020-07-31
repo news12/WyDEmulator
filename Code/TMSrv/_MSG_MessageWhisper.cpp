@@ -826,6 +826,26 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		if (m->String[0] == 0)
 			return;
 
+		for (size_t i = 0; i < MAX_GUILD; i++)
+		{
+			char nName[GUILDNAME_LENGTH];
+			char nGuild[GUILDNAME_LENGTH];
+
+			strncpy(nName, m->String, GUILDNAME_LENGTH);
+			strncpy(nGuild, g_pGuildName[Group][Server][i], GUILDNAME_LENGTH);
+
+			_strupr(nName);
+			_strupr(nGuild);
+		
+			if (!strcmp(nName, nGuild))
+			{
+				sprintf(temp, "Uma guild com o nome [%s] já existe, tente outro nome.", nGuild);
+				SendClientMsg(a_iConn, temp);
+				return;
+			}
+		}
+
+		
 		if (pMob[a_iConn].MOB.Coin < 100000000)
 		{
 			sprintf(temp, g_pMessageStringTable[_DN_D_Cost], 100000000);
