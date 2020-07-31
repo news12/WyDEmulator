@@ -42,6 +42,12 @@ void Exec_MSG_Action(int a_iConn, char *pMsg)
 		}
 	}
 
+	if (pMob[a_iConn].TargetX /128 == 13 && pMob[a_iConn].TargetY /128 == 15 && !pMob[a_iConn].MOB.Clan)
+	{
+		DoRecall(a_iConn);
+		return;
+	}
+
 
 	int movetime = m->ClientTick;
 	int checktime = 0;
