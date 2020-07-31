@@ -994,6 +994,12 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					continue;
 				}*/
 
+				if (pMob[a_iConn].LastX /128 == 13 && pMob[a_iConn].LastY / 128 == 15)
+				{
+					SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Summon_Not_Allowed_Here]);
+					continue;
+				}
+
 				if (pMob[idx].MOB.CurrentScore.Level > pMob[a_iConn].MOB.CurrentScore.Level)
 				{
 					SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Too_High_Level_To_Summon]);
