@@ -43,6 +43,7 @@ int countAltarDec = 0;
 int GuildTower = 0;
 int GuildScore[MAX_GUILD];
 int LoadTerritory = FALSE;
+BOOL StartImpost = FALSE;
 short RandTorreRed[4][2]{ 
 						  {1684, 2014},
 						  {1712, 2014},

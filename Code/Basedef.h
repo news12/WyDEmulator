@@ -3568,6 +3568,7 @@ extern STRUCT_STAFF_ETERNAL StaffEternal;
 extern unsigned int AccountSaveBuff[MAX_SAVE_BUFF];
 extern unsigned int GuildLevel[MAX_GUILD_LEVEL];
 extern STRUCT_GUILD_HALL GuildHall[MAX_GUILD];
+extern BOOL StartImpost;
 #pragma endregion
 
 #endif
