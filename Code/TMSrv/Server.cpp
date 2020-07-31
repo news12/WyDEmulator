@@ -7338,6 +7338,28 @@ void ClearArea(int x1, int y1, int x2, int y2)
 	}
 }
 
+void ClearMap(int x, int y)
+{
+	for (int i = 0; i < MAX_USER; i++)
+	{
+		if (pUser[i].Mode != USER_PLAY)
+			continue;
+
+		if (pMob[i].Mode == USER_EMPTY)
+			continue;
+
+		
+		if (pMob[i].MOB.CurrentScore.Hp <= 0)
+		{
+			pMob[i].MOB.CurrentScore.Hp = 2;
+			SendScore(i);
+		}
+
+		if (pMob[i].LastX / 128 == x && pMob[i].LastY / 128 == y)
+			DoRecall(i);
+	}
+}
+
 void ClearAreaLevel(int x1, int y1, int x2, int y2, int minLv, int maxLv)
 {
 	for (int i = 0; i < MAX_USER; i++)

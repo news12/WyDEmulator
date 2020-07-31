@@ -120,7 +120,9 @@ void WarOfKingdom()
 			g_pRvrWar.Status = 0;
 			g_pRvrWar.Annoucement = 0;
 
-			ClearArea(1679, 1940, 1772, 2023);
+			//ClearArea(1679, 1940, 1772, 2023);
+
+			ClearMapa(RvrMapX, RvrMapY);
 
 			MSG_STANDARDPARM sm;
 			memset(&sm, 0, sizeof(MSG_STANDARDPARM));

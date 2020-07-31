@@ -142,6 +142,7 @@ void  ProcessMinTimer();
 void  SummonGuild2(int Guild, int tx, int ty, int maxsummon, int village);
 void  SummonGuild(int Guild, int tx, int ty, int maxsummon, int village);
 void  ClearArea(int x1, int y1, int x2, int y2);
+void ClearMap(int x, int y);
 void  ClearAreaLevel(int x1, int y1, int x2, int y2, int minLv, int maxLv);
 int BASE_GetOnScreen(int a_iMob, int a_iTarget);
 void  ClearAreaGuild(int x1, int y1, int x2, int y2, int Guild);

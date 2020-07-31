@@ -28,6 +28,13 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		return;
 	}
 
+	if (pMob[a_iConn].LastX / 128 == RvrMapX && pMob[a_iConn].LastY / 128 == RvrMapY && !pMob[a_iConn].MOB.Clan)
+	{
+		SendClientMsg(a_iConn, "Você não pode atacar nessa área.");
+		return;
+	}
+
+
 	if (pMob[a_iConn].MOB.CurrentScore.Hp == 0 && m->SkillIndex != 99)
 	{
 		SendHpMode(a_iConn);

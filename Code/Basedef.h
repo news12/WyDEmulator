@@ -111,6 +111,9 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define GuildHallX					1
 #define GuildHallY					10
 
+#define RvrMapX						13
+#define RvrMapY						15
+
 //Grades atributos
 #define GRADE_DROP					5 //base 8%
 #define GRADE_ANCT_PERFU			6 //base 40
