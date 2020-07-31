@@ -988,7 +988,13 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 					continue;
 				}
 
-				if (pMob[idx].MOB.CurrentScore.Hp > pMob[a_iConn].MOB.CurrentScore.Hp + Special + 30)
+				/*if (pMob[idx].MOB.CurrentScore.Hp > pMob[a_iConn].MOB.CurrentScore.Hp + Special + 30)
+				{
+					SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Too_High_Level_To_Summon]);
+					continue;
+				}*/
+
+				if (pMob[idx].MOB.CurrentScore.Level > pMob[a_iConn].MOB.CurrentScore.Level)
 				{
 					SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Too_High_Level_To_Summon]);
 					continue;
