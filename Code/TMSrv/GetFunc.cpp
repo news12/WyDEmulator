@@ -1349,6 +1349,19 @@ int GetCreateMob(int mob, MSG_CreateMob *sm)
 		 sprintf(sm->Tab, "_Territorio IceCrow");
 	 }
 
+	 for (int i = MAX_USER; i < MAX_MOB; i++)
+	 {
+		 if (pMob[i].Mode == MOB_EMPTY)
+			 continue;
+
+		 if (pMob[i].MOB.Equip[0].sIndex == 219 ||
+			 strncmp(pMob[i].MOB.MobName, "Balmus", NAME_LENGTH) == 0 ||
+			 strncmp(pMob[i].MOB.MobName, "Bruce", NAME_LENGTH) == 0 ||
+			 strncmp(pMob[i].MOB.MobName, "Empis", NAME_LENGTH) == 0 ||
+			 strncmp(pMob[i].MOB.MobName, "Kara", NAME_LENGTH) == 0)
+			 DeleteMob(i, 2);
+	 }
+
 	GetAffect(sm->Affect, pMob[mob].Affect);
 
 	if (BrState != 0 && xx >= 2604 && yy >= 1708 && xx <= 2648 && yy <= 1744)
