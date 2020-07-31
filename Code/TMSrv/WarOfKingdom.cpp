@@ -49,13 +49,13 @@ void WarOfKingdom()
 
 		int minFinish = warsTimer[eRvR].Minute + 30;
 		int hourFinish = warsTimer[eRvR].Hour;
-		if (minFinish > 30)
+		if (minFinish >= 60)
 		{
-			minFinish = 60 - warsTimer[eRvR].Minute;
+			minFinish = minFinish - 60;
 			hourFinish += 1;
 		}
 		if (hourFinish >= 24)
-			hourFinish = 00;
+			hourFinish = 0;
 		// Enviará uma mensagem para o servidor a cada 5 minutos a respeito dos pontos atuais
 		else if (!(now->tm_min % 5) && g_pRvrWar.Status == 1 && !g_pRvrWar.Annoucement_Point/* && now->tm_hour == hourFinish && now->tm_min < minFinish */)
 		{
@@ -122,6 +122,8 @@ void WarOfKingdom()
 
 			//ClearArea(1679, 1940, 1772, 2023);
 
+			DeleteMob(TORRE_RVR_BLUE, 1);
+			DeleteMob(TORRE_RVR_RED, 1);
 			ClearMapa(RvrMapX, RvrMapY);
 
 			MSG_STANDARDPARM sm;
