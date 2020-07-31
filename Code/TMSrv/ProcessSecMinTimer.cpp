@@ -2584,6 +2584,26 @@ void ProcessMinTimer()
 		}
 	}
 
+	if (!StartImpost)
+	{
+		StartImpost = TRUE;
+
+		for (int i = MAX_USER; i < MAX_MOB; i++)
+		{
+			if (pMob[i].Mode == MOB_EMPTY)
+				continue;
+
+			if (pMob[i].MOB.Equip[0].sIndex == 219 ||
+				strncmp(pMob[i].MOB.MobName, "Balmus", NAME_LENGTH) == 0 ||
+				strncmp(pMob[i].MOB.MobName, "Bruce", NAME_LENGTH) == 0 ||
+				strncmp(pMob[i].MOB.MobName, "Empis", NAME_LENGTH) == 0 ||
+				strncmp(pMob[i].MOB.MobName, "Kara", NAME_LENGTH) == 0)
+				DeleteMob(i, 2);
+		}
+
+	}
+	
+
 	for(int i = 0; i < MAX_GUILDZONE; i++)
 	{
 		if(GuildImpostoID[i] == 0)
