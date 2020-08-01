@@ -929,7 +929,7 @@ void CReadFiles::WriteCountPlayer()
 		pOnline++;
 	}
 
-	pOnline *= 10;
+	//pOnline *= 10;
 	fp = fopen(Serv00.c_str(), "wt");
 
 	if (fp == NULL)

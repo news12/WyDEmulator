@@ -1189,7 +1189,7 @@ void ProcessDBMessage(char *Msg)
 										SendUpdateWoteBattle();
 										CreateExportInspectTable(conn);
 										CReadFiles::WriteCountPlayer();
-										ReadAccountBuff(conn);
+										//ReadAccountBuff(conn);
 										WriteStatistic();
 										 sprintf(tt, "sta,Login char:%s exp:%llu level:%d conn:%d money:%d, store:%d", pMob[conn].MOB.MobName, pMob[conn].MOB.Exp, pMob[conn].MOB.BaseScore.Level, conn, pMob[conn].MOB.Coin, pUser[conn].Donate);
 

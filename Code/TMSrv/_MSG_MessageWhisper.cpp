@@ -406,6 +406,31 @@ void Exec_MSG_MessageWhisper(int a_iConn, char* pMsg)
 		SendClientMsg(a_iConn, temp);
 		return;
 	}
+
+	else if (!strcmp(m->MobName, "Diaria") || !strcmp(m->MobName, "Daily"))
+	{
+			if (pUser[a_iConn].Mode != USER_PLAY)
+				return;
+
+		sprintf(temp, "Quest Diaria:");
+		SendMsgExp(a_iConn, temp, TNColor::GreenYellow, false);
+
+		sprintf(temp, "Mate os monstros:");
+		SendMsgExp(a_iConn, temp, TNColor::GoldenEscuro, false);
+
+		sprintf(temp, "%s(%d), %s(%d) e %s(%d).", g_pItemList[QuestDiaria[pUser[a_iConn].QuestAtiva].IdMob1].Name, QuestDiaria[pUser[a_iConn].QuestAtiva].QtdMob1, 
+			g_pItemList[QuestDiaria[pUser[a_iConn].QuestAtiva].IdMob2].Name, QuestDiaria[pUser[a_iConn].QuestAtiva].QtdMob2,
+			g_pItemList[QuestDiaria[pUser[a_iConn].QuestAtiva].IdMob3].Name, QuestDiaria[pUser[a_iConn].QuestAtiva].QtdMob3);
+		SendMsgExp(a_iConn, temp, TNColor::White, false);
+
+		sprintf(temp, "Receba:");
+		SendMsgExp(a_iConn, temp, TNColor::GoldenEscuro, false);
+
+		sprintf(temp, "%d de EXP & %d de Gold.", QuestDiaria[pUser[a_iConn].QuestAtiva].ExpReward, QuestDiaria[pUser[a_iConn].QuestAtiva].GoldReward);
+		SendMsgExp(a_iConn, temp, TNColor::White, false);
+
+		return;
+	}
 	else if (!strcmp(m->MobName, "GuildHall"))
 	{
 		int guildIndex = pMob[a_iConn].MOB.Guild;

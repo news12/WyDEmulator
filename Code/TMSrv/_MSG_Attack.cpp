@@ -48,6 +48,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 
 		Log(temp, pUser[a_iConn].AccountName, pUser[a_iConn].IP);
 		AddCrackError(a_iConn, 1, 107);
+		SendBanAccount(a_iConn, Banned::Analise);
 		return;
 	}
 
@@ -75,7 +76,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		{
 			Log("etc,clienttime faster than 15 sec - MSG_ATTACK", pUser[a_iConn].AccountName, pUser[a_iConn].IP);
 			AddCrackError(a_iConn, 1, 107);
-
+			SendBanAccount(a_iConn, Banned::Tempo3horas);
 			return;
 		}
 
@@ -92,7 +93,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		sprintf(temp, "err,hitposition %d,%d - %d,%d - %d,%d", m->PosX, m->PosY, m->TargetX, m->TargetY, tx, ty);
 		MyLog(LogType::Attack, pUser[a_iConn].AccountName, temp, 0, pUser[a_iConn].IP);
 		AddCrackError(a_iConn, 2, 9);
-
+		SendBanAccount(a_iConn, Banned::Tempo3horas);
 		return;
 	}
 
