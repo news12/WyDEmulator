@@ -152,7 +152,7 @@ void Exec_MSG_Action(int a_iConn, char *pMsg)
 
 		sprintf(temp, "etc,diffrent movement. %d-%d", m->Speed, pMob[a_iConn].MOB.CurrentScore.AttackRun);
 		Log(temp, pUser[a_iConn].AccountName, pUser[a_iConn].IP);
-		if (m->Speed >= 20 || pMob[a_iConn].MOB.CurrentScore.AttackRun >= 200) //speed ou whook detected 6290600
+		if (m->Speed >= 20 || pMob[a_iConn].MOB.CurrentScore.AttackRun >= 300) //speed ou whook detected 6290600
 		{
 			sprintf(temp, "suspeita de conduta ilegal. Sua conta ficará em análise.");
 			SendClientMsg(a_iConn, temp);

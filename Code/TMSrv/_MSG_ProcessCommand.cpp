@@ -771,7 +771,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			SendClientMsg(a_iConn, "ALLSUMMON");
 		}
 
-		else if (!strcmp(cmd, "notice"))
+		else if (!strcmp(cmd, "notice") ||strcmp(cmd, "n"))
 		{
 			memcpy(temp, pMsg + 7, MESSAGE_LENGTH);
 
