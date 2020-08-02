@@ -755,8 +755,8 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 
 			SummonPlayer(x, y, user);
 
-			sprintf(temp, "Você foi sumonado por [%s]", pMob[a_iConn].MOB.MobName);
-			SendClientMsg(user, temp);
+			//sprintf(temp, "Você foi sumonado por [%s]", pMob[a_iConn].MOB.MobName);
+			//SendClientMsg(user, temp);
 
 			sprintf(temp, "Você sumonou [%s]", pMob[user].MOB.MobName);
 			SendClientMsg(a_iConn, temp);
