@@ -120,6 +120,7 @@
     <ClCompile Include="EventsEternal.cpp" />
     <ClCompile Include="FadaDourada.cpp" />
     <ClCompile Include="GuildHall.cpp" />
+    <ClCompile Include="IlegalCMD.cpp" />
     <ClCompile Include="ItensEntradaQuest.cpp" />
     <ClCompile Include="KefraDrop.cpp" />
     <ClCompile Include="NTask_EventTrade.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="FadaDourada.h" />
     <ClInclude Include="BossCamp.h" />
     <ClInclude Include="GuildHall.h" />
+    <ClInclude Include="IlegalCMD.h" />
     <ClInclude Include="ItensEntradaQuest.h" />
     <ClInclude Include="KefraDrop.h" />
     <ClInclude Include="Nyerds.h" />

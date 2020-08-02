@@ -273,6 +273,8 @@ void sombraNegraKilled(int a_iConn)
 
 		int partymember = pMob[partyleader].PartyList[i];
 
+		if (partymember >= MAX_USER)
+			continue;
 
 		if (pUser[partymember].Mode != USER_PLAY)
 			continue;

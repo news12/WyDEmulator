@@ -337,6 +337,10 @@ void BossCampKilled(int a_iConn, unsigned char boss)
 
 		int partymember = pMob[partyleader].PartyList[i];
 
+		
+		if (partymember >= MAX_USER)
+			continue;
+
 
 		if (pUser[partymember].Mode != USER_PLAY)
 			continue;

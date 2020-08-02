@@ -17,6 +17,11 @@ void Exec_MSG_MessageChat(int a_iConn, char *pMsg)
 	char szString[256];
 	sscanf(m->String, "%s %s", szCmd, szString);
 
+	if (true)
+	{
+
+	}
+
 	if (strcmp(szCmd, "guildon") == 0)
 	{
 		if (pMob[a_iConn].GuildDisable == 1)

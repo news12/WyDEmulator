@@ -720,7 +720,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 				return;
 			}
 
-			//DoTeleport(a_iConn, x, y);
+			DoTeleport(a_iConn, x, y);
 
 			//sprintf(temp, "[%s] se teleportou até você", pMob[a_iConn].MOB.MobName);
 			//SendClientMsg(user, temp);

@@ -543,6 +543,9 @@
     <ClCompile Include="GuildHall.cpp">
       <Filter>Source Files\Packages\State Playing\GuildHall</Filter>
     </ClCompile>
+    <ClCompile Include="IlegalCMD.cpp">
+      <Filter>Source Files\Packages\State Playing\Chat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -673,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="GuildHall.h">
       <Filter>Source Files\Packages\State Playing\GuildHall</Filter>
+    </ClInclude>
+    <ClInclude Include="IlegalCMD.h">
+      <Filter>Source Files\Packages\State Playing\Chat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
