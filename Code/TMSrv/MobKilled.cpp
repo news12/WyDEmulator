@@ -200,7 +200,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 					INT32 posX = 0;
 					INT32 posY = 0;
 
-					srand(time(NULL));
+					//srand(time(NULL));
 					// Adicionar 
 					if (cape == 7)
 					{
@@ -1462,7 +1462,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 #pragma endregion
 #pragma region Targets Monstros
 						int GenerateIndex = pMob[target].GenerateIndex;
-						srand(time(NULL));
+						//srand(time(NULL));
 						int DieSay = rand() % 4;
 
 						if (GenerateIndex >= 0 && mNPCGen.pList[GenerateIndex].DieAction[DieSay][0] && pMob[target].Leader == 0)
@@ -1526,7 +1526,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 									DrawConfig(TRUE);
 								}
-								srand(time(NULL));
+								//srand(time(NULL));
 								int itemrand = rand() % 60;
 
 								STRUCT_ITEM* KefraItem = &pMob[target].MOB.Carry[itemrand];
@@ -2140,7 +2140,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 #pragma region Pista +0 Lich_Crunt
 									else if (GenerateID == RUNEQUEST_LV0_LICH1 || GenerateID == RUNEQUEST_LV0_LICH2)
 									{
-										srand(time(NULL));
+										//srand(time(NULL));
 										int _rand = rand() % 100;
 
 										if (_rand < 20)
@@ -2164,7 +2164,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 											STRUCT_ITEM Runa;
 											memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
-											srand(time(NULL));
+											//srand(time(NULL));
 											Runa.sIndex = PistaRune[0][rand() % 4];
 
 											if (partyleader > 0 && partyleader < MAX_USER)
@@ -2255,7 +2255,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										STRUCT_ITEM Runa;
 										memset(&Runa, 0, sizeof(STRUCT_ITEM));
 
-										srand(time(NULL));
+										//srand(time(NULL));
 										Runa.sIndex = PistaRune[2][rand() % 5];
 
 										if (partyleader > 0 && partyleader < MAX_USER)
@@ -2293,7 +2293,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									else if (GenerateID >= RUNEQUEST_LV3_MOB_SULRANG_INITIAL && GenerateID <= RUNEQUEST_LV3_MOB_SULRANG_END && Pista[3].Party[0].LeaderID != 0 && Pista[3].Party[0].MobCount == 0)
 									{
 										Pista[3].Party[0].MobCount = 1;
-										srand(time(NULL));
+										//srand(time(NULL));
 										GenerateMob(RUNEQUEST_LV3_MOB_BOSS_INITIAL + rand() % 7, 0, 0);
 									}
 #pragma endregion
@@ -2375,7 +2375,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 										STRUCT_ITEM Runa;
 										memset(&Runa, 0, sizeof(STRUCT_ITEM));
-										srand(time(NULL));
+										//srand(time(NULL));
 										Runa.sIndex = PistaRune[4][rand() % 3];
 
 										if (partyleader > 0 && partyleader < MAX_USER)
@@ -2422,7 +2422,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 										STRUCT_ITEM Runa;
 										memset(&Runa, 0, sizeof(STRUCT_ITEM));
-										srand(time(NULL));
+										//srand(time(NULL));
 										Runa.sIndex = PistaRune[5][rand() % 6];
 
 										if (partyleader > 0 && partyleader < MAX_USER)
@@ -2477,7 +2477,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 										STRUCT_ITEM Runa;
 										memset(&Runa, 0, sizeof(STRUCT_ITEM));
-										srand(time(NULL));
+										//srand(time(NULL));
 										Runa.sIndex = PistaRune[6][rand() % 8];
 
 										if (partyleader > 0 && partyleader < MAX_USER)
@@ -2514,7 +2514,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 #pragma region Pista +3 - Kalintz_Mago
 									else if (GenerateID >= RUNEQUEST_LV3_MOB_BOSS_INITIAL && GenerateID <= RUNEQUEST_LV3_MOB_BOSS_END && Pista[3].Party[0].LeaderID != 0 && Pista[3].Party[0].MobCount != 0)
 									{
-										srand(time(NULL));
+										//srand(time(NULL));
 										GenerateMob(RUNEQUEST_LV3_MOB_BOSS_INITIAL + rand() % 7, 0, 0);
 
 										int leader = pMob[a_iConn].Leader;
@@ -2550,7 +2550,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										STRUCT_ITEM item;
 										memset(&item, 0, sizeof(STRUCT_ITEM));
 
-										srand(time(NULL));
+										//srand(time(NULL));
 										int _rand = rand() % 14;
 
 										if (_rand == 0)
@@ -2575,7 +2575,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									{
 										STRUCT_ITEM item;
 										memset(&item, 0, sizeof(STRUCT_ITEM));
-										srand(time(NULL));
+										//srand(time(NULL));
 										int _rand = rand() % 14;
 
 										if (_rand == 0)
@@ -2662,7 +2662,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 									if (!strcmp(pMob[target].MOB.MobName, "Solitario"))
 									{
-										srand(time(NULL));
+										//srand(time(NULL));
 										int rand_ = rand() % 100;
 										STRUCT_ITEM Item;
 										memset(&Item, 0, sizeof(STRUCT_ITEM));
@@ -2850,7 +2850,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								else if (pMob[target].MOB.BaseScore.Level < 50)
 									UNKGOLD = 9;
 
-								srand(time(NULL));
+								//srand(time(NULL));
 								UNKGOLD = rand() % (UNKGOLD + 1);
 
 								if (MobCoin && UNKGOLD == 0)
@@ -2873,7 +2873,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								}
 #pragma endregion
 #pragma region Drop Evento em todos os mobs
-								srand(time(NULL));
+								//srand(time(NULL));
 								if (evOn && evStartIndex && evEndIndex && evItem && evRate && evCurrentIndex < evEndIndex && rand() % evRate == 0)
 								{
 									STRUCT_ITEM item;
@@ -3007,7 +3007,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 									if (i == 11)
 										droprate = 1;
 
-									srand(time(NULL));
+									//srand(time(NULL));
 
 									if (droprate >= 32000)
 										droprate = 32000;
@@ -3172,7 +3172,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								}
 #pragma endregion
 #pragma region Quest Amuleto mistico
-								srand(time(NULL));
+								//srand(time(NULL));
 								if (a_iConn < MAX_USER && (pMob[target].MOB.Equip[0].sIndex == 239 || pMob[target].MOB.Equip[0].sIndex == 241) && !(rand() % 20))
 								{
 									if (pMob[a_iConn].Extra.QuestInfo.Mortal.TerraMistica == 1)
@@ -3343,7 +3343,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 					item.sIndex = 431;
 					SetItemBonus(&item, 0, 0, 0);
-					srand(time(NULL));
+					//srand(time(NULL));
 					CreateItem(pMob[target].TargetX, pMob[target].TargetY, &item, rand() % 4, 1);
 				}
 			}
@@ -3454,7 +3454,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 
 							for (int i = 0; i < MAX_CARRY - 1; i++)
 							{
-								srand(time(NULL));
+								//srand(time(NULL));
 								if (rand() % 5)
 									continue;
 
@@ -3469,7 +3469,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								if (ItemLose->sIndex == 446)
 									continue;
 
-								srand(time(NULL));
+								//srand(time(NULL));
 								int create = CreateItem(pMob[target].TargetX, pMob[target].TargetY, ItemLose, 0, rand() % 4);
 
 								if (create >= MAX_ITEM || create <= 0)
@@ -3502,7 +3502,7 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 								pUser[target].cSock.SendOneMessage((char*)&cnfDrop, sizeof(MSG_CNFDropItem));
 
 								killed_numitem++;
-								srand(time(NULL));
+								//srand(time(NULL));
 								if (rand() % 2 && killed_numitem < killed_loseitem)
 									continue;
 							}
@@ -3514,12 +3514,12 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 							if (killed_loseitem <= 0)
 								killed_loseitem = 1;
 
-							srand(time(NULL));
+							//srand(time(NULL));
 							int drop = rand() % killed_loseitem;
 
 							while (!drop)
 							{
-								srand(time(NULL));
+								//srand(time(NULL));
 								int slot = rand() % 14 + 1;
 								if (slot != 12)
 								{

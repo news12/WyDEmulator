@@ -104,7 +104,7 @@ void Winner(int conn)
 	PutItem(conn, &altarKing.Rewards[itemRand]);
 	sprintf(temp, "!Você recebeu [%s] como recompensa por conquistar o altar do Rei!", g_pItemList[altarKing.Rewards[itemRand].sIndex].Name);
 	SendClientMsg(conn, temp);
-
+	
 }
 
 void noWinner()

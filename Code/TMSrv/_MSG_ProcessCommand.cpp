@@ -720,10 +720,10 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 				return;
 			}
 
-			DoTeleport(a_iConn, x, y);
+			//DoTeleport(a_iConn, x, y);
 
-			sprintf(temp, "[%s] se teleportou até você", pMob[a_iConn].MOB.MobName);
-			SendClientMsg(user, temp);
+			//sprintf(temp, "[%s] se teleportou até você", pMob[a_iConn].MOB.MobName);
+			//SendClientMsg(user, temp);
 
 			sprintf(temp, "Você se teleportou até [%s]", pMob[user].MOB.MobName);
 			SendClientMsg(a_iConn, temp);
@@ -740,6 +740,7 @@ void Exec_MSG_ProcessCommand(int a_iConn, char * pMsg)
 			int user = GetUserByName(sval1);
 			int x = pMob[a_iConn].TargetX;
 			int y = pMob[a_iConn].TargetY;
+
 			if (user == 0)
 			{
 				SendClientMsg(a_iConn, g_pMessageStringTable[_NN_Not_Connected]);
