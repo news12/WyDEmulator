@@ -1,5 +1,6 @@
 
 #include "ProcessClientMessage.h"
+#include "IlegalCMD.h"
 
 void Exec_MSG_MessageChat(int a_iConn, char *pMsg)
 {
@@ -17,9 +18,12 @@ void Exec_MSG_MessageChat(int a_iConn, char *pMsg)
 	char szString[256];
 	sscanf(m->String, "%s %s", szCmd, szString);
 
-	if (true)
+	if (DetectCMD(szCmd))
 	{
-
+		sprintf(temp, "Detectado inteções maliciosas!!");
+		SendClientMsg(a_iConn, temp);
+		CloseUser(a_iConn);
+		return;
 	}
 
 	if (strcmp(szCmd, "guildon") == 0)

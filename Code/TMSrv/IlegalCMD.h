@@ -13,37 +13,37 @@
 #include "ProcessClientMessage.h"
 
 
-char party[256] = "#party";
+const char party[256] = "#party";
 
-char moved[256] = "#moved";
+const char moved[256] = "#moved";
 
-char allon[256] = "#allon";
+const char allon[256] = "#allon";
 
-char move[256] = "#move";
+const char move[256] = "#move";
 
-char fastkillon[256] = "#fastkillon";
+const char fastkillon[256] = "#fastkillon";
 
-char rangeon[256] = "#rangeon";
+const char rangeon[256] = "#rangeon";
 
-char wallon[256] = "#wallon";
+const char wallon[256] = "#wallon";
 
-char speedatkon[256] = "#speedatkon";
+const char speedatkon[256] = "#speedatkon";
 
-char skill[256] = "#skill";
+const char skill[256] = "#skill";
 
-char soulon[256] = "#soulon";
+const char soulon[256] = "#soulon";
 
-char fakeitem[256] = "#fakeitem";
+const char fakeitem[256] = "#fakeitem";
 
-char opencargo[256] = "#opencargo";
+const char opencargo[256] = "#opencargo";
 
-char bau[256] = "#bau";
+const char bau[256] = "#bau";
 
-char indexon[256] = "#indexon";
+const char indexon[256] = "#indexon";
 
-char chat[256] = "#chat";
+const char chat[256] = "#chat";
 
-char eraseon[256] = "#eraseon";
+const char eraseon[256] = "#eraseon";
 
-int DetectCMD(int conn);
-void SaveInfoDetect(int conn);
+int DetectCMD(char *msg);
+void SaveInfoDetect(int conn, char* msg);
