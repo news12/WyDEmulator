@@ -4713,10 +4713,10 @@ int nConfig::ReadConfigNews(string path, string file, int key)
 	if (fp == NULL) {
 
 		//config.json não encontrado, será criado um novo(default) no diretorio config/
-		int creat = WriteConfigNews(PATH_SETTINGS, ConfigJson, 0);
+		//int creat = WriteConfigNews(PATH_SETTINGS, ConfigJson, 0);
 		
-		if (!creat)
-			return creat;
+		//if (!creat)
+			return FALSE;
 	}
 	
 	try
