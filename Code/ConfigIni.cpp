@@ -92,7 +92,7 @@ int SortQuiz;
 int groupItens[];
 int fadaAmmount[];
 STRUCT_ALTAR_KING altarKing;
-BOOL StartAltarKing;
+BOOL StartAltarKing = FALSE;
 STRUCT_MOB exportNPCJson;
 unsigned int ipAdmin[];
 unsigned int CharaCreate[];

@@ -775,7 +775,7 @@ lbl_PST1:
 
 			if (StartAltarKing && altarKing.nTimer > 0)
 				altarKing.nTimer--;
-			else if(StartAltarKing)
+			else
 			{
 				sprintf(temp, "Ninguem dominou o Altar do Rei, Evento encerrado!!!");
 				SendNotice(temp);
