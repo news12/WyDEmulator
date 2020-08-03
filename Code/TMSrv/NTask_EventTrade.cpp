@@ -2,21 +2,22 @@
 
 void NTask_EventTrade(int a_iConn, int a_iTarget, int NpcGrade)
 {
-rProcess:
-	DWORD npc1Rand = rand() % EventTrade.NPC1.BaseRand;
-	DWORD npc2Rand = rand() % EventTrade.NPC2.BaseRand;
-	DWORD npc3Rand = rand() % EventTrade.NPC3.BaseRand;
-	DWORD npc4Rand = rand() % EventTrade.NPC4.BaseRand;
-	DWORD npc5Rand = rand() % EventTrade.NPC5.BaseRand;
-	DWORD rate1 = 0;
-	DWORD rate2 = 0;
-	DWORD rate3 = 0;
-	DWORD rate4 = 0;
-	DWORD rate5 = 0;
-	int idItem = 0;
-	STRUCT_ITEM itemReceiv;
-	memset(&itemReceiv, 0, sizeof(STRUCT_ITEM));
-	//memset(temp, 0, 4096);
+		srand(time(NULL));
+		rProcess:
+		DWORD npc1Rand = rand() % EventTrade.NPC1.BaseRand;
+		DWORD npc2Rand = rand() % EventTrade.NPC2.BaseRand;
+		DWORD npc3Rand = rand() % EventTrade.NPC3.BaseRand;
+		DWORD npc4Rand = rand() % EventTrade.NPC4.BaseRand;
+		DWORD npc5Rand = rand() % EventTrade.NPC5.BaseRand;
+		DWORD rate1 = 0;
+		DWORD rate2 = 0;
+		DWORD rate3 = 0;
+		DWORD rate4 = 0;
+		DWORD rate5 = 0;
+		int idItem = 0;
+		STRUCT_ITEM itemReceiv;
+		memset(&itemReceiv, 0, sizeof(STRUCT_ITEM));
+		//memset(temp, 0, 4096);
 	switch (NpcGrade)
 	{
 		case 43:
