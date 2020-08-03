@@ -1,5 +1,6 @@
 
 #include "ProcessClientMessage.h"
+#include "IlegalCMD.h"
 
 void Exec_MSG_Action(int a_iConn, char *pMsg)
 {
@@ -154,9 +155,8 @@ void Exec_MSG_Action(int a_iConn, char *pMsg)
 		Log(temp, pUser[a_iConn].AccountName, pUser[a_iConn].IP);
 		if (m->Speed >= 20 || pMob[a_iConn].MOB.CurrentScore.AttackRun >= 300) //speed ou whook detected 6290600
 		{
-			sprintf(temp, "suspeita de conduta ilegal. Sua conta ficará em análise.");
-			SendClientMsg(a_iConn, temp);
 			SendBanAccount(a_iConn, Banned::Analise);
+			SaveInfoDetect(a_iConn, temp);
 		}
 		m->Speed = pMob[a_iConn].MOB.CurrentScore.AttackRun & 0xF;
 	}
@@ -188,7 +188,7 @@ void Exec_MSG_Action(int a_iConn, char *pMsg)
 		if (partyleader <= 0)
 			partyleader = a_iConn;
 
-		srand(time(NULL));
+		//srand(time(NULL));
 		if(partyleader != a_iConn || a_iConn != Pista[2].Party[0].LeaderID && a_iConn != Pista[2].Party[1].LeaderID && a_iConn != Pista[2].Party[2].LeaderID)
 		{
 			int rd = rand()%3;

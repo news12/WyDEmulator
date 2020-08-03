@@ -34,7 +34,7 @@ int GetRecycleBin(int a_iConn, STRUCT_ITEM* kItem, int a_iPrice)
 
 	if (i == -1)
 	{
-		srand(time(NULL));
+		//srand(time(NULL));
 		for (int k = 0; k < _Max_Recycle_Bin_ - 1; k++)
 		{
 			pMob[a_iConn].Recycle[k] = pMob[a_iConn].Recycle[k + 1];
@@ -48,7 +48,7 @@ int GetRecycleBin(int a_iConn, STRUCT_ITEM* kItem, int a_iPrice)
 
 		return 1;
 	}
-	srand(time(NULL));
+	//srand(time(NULL));
 	pMob[a_iConn].Recycle[i].Price = a_iPrice;
 	memcpy(&pMob[a_iConn].Recycle[i].Item, kItem, sizeof(STRUCT_ITEM));
 	pMob[a_iConn].Recycle[i].Ticks = rand() % 100000;
@@ -825,7 +825,7 @@ int GetTeleportPosition(int conn, int *x, int *y)
 	int xv = (*x) & 0xFFFC;
 	int yv = (*y) & 0xFFFC;
 	int Charge = 500;
-	srand(time(NULL));
+	//srand(time(NULL));
 	if (xv == 2116 && yv == 2100) //Armia para Noatum
 	{
 		*x = 1044 + rand() % 3;
@@ -1097,7 +1097,7 @@ int GetTeleportPosition(int conn, int *x, int *y)
 
 		INT32 posX = 0,
 			posY = 0;
-		srand(time(NULL));
+		//srand(time(NULL));
 		if (cape == 7)//Blue
 		{
 			*x = 1754 - rand() % 4;
@@ -1114,7 +1114,7 @@ int GetTeleportPosition(int conn, int *x, int *y)
 
 	else if (xv == 2364 && yv == 3892 && pMob[conn].Extra.KefraTicket > 0) // Kefra para Hall
 	{
-	srand(time(NULL));
+	//srand(time(NULL));
 		pMob[conn].Extra.KefraTicket--;
 
 		*x = 2364 + rand() % 3;
@@ -1893,7 +1893,7 @@ void GetAttackArea(int mob, MSG_Attack *sm)
 	sm->CurrentMp = -1;
 	sm->ReqMp = -1;
 
-	srand(time(NULL));
+	//srand(time(NULL));
 	for (int i = 0; i < MAX_TARGET; i++)
 	{
 		sm->Dam[i].TargetID = 0;

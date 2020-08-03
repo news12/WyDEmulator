@@ -10,7 +10,7 @@ void fAutoNotice()
 
 	if (autoNotice.Days[timeinfo->tm_wday])
 	{
-		srand(time(NULL));
+		//srand(time(NULL));
 		int nRand = rand() % autoNotice.MaxNotice;
 
 		if (autoNotice.Hours[timeinfo->tm_hour] && timeinfo->tm_min == 0 && timeinfo->tm_sec == 0)

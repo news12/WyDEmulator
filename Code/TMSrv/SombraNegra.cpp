@@ -325,7 +325,7 @@ void randDrop()
 	//DropParty = rand() % 6; //item sorteado
 	
 	//rand Drop Killer
-	srand(time(NULL));
+	//srand(time(NULL));
 		nRand = rand() % 100;
 		if (nRand <= hand1)
 			DropKiller = 0;
@@ -347,7 +347,7 @@ void randDrop()
 	
 
 		//Rand Drop Party
-		srand(time(NULL));
+		//srand(time(NULL));
 		nRand = rand() % 100;
 		if (nRand <= hand1)
 			DropParty = 0;

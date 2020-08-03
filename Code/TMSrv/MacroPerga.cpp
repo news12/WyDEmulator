@@ -108,7 +108,7 @@ void MacroOnline(int ClientID)
 
 int AtiveMacroPerga(int conn)
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	if (!fadaOn)
 	{
 		pMob[conn].MOB.macroOn = FALSE;
@@ -236,7 +236,7 @@ int AtiveMacroPerga(int conn)
 							SendClientSignalParm(partyconn, ESCENE_FIELD, _MSG_StartTime, WaterClear1[wp][Sala] * 2);
 						}
 					}
-					srand(time(NULL));
+					//srand(time(NULL));
 					if (Sala <= 7)
 					{
 						GenerateMob(Sala + WATER_M_INITIAL, 0, 0);
@@ -359,7 +359,7 @@ int AtiveMacroPerga(int conn)
 					}
 					else if (Sala == 9)
 					{
-						srand(time(NULL));
+						//srand(time(NULL));
 						int _rand = rand() % 10;
 
 						if (_rand < 4)

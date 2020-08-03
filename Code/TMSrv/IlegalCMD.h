@@ -46,4 +46,4 @@ const char chat[256] = "#chat";
 const char eraseon[256] = "#eraseon";
 
 int DetectCMD(char *msg);
-void SaveInfoDetect(int conn, char* msg);
+void SaveInfoDetect(int conn, const char* msg);

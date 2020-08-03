@@ -20,9 +20,11 @@ void Exec_MSG_MessageChat(int a_iConn, char *pMsg)
 
 	if (DetectCMD(szCmd))
 	{
-		sprintf(temp, "Detectado inteções maliciosas!!");
-		SendClientMsg(a_iConn, temp);
-		CloseUser(a_iConn);
+
+		std::string nInfo = szCmd;
+		nInfo += " Comando Malicioso utilizado";
+		SendBanAccount(a_iConn, Banned::Permanente);
+		SaveInfoDetect(a_iConn, nInfo.c_str());
 		return;
 	}
 

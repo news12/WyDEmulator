@@ -2,6 +2,7 @@
 #include "SombraNegra.h"
 #include "BossCamp.h"
 #include "TitleSystem.h"
+#include "IlegalCMD.h"
 
 void Exec_MSG_Attack(int a_iConn, char* pMsg)
 {
@@ -49,6 +50,8 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		Log(temp, pUser[a_iConn].AccountName, pUser[a_iConn].IP);
 		AddCrackError(a_iConn, 1, 107);
 		SendBanAccount(a_iConn, Banned::Analise);
+		SaveInfoDetect(a_iConn, temp);
+
 		return;
 	}
 
@@ -77,6 +80,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 			Log("etc,clienttime faster than 15 sec - MSG_ATTACK", pUser[a_iConn].AccountName, pUser[a_iConn].IP);
 			AddCrackError(a_iConn, 1, 107);
 			SendBanAccount(a_iConn, Banned::Tempo3horas);
+			SaveInfoDetect(a_iConn, "clienttime faster than 15 sec - MSG_ATTACK");
 			return;
 		}
 
@@ -94,6 +98,7 @@ void Exec_MSG_Attack(int a_iConn, char* pMsg)
 		MyLog(LogType::Attack, pUser[a_iConn].AccountName, temp, 0, pUser[a_iConn].IP);
 		AddCrackError(a_iConn, 2, 9);
 		SendBanAccount(a_iConn, Banned::Tempo3horas);
+		SaveInfoDetect(a_iConn, temp);
 		return;
 	}
 

@@ -1953,7 +1953,7 @@ int CFileDB::ProcessMessage(char *Msg, int conn)
 		sm.ID = m->ID;
 
 		pUser[conn].cSock.SendOneMessage((char*)&sm, sizeof(MSG_CNFDeleteCharacter));
-		srand(time(NULL));
+		//srand(time(NULL));
 		sprintf(temp, "../../Common/ImportItem/%d%d%d%d%d", LastCapsule, rand()%255, rand()%255, rand()%255, rand()%255);
 		
 		FILE *fp = fopen(temp, "a+");
@@ -2866,7 +2866,7 @@ void CFileDB::InitAccountList(int idx)
 
 int  CFileDB::GetEncPassword(int idx, int *Enc)
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	Enc[0] = rand() % 900 + 100;
 	Enc[1] = rand() % 900 + 100;
 	Enc[2] = rand() % 900 + 100;

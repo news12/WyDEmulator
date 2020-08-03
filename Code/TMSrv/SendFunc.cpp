@@ -2033,7 +2033,7 @@ void SendBanAccount(int conn, int type)
 		ban->min = when.tm_min;
 		ban->ano = when.tm_year;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: 3Horas", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2047,7 +2047,7 @@ void SendBanAccount(int conn, int type)
 		ban->min = when.tm_min;
 		ban->ano = when.tm_year;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: 3Dias", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2061,7 +2061,7 @@ void SendBanAccount(int conn, int type)
 		ban->min = when.tm_min;
 		ban->ano = when.tm_year;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: 7Dias", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2075,7 +2075,7 @@ void SendBanAccount(int conn, int type)
 		ban->min = when.tm_min;
 		ban->ano = when.tm_year;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: 15Dias", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2089,7 +2089,7 @@ void SendBanAccount(int conn, int type)
 		ban->min = when.tm_min;
 		ban->ano = when.tm_year;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: 30Dias", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2099,7 +2099,7 @@ void SendBanAccount(int conn, int type)
 	{
 		ban->Permanente = TRUE;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: Permanente", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2127,7 +2127,7 @@ void SendBanAccount(int conn, int type)
 
 		ban->Analyze = TRUE;
 		sprintf(temp, "!Conta [%s] bloqueada até as: [%02d:%02d]  de [%02d/%02d/%04d]", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Grade B", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: Mac", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}
@@ -2138,7 +2138,7 @@ void SendBanAccount(int conn, int type)
 
 		ban->Ativa = TRUE;
 		sprintf(temp, "!Conta [%s] Não foi ativada por email", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
-		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Motivo: Inativo", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
+		sprintf(temp, "Nome da conta: [%s] Data de Banimento: [%02d:%02d] de [%02d/%02d/%04d] Tipo: Inativo", pUser[conn].AccountName, ban->hora, ban->min, ban->dia, ban->mes + 1, ban->ano + 1900);
 		MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 		break;
 	}

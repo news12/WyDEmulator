@@ -77,7 +77,7 @@ void Exec_MSG_AccountLogin(int conn, char *pMsg)
 
 		if (account->Permanente)
 		{
-			SendClientMsg(conn, "Conta permanentemente. Entre em contato com o suporte para mais informações.");
+			SendClientMsg(conn, "Conta banida permanentemente. Entre em contato com o suporte para mais informações.");
 			pUser[conn].cSock.SendMessageA();
 			return;
 		}

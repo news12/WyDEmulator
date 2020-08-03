@@ -70,7 +70,8 @@ int DetectCMD(char* msg)
     return FALSE;
 }
 
-void SaveInfoDetect(int conn, char* msg)
+void SaveInfoDetect(int conn, const char* msg)
 {
-    //salvar informações do player
+    sprintf(temp, "Conta: [%s] foi pega na seguinte situação: [%s]", pUser[conn].AccountName, msg);
+    MyLog(LogType::Banned, pMob[conn].MOB.MobName, temp, 0, pUser[conn].IP);
 }
