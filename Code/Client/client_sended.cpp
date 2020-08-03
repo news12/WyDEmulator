@@ -7,7 +7,7 @@ char* ClientSended(char* pBuffer, int a_iSize)
 	if (m->Type == 0x20D)
 	{
 		auto Login = reinterpret_cast<MSG_AccountLogin*>(pBuffer);
-		Login->ClientVersion = 1044;
+		Login->ClientVersion = 1059;
 		return pBuffer;
 	}
 
