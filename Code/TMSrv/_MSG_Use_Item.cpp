@@ -1437,7 +1437,7 @@ void Exec_MSG_UseItem(int a_iConn, char *pMsg)
 #pragma region >> Pedidos de caça
 	if (Vol == 195)
 	{
-		std::vector<short> nItens = {3299,3432,3433,3435,3436,3437};
+		std::vector<short> nItens = {3432,3433,3434,3435,3436,3437};
 		int itemValido = FALSE;
 		for (size_t i = 0; i < 6; i++)
 		{

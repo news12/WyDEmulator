@@ -763,6 +763,16 @@ lbl_PST1:
 		time(&now);
 		when = *localtime(&now);
 
+		if (StartAltarKing && altarKing.nTimer > 0)
+			altarKing.nTimer--;
+		if (StartAltarKing && altarKing.nTimer <= 0)
+		{
+			sprintf(temp, "Ninguem dominou o Altar do Rei, Evento encerrado!!!");
+			SendNotice(temp);
+			//Sleep(2000);
+			noWinner();
+		}
+
 		for (size_t i = 0; i < MAX_USER; i++)
 		{
 			if (pUser[i].Mode != USER_PLAY)
@@ -773,16 +783,7 @@ lbl_PST1:
 				&&(pMob[i].TargetY >= 1679 && pMob[i].TargetY <= 1771))
 				MasterCastle(i);
 
-			if (StartAltarKing && altarKing.nTimer > 0)
-				altarKing.nTimer--;
-			else
-			{
-				sprintf(temp, "Ninguem dominou o Altar do Rei, Evento encerrado!!!");
-				SendNotice(temp);
-				//Sleep(2000);
-				noWinner();
-			}
-
+			
 			if (StartAltarKing && (pMob[i].TargetX >= altarKing.spotMSG.StartX && pMob[i].TargetX <= altarKing.spotMSG.DestX)
 				&& (pMob[i].TargetY >= altarKing.spotMSG.StartY && pMob[i].TargetY <= altarKing.spotMSG.DestY))
 				dominatorKing(i);
