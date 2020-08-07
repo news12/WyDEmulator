@@ -39,6 +39,7 @@ STRUCT_TITLE_SYSTEM TitleLevel[tMaxTitle];
 STRUCT_TITLE_SYSTEM TitleStatus[tMaxTitle];
 STRUCT_TITLE_SYSTEM TitleUnic[tMaxTitle];
 STRUCT_TITLE_PLAYER TitlePlayer;
+STRUCT_EVENT_INVADE INVADE_ARMIA;
 StatusServer EternalServer[];
 unsigned int AccountSaveBuff[];
 // Items que pode ser ganhado aleatoriamente por 1 hora de online
@@ -132,6 +133,7 @@ const string PATH_SAVEBUFF = "SaveBuff/";
 const string PATH_TITLE_SYSTEM = "TitleSystem/";
 const string PATH_GUILD_HALL = PATH_COMMON + "GuildHall/";
 const string PATH_TERRITORY = PATH_GUILD_HALL + "Territory/";
+const string PATH_INVADE = PATH_EVENTS + "Invade/";
 //Files Json, definir extern no basedef.h
 const string ConfigJson = "config.json";
 const string GameConfig = "gameConfig.json";
@@ -1991,7 +1993,7 @@ int ConfigIni::nConfig::WriteStatistic(string path, string file,
 {
 	std::string fullpath = path + file;
 
-#pragma region Txt New AccountBuff.json
+#pragma region Txt New Statistic.json
 	auto nJson = R"(
 {
 "PLAYER": {
@@ -2548,6 +2550,111 @@ int ConfigIni::nConfig::WriteRvrWinner(string path, string file)
 		nJson["CONFIG"]["Day"] = now->tm_yday;
 		nJson["CONFIG"]["Year"] = now->tm_year;
 		
+		ofstream bjson(fullpath);
+		bjson << setw(4) << nJson << std::endl;
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::ReadInvadeArmia(string path, string file)
+{
+	string fullpath = path + file;
+	FILE* fp = NULL;
+	fp = fopen(fullpath.c_str(), "rt");
+
+	if (fp == NULL) {
+
+		// não encontrado, será criado um novo(default) no diretorio
+		int creat = WriteInvadeArmia(PATH_INVADE, file);
+
+		if (!creat)
+			return creat;
+	}
+
+	try
+	{
+		ifstream spath(fullpath);
+		json nJson;
+		spath >> nJson;
+		memset(&INVADE_ARMIA, 0, sizeof(STRUCT_EVENT_INVADE));
+
+		nJson["ARMIA"]["nDay"].get_to(INVADE_ARMIA.nDay);
+		nJson["ARMIA"]["nHour"].get_to(INVADE_ARMIA.nHour);
+		nJson["ARMIA"]["nMin"].get_to(INVADE_ARMIA.nMin);
+		nJson["ARMIA"]["ID"].get_to(INVADE_ARMIA.ID);
+		nJson["ARMIA"]["Group"].get_to(INVADE_ARMIA.Group);
+		nJson["ARMIA"]["StartX"].get_to(INVADE_ARMIA.StartX);
+		nJson["ARMIA"]["StartY"].get_to(INVADE_ARMIA.StartY);
+		nJson["ARMIA"]["EndX"].get_to(INVADE_ARMIA.EndX);
+		nJson["ARMIA"]["EndY"].get_to(INVADE_ARMIA.EndY);
+		nJson["ARMIA"]["Rate"].get_to(INVADE_ARMIA.Rate);
+		nJson["ARMIA"]["Drop"].get_to(INVADE_ARMIA.Drop);
+		nJson["ARMIA"]["IDBoss"].get_to(INVADE_ARMIA.IDBoss);
+		nJson["ARMIA"]["RateBoss"].get_to(INVADE_ARMIA.RateBoss);
+
+		for (auto& x : nJson["ARMIA"]["DropBoss"].items())
+		{
+
+			vector<short> nDropBoss = x.value();
+			INVADE_ARMIA.DropBoss[stoi(x.key())].sIndex = nDropBoss[0];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect->sValue = nDropBoss[1];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[0].cEffect = nDropBoss[2];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[0].cValue = nDropBoss[3];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[1].cEffect = nDropBoss[4];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[1].cValue = nDropBoss[5];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[2].cEffect = nDropBoss[6];
+			INVADE_ARMIA.DropBoss[stoi(x.key())].stEffect[2].cValue = nDropBoss[7];
+
+		};
+
+		nJson["ARMIA"]["Time"].get_to(INVADE_ARMIA.Time);
+
+		return TRUE;
+	}
+	catch (const std::exception&)
+	{
+		return FALSE;
+	}
+}
+
+int ConfigIni::nConfig::WriteInvadeArmia(string path, string file)
+{
+	std::string fullpath = path + file;
+#pragma region Txt New GuildLevel.json
+	auto nJson = R"(
+{
+"ARMIA": {
+			"nDay": 6,
+			"nHour": 20,
+			"nMin": 0,
+			"ID": [4121,4121,4121,4121,4121,4121,4121],
+			"Group": 300,
+			"StartX": 2248,
+			"StartY": 2115,
+			"EndX": 2177,
+			"EndY": 2103,
+			"Rate": [30,61,75,86],
+			"Drop": [419,420,412,413],	
+			"IDBoss": 4125,
+			"RateBoss": [30,61,82,99],
+			"DropBoss": {
+							"0": [3173,0,61,30,0,0,0,0],
+							"1": [777,0,61,20,0,0,0,0],
+							"2": [1774,0,0,0,0,0,0,0],
+							"3": [4029,0,0,0,0,0,0,0]
+						},
+			"Time": 1800
+		 }
+})"_json;
+
+#pragma endregion
+
+	try
+	{
 		ofstream bjson(fullpath);
 		bjson << setw(4) << nJson << std::endl;
 		return TRUE;

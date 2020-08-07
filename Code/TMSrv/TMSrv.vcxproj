@@ -121,6 +121,7 @@
     <ClCompile Include="FadaDourada.cpp" />
     <ClCompile Include="GuildHall.cpp" />
     <ClCompile Include="IlegalCMD.cpp" />
+    <ClCompile Include="InvadeArmia.cpp" />
     <ClCompile Include="ItensEntradaQuest.cpp" />
     <ClCompile Include="KefraDrop.cpp" />
     <ClCompile Include="NTask_EventTrade.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="BossCamp.h" />
     <ClInclude Include="GuildHall.h" />
     <ClInclude Include="IlegalCMD.h" />
+    <ClInclude Include="InvadeArmia.h" />
     <ClInclude Include="ItensEntradaQuest.h" />
     <ClInclude Include="KefraDrop.h" />
     <ClInclude Include="Nyerds.h" />

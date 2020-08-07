@@ -160,6 +160,9 @@
     <Filter Include="Source Files\Packages\State Playing\GuildHall">
       <UniqueIdentifier>{83d5395e-53f1-4476-a8f9-69db5a54e560}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EventsEternal\InvadeArmia">
+      <UniqueIdentifier>{63a01049-3d4c-4aad-8f01-c872d01f9e01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_MSG_AccountLogin.cpp">
@@ -546,6 +549,9 @@
     <ClCompile Include="IlegalCMD.cpp">
       <Filter>Source Files\Packages\State Playing\Chat</Filter>
     </ClCompile>
+    <ClCompile Include="InvadeArmia.cpp">
+      <Filter>Source Files\EventsEternal\InvadeArmia</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetFunc.h">
@@ -679,6 +685,9 @@
     </ClInclude>
     <ClInclude Include="IlegalCMD.h">
       <Filter>Source Files\Packages\State Playing\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="InvadeArmia.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

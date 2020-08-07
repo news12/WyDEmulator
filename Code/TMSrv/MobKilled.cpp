@@ -21,6 +21,7 @@
 #include "SombraNegra.h"
 #include "BossCamp.h"
 #include "GuildHall.h"
+#include "InvadeArmia.h"
 
 void MobKilled(int target, int a_iConn, int PosX, int PosY)
 {
@@ -2539,10 +2540,35 @@ void MobKilled(int target, int a_iConn, int PosX, int PosY)
 										GenerateMob(GenerateIndex, 0, 0);
 #pragma endregion
 
+#pragma region Invasão Armia
+										for (size_t i = 0; i < INVADE_ARMIA.ID.size(); i++)
+										{
+											if (GenerateIndex == INVADE_ARMIA.ID[i])
+											{
+												InvadeArmiaMobCount++;
+												InvadeArmiaDropMob(a_iConn);
+
+												if (InvadeArmiaMobCount >= INVADE_ARMIA.Group)
+												{
+													InvadeArmiaWaveKilled(GenerateIndex);
+													InvadeArmiaMobCount = 0;
+												}
+
+												break;
+											}
+
+										
+										}
+
+										if (GenerateIndex == INVADE_ARMIA.IDBoss)
+											InvadeArmiaBossKilled(GenerateIndex);
+#pragma endregion
+
 #pragma region FamPoint Count
 										FamePointBoss(a_iConn, GenerateIndex);
 										FamePointMob(a_iConn, GenerateIndex);
 #pragma endregion
+
 #pragma endregion
 #pragma region Coliseu (N)
 									if (GenerateID >= 4623 && GenerateID <= 4634)

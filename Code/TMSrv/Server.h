@@ -106,6 +106,7 @@ void ReadTerritory();
 void WriteTerritory(unsigned int nTerritory);
 void ReadRvrWinner();
 void WriteRvrWinner();
+void ReadInvadeArmia();
 void OpenConfigExtra();
 void  DrawConfig(int wb);
 void  AddFailAccount(char *Account);

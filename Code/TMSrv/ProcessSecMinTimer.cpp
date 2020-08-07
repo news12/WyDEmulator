@@ -26,6 +26,7 @@
 #include "BossCamp.h"
 #include "AutoBan.h"
 #include "GuildHall.h"
+#include "InvadeArmia.h"
 
 void ProcessSecTimer()
 {
@@ -754,6 +755,13 @@ lbl_PST1:
 
 			//}
 		}
+
+		invadArmiaTime--;
+	}
+
+	if (SecCounter % 60 == 0)
+	{
+		InvadeArmiaTimeNotice();
 	}
 
 	if (SecCounter % 2 == 0)
@@ -809,6 +817,7 @@ lbl_PST1:
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBossCamp, (void*)Talos, 0, 0);
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBossCamp, (void*)Noah, 0, 0);
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)initBossCamp, (void*)Kirei, 0, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)StartInvadeArmia, NULL, 0, 0);
 		NTask_StartEventTrade();
 
 		if ((when.tm_wday == 2 && when.tm_hour == 12 && when.tm_min == 0) && when.tm_sec >= 0 && when.tm_sec <= 2 && KefraLive)

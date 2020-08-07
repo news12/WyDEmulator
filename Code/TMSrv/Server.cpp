@@ -1099,6 +1099,14 @@ void OpenConfigExtra()
 	//nConfigExtra->DoModal();
 }
 
+void ReadInvadeArmia()
+{
+	int status = nConfig::ReadInvadeArmia(PATH_INVADE, "invadeArmia.json");
+
+	if (!status)
+		MessageBox(hWndMain, "Erro ao ler invadeArmia", "FILE ERROR", NULL);
+}
+
 void ReadRvrWinner()
 {
 	nConfig::ReadRvrWinner(PATH_SETTINGS, "rvrWinner.json");
@@ -4251,6 +4259,19 @@ void GenerateMob(int index, int PosX, int PosY)
 	if (index == bSombraNegra.Boss.ID)
 		genSombraNegra(index);
 
+	/*for (size_t i = 0; i < INVADE_ARMIA.ID.size(); i++)
+	{
+		if (index == INVADE_ARMIA.ID[i])
+		{
+			mNPCGen.pList[index].Leader.SPX = INVADE_ARMIA.StartX;
+			mNPCGen.pList[index].Leader.SPY = INVADE_ARMIA.StartY;
+			mNPCGen.pList[index].SegmentListX[0] = INVADE_ARMIA.EndX;
+			mNPCGen.pList[index].SegmentListY[0] = INVADE_ARMIA.EndY;
+			break;
+		}
+	}*/
+	
+
 	if (index == bSombraNegra.Guardian.ID)
 		genGuardianSombraNegra(index);
 
@@ -4828,6 +4849,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	Reboot();
 	ReadTerritory();
 	ReadRvrWinner();
+	ReadInvadeArmia();
 	SetCastleDoor(1);
 
 	char name[255];
@@ -5411,6 +5433,7 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_EVENT_TRADE, "&Load Event Trade");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_COLISEU, "&Load Event Coliseu");
 		AppendMenu(hSubMenu, MF_STRING, IDC_READ_RVR_WINNER, "&Load Rvr Winner");
+		AppendMenu(hSubMenu, MF_STRING, IDC_READ_INVADE_ARMIA, "&Load Invade Armia");
 		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "&Events");
 
 		hSubMenu = CreatePopupMenu();
@@ -5566,6 +5589,10 @@ LONG APIENTRY MainWndProc(HWND hWnd, UINT message, UINT wParam, LONG lParam)
 
 		case IDC_READ_RVR_WINNER:
 			ReadRvrWinner();
+			break;
+
+		case IDC_READ_INVADE_ARMIA:
+			ReadInvadeArmia();
 			break;
 
 		case IDC_READGAMECONFIG:

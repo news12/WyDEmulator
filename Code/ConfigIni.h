@@ -65,6 +65,8 @@ namespace ConfigIni {
 		static int WriteTerritory(string path, string file, unsigned int nTerritory);
 		static int ReadRvrWinner(string path, string file);
 		static int WriteRvrWinner(string path, string file);
+		static int ReadInvadeArmia(string path, string file);
+		static int WriteInvadeArmia(string path, string file);
 		
 		//DB
 		static int ReadbaseMob(string path, string file, int key);

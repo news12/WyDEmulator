@@ -165,6 +165,7 @@ enum { eSpeel_FM_Veneno = 20, eSpeel_TK_Perseguicao = 3, eSpeel_FM_Cancelamento 
 #define IDC_READ_GUILD_LEVEL 947
 #define IDC_CONFIG_EXTRA 948
 #define IDC_READ_RVR_WINNER 949
+#define IDC_READ_INVADE_ARMIA 950
 
 #define IDC_SHUTDOWNNP 9050
 
@@ -3161,6 +3162,7 @@ extern const std::string PATH_SAVEBUFF;
 extern const std::string PATH_TITLE_SYSTEM;
 extern const std::string PATH_GUILD_HALL;
 extern const std::string PATH_TERRITORY;
+extern const std::string PATH_INVADE;
 extern enum eGameConfig {
 		DROP_ITEM_EVENT,
 		ETC_EVENT,
@@ -3546,6 +3548,25 @@ extern enum eTerritory {
 	IceCrow
 
 };
+extern struct STRUCT_EVENT_INVADE
+{
+	int nDay;
+	int nHour;
+	int	nMin;
+	std::vector<int> ID;
+	short unsigned int Group;
+	short unsigned int StartX;
+	short unsigned int StartY;
+	short unsigned int EndX;
+	short unsigned int EndY;
+	std::vector<int> Rate;
+	std::vector<int> Drop;
+	short unsigned int IDBoss;
+	std::vector<int> RateBoss;
+	STRUCT_ITEM DropBoss[4];
+	int Time;
+};
+extern STRUCT_EVENT_INVADE INVADE_ARMIA;
 extern std::string TerritoryName[MAX_TERRITORY];
 extern StatusServer EternalServer[MAX_STATUS_SERVER];
 extern STRUCT_TERRITORY Territory[MAX_TERRITORY];
