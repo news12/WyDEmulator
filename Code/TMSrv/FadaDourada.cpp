@@ -24,8 +24,7 @@ BOOL AutoAmmount(int conn, STRUCT_ITEM* item)
 				SendItem(conn, ITEM_PLACE_CARRY, i, &pMob[conn].MOB.Carry[i]);
 				return TRUE;
 			}
-			else
-				continue;
+			
 		
 		}
 	}
