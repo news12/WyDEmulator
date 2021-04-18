@@ -1,4 +1,4 @@
-# EternalEmulator
+# WydEmulator
 Emulator based  w2pp WYD(MMORPG)
 Log:
 1. Correção evocações BM ----------------------------------------------------------------------------------(x)
