@@ -92,7 +92,9 @@ GroupEnter +nick[16] +password[5] -> entra em um grupo pré-definido por senha -
 56. Com certeza tem muito mais coisa, mais isso é tudo que eu lembrei.
 
 DB:
+
 ![Screenshot](db.png)
 
 TM:
+
 ![Screenshot](tm.png)
